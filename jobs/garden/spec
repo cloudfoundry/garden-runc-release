@@ -1,0 +1,86 @@
+---
+name: garden
+
+templates:
+  garden_ctl.erb: bin/garden_ctl
+
+packages:
+  - garden-linux
+  - iptables
+  - shadow
+  - busybox
+  - btrfs-progs
+
+properties:
+  garden.listen_network:
+    description: "Garden server connection mode (tcp or unix)."
+    default: unix
+
+  garden.listen_address:
+    description: "Garden server listening address."
+    default: /var/vcap/data/garden/garden.sock
+
+  garden.network_mtu:
+    description: "Maximum network transmission unit length in bytes."
+    default: 1500
+
+  garden.disk_quota_enabled:
+    description: "Enforce disk quotas. Disable for nested Garden."
+    default: true
+
+  garden.deny_networks:
+    description: "List of CIDR blocks to which containers will be denied access."
+    default: []
+
+  garden.allow_networks:
+    description: "List of CIDR blocks to which containers will be allowed access (applied after deny)."
+    default: []
+
+  garden.allow_host_access:
+    description: "A boolean stating whether or not containers started on this host should be able to reach this host."
+    default: false
+
+  garden.docker_registry_endpoint:
+    description: "An URL pointing to the Docker registry to use to fetch Docker images. If unset, this will default to the Docker default."
+
+  garden.tag:
+    description: "A string that is a server-wide identifier used for 'global' configuration."
+
+  garden.debug_listen_address:
+    description: "tcp address on which to serve debug info"
+    default: "0.0.0.0:17013"
+
+  garden.default_container_grace_time:
+    description: "duration after which to reap idle containers"
+    default: 5m
+
+  garden.default_container_rootfs:
+    description: "path to the rootfs to use when a container specifies no rootfs"
+    default: /var/vcap/packages/busybox
+
+  garden.port_pool.start:
+    description: "An integer port number used to denote where ports should start being allocated for Net In calls. Uses the Garden default if not set."
+
+  garden.port_pool.size:
+    description: "An integer used to denote how many ports are avaliable for Net In calls. Uses the Garden default if not set."
+
+  garden.destroy_containers_on_start:
+    description: "destroy existing containers when the server starts up"
+    default: false
+
+  garden.dropsonde.origin:
+    description: "A string identifier that will be used when reporting metrics to Dropsonde."
+
+  garden.dropsonde.destination:
+    description: "A URL that points at the Metron agent to which metrics are forwarded. By default, it matches with the default of Metron."
+
+  garden.insecure_docker_registry_list:
+    description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
+
+  garden.mount_btrfs_loopback:
+    description: "If true, garden should create a btrfs-formatted loopback device for graph storage"
+    default: true
+
+  garden.btrfs_store_size_mb:
+    description: "Size in MB of the BTRFS backing store for graph storage (-1 to use all available space)"
+    default: -1

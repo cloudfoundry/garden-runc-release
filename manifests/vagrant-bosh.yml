@@ -1,0 +1,37 @@
+---
+name: guardian
+
+releases:
+- name: guardian
+  version: latest
+  url: dir+bosh://.
+
+networks:
+- name: garden
+  type: dynamic
+
+compilation:
+  network: garden
+
+update:
+  canaries: 0
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+  max_in_flight: 10
+
+jobs:
+- name: garden
+  instances: 1
+
+  templates:
+  - name: garden
+    release: guardian
+
+  networks:
+  - name: garden
+
+  properties:
+    garden:
+      listen_network: tcp
+      listen_address: 0.0.0.0:7777
+      mount_btrfs_loopback: true

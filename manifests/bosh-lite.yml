@@ -1,0 +1,78 @@
+---
+name: garden
+
+# replace with bosh status --uuid
+director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
+
+releases:
+  - name: garden-linux
+    version: latest
+
+jobs:
+  - name: garden
+    instances: 1
+    templates:
+      - name: garden
+        release: garden-linux
+    resource_pool: garden
+    networks:
+      - name: garden
+    properties:
+      garden:
+        disk_quota_enabled: true
+        listen_network: tcp
+        listen_address: 0.0.0.0:7777
+        mount_btrfs_loopback: true
+
+networks:
+  - name: garden
+    subnets:
+      - range: 10.244.16.4/30
+        reserved: [10.244.16.5]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.16.8/30
+        reserved: [10.244.16.9]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.16.12/30
+        reserved: [10.244.16.13]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.16.16/30
+        reserved: [10.244.16.17]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.16.20/30
+        reserved: [10.244.16.21]
+        static: []
+        cloud_properties:
+          name: random
+
+resource_pools:
+  # not much point in having more than one resource pool, since it's all
+  # in one VM with the same hardware anyway
+  - name: garden
+    network: garden
+    stemcell:
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      name: random
+
+compilation:
+  workers: 3
+  network: garden
+  cloud_properties:
+    name: random
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  serial: false
+  canary_watch_time: 1000-240000
+  update_watch_time: 1000-240000

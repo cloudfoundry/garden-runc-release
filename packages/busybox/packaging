@@ -1,0 +1,14 @@
+set -e -x
+
+# to generate a new busybox tarball:
+#
+# docker run -i -t -cidfile=busybox.cid busybox echo foo
+# docker export $(cat busybox.cid) > busybox.tar.gz
+#
+# to add it to the release:
+#
+# cd garden-linux-release
+# bosh add blob busybox.tar.gz busybox
+# bosh upload blobs
+
+tar zxf busybox/busybox.tar.gz -C ${BOSH_INSTALL_TARGET}
