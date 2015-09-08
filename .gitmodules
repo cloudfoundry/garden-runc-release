@@ -50,3 +50,9 @@
 	path = src/github.com/pivotal-golang/archiver
 	url = https://github.com/pivotal-golang/archiver
 	branch = master
+[submodule "src/github.com/opencontainers/specs"]
+	path = src/github.com/opencontainers/specs
+	url = https://github.com/opencontainers/specs
+[submodule "src/github.com/opencontainers/runc"]
+	path = src/github.com/opencontainers/runc
+	url = https://github.com/opencontainers/runc

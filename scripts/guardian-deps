@@ -4,4 +4,5 @@ ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 gosub list \
   -a github.com/cloudfoundry-incubator/guardian/... \
   -t github.com/cloudfoundry-incubator/guardian/gqt/... \
-  -t github.com/cloudfoundry-incubator/garden-integration-tests/... 
+  -t github.com/cloudfoundry-incubator/garden-integration-tests/... \
+  -a github.com/opencontainers/specs/... \
