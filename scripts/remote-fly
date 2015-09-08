@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+build_yml=$1
+shift
+
+if [ -z $GARDEN_REMOTE_ATC_URL ]; then
+  fly e -x -p -i release-develop=. -c $build_yml $@
+else
+  fly --target $GARDEN_REMOTE_ATC_URL e -x -p -i release-develop=. -c $build_yml $@
+fi

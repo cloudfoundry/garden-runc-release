@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e -x
+
+ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
+cd $ROOT_DIR_PATH
+
+pushd src/github.com/cloudfoundry-incubator/guardian
+	ginkgo -r
+popd
+
+./scripts/remote-fly ci/nested-guardian-tests.yml

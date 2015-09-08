@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e -x
+
+ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
+
+pushd $ROOT_DIR_PATH/packages/garden-linux
+  {
+    cat spec | grep -v '# gosub'
+    $ROOT_DIR_PATH/scripts/guardian-deps | \
+      sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+  } > spec.new
+
+  mv spec.new spec
+popd

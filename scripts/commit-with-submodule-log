@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e -x
+
+ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
+
+$ROOT_DIR_PATH/scripts/submodule-log "$@" | git ci --file -

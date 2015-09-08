@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+if [ ! -z $GARDEN_REMOTE_ATC_URL ]; then
+  fly --target $GARDEN_REMOTE_ATC_URL i
+else
+  fly i
+fi
