@@ -1,3 +1,52 @@
 [submodule "src/github.com/cloudfoundry-incubator/guardian"]
 	path = src/github.com/cloudfoundry-incubator/guardian
-	url = https://github.com/cloudfoundry-incubator/guardian.git
+	url = https://github.com/cloudfoundry-incubator/guardian
+	branch = master
+[submodule "src/github.com/onsi/gomega"]
+	path = src/github.com/onsi/gomega
+	url = https://github.com/onsi/gomega
+	branch = master
+[submodule "src/github.com/cloudfoundry-incubator/cf-debug-server"]
+	path = src/github.com/cloudfoundry-incubator/cf-debug-server
+	url = https://github.com/cloudfoundry-incubator/cf-debug-server
+	branch = master
+[submodule "src/github.com/tedsuo/ifrit"]
+	path = src/github.com/tedsuo/ifrit
+	url = https://github.com/tedsuo/ifrit
+	branch = master
+[submodule "src/github.com/tedsuo/rata"]
+	path = src/github.com/tedsuo/rata
+	url = https://github.com/tedsuo/rata
+	branch = master
+[submodule "src/github.com/cf-guardian/specs"]
+	path = src/github.com/cf-guardian/specs
+	url = https://github.com/cf-guardian/specs
+	branch = master
+[submodule "src/github.com/cloudfoundry-incubator/cf-lager"]
+	path = src/github.com/cloudfoundry-incubator/cf-lager
+	url = https://github.com/cloudfoundry-incubator/cf-lager
+	branch = master
+[submodule "src/github.com/pivotal-golang/lager"]
+	path = src/github.com/pivotal-golang/lager
+	url = https://github.com/pivotal-golang/lager
+	branch = master
+[submodule "src/github.com/cloudfoundry-incubator/garden"]
+	path = src/github.com/cloudfoundry-incubator/garden
+	url = https://github.com/cloudfoundry-incubator/garden
+	branch = master
+[submodule "src/github.com/onsi/ginkgo"]
+	path = src/github.com/onsi/ginkgo
+	url = https://github.com/onsi/ginkgo
+	branch = master
+[submodule "src/github.com/bmizerany/pat"]
+	path = src/github.com/bmizerany/pat
+	url = https://github.com/bmizerany/pat
+	branch = master
+[submodule "src/github.com/cloudfoundry-incubator/garden-integration-tests"]
+	path = src/github.com/cloudfoundry-incubator/garden-integration-tests
+	url = https://github.com/cloudfoundry-incubator/garden-integration-tests
+	branch = master
+[submodule "src/github.com/pivotal-golang/archiver"]
+	path = src/github.com/pivotal-golang/archiver
+	url = https://github.com/pivotal-golang/archiver
+	branch = master
