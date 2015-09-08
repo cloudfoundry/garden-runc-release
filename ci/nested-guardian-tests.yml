@@ -4,7 +4,7 @@ image: docker:///cloudfoundry/garden-ci-ubuntu
 platform: linux
 
 inputs:
-- name: release-develop
+- name: guardian-release
 
 run:
-  path: release-develop/ci/scripts/nested-guardian-tests
+  path: guardian-release/ci/scripts/nested-guardian-tests
