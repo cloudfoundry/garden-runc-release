@@ -52,7 +52,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
-	url = https://github.com/opencontainers/specs
+	url = https://github.com/cloudfoundry-incubator/specs
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/opencontainers/runc
