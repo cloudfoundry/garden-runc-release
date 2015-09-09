@@ -5,7 +5,7 @@ name: garden
 director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
 
 releases:
-  - name: garden-linux
+  - name: guardian
     version: latest
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     instances: 1
     templates:
       - name: garden
-        release: garden-linux
+        release: guardian
     resource_pool: garden
     networks:
       - name: garden

@@ -133,11 +133,11 @@ case $1 in
 
     echo $$ > /var/vcap/sys/run/garden/garden.pid
 
-    exec /var/vcap/packages/garden-linux/bin/guardian \
+    exec /var/vcap/packages/guardian/bin/guardian \
       -depot=/var/vcap/data/garden/depot \
       -snapshots="${snapshots_path}" \
       -graph=$graph_path \
-      -bin=/var/vcap/packages/garden-linux/src/github.com/cloudfoundry-incubator/garden-linux/linux_backend/bin \
+      -bin=/var/vcap/packages/guardian/src/github.com/cloudfoundry-incubator/guardian/linux_backend/bin \
       -mtu=<%= p("garden.network_mtu") %> \
       -disableQuotas=<%= !p("garden.disk_quota_enabled") %> \
       -listenNetwork=<%= p("garden.listen_network") %> \

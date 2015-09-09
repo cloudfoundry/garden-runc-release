@@ -5,7 +5,7 @@ templates:
   garden_ctl.erb: bin/garden_ctl
 
 packages:
-  - garden-linux
+  - guardian
   - iptables
   - shadow
   - busybox

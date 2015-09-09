@@ -7,7 +7,7 @@ set -e -x
 #
 # to add it to the release:
 #
-# cd garden-linux-release
+# cd guardian-release
 # bosh add blob busybox.tar.gz busybox
 # bosh upload blobs
 

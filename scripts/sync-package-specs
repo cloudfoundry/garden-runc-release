@@ -3,7 +3,7 @@ set -e -x
 
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 
-pushd $ROOT_DIR_PATH/packages/garden-linux
+pushd $ROOT_DIR_PATH/packages/guardian
   {
     cat spec | grep -v '# gosub'
     $ROOT_DIR_PATH/scripts/guardian-deps | \

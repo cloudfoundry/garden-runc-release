@@ -1,5 +1,5 @@
 ---
-final_name: garden-linux
+final_name: guardian
 blobstore:
   provider: s3
   options:
