@@ -4,6 +4,7 @@ name: guardian
 dependencies:
   - golang_1.4
   - btrfs-progs
+  - runc
 
 files:
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
@@ -11,20 +12,29 @@ files:
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/runner/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/loggingrunner/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/link/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/test_print_signals/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_msg_sender/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_process_tracker/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_signaller/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/writer/*.go # gosub
   - github.com/opencontainers/specs/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/*.go # gosub
   - github.com/onsi/ginkgo/*.go # gosub
   - github.com/onsi/gomega/*.go # gosub
-  - github.com/onsi/gomega/gbytes/*.go # gosub
   - github.com/onsi/gomega/gexec/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/connection/*.go # gosub
+  - github.com/onsi/gomega/gbytes/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
-  - github.com/cf-guardian/specs/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-lager/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/routes/*.go # gosub
@@ -33,6 +43,8 @@ files:
   - github.com/cloudfoundry-incubator/garden/server/streamer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/transport/*.go # gosub
+  - github.com/cloudfoundry/gunk/command_runner/*.go # gosub
+  - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
@@ -64,3 +76,4 @@ files:
   - github.com/onsi/gomega/types/*.go # gosub
   - github.com/pivotal-golang/lager/lagertest/*.go # gosub
   - github.com/tedsuo/ifrit/ginkgomon/*.go # gosub
+  - github.com/kr/pty/*.go # gosub

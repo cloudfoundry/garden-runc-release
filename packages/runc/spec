@@ -1,0 +1,8 @@
+---
+name: runc
+
+dependencies:
+  - golang_1.4
+
+files:
+  - github.com/opencontainers/runc/**/*

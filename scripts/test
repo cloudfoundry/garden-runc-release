@@ -5,6 +5,8 @@ ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 cd $ROOT_DIR_PATH
 
 pushd src/github.com/cloudfoundry-incubator/guardian
+	go vet ./...
+	go fmt ./...
 	ginkgo -r
 popd
 

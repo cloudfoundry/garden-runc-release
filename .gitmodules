@@ -18,10 +18,6 @@
 	path = src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
 	branch = master
-[submodule "src/github.com/cf-guardian/specs"]
-	path = src/github.com/cf-guardian/specs
-	url = https://github.com/cf-guardian/specs
-	branch = master
 [submodule "src/github.com/cloudfoundry-incubator/cf-lager"]
 	path = src/github.com/cloudfoundry-incubator/cf-lager
 	url = https://github.com/cloudfoundry-incubator/cf-lager
@@ -45,7 +41,7 @@
 [submodule "src/github.com/cloudfoundry-incubator/garden-integration-tests"]
 	path = src/github.com/cloudfoundry-incubator/garden-integration-tests
 	url = https://github.com/cloudfoundry-incubator/garden-integration-tests
-	branch = master
+	branch = guardian
 [submodule "src/github.com/pivotal-golang/archiver"]
 	path = src/github.com/pivotal-golang/archiver
 	url = https://github.com/pivotal-golang/archiver
@@ -56,6 +52,14 @@
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
+	branch = master
+[submodule "src/github.com/cloudfoundry/gunk"]
+	path = src/github.com/cloudfoundry/gunk
+	url = https://github.com/cloudfoundry/gunk
+	branch = master
+[submodule "src/github.com/kr/pty"]
+	path = src/github.com/kr/pty
+	url = https://github.com/kr/pty
 	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc

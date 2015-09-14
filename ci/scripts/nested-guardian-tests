@@ -3,28 +3,10 @@
 
 set -ex
 
-function mount_nested_cgroup() {
-  mkdir -p $1
-
-  if ! mountpoint -q $1; then
-    mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup $1
-  fi
-
-  for subsystem in $(tail -n +2 /proc/cgroups | awk '{print $1}'); do
-    mkdir -p ${1}/$subsystem
-
-    if ! mountpoint -q ${1}/$subsystem; then
-      mount -n -t cgroup -o $subsystem cgroup ${1}/$subsystem
-    fi
-  done
-}
-
-
-mount_nested_cgroup /tmp/cgroups
+mkdir -p /var/run/oci
+mount -t tmpfs tmpfs /var/run/oci
 
 cd $(dirname $0)/../..
-
-apt-get -y install libseccomp-dev
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
@@ -33,8 +15,8 @@ export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
 pushd src/github.com/opencontainers/runc
-make
-make install
+GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -o runc .
+cp runc /usr/local/bin/runc
 popd
 
 cd src/github.com/cloudfoundry-incubator/guardian

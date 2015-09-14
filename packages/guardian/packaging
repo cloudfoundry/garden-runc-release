@@ -12,3 +12,4 @@ export LIBRARY_PATH=/var/vcap/packages/btrfs-progs/include:$LIBRARY_PATH
 export C_INCLUDE_PATH=/var/vcap/packages/btrfs-progs/include:$C_INCLUDE_PATH
 
 go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian/
+go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
