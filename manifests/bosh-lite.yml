@@ -22,7 +22,7 @@ jobs:
         disk_quota_enabled: true
         listen_network: tcp
         listen_address: 0.0.0.0:7777
-        mount_btrfs_loopback: true
+        mount_btrfs_loopback: false
 
 networks:
   - name: garden
