@@ -80,7 +80,7 @@ case $1 in
     mkdir -p $LOG_DIR
 
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
-    export PATH=/var/vcap/packages/runc:$PATH
+    export PATH=/var/vcap/packages/runc/bin:$PATH
 
     mkdir -p /var/vcap/data/garden/depot
 

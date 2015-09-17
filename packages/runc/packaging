@@ -1,13 +1,13 @@
 set -e -x
 
-mkdir -p $BOSH_INSTALL_TARGET/src
+mkdir -p $BOSH_INSTALL_TARGET/src $BOSH_INSTALL_TARGET/bin
 cp -a . $BOSH_INSTALL_TARGET/src/.
 
 export GOROOT=$(readlink -nf /var/vcap/packages/golang_1.4)
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=$BOSH_INSTALL_TARGET
 
-cd github.com/opencontainers/runc
+cd $GOPATH/src/github.com/opencontainers/runc
 export GOPATH=$PWD/Godeps/_workspace:$GOPATH
 go build -o runc .
-cp runc $BOSH_INSTALL_TARGET/runc
+cp runc $BOSH_INSTALL_TARGET/bin/
