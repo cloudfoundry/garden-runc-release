@@ -1,0 +1,10 @@
+---
+image: docker:///cloudfoundry/garden-ci-ubuntu
+
+platform: linux
+
+inputs:
+- name: guardian-release
+
+run:
+  path: guardian-release/ci/scripts/nested-tests
