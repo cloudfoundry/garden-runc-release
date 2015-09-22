@@ -132,6 +132,9 @@ case $1 in
 
     echo $$ > /var/vcap/sys/run/garden/garden.pid
 
+    mkdir -p $graph_path
+    chmod go-x $graph_path
+
     exec /var/vcap/packages/guardian/bin/guardian \
       -depot=/var/vcap/data/garden/depot \
       -snapshots="${snapshots_path}" \

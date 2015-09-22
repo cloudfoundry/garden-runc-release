@@ -49,6 +49,8 @@ files:
   - github.com/cloudfoundry-incubator/garden/server/streamer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/transport/*.go # gosub
+  - github.com/cloudfoundry-incubator/goci/*.go # gosub
+  - github.com/cloudfoundry-incubator/goci/specs/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
