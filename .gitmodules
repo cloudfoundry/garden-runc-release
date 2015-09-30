@@ -1,7 +1,7 @@
 [submodule "src/github.com/cloudfoundry-incubator/guardian"]
 	path = src/github.com/cloudfoundry-incubator/guardian
 	url = https://github.com/cloudfoundry-incubator/guardian
-	branch = namespaces
+	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
@@ -48,7 +48,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
-	url = https://github.com/cf-guardian/specs
+	url = https://github.com/opencontainers/specs
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
@@ -64,6 +64,7 @@
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/opencontainers/runc
+	branch = master
 [submodule "src/github.com/cloudfoundry-incubator/goci"]
 	path = src/github.com/cloudfoundry-incubator/goci
 	url = https://github.com/cloudfoundry-incubator/goci
