@@ -6,3 +6,4 @@ gosub list \
   -t github.com/cloudfoundry-incubator/guardian/gqt/... \
   -t github.com/cloudfoundry-incubator/garden-integration-tests/... \
   -a github.com/opencontainers/specs/... \
+  -a github.com/vishvananda/netns/... \

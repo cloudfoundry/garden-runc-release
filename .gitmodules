@@ -48,7 +48,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
-	url = https://github.com/opencontainers/specs
+	url = https://github.com/cf-guardian/specs
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
@@ -68,4 +68,12 @@
 [submodule "src/github.com/cloudfoundry-incubator/goci"]
 	path = src/github.com/cloudfoundry-incubator/goci
 	url = https://github.com/cloudfoundry-incubator/goci
+	branch = master
+[submodule "src/github.com/docker/libcontainer"]
+	path = src/github.com/docker/libcontainer
+	url = https://github.com/docker/libcontainer
+	branch = master
+[submodule "src/github.com/vishvananda/netns"]
+	path = src/github.com/vishvananda/netns
+	url = https://github.com/vishvananda/netns
 	branch = master
