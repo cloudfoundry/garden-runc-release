@@ -18,7 +18,10 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/fakedevices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/netns/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/log/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fake_subnet_pool/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/logging/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/fakes/*.go # gosub
@@ -62,6 +65,10 @@ files:
   - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
   - github.com/docker/libcontainer/netlink/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
+  - github.com/pivotal-golang/lager/*.go # gosub
+  - github.com/tedsuo/ifrit/*.go # gosub
+  - github.com/tedsuo/ifrit/http_server/*.go # gosub
+  - github.com/tedsuo/rata/*.go # gosub
   - github.com/onsi/ginkgo/config/*.go # gosub
   - github.com/onsi/ginkgo/internal/codelocation/*.go # gosub
   - github.com/onsi/ginkgo/internal/containernode/*.go # gosub
@@ -76,10 +83,6 @@ files:
   - github.com/onsi/ginkgo/reporters/*.go # gosub
   - github.com/onsi/ginkgo/reporters/stenographer/*.go # gosub
   - github.com/onsi/ginkgo/types/*.go # gosub
-  - github.com/pivotal-golang/lager/*.go # gosub
-  - github.com/tedsuo/ifrit/*.go # gosub
-  - github.com/tedsuo/ifrit/http_server/*.go # gosub
-  - github.com/tedsuo/rata/*.go # gosub
   - github.com/onsi/gomega/format/*.go # gosub
   - github.com/onsi/gomega/internal/assertion/*.go # gosub
   - github.com/onsi/gomega/internal/asyncassertion/*.go # gosub
