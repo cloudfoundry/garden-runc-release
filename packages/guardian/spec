@@ -17,6 +17,8 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/fakedevices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/netns/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fake_subnet_pool/*.go # gosub
