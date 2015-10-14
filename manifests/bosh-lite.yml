@@ -1,5 +1,5 @@
 ---
-name: garden
+name: guardian
 
 # replace with bosh status --uuid
 director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
