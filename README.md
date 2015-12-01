@@ -96,6 +96,7 @@ In order to contribute to the project you should have the following installed:
 - [Go 1.4](https://golang.org/doc/install#install) - The Go programming
    language
 - [Direnv](https://github.com/direnv/direnv) - Environment management
+- [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based depedency manager for Go
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
