@@ -7,3 +7,7 @@ gosub list \
   -t github.com/cloudfoundry-incubator/garden-integration-tests/... \
   -a github.com/opencontainers/specs/... \
   -a github.com/vishvananda/netns/... \
+  -t github.com/cloudfoundry-incubator/garden-shed/... \
+  -a github.com/opencontainers/runc/libcontainer/label/... \
+  -a github.com/docker/docker/pkg/directory/... \
+  -a github.com/docker/docker/pkg/mount/... \

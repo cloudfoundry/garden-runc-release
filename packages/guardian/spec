@@ -14,11 +14,30 @@ files:
   - github.com/cloudfoundry-incubator/garden-integration-tests/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/performance/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/distclient/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/distclient/fake_distclient/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_cake/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_retainer/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/pkg/retrier/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/quota_manager/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/quota_manager/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_container_id_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_lock/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_remote_v1_metadata_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_remote_v2_metadata_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_mapper/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_namespacer/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_rootfs_provider/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_translator/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/connection/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/routes/*.go # gosub
@@ -64,6 +83,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/sysinfo/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/*.go # gosub
+  - github.com/cloudfoundry/gunk/command_runner/fake_command_runner/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
   - github.com/docker/distribution/*.go # gosub
   - github.com/docker/distribution/context/*.go # gosub
@@ -90,12 +110,14 @@ files:
   - github.com/docker/docker/opts/*.go # gosub
   - github.com/docker/docker/pkg/archive/*.go # gosub
   - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
+  - github.com/docker/docker/pkg/directory/*.go # gosub
   - github.com/docker/docker/pkg/fileutils/*.go # gosub
   - github.com/docker/docker/pkg/homedir/*.go # gosub
   - github.com/docker/docker/pkg/httputils/*.go # gosub
   - github.com/docker/docker/pkg/ioutils/*.go # gosub
   - github.com/docker/docker/pkg/jsonmessage/*.go # gosub
   - github.com/docker/docker/pkg/mflag/*.go # gosub
+  - github.com/docker/docker/pkg/mount/*.go # gosub
   - github.com/docker/docker/pkg/nat/*.go # gosub
   - github.com/docker/docker/pkg/parsers/*.go # gosub
   - github.com/docker/docker/pkg/parsers/filters/*.go # gosub
@@ -158,10 +180,12 @@ files:
   - github.com/onsi/gomega/matchers/support/goraph/node/*.go # gosub
   - github.com/onsi/gomega/matchers/support/goraph/util/*.go # gosub
   - github.com/onsi/gomega/types/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - github.com/opencontainers/specs/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
+  - github.com/pivotal-golang/clock/fakeclock/*.go # gosub
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/pivotal-golang/lager/lagertest/*.go # gosub
   - github.com/tchap/go-patricia/patricia/*.go # gosub
