@@ -10,7 +10,6 @@ packages:
   - runc
   - shadow
   - busybox
-  - btrfs-progs
 
 properties:
   garden.listen_network:

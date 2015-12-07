@@ -8,8 +8,5 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang_1.4)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-export LIBRARY_PATH=/var/vcap/packages/btrfs-progs/include:$LIBRARY_PATH
-export C_INCLUDE_PATH=/var/vcap/packages/btrfs-progs/include:$C_INCLUDE_PATH
-
 go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian/
 go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon

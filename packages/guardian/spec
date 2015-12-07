@@ -3,7 +3,6 @@ name: guardian
 
 dependencies:
   - golang_1.4
-  - btrfs-progs
   - runc
 
 files:
