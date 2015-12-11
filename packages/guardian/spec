@@ -79,6 +79,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/sysinfo/*.go # gosub
+  - github.com/cloudfoundry/gosigar/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/fake_command_runner/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
