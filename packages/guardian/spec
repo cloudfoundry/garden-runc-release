@@ -66,6 +66,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/logging/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/matchers/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/properties/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/fakes/*.go # gosub
