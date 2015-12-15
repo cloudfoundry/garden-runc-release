@@ -8,3 +8,6 @@ inputs:
 
 run:
   path: guardian-release/ci/scripts/nested-guardian-tests
+
+params:
+  NETWORK_MODULE:
