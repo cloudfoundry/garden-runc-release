@@ -141,6 +141,8 @@ case $1 in
       -graph=$graph_path \
       -bin=/var/vcap/packages/guardian/src/github.com/cloudfoundry-incubator/guardian/linux_backend/bin \
       -iodaemonBin=/var/vcap/packages/guardian/bin/iodaemon \
+      -nstarBin=/var/vcap/packages/guardian/bin/nstar \
+      -tarBin=/var/vcap/packages/tar/tar \
       -mtu=<%= p("garden.network_mtu") %> \
       -disableQuotas=<%= !p("garden.disk_quota_enabled") %> \
       -listenNetwork=<%= p("garden.listen_network") %> \

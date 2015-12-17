@@ -6,6 +6,7 @@ dependencies:
   - runc
 
 files:
+  - github.com/cloudfoundry-incubator/guardian/rundmc/nstar/*
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub

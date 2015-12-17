@@ -1,0 +1,12 @@
+set -e
+
+tar xzf tar/tar-1.28.tar.gz
+
+cd tar-1.28
+export LDFLAGS=-static
+export FORCE_UNSAFE_CONFIGURE=1
+./configure
+
+make
+
+mv src/tar ${BOSH_INSTALL_TARGET}
