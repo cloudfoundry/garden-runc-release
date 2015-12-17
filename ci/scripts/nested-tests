@@ -10,19 +10,34 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
-pushd src/github.com/cloudfoundry-incubator/guardian
+mkdir -p $GOPATH/bin
 
-go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian/
+pushd src/github.com/opencontainers/runc
+GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -o runc .
+mv runc $GOPATH/bin
+popd
+
+pushd src/github.com/cloudfoundry-incubator/guardian/rundmc/nstar
+make
+popd
+
+pushd src/github.com/cloudfoundry-incubator/guardian
+go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian
 go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
 
 tmpdir=/tmp/dir
 rm -fr $tmpdir
-mkdir -p $tmpdir/depot
+mkdir $tmpdir
+mount -t tmpfs none $tmpdir
+
+mkdir $tmpdir/depot
 mkdir $tmpdir/snapshots
 mkdir $tmpdir/graph
 
 $GOPATH/bin/guardian \
   -iodaemonBin=$GOPATH/bin/iodaemon \
+  -nstarBin=./rundmc/nstar/nstar \
+  -tarBin=/opt/tar \
   -depot=$tmpdir/depot \
   -snapshots=$tmpdir/snapshots \
   -graph=$tmpdir/graph \
@@ -37,6 +52,7 @@ $GOPATH/bin/guardian \
   -logLevel=error \
   -rootfs=/opt/warden/rootfs &
 
+sleep 5
 popd
 
 go install github.com/onsi/ginkgo/ginkgo
