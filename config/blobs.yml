@@ -15,3 +15,7 @@ golang/go1.4.2.linux-amd64.tar.gz:
   object_id: 1f4bc926-3232-4d41-9fb1-a253dd778f02
   sha: 5020af94b52b65cc9b6f11d50a67e4bae07b0aff
   size: 62442704
+tar/tar-1.28.tar.gz:
+  object_id: 5b4d9521-12c3-434f-b537-2df64f0b5764
+  sha: cd30a13bbfefb54b17e039be7c43d2592dd3d5d0
+  size: 3877043
