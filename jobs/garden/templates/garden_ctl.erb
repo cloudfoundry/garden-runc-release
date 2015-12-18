@@ -64,11 +64,6 @@ case $1 in
 
     mkdir -p /var/vcap/data/garden/depot
 
-    <% if p("garden.destroy_containers_on_start") %>
-    snapshots_path=""
-    <% else %>
-    snapshots_path=/var/vcap/data/garden/snapshots
-    <% end %>
     graph_path=/var/vcap/data/garden/graph
 
     echo $$ > /var/vcap/sys/run/garden/garden.pid
@@ -80,7 +75,6 @@ case $1 in
 
     exec /var/vcap/packages/guardian/bin/guardian \
       -depot=/var/vcap/data/garden/depot \
-      -snapshots="${snapshots_path}" \
       -graph=$graph_path \
       -bin=/var/vcap/packages/guardian/src/github.com/cloudfoundry-incubator/guardian/linux_backend/bin \
       -iodaemonBin=/var/vcap/packages/guardian/bin/iodaemon \
