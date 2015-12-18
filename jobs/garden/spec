@@ -25,10 +25,6 @@ properties:
     description: "Maximum network transmission unit length in bytes."
     default: 1500
 
-  garden.disk_quota_enabled:
-    description: "Enforce disk quotas. Disable for nested Garden."
-    default: true
-
   garden.deny_networks:
     description: "List of CIDR blocks to which containers will be denied access."
     default: []
@@ -77,11 +73,3 @@ properties:
 
   garden.insecure_docker_registry_list:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
-
-  garden.mount_btrfs_loopback:
-    description: "If true, garden should create a btrfs-formatted loopback device for graph storage"
-    default: true
-
-  garden.btrfs_store_size_mb:
-    description: "Size in MB of the BTRFS backing store for graph storage (-1 to use all available space)"
-    default: -1

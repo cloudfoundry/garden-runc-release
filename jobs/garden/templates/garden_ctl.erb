@@ -39,26 +39,6 @@ function permit_device_control() {
   echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow
 }
 
-function backing_store_size() {
-  local configured=1
-  local configured_store_size_k=0
-  if [[ -1 = $1 ]]; then
-    configured=0
-  else
-    configured_store_size_k=$(($1*1024))
-  fi
-
-  local backing_store_path=$2
-  local df_output=$($3 $2)
-  local available_size_k=$(echo "$df_output" | awk '{ print $4 }' | tail -n 1)
-
-  if [[ 0 = $configured || ($available_size_k < $configured_store_size_k) ]]; then
-    echo "$available_size_k"K
-  else     
-    echo "$configured_store_size_k"K
-  fi
-}
-
 case $1 in
 
   start)
@@ -89,51 +69,14 @@ case $1 in
     <% else %>
     snapshots_path=/var/vcap/data/garden/snapshots
     <% end %>
-    graph_path=/var/vcap/data/garden/btrfs_graph
-
-    <% if p("garden.mount_btrfs_loopback") %>
-    mountpoint -q /sys || mount -t sysfs sysfs /sys
-    backing_store=/var/vcap/data/garden/garden_graph_backing_store
-    mount_point=$graph_path
-
-    if [ ! -f $backing_store ]
-    then
-      permit_device_control
-      for i in $(seq 0 64); do
-        if ! mknod -m 0660 /dev/loop$i b 7 $i; then
-          break
-        fi
-      done
-
-      echo "no backing store found at ${backing_store}: creating"
-      touch $backing_store
-      truncate -s $(backing_store_size <%= p('garden.btrfs_store_size_mb')%> "/var/vcap/data" "df -k") $backing_store
-
-      loopback_device=$(losetup -f --show $backing_store)
-      mkfs.btrfs --nodiscard $loopback_device
-    else
-      echo "backing store already exists, skipping creation"
-    fi
-
-    if cat /proc/mounts | grep $mount_point
-    then
-      echo "btrfs already mounted at $mount_point"
-    else
-      loopback_device="$(losetup -j $backing_store | cut -d':' -f1)"
-      if [ -z $loopback_device ]; then
-       loopback_device=$(losetup -f --show $backing_store)
-      fi
-
-      echo "mounting btrfs volume"
-      mkdir -p $mount_point
-      mount -t btrfs $loopback_device $mount_point
-    fi
-    <% end %>
+    graph_path=/var/vcap/data/garden/graph
 
     echo $$ > /var/vcap/sys/run/garden/garden.pid
 
     mkdir -p $graph_path
     chmod go-x $graph_path
+
+    permit_device_control
 
     exec /var/vcap/packages/guardian/bin/guardian \
       -depot=/var/vcap/data/garden/depot \
@@ -144,7 +87,6 @@ case $1 in
       -nstarBin=/var/vcap/packages/guardian/bin/nstar \
       -tarBin=/var/vcap/packages/tar/tar \
       -mtu=<%= p("garden.network_mtu") %> \
-      -disableQuotas=<%= !p("garden.disk_quota_enabled") %> \
       -listenNetwork=<%= p("garden.listen_network") %> \
       -listenAddr=<%= p("garden.listen_address") %> \
       -denyNetworks=<%= p("garden.deny_networks").join(",") %> \
