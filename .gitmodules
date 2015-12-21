@@ -48,7 +48,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
-	url = https://github.com/cloudfoundry-incubator/specs
+	url = https://github.com/cf-guardian/specs
 	branch = master
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
