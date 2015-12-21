@@ -39,7 +39,6 @@ $GOPATH/bin/guardian \
   -nstarBin=./rundmc/nstar/nstar \
   -tarBin=/opt/tar \
   -depot=$tmpdir/depot \
-  -snapshots=$tmpdir/snapshots \
   -graph=$tmpdir/graph \
   -bin=$PWD/linux_backend/bin \
   -listenNetwork=tcp \
