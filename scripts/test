@@ -10,4 +10,5 @@ pushd src/github.com/cloudfoundry-incubator/guardian
 	ginkgo -r
 popd
 
-./scripts/remote-fly ci/nested-guardian-tests.yml
+./scripts/remote-fly ci/guardian.yml
+./scripts/remote-fly ci/gits.yml
