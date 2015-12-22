@@ -7,4 +7,7 @@ inputs:
 - name: guardian-release
 
 run:
-  path: guardian-release/ci/scripts/nested-tests
+  path: guardian-release/ci/scripts/guardian
+
+params:
+  NETWORK_MODULE:
