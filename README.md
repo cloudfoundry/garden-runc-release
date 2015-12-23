@@ -61,7 +61,7 @@ For example:
 ```bash
 go get github.com/contraband/gaol
 
-# create a contaienr
+# create a container
 gaol -t 10.244.16.6:7777 create -n my-container
 
 # run a command inside the container
@@ -79,12 +79,12 @@ package for Golang.
 
 ## Contributing
 
-In order to help us extend Guardian, we recommnend openning a Github issue
+In order to help us extend Guardian, we recommend opening a Github issue
 to describe the proposed features or changes. We also welcome pull requests.
 
 Guardian is a Linux project and it currently supports only Ubuntu 14.04 LTS.
 
-You can use other distributions or MacOSX for development since a good chunck
+You can use other distributions or MacOSX for development since a good chunk
 of the unit tests work across alternative platforms and you can run platform
 specific tests in a VM. [Concourse CI](https://concourse.ci/) system is used
 for running Guardian tests in a VM. Concourse provides its [Fly
@@ -96,7 +96,7 @@ In order to contribute to the project you should have the following installed:
 - [Go 1.4](https://golang.org/doc/install#install) - The Go programming
    language
 - [Direnv](https://github.com/direnv/direnv) - Environment management
-- [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based depedency manager for Go
+- [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based dependency manager for Go
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
@@ -115,7 +115,7 @@ Guardian's components currently are:
    are the cross-backend integration tests of Garden.
 
 
-Start by checking out/updateing the submodules:
+Start by checking out/updating the submodules:
 
 ```bash
 git submodule update --init --recursive
