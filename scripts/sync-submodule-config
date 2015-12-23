@@ -3,4 +3,6 @@ set -e -x
 
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 
+# fail fast if gosub is not installed
+which gosub
 ($ROOT_DIR_PATH/scripts/guardian-deps; echo "github.com/opencontainers/runc") | xargs gosub sync
