@@ -1,0 +1,12 @@
+---
+# may want to replace this with your own image
+image: docker:///concourse/concourse-ci
+
+platform: linux
+
+inputs:
+  - name: guardian-release 
+  - name: guardian-version 
+
+run:
+  path: guardian-release/ci/scripts/create-release
