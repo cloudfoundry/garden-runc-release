@@ -1,0 +1,13 @@
+---
+image: docker:///cloudfoundry/golang-ci
+
+platform: linux
+
+inputs:
+  - name: guardian-release 
+
+params:
+  GARDEN_ADDRESS: ""
+
+run:
+  path: guardian-release/ci/scripts/non-nested-gits
