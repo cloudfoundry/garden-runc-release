@@ -47,6 +47,7 @@ files:
   - github.com/cloudfoundry-incubator/garden/server/streamer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/transport/*.go # gosub
+  - github.com/cloudfoundry-incubator/genclient/*.go # gosub
   - github.com/cloudfoundry-incubator/goci/*.go # gosub
   - github.com/cloudfoundry-incubator/goci/specs/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
@@ -190,7 +191,6 @@ files:
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/pivotal-golang/lager/lagertest/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
-  - github.com/rosenhouse/ducati/*.go # gosub
   - github.com/tchap/go-patricia/patricia/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/ginkgomon/*.go # gosub

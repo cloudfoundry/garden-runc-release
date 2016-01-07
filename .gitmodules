@@ -125,7 +125,7 @@
 	path = src/github.com/pivotal-golang/localip
 	url = https://github.com/pivotal-golang/localip
 	branch = master
-[submodule "src/github.com/rosenhouse/ducati"]
-	path = src/github.com/rosenhouse/ducati
-	url = https://github.com/rosenhouse/ducati
+[submodule "src/github.com/cloudfoundry-incubator/genclient"]
+	path = src/github.com/cloudfoundry-incubator/genclient
+	url = https://github.com/cloudfoundry-incubator/genclient
 	branch = master

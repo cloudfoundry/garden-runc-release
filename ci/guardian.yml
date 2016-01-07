@@ -10,4 +10,4 @@ run:
   path: guardian-release/ci/scripts/guardian
 
 params:
-  NETWORK_MODULE:
+  NETWORK_MODULE_PATH:
