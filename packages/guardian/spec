@@ -199,5 +199,7 @@ files:
   - github.com/vbatts/tar-split/archive/tar/*.go # gosub
   - github.com/vbatts/tar-split/tar/asm/*.go # gosub
   - github.com/vbatts/tar-split/tar/storage/*.go # gosub
+  - github.com/vishvananda/netlink/*.go # gosub
+  - github.com/vishvananda/netlink/nl/*.go # gosub
   - github.com/vishvananda/netns/*.go # gosub
   - golang.org/x/net/context/*.go # gosub

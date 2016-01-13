@@ -11,3 +11,4 @@ gosub list \
   -a github.com/opencontainers/runc/libcontainer/label/... \
   -a github.com/docker/docker/pkg/directory/... \
   -a github.com/docker/docker/pkg/mount/... \
+  -a github.com/vishvananda/netlink/... \
