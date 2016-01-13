@@ -37,7 +37,6 @@ files:
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_mapper/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_namespacer/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_rootfs_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_translator/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/*.go # gosub
