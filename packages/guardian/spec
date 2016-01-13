@@ -24,6 +24,7 @@ files:
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_retainer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/pkg/chown/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/pkg/retrier/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/quota_manager/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/quota_manager/fakes/*.go # gosub
