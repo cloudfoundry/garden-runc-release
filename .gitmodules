@@ -70,10 +70,6 @@
 	path = src/github.com/cloudfoundry-incubator/goci
 	url = https://github.com/cloudfoundry-incubator/goci
 	branch = master
-[submodule "src/github.com/docker/libcontainer"]
-	path = src/github.com/docker/libcontainer
-	url = https://github.com/docker/libcontainer
-	branch = master
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
