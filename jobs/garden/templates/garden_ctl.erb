@@ -39,6 +39,13 @@ function permit_device_control() {
   echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow
 }
 
+function create_loop_devices() {
+  amt=$1
+  for i in $(seq 0 $amt); do
+    mknod -m 0660 /dev/loop$i b 7 $i || true
+  done
+}
+
 case $1 in
 
   start)
@@ -71,6 +78,7 @@ case $1 in
     chmod go-x $graph_path
 
     permit_device_control
+    create_loop_devices 256
 
     echo $$ > $PIDFILE
 

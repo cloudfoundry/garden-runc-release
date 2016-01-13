@@ -3,6 +3,7 @@
 
 set -e -x
 
+source $(dirname $0)/aufs
 cd $(dirname $0)/../..
 
 export GOROOT=/usr/local/go
@@ -33,6 +34,9 @@ mount -t tmpfs none $tmpdir
 mkdir $tmpdir/depot
 mkdir $tmpdir/snapshots
 mkdir $tmpdir/graph
+
+permit_device_control
+create_loop_devices 256
 
 $GOPATH/bin/guardian \
   -iodaemonBin=$GOPATH/bin/iodaemon \
