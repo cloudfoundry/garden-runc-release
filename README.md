@@ -100,6 +100,7 @@ In order to contribute to the project you should have the following installed:
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
+- [Aufs](http://aufs.sourceforge.net/) - Another Union File System for Linux
 
 ### Getting the source code
 
@@ -175,6 +176,14 @@ go install github.com/onsi/ginkgo
 You can run all the tests by executing `./scripts/test`.
 
 #### Unit tests
+
+If you are using Linux based operation system like Ubuntu, you should install
+[Aufs](http://aufs.sourceforge.net/) before run any tests:
+
+```bash
+sudo apt-get install linux-image-extra-$(uname -r)
+sudo modprobe aufs
+```
 
 The unit tests can be executed without Concourse CLI by running `ginkgo -r`
 command for any of the components:
