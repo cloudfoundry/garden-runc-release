@@ -47,10 +47,10 @@ files:
   - github.com/cloudfoundry-incubator/garden/server/streamer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/transport/*.go # gosub
-  - github.com/cloudfoundry-incubator/genclient/*.go # gosub
   - github.com/cloudfoundry-incubator/goci/*.go # gosub
   - github.com/cloudfoundry-incubator/goci/specs/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
