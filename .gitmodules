@@ -1,7 +1,7 @@
 [submodule "src/github.com/cloudfoundry-incubator/guardian"]
 	path = src/github.com/cloudfoundry-incubator/guardian
 	url = https://github.com/cloudfoundry-incubator/guardian
-	branch = wip-bind-mounts-work-101501518
+	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
