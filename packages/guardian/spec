@@ -54,6 +54,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/gqt/cmd/networkplugin/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/runner/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/configure/*.go # gosub
@@ -69,6 +70,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/logging/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/matchers/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/netplugin/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/properties/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub

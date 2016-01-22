@@ -69,3 +69,9 @@ properties:
 
   garden.insecure_docker_registry_list:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
+
+  garden.network_plugin:
+    description: "If specified, names a binary that will be executed as a pre-start hook to configure the container network"
+
+  garden.network_plugin_extra_args:
+    description: "Additional arguments which should be passed to the network plugin binary"
