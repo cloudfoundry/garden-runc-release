@@ -75,7 +75,6 @@ case $1 in
 
     graph_path=/var/vcap/data/garden/graph
     mkdir -p $graph_path
-    chmod go-x $graph_path
 
     permit_device_control
     create_loop_devices 256
