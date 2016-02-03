@@ -54,7 +54,7 @@ $GOPATH/bin/guardian \
   -allowHostAccess=false \
   -mtu=1500 \
   -containerGraceTime=5m \
-  -logLevel=error \
+  -logLevel=debug \
   -rootfs=/opt/warden/rootfs &
 
 sleep 5
