@@ -125,3 +125,7 @@
 	path = src/github.com/vishvananda/netlink
 	url = https://github.com/vishvananda/netlink
 	branch = master
+[submodule "src/github.com/npat-efault/poller"]
+	path = src/github.com/npat-efault/poller
+	url = https://github.com/npat-efault/poller
+	branch = master

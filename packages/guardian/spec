@@ -50,6 +50,7 @@ files:
   - github.com/cloudfoundry-incubator/goci/*.go # gosub
   - github.com/cloudfoundry-incubator/goci/specs/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/cmd/init/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
@@ -153,6 +154,7 @@ files:
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
   - github.com/kr/pty/*.go # gosub
+  - github.com/npat-efault/poller/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
   - github.com/onsi/ginkgo/*.go # gosub
   - github.com/onsi/ginkgo/config/*.go # gosub
