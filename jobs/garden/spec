@@ -71,7 +71,7 @@ properties:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
 
   garden.network_plugin:
-    description: "If specified, names a binary that will be executed as a pre-start hook to configure the container network"
+    description: "Path to an optional network plugin binary"
 
   garden.network_plugin_extra_args:
-    description: "Additional arguments which should be passed to the network plugin binary"
+    description: "An array of additional arguments which will be passed to the network plugin binary"

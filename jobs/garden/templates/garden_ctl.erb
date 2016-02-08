@@ -104,7 +104,7 @@ case $1 in
     <% if_p("garden.network_plugin") do |plugin| %> \
       -networkPlugin=<%= plugin %> \
       <% if_p("garden.network_plugin_extra_args") do |args| %> \
-      -networkPluginExtraArgs=<%= args %> \
+      -networkPluginExtraArgs=<%= args.join(',') %> \
       <% end %> \
     <% end %> \
     <% if_p("garden.docker_registry_endpoint") do |endpoint| %> \
