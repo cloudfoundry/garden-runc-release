@@ -38,7 +38,7 @@ function permit_device_control() {
   # permit our cgroup to do everything with all devices
   echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow || true
 
-  umount /tmp/devices-cgroup
+  umount /tmp/devices-cgroup || true
 }
 
 function create_loop_devices() {
