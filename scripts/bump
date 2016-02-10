@@ -9,6 +9,8 @@ cd $ROOT_DIR_PATH
 ./scripts/sync-package-specs
 git add packages/*/spec
 
+./scripts/ci-check
+
 ./scripts/commit-with-submodule-log "$@"
 
 git commit --amend
