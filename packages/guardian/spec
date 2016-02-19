@@ -60,6 +60,8 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/configure/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/fakedevices/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/dns/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/dns/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/factory/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/*.go # gosub
