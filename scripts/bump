@@ -4,12 +4,12 @@ set -e -x
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 cd $ROOT_DIR_PATH
 
+./scripts/check
+
 ./scripts/sync-submodule-config
 
 ./scripts/sync-package-specs
 git add packages/*/spec
-
-./scripts/ci-check
 
 ./scripts/commit-with-submodule-log "$@"
 

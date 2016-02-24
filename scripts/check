@@ -1,11 +1,14 @@
 set -e
 
-read -p "Did you make sure CI is green? (yes/no):" response
+if [ $(git rev-parse --abbrev-ref HEAD) == "master" ]; then
+  echo "Cannot bump in the master branch!"
+  exit 1
+fi
 
+read -p "Did you make sure CI is green? (yes/no):" response
 if  [ $response == "yes" ]; then
   echo "Thanks! Continuing with bump..."
 else
   open "https://garden-linux.ci.cf-app.com/?groups=guardian&groups=guardian-long"
   exit 1
 fi
-
