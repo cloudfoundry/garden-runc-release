@@ -67,6 +67,10 @@ properties:
   garden.dropsonde.destination:
     description: "A URL that points at the Metron agent to which metrics are forwarded. By default, it matches with the default of Metron."
 
+  garden.dns_servers:
+    description: Override DNS servers to be used in containers; defaults to the same as the host
+    default: []
+
   garden.insecure_docker_registry_list:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
     default: []
