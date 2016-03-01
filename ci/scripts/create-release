@@ -13,4 +13,5 @@ cd guardian-release/
 
 bosh -n create release --with-tarball --version "${VERSION}"
 
-mv dev_releases/guardian/*.tgz ../guardian-${VERSION}.tgz
+mkdir -p ../bosh-release
+mv dev_releases/guardian/*.tgz ../bosh-release/guardian-${VERSION}.tgz
