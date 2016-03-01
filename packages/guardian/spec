@@ -86,6 +86,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/link/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_process_tracker/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/writer/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/fakes/*.go # gosub
