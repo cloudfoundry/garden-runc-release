@@ -2,7 +2,7 @@
 name: runc
 
 dependencies:
-  - golang_1.4
+  - golang_1.6
 
 files:
   - github.com/opencontainers/runc/**/*
