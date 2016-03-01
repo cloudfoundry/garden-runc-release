@@ -128,6 +128,9 @@ case $1 in
     <% p("garden.insecure_docker_registry_list").each do |url| %> \
       -insecureDockerRegistry=<%= url %> \
     <% end %> \
+    <% p("garden.dns_servers").each do |server| %> \
+      -dnsServer=<%= server %> \
+    <% end %> \
       1>>$LOG_DIR/garden.stdout.log \
       2>>$LOG_DIR/garden.stderr.log
 
