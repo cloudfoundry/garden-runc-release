@@ -1,0 +1,13 @@
+---
+platform: linux
+image: docker:///concourse/git-resource
+
+inputs:
+  - name: guardian-release
+  - name: guardian-release-master
+
+outputs:
+  - name: release-merged
+
+run:
+  path: guardian-release/ci/scripts/merge-master
