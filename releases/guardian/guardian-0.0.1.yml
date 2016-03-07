@@ -46,7 +46,7 @@ jobs:
 license:
   version: 5d8ee81dc9e612c0eefcf39e9efae66d2fad2a99
   fingerprint: 5d8ee81dc9e612c0eefcf39e9efae66d2fad2a99
-  sha1: 4f90910f2153588dc65799a5821d0ba03b718a1e
+  sha1: ccfda69d348d74a3ba8ea939a5d04518f0848a27
 commit_hash: 891353ec
 uncommitted_changes: false
 name: guardian
