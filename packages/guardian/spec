@@ -19,6 +19,8 @@ files:
   - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/cleaner/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/cleaner/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_cake/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id_provider/*.go # gosub
