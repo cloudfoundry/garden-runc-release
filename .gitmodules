@@ -49,7 +49,7 @@
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
 	url = https://github.com/cloudfoundry-incubator/specs
-	branch = wip-guardian-patches-2
+	branch = wip-rlimits
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
@@ -65,7 +65,7 @@
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
-	branch = runc-patches
+	branch = wip-runc-patches-3
 [submodule "src/github.com/cloudfoundry-incubator/goci"]
 	path = src/github.com/cloudfoundry-incubator/goci
 	url = https://github.com/cloudfoundry-incubator/goci
