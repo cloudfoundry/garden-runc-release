@@ -101,6 +101,7 @@ case $1 in
       -debugAddr=<%= p("garden.debug_listen_address") %> \
       -rootfs=<%= p("garden.default_container_rootfs") %> \
       -containerGraceTime=<%= p("garden.default_container_grace_time") %> \
+      -graphCleanupThresholdMB=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
     <% if_p("garden.network_plugin") do |plugin| %> \
       -networkPlugin=<%= plugin %> \
       <% if_p("garden.network_plugin_extra_args") do |args| %> \
@@ -127,6 +128,9 @@ case $1 in
     <% end %> \
     <% p("garden.insecure_docker_registry_list").each do |url| %> \
       -insecureDockerRegistry=<%= url %> \
+    <% end %> \
+    <% p("garden.persistent_image_list").each do |url| %> \
+      -persistentImage=<%= url %> \
     <% end %> \
     <% p("garden.dns_servers").each do |server| %> \
       -dnsServer=<%= server %> \

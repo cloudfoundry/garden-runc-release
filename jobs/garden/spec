@@ -55,6 +55,14 @@ properties:
     description: "path to the rootfs to use when a container specifies no rootfs"
     default: /var/vcap/packages/busybox
 
+  garden.graph_cleanup_threshold_in_mb:
+    description: "Total size of all filesystem layers downloaded from Docker registries before graph cleanup is activated. -1 disables graph cleanup."
+    default: -1
+
+  garden.persistent_image_list:
+    description: "List of Rootfs Paths (directories or docker URLs) which will never be deleted during graph cleanup"
+    default: []
+
   garden.port_pool.start:
     description: "An integer port number used to denote where ports should start being allocated for Net In calls. Uses the Garden default if not set."
 
