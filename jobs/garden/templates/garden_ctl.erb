@@ -78,6 +78,11 @@ case $1 in
     graph_path=/var/vcap/data/garden/graph
     mkdir -p $graph_path
 
+    real_graph=/var/vcap/data/garden/realgraph
+    mkdir -p $real_graph/graph
+    chmod go-x $real_graph
+    mount --bind $real_graph/graph $graph_path
+
     permit_device_control
     create_loop_devices 256
 

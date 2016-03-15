@@ -1,6 +1,6 @@
 check process garden
   with pidfile /var/vcap/sys/run/garden/garden.pid
-  start program "/var/vcap/jobs/garden/bin/garden_ctl start"
+  start program "/usr/bin/unshare -m /var/vcap/jobs/garden/bin/garden_ctl start"
   stop program "/var/vcap/jobs/garden/bin/garden_ctl stop"
 <% if p("garden.listen_network") == "unix" %>
   if failed unixsocket <%= p("garden.listen_address") %>
