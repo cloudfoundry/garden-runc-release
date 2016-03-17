@@ -1,0 +1,14 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e -x
+
+cd $(dirname $0)/../..
+
+export GOPATH=$PWD
+export PATH=$PWD/bin:$PATH
+
+go install github.com/onsi/ginkgo/ginkgo
+
+cd src/github.com/cloudfoundry-incubator/garden-integration-tests
+ginkgo -p -nodes=4 performance

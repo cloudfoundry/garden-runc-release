@@ -1,0 +1,15 @@
+---
+image: docker:///cloudfoundry/golang-ci
+
+platform: linux
+
+inputs:
+- name: guardian-release
+
+params:
+  GARDEN_ADDRESS: ""
+  DATADOG_API_KEY: ""
+  ENVIRONMENT: ""
+
+run:
+  path: guardian-release/ci/scripts/performance-tests
