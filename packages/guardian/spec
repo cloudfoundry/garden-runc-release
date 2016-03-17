@@ -79,13 +79,13 @@ files:
   - github.com/cloudfoundry-incubator/guardian/properties/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/bundlerules/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/bundlerules/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/link/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/preparerootfs/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_process_tracker/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fakes/*.go # gosub
