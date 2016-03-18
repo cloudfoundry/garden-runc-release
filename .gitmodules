@@ -149,3 +149,7 @@
 	path = src/github.com/cloudfoundry/sonde-go
 	url = https://github.com/cloudfoundry/sonde-go
 	branch = master
+[submodule "src/github.com/cloudfoundry/gosteno"]
+	path = src/github.com/cloudfoundry/gosteno
+	url = https://github.com/cloudfoundry/gosteno
+	branch = master
