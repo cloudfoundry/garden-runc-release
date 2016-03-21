@@ -1,0 +1,19 @@
+---
+image: docker:///cloudfoundry/diego-pipeline
+
+platform: linux
+
+inputs:
+- name: diego-perf-release
+- name: garden-ci
+- name: guardian-release
+
+params:
+  BOSH_TARGET: ""
+  BOSH_USERNAME: ""
+  BOSH_PASSWORD: ""
+  BOSH_CF_DEPLOYMENT: ""
+  BOSH_DIEGO_DEPLOYMENT: ""
+
+run:
+  path: guardian-release/ci/scripts/diego-performance-tests

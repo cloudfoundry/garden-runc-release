@@ -1,0 +1,30 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e -x
+
+ERRAND_DIR=$PWD/cf-diego-performance
+MANIFESTS_DIR=$PWD/cf-manifests
+
+mkdir -p $ERRAND_DIR
+mkdir -p $MANIFESTS_DIR
+
+cd $PWD/diego-perf-release
+
+bosh target $BOSH_TARGET
+bosh download manifest $BOSH_CF_DEPLOYMENT > $MANIFESTS_DIR/cf.yml
+bosh download manifest $BOSH_DIEGO_DEPLOYMENT > $MANIFESTS_DIR/diego.yml
+
+./scripts/generate-deployment-manifest \
+  ../garden-ci/deployments/fangorn/stubs/director-uuid.yml \
+  ../garden-ci/deployments/fangorn/stubs/perf/property-overrides.yml \
+  ../garden-ci/deployments/fangorn/stubs/perf/instance-count-overrides.yml \
+  ../garden-ci/deployments/fangorn/stubs/perf/iaas-settings.yml \
+  $MANIFESTS_DIR > $ERRAND_DIR/perf.yml
+
+bosh deployment $ERRAND_DIR/perf.yml
+bosh -n create release --force && bosh upload release --rebase && bosh -n deploy
+
+bosh run errand garden_container_creation_tests --keep-alive
+# this will download results.csv.log, which is a csv file containing the timestamps for the pushes and scales.
+bosh logs garden_container_creation_tests 0
