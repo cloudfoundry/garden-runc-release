@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+set -u
+
+shared_dir="/var/vcap/data/guardian/shared"
+
+mkdir -p $shared_dir
+
+mount --bind $shared_dir $shared_dir
+mount --make-shared $shared_dir
