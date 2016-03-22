@@ -3,7 +3,7 @@ name: garden
 
 templates:
   garden_ctl.erb: bin/garden_ctl
-  share_mount.erb: bin/share_mount
+  share_mounts.erb: bin/share_mounts
 
 packages:
   - guardian
@@ -89,3 +89,7 @@ properties:
 
   garden.network_plugin_extra_args:
     description: "An array of additional arguments which will be passed to the network plugin binary"
+
+  garden.shared_mounts:
+    description: "A list of mount points to share into the garden mount namespace"
+    default: []
