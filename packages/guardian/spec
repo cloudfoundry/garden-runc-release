@@ -53,6 +53,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/init/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/cmd/inspector-garden/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
