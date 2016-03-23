@@ -7,6 +7,7 @@ dependencies:
 
 files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/nstar/*
+  - github.com/pquerna/ffjson/fflib/v1/reader_scan_amd64.s
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
