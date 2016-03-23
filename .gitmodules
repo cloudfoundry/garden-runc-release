@@ -49,7 +49,7 @@
 [submodule "src/github.com/opencontainers/specs"]
 	path = src/github.com/opencontainers/specs
 	url = https://github.com/cloudfoundry-incubator/specs
-	branch = wip-rlimits
+	branch = master
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
@@ -65,7 +65,7 @@
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
-	branch = wip-runc-patches-3
+	branch = wip-runc-230316
 [submodule "src/github.com/cloudfoundry-incubator/goci"]
 	path = src/github.com/cloudfoundry-incubator/goci
 	url = https://github.com/cloudfoundry-incubator/goci
@@ -152,4 +152,20 @@
 [submodule "src/github.com/cloudfoundry/gosteno"]
 	path = src/github.com/cloudfoundry/gosteno
 	url = https://github.com/cloudfoundry/gosteno
+	branch = master
+[submodule "src/github.com/pquerna/ffjson"]
+	path = src/github.com/pquerna/ffjson
+	url = https://github.com/pquerna/ffjson
+	branch = master
+[submodule "src/github.com/xeipuuv/gojsonpointer"]
+	path = src/github.com/xeipuuv/gojsonpointer
+	url = https://github.com/xeipuuv/gojsonpointer
+	branch = master
+[submodule "src/github.com/xeipuuv/gojsonreference"]
+	path = src/github.com/xeipuuv/gojsonreference
+	url = https://github.com/xeipuuv/gojsonreference
+	branch = master
+[submodule "src/github.com/xeipuuv/gojsonschema"]
+	path = src/github.com/xeipuuv/gojsonschema
+	url = https://github.com/xeipuuv/gojsonschema
 	branch = master

@@ -218,13 +218,16 @@ files:
   - github.com/onsi/gomega/types/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
-  - github.com/opencontainers/specs/*.go # gosub
+  - github.com/opencontainers/specs/schema/*.go # gosub
+  - github.com/opencontainers/specs/specs-go/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/clock/fakeclock/*.go # gosub
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/pivotal-golang/lager/lagertest/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
+  - github.com/pquerna/ffjson/fflib/v1/*.go # gosub
+  - github.com/pquerna/ffjson/fflib/v1/internal/*.go # gosub
   - github.com/tchap/go-patricia/patricia/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/ginkgomon/*.go # gosub
@@ -236,4 +239,7 @@ files:
   - github.com/vishvananda/netlink/*.go # gosub
   - github.com/vishvananda/netlink/nl/*.go # gosub
   - github.com/vishvananda/netns/*.go # gosub
+  - github.com/xeipuuv/gojsonpointer/*.go # gosub
+  - github.com/xeipuuv/gojsonreference/*.go # gosub
+  - github.com/xeipuuv/gojsonschema/*.go # gosub
   - golang.org/x/net/context/*.go # gosub
