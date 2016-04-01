@@ -27,6 +27,7 @@ go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian
 go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
 go install github.com/cloudfoundry-incubator/guardian/cmd/kawasaki
 go install github.com/cloudfoundry-incubator/guardian/cmd/init
+go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo
 
 tmpdir=/tmp/dir
 rm -fr $tmpdir
@@ -44,6 +45,7 @@ $GOPATH/bin/guardian \
   -iodaemonBin=$GOPATH/bin/iodaemon \
   -kawasakiBin=$GOPATH/bin/kawasaki \
   -initBin=$GOPATH/bin/init \
+  -dadooBin=$GOPATH/bin/dadoo \
   -nstarBin=./rundmc/nstar/nstar \
   -tarBin=/opt/tar \
   -depot=$tmpdir/depot \
