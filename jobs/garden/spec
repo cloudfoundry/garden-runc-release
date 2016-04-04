@@ -93,3 +93,6 @@ properties:
   garden.shared_mounts:
     description: "A list of mount points to share into the garden mount namespace"
     default: []
+
+  garden.max_containers:
+    description: "Maximum container capacity to advertise. It is not recommended to set this larger than 250."
