@@ -169,3 +169,7 @@
 	path = src/github.com/xeipuuv/gojsonschema
 	url = https://github.com/xeipuuv/gojsonschema
 	branch = master
+[submodule "src/github.com/jessevdk/go-flags"]
+	path = src/github.com/jessevdk/go-flags
+	url = https://github.com/jessevdk/go-flags
+	branch = master
