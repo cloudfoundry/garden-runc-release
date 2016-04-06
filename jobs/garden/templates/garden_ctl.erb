@@ -89,57 +89,68 @@ case $1 in
     echo $$ > $PIDFILE
 
     exec /var/vcap/packages/guardian/bin/guardian \
-      -depot=$depot_path \
-      -graph=$graph_path \
-      -bin=/var/vcap/packages/guardian/src/github.com/cloudfoundry-incubator/guardian/linux_backend/bin \
-      -iodaemonBin=/var/vcap/packages/guardian/bin/iodaemon \
-      -kawasakiBin=/var/vcap/packages/guardian/bin/kawasaki \
-      -initBin=/var/vcap/packages/guardian/bin/init \
-      -dadooBin=/var/vcap/packages/guardian/bin/dadoo \
-      -nstarBin=/var/vcap/packages/guardian/bin/nstar \
-      -tarBin=/var/vcap/packages/tar/tar \
-      -mtu=<%= p("garden.network_mtu") %> \
-      -listenNetwork=<%= p("garden.listen_network") %> \
-      -listenAddr=<%= p("garden.listen_address") %> \
-      -denyNetworks=<%= p("garden.deny_networks").join(",") %> \
-      -allowNetworks=<%= p("garden.allow_networks").join(",") %> \
-      -allowHostAccess=<%= p("garden.allow_host_access") %> \
-      -debugAddr=<%= p("garden.debug_listen_address") %> \
-      -rootfs=<%= p("garden.default_container_rootfs") %> \
-      -containerGraceTime=<%= p("garden.default_container_grace_time") %> \
-      -graphCleanupThresholdMB=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
+    <% if p("garden.listen_network") == "tcp" %> \
+    <% ip, port = p("garden.listen_address").split(":") %> \
+      --bind-ip=<%= ip %> \
+      --bind-port=<%= port %> \
+    <% else %> \
+      --bind-socket=<%= p("garden.listen_address") %> \
+    <% end %> \
+      --depot=$depot_path \
+      --graph=$graph_path \
+      --iodaemon-bin=/var/vcap/packages/guardian/bin/iodaemon \
+      --kawasaki-bin=/var/vcap/packages/guardian/bin/kawasaki \
+      --init-bin=/var/vcap/packages/guardian/bin/init \
+      --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
+      --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
+      --tar-bin=/var/vcap/packages/tar/tar \
+    <% p("garden.deny_networks").each do |network| %> \
+      --deny-network=<%= network %> \
+    <% end %> \
+    <% p("garden.allow_networks").each do |network| %> \
+      --allow-network=<%= network %> \
+    <% end %> \
+    <% if p("garden.allow_host_access") %> \
+      --allow-host-access \
+    <% end %> \
+    <% debug_ip, debug_port = p("garden.debug_listen_address").split(":") %> \
+      --debug-bind-ip=<%= debug_ip %> \
+      --debug-bind-port=<%= debug_port %> \
+      --default-rootfs=<%= p("garden.default_container_rootfs") %> \
+      --default-grace-time=<%= p("garden.default_container_grace_time") %> \
+      --graph-cleanup-threshold-in-megabytes=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
     <% if_p("garden.network_plugin") do |plugin| %> \
-      -networkPlugin=<%= plugin %> \
-      <% if_p("garden.network_plugin_extra_args") do |args| %> \
-      -networkPluginExtraArgs=<%= args.join(',') %> \
+      --network-plugin=<%= plugin %> \
+      <% p("garden.network_plugin_extra_args").each do |arg| %> \
+      --network-plugin-extra-arg=<%= arg %> \
       <% end %> \
     <% end %> \
     <% if_p("garden.docker_registry_endpoint") do |endpoint| %> \
-      -registry=<%= endpoint %> \
+      --docker-registry=<%= endpoint %> \
     <% end %> \
     <% if_p("garden.dropsonde.origin") do |origin| %> \
-      -dropsondeOrigin=<%= origin %> \
+      --dropsonde-origin=<%= origin %> \
     <% end %> \
     <% if_p("garden.dropsonde.destination") do |destination| %> \
-      -dropsondeDestination=<%= destination %> \
+      --dropsonde-destination=<%= destination %> \
     <% end %> \
     <% if_p("garden.tag") do |tag| %> \
-      -tag=<%= tag %> \
+      --tag=<%= tag %> \
     <% end %> \
     <% if_p("garden.port_pool.start") do |start| %> \
-      -portPoolStart=<%= start %> \
+      --port-pool-start=<%= start %> \
     <% end %> \
     <% if_p("garden.port_pool.size") do |size| %> \
-      -portPoolSize=<%= size %> \
+      --port-pool-size=<%= size %> \
     <% end %> \
     <% p("garden.insecure_docker_registry_list").each do |url| %> \
-      -insecureDockerRegistry=<%= url %> \
+      --insecure-docker-registry=<%= url %> \
     <% end %> \
     <% p("garden.persistent_image_list").each do |url| %> \
-      -persistentImage=<%= url %> \
+      --persistent-image=<%= url %> \
     <% end %> \
     <% p("garden.dns_servers").each do |server| %> \
-      -dnsServer=<%= server %> \
+      --dns-server=<%= server %> \
     <% end %> \
       1>>$LOG_DIR/garden.stdout.log \
       2>>$LOG_DIR/garden.stderr.log

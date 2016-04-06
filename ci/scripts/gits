@@ -42,24 +42,19 @@ permit_device_control
 create_loop_devices 256
 
 $GOPATH/bin/guardian \
-  -iodaemonBin=$GOPATH/bin/iodaemon \
-  -kawasakiBin=$GOPATH/bin/kawasaki \
-  -initBin=$GOPATH/bin/init \
-  -dadooBin=$GOPATH/bin/dadoo \
-  -nstarBin=./rundmc/nstar/nstar \
-  -tarBin=/opt/tar \
-  -depot=$tmpdir/depot \
-  -graph=$tmpdir/graph \
-  -bin=$PWD/linux_backend/bin \
-  -listenNetwork=tcp \
-  -listenAddr=0.0.0.0:7777 \
-  -denyNetworks= \
-  -allowNetworks= \
-  -allowHostAccess=false \
-  -mtu=1500 \
-  -containerGraceTime=5m \
-  -logLevel=$LOG_LEVEL \
-  -rootfs=/opt/warden/rootfs &
+  --iodaemon-bin=$GOPATH/bin/iodaemon \
+  --kawasaki-bin=$GOPATH/bin/kawasaki \
+  --init-bin=$GOPATH/bin/init \
+  --dadoo-bin=$GOPATH/bin/dadoo \
+  --nstar-bin=./rundmc/nstar/nstar \
+  --tar-bin=/opt/tar \
+  --depot=$tmpdir/depot \
+  --graph=$tmpdir/graph \
+  --bind-ip=0.0.0.0 \
+  --bind-port=7777 \
+  --default-grace-time=5m \
+  --log-level=$LOG_LEVEL \
+  --default-rootfs=/opt/warden/rootfs &
 
 sleep 5
 popd

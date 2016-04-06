@@ -89,6 +89,7 @@ properties:
 
   garden.network_plugin_extra_args:
     description: "An array of additional arguments which will be passed to the network plugin binary"
+    default: []
 
   garden.shared_mounts:
     description: "A list of mount points to share into the garden mount namespace"
