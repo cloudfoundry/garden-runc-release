@@ -61,6 +61,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/cmd/networkplugin/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/runner/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/guardiancmd/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/configure/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/*.go # gosub
@@ -185,6 +186,7 @@ files:
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
+  - github.com/jessevdk/go-flags/*.go # gosub
   - github.com/kr/logfmt/*.go # gosub
   - github.com/kr/pty/*.go # gosub
   - github.com/npat-efault/poller/*.go # gosub
@@ -235,6 +237,7 @@ files:
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/ginkgomon/*.go # gosub
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
+  - github.com/tedsuo/ifrit/sigmon/*.go # gosub
   - github.com/tedsuo/rata/*.go # gosub
   - github.com/vbatts/tar-split/archive/tar/*.go # gosub
   - github.com/vbatts/tar-split/tar/asm/*.go # gosub
