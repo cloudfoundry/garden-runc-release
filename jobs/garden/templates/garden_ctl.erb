@@ -119,6 +119,9 @@ case $1 in
       --default-rootfs=<%= p("garden.default_container_rootfs") %> \
       --default-grace-time=<%= p("garden.default_container_grace_time") %> \
       --graph-cleanup-threshold-in-megabytes=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
+    <% if_p("garden.max_containers") do |max_containers| %> \
+      --max-containers=<%= max_containers %> \
+    <% end %> \
     <% if_p("garden.network_plugin") do |plugin| %> \
       --network-plugin=<%= plugin %> \
       <% p("garden.network_plugin_extra_args").each do |arg| %> \
