@@ -83,6 +83,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/netplugin/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/pkg/vars/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/properties/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/properties/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/bundlerules/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
