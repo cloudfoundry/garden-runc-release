@@ -60,6 +60,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/cmd/networkplugin/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/gqt/cmd/runc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/runner/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/guardiancmd/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/*.go # gosub
