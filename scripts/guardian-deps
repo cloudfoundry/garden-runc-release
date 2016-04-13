@@ -5,7 +5,7 @@ gosub list \
   -a github.com/cloudfoundry-incubator/guardian/... \
   -t github.com/cloudfoundry-incubator/guardian/gqt/... \
   -t github.com/cloudfoundry-incubator/garden-integration-tests/... \
-  -a github.com/opencontainers/specs/... \
+  -a github.com/opencontainers/runtime-spec/... \
   -a github.com/vishvananda/netns/... \
   -t github.com/cloudfoundry-incubator/garden-shed/... \
   -a github.com/opencontainers/runc/libcontainer/label/... \
