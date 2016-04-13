@@ -22,6 +22,7 @@ jobs:
         graph_cleanup_threshold_in_mb: 1024
         listen_network: tcp
         listen_address: 0.0.0.0:7777
+        log_level: debug
 
 networks:
   - name: garden

@@ -108,6 +108,7 @@ case $1 in
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \
+      --log-level=<%= p("garden.log_level") %> \
     <% p("garden.deny_networks").each do |network| %> \
       --deny-network=<%= network %> \
     <% end %> \

@@ -41,6 +41,10 @@ properties:
   garden.docker_registry_endpoint:
     description: "An URL pointing to the Docker registry to use to fetch Docker images. If unset, this will default to the Docker default."
 
+  garden.log_level:
+    description: "log level for the Garden server - can be debug, info, error or fatal"
+    default: info
+
   garden.tag:
     description: "A string that is a server-wide identifier used for 'global' configuration."
 
