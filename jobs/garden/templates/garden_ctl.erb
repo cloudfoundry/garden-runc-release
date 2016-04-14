@@ -108,6 +108,7 @@ case $1 in
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \
       --log-level=<%= p("garden.log_level") %> \
+      --mtu=<%= p("garden.network_mtu") %> \
     <% p("garden.deny_networks").each do |network| %> \
       --deny-network=<%= network %> \
     <% end %> \
