@@ -1,0 +1,5 @@
+---
+name: golang_1.6.1
+
+files:
+  - golang/go1.6.1.linux-amd64.tar.gz
