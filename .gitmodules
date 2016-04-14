@@ -160,9 +160,12 @@
 [submodule "src/github.com/xeipuuv/gojsonpointer"]
 	path = src/github.com/xeipuuv/gojsonpointer
 	url = https://github.com/xeipuuv/gojsonpointer
+	branch = master
 [submodule "src/github.com/xeipuuv/gojsonreference"]
 	path = src/github.com/xeipuuv/gojsonreference
 	url = https://github.com/xeipuuv/gojsonreference
+	branch = master
 [submodule "src/github.com/xeipuuv/gojsonschema"]
 	path = src/github.com/xeipuuv/gojsonschema
 	url = https://github.com/xeipuuv/gojsonschema
+	branch = master
