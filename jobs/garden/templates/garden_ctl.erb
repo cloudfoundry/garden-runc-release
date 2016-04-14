@@ -75,9 +75,6 @@ case $1 in
     depot_path=/var/vcap/data/garden/depot
     mkdir -p $depot_path
 
-    properties_path=/var/vcap/data/garden/properties
-    mkdir -p $properties_path
-
     graph_path=/var/vcap/data/garden/graph
     mkdir -p $graph_path
 
@@ -88,6 +85,9 @@ case $1 in
 
     permit_device_control
     create_loop_devices 256
+
+    echo 500 > /proc/sys/kernel/keys/maxkeys
+    echo 500 > /proc/sys/kernel/keys/root_maxkeys
 
     echo $$ > $PIDFILE
 
@@ -100,7 +100,6 @@ case $1 in
       --bind-socket=<%= p("garden.listen_address") %> \
     <% end %> \
       --depot=$depot_path \
-      --properties=$properties_path \
       --graph=$graph_path \
       --iodaemon-bin=/var/vcap/packages/guardian/bin/iodaemon \
       --kawasaki-bin=/var/vcap/packages/guardian/bin/kawasaki \
