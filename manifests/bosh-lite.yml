@@ -1,11 +1,11 @@
 ---
-name: guardian
+name: garden-runc
 
 # replace with bosh status --uuid
 director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
 
 releases:
-  - name: guardian
+  - name: garden-runc
     version: latest
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     instances: 1
     templates:
       - name: garden
-        release: guardian
+        release: garden-runc
     resource_pool: garden
     networks:
       - name: garden
