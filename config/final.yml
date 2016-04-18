@@ -1,5 +1,5 @@
 ---
-final_name: guardian
+final_name: garden-runc
 blobstore:
   provider: s3
   options:

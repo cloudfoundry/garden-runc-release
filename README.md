@@ -1,4 +1,4 @@
-# Guardian Release
+# Garden-runC Release
 
 A [BOSH](http://docs.cloudfoundry.org/bosh/) release for deploying
 [Guardian](https://github.com/cloudfoundry-incubator/guardian).
@@ -12,8 +12,8 @@ API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 Clone it:
 
 ```bash
-git clone https://github.com/cloudfoundry-incubator/guardian-release
-cd guardian-release
+git clone https://github.com/cloudfoundry-incubator/garden-runc
+cd garden-runc
 git submodule update --init --recursive
 ```
 
@@ -53,7 +53,7 @@ specific tests in a VM using [Concourse CI](https://concourse.ci/).
 In order to contribute to the project you should have the following installed:
 
 - [Git](https://git-scm.com/) - Distributed version control system
-- [Go 1.4](https://golang.org/doc/install#install) - The Go programming
+- [Go 1.6](https://golang.org/doc/install#install) - The Go programming
    language
 - [Direnv](https://github.com/direnv/direnv) - Environment management
 - [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based dependency manager for Go
@@ -61,8 +61,8 @@ In order to contribute to the project you should have the following installed:
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
 
-Guardian uses git submodules to maintain its dependencies and components.
-Guardian's components currently are:
+Garden-runC uses git submodules to maintain its dependencies and components.
+Garden-runC's components currently are:
 
 * [Garden](https://github.com/cloudfoundry-incubator/garden) found under
    `src/github.com/cloudfoundry-incubator/garden` is the API server and client.
@@ -81,7 +81,7 @@ direnv allow
 
 ### Running the tests
 
-[Concourse CI](https://concourse.ci/) is used for running Guardian tests
+[Concourse CI](https://concourse.ci/) is used for running Garden-runC tests
 in a VM. It provides its [Fly CLI](https://github.com/concourse/fly) for
 Linux and MacOSX. Concourse has a pre-built Vagrant box for VirtualBox. You
 can create a new instance by executing the following commands:
@@ -134,10 +134,10 @@ executing `./scripts/remote-fly`:
 
 ```bash
 # Running Guardian tests
-./scripts/remote-fly ci/nested-guardian-tests.yml
+./scripts/remote-fly ci/guardian.yml
 
 # Running Garden integration tests in Concourse CI
-./scripts/remote-fly ci/nested-tests.yml
+./scripts/remote-fly ci/gits.yml
 ```
 
 #### Comitting code
@@ -156,7 +156,7 @@ git push
 Commit the changes, run the tests, and create a bump commit:
 
 ```bash
-# from the guardian-release directory
+# from the garden-runc directory
 ./scripts/test-and-bump
 ```
 
