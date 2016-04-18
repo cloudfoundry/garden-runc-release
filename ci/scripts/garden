@@ -15,4 +15,5 @@ cd src/github.com/cloudfoundry-incubator/garden
 
 go install github.com/onsi/ginkgo/ginkgo
 
+go vet ./...
 ginkgo -r -p -race -keepGoing -nodes=4 "$@"

@@ -19,4 +19,5 @@ go install github.com/onsi/ginkgo/ginkgo
 permit_device_control
 create_loop_devices 256
 
+go vet ./...
 ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=4 "$@"

@@ -10,6 +10,16 @@ pushd src/github.com/cloudfoundry-incubator/guardian
 	ginkgo -r
 popd
 
+pushd src/github.com/cloudfoundry-incubator/garden-shed
+  go vet ./...
+  go fmt ./...
+popd
+
+pushd src/github.com/cloudfoundry-incubator/garden
+  go vet ./...
+  go fmt ./...
+popd
+
 ./scripts/remote-fly ci/garden.yml
 ./scripts/remote-fly ci/shed.yml
 ./scripts/remote-fly ci/guardian.yml
