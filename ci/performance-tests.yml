@@ -4,7 +4,7 @@ image: docker:///cloudfoundry/golang-ci
 platform: linux
 
 inputs:
-- name: guardian-release
+- name: garden-runc-release
 
 params:
   GARDEN_ADDRESS: ""
@@ -12,4 +12,4 @@ params:
   ENVIRONMENT: ""
 
 run:
-  path: guardian-release/ci/scripts/performance-tests
+  path: garden-runc-release/ci/scripts/performance-tests

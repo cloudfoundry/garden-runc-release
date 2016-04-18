@@ -6,7 +6,7 @@ platform: linux
 inputs:
 - name: diego-perf-release
 - name: garden-ci
-- name: guardian-release
+- name: garden-runc-release
 
 params:
   BOSH_TARGET: ""
@@ -16,4 +16,4 @@ params:
   BOSH_DIEGO_DEPLOYMENT: ""
 
 run:
-  path: guardian-release/ci/scripts/diego-performance-tests
+  path: garden-runc-release/ci/scripts/diego-performance-tests

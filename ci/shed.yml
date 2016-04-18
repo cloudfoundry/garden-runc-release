@@ -4,7 +4,7 @@ image: docker:///cloudfoundry/garden-ci-ubuntu
 platform: linux
 
 inputs:
-- name: guardian-release
+- name: garden-runc-release
 
 run:
-  path: guardian-release/ci/scripts/shed
+  path: garden-runc-release/ci/scripts/shed

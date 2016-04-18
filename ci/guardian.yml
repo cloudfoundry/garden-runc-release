@@ -4,10 +4,10 @@ image: docker:///cloudfoundry/guardian-ci-ubuntu
 platform: linux
 
 inputs:
-- name: guardian-release
+- name: garden-runc-release
 
 run:
-  path: guardian-release/ci/scripts/guardian
+  path: garden-runc-release/ci/scripts/guardian
 
 params:
   NETWORK_MODULE_PATH:

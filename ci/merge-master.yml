@@ -3,11 +3,11 @@ platform: linux
 image: docker:///concourse/git-resource
 
 inputs:
-  - name: guardian-release
-  - name: guardian-release-master
+  - name: garden-runc-release
+  - name: garden-runc-release-master
 
 outputs:
   - name: release-merged
 
 run:
-  path: guardian-release/ci/scripts/merge-master
+  path: garden-runc-release/ci/scripts/merge-master
