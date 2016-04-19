@@ -12,8 +12,8 @@ API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 Clone it:
 
 ```bash
-git clone https://github.com/cloudfoundry-incubator/garden-runc
-cd garden-runc
+git clone https://github.com/cloudfoundry-incubator/garden-runc-release
+cd garden-runc-release
 git submodule update --init --recursive
 ```
 
