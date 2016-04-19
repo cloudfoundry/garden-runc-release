@@ -169,3 +169,7 @@
 	path = src/github.com/xeipuuv/gojsonschema
 	url = https://github.com/xeipuuv/gojsonschema
 	branch = master
+[submodule "src/github.com/docker/go-units"]
+	path = src/github.com/docker/go-units
+	url = https://github.com/docker/go-units
+	branch = master

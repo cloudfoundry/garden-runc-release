@@ -99,6 +99,8 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/writer/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/stopper/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/stopper/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/sysinfo/*.go # gosub
   - github.com/cloudfoundry/dropsonde/*.go # gosub
   - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
@@ -180,6 +182,7 @@ files:
   - github.com/docker/docker/runconfig/*.go # gosub
   - github.com/docker/docker/utils/*.go # gosub
   - github.com/docker/docker/volume/*.go # gosub
+  - github.com/docker/go-units/*.go # gosub
   - github.com/docker/libtrust/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
