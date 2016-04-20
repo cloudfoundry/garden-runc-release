@@ -9,7 +9,7 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-cd garden-runc-release/
+cd gr-release-develop/
 
 bosh -n create release --with-tarball --version "${VERSION}"
 

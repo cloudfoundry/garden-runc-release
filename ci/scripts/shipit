@@ -9,11 +9,11 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-cp garden-ci/config/private.yml garden-runc-release/config/private.yml
+cp garden-ci/config/private.yml gr-release-develop/config/private.yml
 
 CANDIDATE_DIR=$PWD/guardian-candidate-tarball
 
-cd garden-runc-release/
+cd gr-release-develop/
 
 git config --global user.email "ci@localhost"
 git config --global user.name "CI Bot"
