@@ -224,6 +224,10 @@ files:
   - github.com/onsi/gomega/matchers/support/goraph/node/*.go # gosub
   - github.com/onsi/gomega/matchers/support/goraph/util/*.go # gosub
   - github.com/onsi/gomega/types/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/cgroups/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/cgroups/fs/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/cgroups/systemd/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
