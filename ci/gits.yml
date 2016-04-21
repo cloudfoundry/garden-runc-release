@@ -4,10 +4,10 @@ image: docker:///cloudfoundry/guardian-ci-ubuntu
 platform: linux
 
 inputs:
-- name: gr-release-develop
+- name: garden-runc-release
 
 params:
   LOG_LEVEL: debug
 
 run:
-  path: gr-release-develop/ci/scripts/gits
+  path: garden-runc-release/ci/scripts/gits

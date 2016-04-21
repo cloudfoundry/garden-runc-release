@@ -4,7 +4,7 @@ image: docker:///cloudfoundry/garden-ci-ubuntu
 platform: linux
 
 inputs:
-- name: gr-release-develop
+- name: garden-runc-release
 
 run:
-  path: gr-release-develop/ci/scripts/garden
+  path: garden-runc-release/ci/scripts/garden
