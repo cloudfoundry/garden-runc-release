@@ -58,8 +58,8 @@ files:
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/gqt/cmd/fake_runc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/cmd/networkplugin/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/gqt/cmd/runc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/runner/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/guardiancmd/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/*.go # gosub
@@ -86,6 +86,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/properties/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/bundlerules/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/dadoo/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/fakes/*.go # gosub
