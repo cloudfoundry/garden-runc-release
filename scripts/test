@@ -21,6 +21,6 @@ pushd src/github.com/cloudfoundry-incubator/garden
 popd
 
 ./scripts/remote-fly ci/garden.yml
-./scripts/remote-fly ci/shed.yml
+./scripts/remote-fly ci/nested-shed-tests.yml
 ./scripts/remote-fly ci/guardian.yml
 ./scripts/remote-fly ci/gits.yml

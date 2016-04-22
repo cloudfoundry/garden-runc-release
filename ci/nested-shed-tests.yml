@@ -7,4 +7,4 @@ inputs:
 - name: garden-runc-release
 
 run:
-  path: garden-runc-release/ci/scripts/shed
+  path: garden-runc-release/ci/scripts/nested-shed-tests
