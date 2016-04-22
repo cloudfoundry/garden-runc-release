@@ -5,11 +5,11 @@ image: docker:///concourse/concourse-ci
 platform: linux
 
 inputs:
-  - name: garden-runc-release
-  - name: garden-runc-version
+  - name: gr-release-develop
+  - name: gr-version
 
 outputs:
 - name: bosh-release
 
 run:
-  path: garden-runc-release/ci/scripts/create-release
+  path: gr-release-develop/ci/scripts/create-release

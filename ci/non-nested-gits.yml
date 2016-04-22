@@ -4,10 +4,10 @@ image: docker:///cloudfoundry/golang-ci
 platform: linux
 
 inputs:
-  - name: garden-runc-release 
+  - name: gr-release-develop 
 
 params:
   GARDEN_ADDRESS: ""
 
 run:
-  path: garden-runc-release/ci/scripts/non-nested-gits
+  path: gr-release-develop/ci/scripts/non-nested-gits

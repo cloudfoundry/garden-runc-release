@@ -3,26 +3,26 @@
 
 set -e -x
 
-VERSION=$(cat ./garden-runc-version/number)
+VERSION=$(cat ./gr-version/number)
 if [ -z "$VERSION" ]; then
   echo "missing version number"
   exit 1
 fi
 
-cp garden-ci/config/private.yml garden-runc-release/config/private.yml
+cp garden-ci/config/private.yml gr-release-develop/config/private.yml
 
-CANDIDATE_DIR=$PWD/guardian-candidate-tarball
+CANDIDATE_DIR=$PWD/gr-candidate-tarball
 
-cd garden-runc-release/
+cd gr-release-develop/
 
 git config --global user.email "ci@localhost"
 git config --global user.name "CI Bot"
 
 git merge --no-edit master
 
-bosh -n finalize release --version "$VERSION" ${CANDIDATE_DIR}/guardian-*.tgz
+bosh -n finalize release --version "$VERSION" ${CANDIDATE_DIR}/garden-runc-*.tgz
 
-mv releases/guardian/*.tgz ../final-release/guardian-${VERSION}.tgz
+mv releases/garden-runc/*.tgz ../final-release/garden-runc-${VERSION}.tgz
 
 git add -A
 git commit -m "release v${VERSION}"

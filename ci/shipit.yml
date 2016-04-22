@@ -4,14 +4,14 @@ image: docker:///concourse/concourse-ci
 platform: linux
 
 inputs:
-  - name: garden-runc-release
-  - name: garden-runc-version
+  - name: gr-release-develop
+  - name: gr-version
   - name: garden-ci
-  - name: guardian-candidate-tarball
+  - name: gr-candidate-tarball
 
 outputs:
   - name: final-release
   - name: release
 
 run:
-  path: garden-runc-release/ci/scripts/shipit
+  path: gr-release-develop/ci/scripts/shipit

@@ -4,7 +4,7 @@ image: docker:///cloudfoundry/garden-ci-ubuntu
 platform: linux
 
 inputs:
-- name: garden-runc-release
+- name: gr-release-develop
 
 run:
-  path: garden-runc-release/ci/scripts/nested-shed-tests
+  path: gr-release/ci/scripts/nested-shed-tests
