@@ -1,0 +1,7 @@
+---
+builds:
+  fc652425c32d0dad62f45bca18e1899671e2e570:
+    version: fc652425c32d0dad62f45bca18e1899671e2e570
+    sha1: 316cbd12d68829eac70962531e99b52702adc8ae
+    blobstore_id: 1a786704-110a-42f5-b1b8-98dfb25fbb80
+format-version: '2'
