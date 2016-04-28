@@ -68,6 +68,9 @@ Garden-runC's components currently are:
    `src/github.com/cloudfoundry-incubator/garden` is the API server and client.
 * [Guardian](https://github.com/cloudfoundry-incubator/guardian) found under
    `src/github.com/cloudfoundry-incubator/guardian` is the Garden backend.
+* [Garden Shed](https://github.com/cloudfoundry-incubator/garden-shed) found under
+   `src/github.com/cloudfoundry-incubator/garden-shed` downloads and manages
+   root filesystems.
 * [GITS](https://github.com/cloudfoundry-incubator/garden-integration-tests)
    found under `src/github.com/cloudfoundry-incubator/garden-integration-tests`
    are the cross-backend integration tests of Garden.
@@ -82,7 +85,7 @@ direnv allow
 ### Running the tests
 
 [Concourse CI](https://concourse.ci/) is used for running Garden-runC tests
-in a VM. It provides its [Fly CLI](https://github.com/concourse/fly) for
+in a VM. It provides the [Fly CLI](https://github.com/concourse/fly) for
 Linux and MacOSX. Concourse has a pre-built Vagrant box for VirtualBox. You
 can create a new instance by executing the following commands:
 
@@ -136,6 +139,9 @@ executing `./scripts/remote-fly`:
 # Running Guardian tests
 ./scripts/remote-fly ci/guardian.yml
 
+# Running Garden Shed tests
+./scripts/remote-fly ci/nested-shed-tests.yml
+
 # Running Garden integration tests in Concourse CI
 ./scripts/remote-fly ci/gits.yml
 ```
@@ -157,7 +163,7 @@ Commit the changes, run the tests, and create a bump commit:
 
 ```bash
 # from the garden-runc directory
-./scripts/test-and-bump
+./scripts/test-and-bump # or just ./scripts/bump if you've already run the tests
 ```
 
 ### License
