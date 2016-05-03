@@ -5,7 +5,7 @@ export PATH=$GOPATH/bin:$PATH
 
 DEVELOP=$PWD/gr-release-develop
 
-git clone ./gr-release-develop-master ./release-merged
+git clone ./gr-release-master ./release-merged
 
 cd release-merged
 
