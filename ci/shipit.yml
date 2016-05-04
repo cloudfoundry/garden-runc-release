@@ -1,5 +1,5 @@
 ---
-image: docker:///concourse/concourse-ci
+image: docker:///cfgarden/garden-ci
 
 platform: linux
 
