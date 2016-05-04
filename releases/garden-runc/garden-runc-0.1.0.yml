@@ -1,0 +1,53 @@
+---
+packages:
+- name: golang_1.6.1
+  version: 7c83e83f822259c6324742e3dfc5d4aaae25e9e6
+  fingerprint: 7c83e83f822259c6324742e3dfc5d4aaae25e9e6
+  sha1: 83a972490d867e21000681a4d8c98e498c250ac6
+  dependencies: []
+- name: busybox
+  version: fc652425c32d0dad62f45bca18e1899671e2e570
+  fingerprint: fc652425c32d0dad62f45bca18e1899671e2e570
+  sha1: 316cbd12d68829eac70962531e99b52702adc8ae
+  dependencies: []
+- name: runc
+  version: a209f0aa98f2838c87b5a0ea7a559e80c8ebd8c3
+  fingerprint: a209f0aa98f2838c87b5a0ea7a559e80c8ebd8c3
+  sha1: 8483a952661da005313f874f5ee317ca19456aad
+  dependencies:
+  - golang_1.6.1
+- name: tar
+  version: cfd0d2ff9e0773446e403cef583e0f01cd61f592
+  fingerprint: cfd0d2ff9e0773446e403cef583e0f01cd61f592
+  sha1: 96f97419c9c395a0916a712d388464304111b817
+  dependencies: []
+- name: shadow
+  version: ffd1741bd9e0a176e67c61ef70cd0ed76b0ec285
+  fingerprint: ffd1741bd9e0a176e67c61ef70cd0ed76b0ec285
+  sha1: f26eeaa8bc7a81495bdda5097e29455768fa021e
+  dependencies: []
+- name: guardian
+  version: 136a4e7f7d0a32987d391fa288a974f16cc77e5d
+  fingerprint: 136a4e7f7d0a32987d391fa288a974f16cc77e5d
+  sha1: a63dae1c371cd2649babef47b4ab7200e0300496
+  dependencies:
+  - golang_1.6.1
+  - runc
+- name: iptables
+  version: 7226d311e90f49b05287e79f339581a1de9ea82e
+  fingerprint: 7226d311e90f49b05287e79f339581a1de9ea82e
+  sha1: 4c5c84a33d269975051a688daa5f270ed27b6c82
+  dependencies: []
+jobs:
+- name: garden
+  version: 2676af21f485c9ec9bbc770e63de00849b944cf1
+  fingerprint: 2676af21f485c9ec9bbc770e63de00849b944cf1
+  sha1: b6321984d618dc9cdeb61569a1c12ca90aa4da34
+license:
+  version: 5d8ee81dc9e612c0eefcf39e9efae66d2fad2a99
+  fingerprint: 5d8ee81dc9e612c0eefcf39e9efae66d2fad2a99
+  sha1: 5ea32836ccdaa3b70be47420b676f4e54825bced
+commit_hash: 0eeb09ba
+uncommitted_changes: false
+name: garden-runc
+version: 0.1.0
