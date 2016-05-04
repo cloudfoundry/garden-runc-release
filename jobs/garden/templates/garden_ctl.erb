@@ -116,7 +116,7 @@ case $1 in
     <% p("garden.allow_networks").each do |network| %> \
       --allow-network=<%= network %> \
     <% end %> \
-    <% if p("garden.destroy_containers_on_startup") %> \
+    <% if p("garden.destroy_containers_on_start") %> \
       --destroy-containers-on-startup \
     <% end %> \
     <% if p("garden.allow_host_access") %> \
