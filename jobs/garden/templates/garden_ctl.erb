@@ -110,6 +110,7 @@ case $1 in
       --tar-bin=/var/vcap/packages/tar/tar \
       --log-level=<%= p("garden.log_level") %> \
       --mtu=<%= p("garden.network_mtu") %> \
+      --network-pool=<%= p("garden.network_pool") %> \
     <% p("garden.deny_networks").each do |network| %> \
       --deny-network=<%= network %> \
     <% end %> \

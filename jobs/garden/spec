@@ -105,3 +105,7 @@ properties:
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
     default: false
+
+  garden.network_pool:
+    description: "A CIDR subnet mask specifying the range of subnets available to be assigned to containers."
+    default: "10.254.0.0/22"
