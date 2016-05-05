@@ -147,9 +147,6 @@ case $1 in
     <% if_p("garden.dropsonde.destination") do |destination| %> \
       --dropsonde-destination=<%= destination %> \
     <% end %> \
-    <% if_p("garden.tag") do |tag| %> \
-      --tag=<%= tag %> \
-    <% end %> \
     <% if_p("garden.port_pool.start") do |start| %> \
       --port-pool-start=<%= start %> \
     <% end %> \

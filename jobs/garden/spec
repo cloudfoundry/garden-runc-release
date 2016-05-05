@@ -45,9 +45,6 @@ properties:
     description: "log level for the Garden server - can be debug, info, error or fatal"
     default: info
 
-  garden.tag:
-    description: "A string that is a server-wide identifier used for 'global' configuration."
-
   garden.debug_listen_address:
     description: "tcp address on which to serve debug info"
     default: "0.0.0.0:17013"
