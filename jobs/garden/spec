@@ -98,6 +98,7 @@ properties:
 
   garden.max_containers:
     description: "Maximum container capacity to advertise. It is not recommended to set this larger than 250."
+    default: 250
 
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
