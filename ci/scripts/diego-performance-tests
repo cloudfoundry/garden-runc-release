@@ -16,7 +16,7 @@ bosh download manifest $BOSH_CF_DEPLOYMENT > $MANIFESTS_DIR/cf.yml
 bosh download manifest $BOSH_DIEGO_DEPLOYMENT > $MANIFESTS_DIR/diego.yml
 
 ./scripts/generate-deployment-manifest \
-  ../garden-ci/deployments/fangorn/stubs/director-uuid.yml \
+  ../garden-ci/deployments/fangorn/stubs/cf/director-uuid.yml \
   ../garden-ci/deployments/fangorn/stubs/perf/property-overrides.yml \
   ../garden-ci/deployments/fangorn/stubs/perf/instance-count-overrides.yml \
   ../garden-ci/deployments/fangorn/stubs/perf/iaas-settings.yml \
