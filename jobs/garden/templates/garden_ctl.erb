@@ -75,14 +75,13 @@ case $1 in
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
     export PATH=/var/vcap/packages/runc/bin:$PATH
 
-    depot_path=/var/vcap/data/garden/depot
+    depot_path=${DATA_DIR}/depot
     mkdir -p $depot_path
 
-    graph_path=/var/vcap/data/garden/graph
+    graph_path=${DATA_DIR}/graph
     mkdir -p $graph_path
 
-    real_graph=/var/vcap/data/garden/realgraph
-    mkdir -p $real_graph/graph
+    real_graph=${DATA_DIR}/realgraph
 
     permit_device_control
     create_loop_devices 256
@@ -92,7 +91,7 @@ case $1 in
 
     echo $$ > $PIDFILE
 
-    exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph/graph $graph_path /var/vcap/packages/guardian/bin/guardian \
+    exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path /var/vcap/packages/guardian/bin/guardian \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
