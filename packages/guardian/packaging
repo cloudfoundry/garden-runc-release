@@ -14,7 +14,6 @@ go install github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/
 go install github.com/cloudfoundry-incubator/guardian/cmd/init/
 go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo/
 go install github.com/cloudfoundry-incubator/guardian/cmd/inspector-garden/
-go install github.com/cloudfoundry-incubator/guardian/cmd/the-secret-garden/
 
 pushd github.com/cloudfoundry-incubator/guardian/rundmc/nstar
 make
