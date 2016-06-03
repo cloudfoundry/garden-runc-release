@@ -3,7 +3,8 @@
 RUN_DIR=/var/vcap/sys/run/garden
 LOG_DIR=/var/vcap/sys/log/garden
 PIDFILE=$RUN_DIR/garden.pid
-DATA_DIR=/var/vcap/data/garden
+DATA_DIR=/var/vcap/data
+GARDEN_DIR=/var/vcap/data/garden
 
 function setup() {
   mkdir -p /var/vcap/sys/log/monit
@@ -66,7 +67,7 @@ case $1 in
     fi
 
     mkdir -p $RUN_DIR
-    mkdir -p $DATA_DIR
+    mkdir -p $GARDEN_DIR
     mkdir -p $LOG_DIR
 
     export TMPDIR=/var/vcap/data/tmp
@@ -75,13 +76,13 @@ case $1 in
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
     export PATH=/var/vcap/packages/runc/bin:$PATH
 
-    depot_path=${DATA_DIR}/depot
+    depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
 
-    graph_path=${DATA_DIR}/graph
+    graph_path=${GARDEN_DIR}/graph
     mkdir -p $graph_path
 
-    real_graph=${DATA_DIR}/realgraph
+    real_graph=${GARDEN_DIR}/realgraph
 
     permit_device_control
     create_loop_devices 256
