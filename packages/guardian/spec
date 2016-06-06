@@ -72,6 +72,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/factory/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/netns/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/ports/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/*.go # gosub
