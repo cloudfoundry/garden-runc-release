@@ -90,9 +90,7 @@ case $1 in
     echo 500 > /proc/sys/kernel/keys/maxkeys
     echo 500 > /proc/sys/kernel/keys/root_maxkeys
 
-    echo $$ > $PIDFILE
-
-    exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path /var/vcap/packages/guardian/bin/guardian \
+    exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE /var/vcap/packages/guardian/bin/guardian \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
