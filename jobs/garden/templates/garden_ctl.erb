@@ -92,6 +92,8 @@ case $1 in
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
 
+    ulimit -n 65536
+
     exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE /var/vcap/packages/guardian/bin/guardian \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
