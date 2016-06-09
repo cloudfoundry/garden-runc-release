@@ -17,10 +17,10 @@ files:
   - github.com/cloudfoundry-incubator/garden-shed/distclient/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/distclient/fake_distclient/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/docker_drivers/aufs/aufsfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/cleaner/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/layercake/cleaner/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/layercake/cleaner/cleanerfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_cake/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/layercake/fake_id_provider/*.go # gosub
@@ -29,18 +29,18 @@ files:
   - github.com/cloudfoundry-incubator/garden-shed/pkg/chown/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/pkg/retrier/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/quota_manager/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/quota_manager/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/quota_manager/quota_managerfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_container_id_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_lock/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_remote_v1_metadata_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fake_remote_v2_metadata_provider/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/repository_fetcher/repository_fetcherfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_mapper/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_namespacer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fake_translator/*.go # gosub
-  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/garden-shed/rootfs_provider/rootfs_providerfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/client/connection/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/routes/*.go # gosub
@@ -57,7 +57,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/the-secret-garden/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/gardener/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/gardener/gardenerfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/cmd/fake_runc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gqt/cmd/networkplugin/*.go # gosub
@@ -68,20 +68,20 @@ files:
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/devices/fakedevices/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/dns/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/kawasaki/dns/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/dns/dnsfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/factory/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/kawasaki/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/iptables/iptablesfakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/kawasakifakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/netns/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/ports/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fake_subnet_pool/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/kawasaki/subnets/subnetsfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/logging/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/matchers/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/metrics/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/metrics/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/metrics/metricsfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/netplugin/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/pkg/vars/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/properties/*.go # gosub
@@ -89,22 +89,22 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/bundlerules/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/dadoo/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/dadoo/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/dadoo/dadoofakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/depot/fakes/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/depot/depotfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/link/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/preparerootfs/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fake_process_tracker/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/process_trackerfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/process_tracker/writer/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/rundmcfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/runrunc/runruncfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/stopper/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/rundmc/stopper/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/stopper/stopperfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/sysinfo/*.go # gosub
   - github.com/cloudfoundry/dropsonde/*.go # gosub
   - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
