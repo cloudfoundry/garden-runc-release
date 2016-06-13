@@ -107,3 +107,12 @@ properties:
   garden.network_pool:
     description: "A CIDR subnet mask specifying the range of subnets available to be assigned to containers."
     default: "10.254.0.0/22"
+
+  garden.http_proxy:
+    description: Http proxy that Garden process should use
+
+  garden.https_proxy:
+    description: Https proxy that Garden process should use
+
+  garden.no_proxy:
+    description: List of comma-separated hosts that should skip connecting to the proxy
