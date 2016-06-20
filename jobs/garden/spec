@@ -116,3 +116,6 @@ properties:
 
   garden.no_proxy:
     description: List of comma-separated hosts that should skip connecting to the proxy
+
+  garden.iptables_bin:
+    description: iptables binary path

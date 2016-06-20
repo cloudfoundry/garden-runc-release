@@ -121,8 +121,8 @@ case $1 in
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
       --iodaemon-bin=/var/vcap/packages/guardian/bin/iodaemon \
       --kawasaki-bin=/var/vcap/packages/guardian/bin/kawasaki \
-    <% if_p('garden.iptables_bin') do |bin| %>
-      --iptables-bin=<%= bin %>
+    <% if_p('garden.iptables_bin') do |bin| %>  \
+      --iptables-bin=<%= bin %> \
     <% end %> \
       --init-bin=/var/vcap/packages/guardian/bin/init \
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
