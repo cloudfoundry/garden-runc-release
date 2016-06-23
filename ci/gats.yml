@@ -10,4 +10,4 @@ params:
   LOG_LEVEL: debug
 
 run:
-  path: gr-release-develop/ci/scripts/gits
+  path: gr-release-develop/ci/scripts/gats

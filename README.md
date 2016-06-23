@@ -71,7 +71,7 @@ Garden-runC's components currently are:
 * [Garden Shed](https://github.com/cloudfoundry-incubator/garden-shed) found under
    `src/github.com/cloudfoundry-incubator/garden-shed` downloads and manages
    root filesystems.
-* [GITS](https://github.com/cloudfoundry-incubator/garden-integration-tests)
+* [GATS](https://github.com/cloudfoundry-incubator/garden-integration-tests)
    found under `src/github.com/cloudfoundry-incubator/garden-integration-tests`
    are the cross-backend integration tests of Garden.
 
@@ -143,7 +143,7 @@ executing `./scripts/remote-fly`:
 ./scripts/remote-fly ci/nested-shed-tests.yml
 
 # Running Garden integration tests in Concourse CI
-./scripts/remote-fly ci/gits.yml
+./scripts/remote-fly ci/gats.yml
 ```
 
 #### Comitting code

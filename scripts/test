@@ -23,4 +23,4 @@ popd
 ./scripts/remote-fly ci/garden.yml
 ./scripts/remote-fly ci/nested-shed-tests.yml
 ./scripts/remote-fly ci/guardian.yml
-./scripts/remote-fly ci/gits.yml
+./scripts/remote-fly ci/gats.yml
