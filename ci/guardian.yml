@@ -1,5 +1,5 @@
 ---
-image: docker:///cloudfoundry/guardian-ci-ubuntu
+image: docker:///cfgarden/guardian-ci-ubuntu
 
 platform: linux
 
