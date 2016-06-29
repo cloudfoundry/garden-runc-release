@@ -173,3 +173,15 @@
 	path = src/github.com/docker/go-units
 	url = https://github.com/docker/go-units
 	branch = master
+[submodule "src/github.com/mitchellh/reflectwalk"]
+	path = src/github.com/mitchellh/reflectwalk
+	url = https://github.com/mitchellh/reflectwalk
+	branch = master
+[submodule "src/gopkg.in/yaml.v2"]
+	path = src/gopkg.in/yaml.v2
+	url = https://gopkg.in/yaml.v2
+	branch = v2
+[submodule "src/github.com/mitchellh/copystructure"]
+	path = src/github.com/mitchellh/copystructure
+	url = https://github.com/mitchellh/copystructure
+	branch = master

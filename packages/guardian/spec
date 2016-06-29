@@ -197,6 +197,8 @@ files:
   - github.com/jessevdk/go-flags/*.go # gosub
   - github.com/kr/logfmt/*.go # gosub
   - github.com/kr/pty/*.go # gosub
+  - github.com/mitchellh/copystructure/*.go # gosub
+  - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/npat-efault/poller/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
   - github.com/onsi/ginkgo/*.go # gosub
@@ -221,6 +223,7 @@ files:
   - github.com/onsi/gomega/gexec/*.go # gosub
   - github.com/onsi/gomega/internal/assertion/*.go # gosub
   - github.com/onsi/gomega/internal/asyncassertion/*.go # gosub
+  - github.com/onsi/gomega/internal/oraclematcher/*.go # gosub
   - github.com/onsi/gomega/internal/testingtsupport/*.go # gosub
   - github.com/onsi/gomega/matchers/*.go # gosub
   - github.com/onsi/gomega/matchers/support/goraph/bipartitegraph/*.go # gosub
@@ -259,3 +262,4 @@ files:
   - github.com/xeipuuv/gojsonreference/*.go # gosub
   - github.com/xeipuuv/gojsonschema/*.go # gosub
   - golang.org/x/net/context/*.go # gosub
+  - gopkg.in/yaml.v2/*.go # gosub
