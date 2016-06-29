@@ -192,6 +192,23 @@ files:
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
+  - github.com/golang/protobuf/jsonpb/*.go # gosub
+  - github.com/golang/protobuf/jsonpb/jsonpb_test_proto/*.go # gosub
+  - github.com/golang/protobuf/proto/*.go # gosub
+  - github.com/golang/protobuf/proto/proto3_proto/*.go # gosub
+  - github.com/golang/protobuf/proto/testdata/*.go # gosub
+  - github.com/golang/protobuf/protoc-gen-go/*.go # gosub
+  - github.com/golang/protobuf/protoc-gen-go/descriptor/*.go # gosub
+  - github.com/golang/protobuf/protoc-gen-go/generator/*.go # gosub
+  - github.com/golang/protobuf/protoc-gen-go/grpc/*.go # gosub
+  - github.com/golang/protobuf/protoc-gen-go/plugin/*.go # gosub
+  - github.com/golang/protobuf/ptypes/*.go # gosub
+  - github.com/golang/protobuf/ptypes/any/*.go # gosub
+  - github.com/golang/protobuf/ptypes/duration/*.go # gosub
+  - github.com/golang/protobuf/ptypes/empty/*.go # gosub
+  - github.com/golang/protobuf/ptypes/struct/*.go # gosub
+  - github.com/golang/protobuf/ptypes/timestamp/*.go # gosub
+  - github.com/golang/protobuf/ptypes/wrappers/*.go # gosub
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
   - github.com/jessevdk/go-flags/*.go # gosub

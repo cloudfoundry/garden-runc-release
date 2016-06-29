@@ -185,3 +185,7 @@
 	path = src/github.com/mitchellh/copystructure
 	url = https://github.com/mitchellh/copystructure
 	branch = master
+[submodule "src/github.com/golang/protobuf"]
+	path = src/github.com/golang/protobuf
+	url = https://github.com/golang/protobuf
+	branch = master

@@ -15,3 +15,4 @@ gosub list \
   -a github.com/opencontainers/runc/libcontainer/system/... \
   -a github.com/opencontainers/runc/libcontainer/cgroups/... \
   -a github.com/docker/go-units/... \
+  -a github.com/golang/protobuf/... \
