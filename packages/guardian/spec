@@ -49,7 +49,6 @@ files:
   - github.com/cloudfoundry-incubator/garden/server/streamer/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/transport/*.go # gosub
-  - github.com/cloudfoundry-incubator/goci/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/dadoo/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/init/*.go # gosub
@@ -92,6 +91,7 @@ files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/dadoo/dadoofakes/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/depot/depotfakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/guardian/rundmc/goci/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/link/*.go # gosub

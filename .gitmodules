@@ -62,10 +62,6 @@
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
 	branch = guardian
-[submodule "src/github.com/cloudfoundry-incubator/goci"]
-	path = src/github.com/cloudfoundry-incubator/goci
-	url = https://github.com/cloudfoundry-incubator/goci
-	branch = master
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
