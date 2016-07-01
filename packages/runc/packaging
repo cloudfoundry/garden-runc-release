@@ -1,5 +1,7 @@
 set -e -x
 
+export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
+
 mkdir -p $BOSH_INSTALL_TARGET/src $BOSH_INSTALL_TARGET/bin
 cp -a . $BOSH_INSTALL_TARGET/src/.
 
@@ -9,5 +11,7 @@ export GOPATH=$BOSH_INSTALL_TARGET
 
 cd $GOPATH/src/github.com/opencontainers/runc
 export GOPATH=$PWD/Godeps/_workspace:$GOPATH
-go build -o runc .
+
+BUILDTAGS="seccomp" make static
+
 cp runc $BOSH_INSTALL_TARGET/bin/

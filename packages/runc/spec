@@ -2,6 +2,7 @@
 name: runc
 
 dependencies:
+  - libseccomp
   - golang_1.6.1
 
 files:

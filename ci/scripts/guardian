@@ -15,7 +15,7 @@ export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
 pushd src/github.com/opencontainers/runc
-GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -o runc .
+GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
 cp runc /usr/local/bin/runc
 popd
 

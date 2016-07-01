@@ -19,3 +19,7 @@ golang/go1.6.1.linux-amd64.tar.gz:
   object_id: 9e9bda5c-03df-4dba-ab5d-a938cf289edb
   sha: c73492474dcc7a233772d27e948b74468d9f1849
   size: 84824395
+libseccomp/libseccomp-2.3.1.tar.gz:
+  object_id: 21961e23-1d3f-4207-880d-19a566a4683c
+  sha: 065b0061924152a9df3eacc0d7ec209c7fc2ee05
+  size: 552299
