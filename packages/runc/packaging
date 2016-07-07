@@ -17,6 +17,8 @@ export GOPATH=$BOSH_INSTALL_TARGET
 cd $GOPATH/src/github.com/opencontainers/runc
 export GOPATH=$PWD/Godeps/_workspace:$GOPATH
 
-BUILDTAGS="seccomp" make static
+export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
+export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib
+make BUILDTAGS='seccomp apparmor' static
 
 cp runc $BOSH_INSTALL_TARGET/bin/

@@ -1,10 +1,6 @@
 #!/bin/bash
 # vim: set ft=sh
-
 set -ex
-
-mkdir -p /var/run/oci
-mount -t tmpfs tmpfs /var/run/oci
 
 cd $(dirname $0)/../..
 
@@ -15,16 +11,25 @@ export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
 pushd src/github.com/opencontainers/runc
-GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
-cp runc /usr/local/bin/runc
+  GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp apparmor" -o runc .
+  cp runc /usr/local/bin/runc
 popd
+
+# Set up runC
+mkdir -p /var/run/oci
+mount -t tmpfs tmpfs /var/run/oci
+
+# Set up AppArmor
+mount -t securityfs securityfs /sys/kernel/security
+if ! aa-status | grep garden-default > /dev/null; then
+  apparmor_parser -a ci/assets/garden-default
+fi
 
 cd src/github.com/cloudfoundry-incubator/guardian
 go install github.com/onsi/ginkgo/ginkgo
 
 export GARDEN_TEST_ROOTFS=/opt/warden/rootfs
 export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs
-
 export GARDEN_TAR_PATH=/opt/tar
 export GARDEN_TEST_GRAPHPATH=/tmp/aufs_mount
 export GARDEN_DORA_PATH=$PWD/../garden-integration-tests/resources/dora.tgz

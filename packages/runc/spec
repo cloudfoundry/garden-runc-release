@@ -4,6 +4,7 @@ name: runc
 dependencies:
   - libseccomp
   - golang_1.6.1
+  - apparmor
 
 files:
   - github.com/opencontainers/runc/**/*

@@ -1,0 +1,20 @@
+set -e
+
+tar xzf apparmor/apparmor-2.10.1.tar.gz
+
+pushd apparmor-2.10.1/libraries/libapparmor/
+  ./configure
+  make
+popd
+
+cp -R apparmor-2.10.1/libraries/libapparmor/src/.libs ${BOSH_INSTALL_TARGET}/lib
+cp -R apparmor-2.10.1/libraries/libapparmor/include ${BOSH_INSTALL_TARGET}/include
+
+pushd apparmor-2.10.1/parser
+  make arch
+popd
+
+mkdir ${BOSH_INSTALL_TARGET}/bin
+cp apparmor-2.10.1/parser/apparmor_parser ${BOSH_INSTALL_TARGET}/bin
+
+cp apparmor-2.10.1/utils/aa-status ${BOSH_INSTALL_TARGET}/bin

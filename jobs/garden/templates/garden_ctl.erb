@@ -62,6 +62,20 @@ function create_loop_devices() {
   done
 }
 
+function setup_apparmor() {
+  export PATH=$PATH:$(readlink -nf /var/vcap/packages/apparmor/bin)
+  POLICY=garden-default
+  CONFIG_DIR=/var/vcap/jobs/garden/config
+
+  if ! mountpoint -q /sys/kernel/security; then
+    mount -t securityfs securityfs /sys/kernel/security
+  fi
+
+  if ! aa-status | grep $POLICY > /dev/null; then
+    apparmor_parser -a $CONFIG_DIR/$POLICY
+  fi
+}
+
 case $1 in
 
   start)
@@ -99,6 +113,7 @@ case $1 in
 
     permit_device_control
     create_loop_devices 256
+    setup_apparmor
 
     echo 500 > /proc/sys/kernel/keys/maxkeys
     echo 500 > /proc/sys/kernel/keys/root_maxkeys
@@ -180,6 +195,9 @@ case $1 in
     <% end %> \
     <% p("garden.dns_servers").each do |server| %> \
       --dns-server=<%= server %> \
+    <% end %> \
+    <% if_p("garden.apparmor_profile") do |apparmor_profile| %> \
+      --apparmor=<%= apparmor_profile %> \
     <% end %> \
       1>>$LOG_DIR/garden.stdout.log \
       2>>$LOG_DIR/garden.stderr.log
