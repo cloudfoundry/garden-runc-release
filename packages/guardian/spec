@@ -10,7 +10,6 @@ files:
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
-  - github.com/cloudfoundry-incubator/cf-lager/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/performance/*.go # gosub
@@ -53,7 +52,6 @@ files:
   - github.com/cloudfoundry-incubator/guardian/cmd/guardian/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/init/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/inspector-garden/*.go # gosub
-  - github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/cmd/the-secret-garden/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/*.go # gosub
   - github.com/cloudfoundry-incubator/guardian/gardener/gardenerfakes/*.go # gosub

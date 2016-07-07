@@ -25,7 +25,6 @@ popd
 pushd src/github.com/cloudfoundry-incubator/guardian
 go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian
 go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
-go install github.com/cloudfoundry-incubator/guardian/cmd/kawasaki
 go install github.com/cloudfoundry-incubator/guardian/cmd/init
 go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo
 
@@ -43,7 +42,6 @@ create_loop_devices 256
 
 $GOPATH/bin/guardian \
   --iodaemon-bin=$GOPATH/bin/iodaemon \
-  --kawasaki-bin=$GOPATH/bin/kawasaki \
   --init-bin=$GOPATH/bin/init \
   --dadoo-bin=$GOPATH/bin/dadoo \
   --nstar-bin=./rundmc/nstar/nstar \

@@ -18,10 +18,6 @@
 	path = src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
 	branch = master
-[submodule "src/github.com/cloudfoundry-incubator/cf-lager"]
-	path = src/github.com/cloudfoundry-incubator/cf-lager
-	url = https://github.com/cloudfoundry-incubator/cf-lager
-	branch = master
 [submodule "src/github.com/pivotal-golang/lager"]
 	path = src/github.com/pivotal-golang/lager
 	url = https://github.com/pivotal-golang/lager
