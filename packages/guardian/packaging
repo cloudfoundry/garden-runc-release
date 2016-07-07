@@ -10,7 +10,6 @@ export PATH=$GOROOT/bin:$PATH
 
 go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian/
 go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
-go install github.com/cloudfoundry-incubator/guardian/cmd/kawasaki/
 go install github.com/cloudfoundry-incubator/guardian/cmd/init/
 go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo/
 go install github.com/cloudfoundry-incubator/guardian/cmd/inspector-garden/
