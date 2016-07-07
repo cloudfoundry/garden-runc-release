@@ -23,3 +23,7 @@ libseccomp/libseccomp-2.3.1.tar.gz:
   object_id: 21961e23-1d3f-4207-880d-19a566a4683c
   sha: 065b0061924152a9df3eacc0d7ec209c7fc2ee05
   size: 552299
+apparmor/apparmor-2.10.1.tar.gz:
+  object_id: 2308c8ef-8c6b-480c-b095-fd32c65b568d
+  sha: e9f39465f8f3c970522c317cd820c91d3510ad98
+  size: 4494037
