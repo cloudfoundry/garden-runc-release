@@ -6,10 +6,6 @@
 	path = src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
 	branch = master
-[submodule "src/github.com/cloudfoundry-incubator/cf-debug-server"]
-	path = src/github.com/cloudfoundry-incubator/cf-debug-server
-	url = https://github.com/cloudfoundry-incubator/cf-debug-server
-	branch = master
 [submodule "src/github.com/tedsuo/ifrit"]
 	path = src/github.com/tedsuo/ifrit
 	url = https://github.com/tedsuo/ifrit
@@ -17,10 +13,6 @@
 [submodule "src/github.com/tedsuo/rata"]
 	path = src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
-	branch = master
-[submodule "src/github.com/pivotal-golang/lager"]
-	path = src/github.com/pivotal-golang/lager
-	url = https://github.com/pivotal-golang/lager
 	branch = master
 [submodule "src/github.com/cloudfoundry-incubator/garden"]
 	path = src/github.com/cloudfoundry-incubator/garden
@@ -180,4 +172,12 @@
 [submodule "src/github.com/golang/protobuf"]
 	path = src/github.com/golang/protobuf
 	url = https://github.com/golang/protobuf
+	branch = master
+[submodule "src/code.cloudfoundry.org/lager"]
+	path = src/code.cloudfoundry.org/lager
+	url = https://github.com/cloudfoundry/lager
+	branch = master
+[submodule "src/code.cloudfoundry.org/debugserver"]
+	path = src/code.cloudfoundry.org/debugserver
+	url = https://github.com/cloudfoundry/debugserver
 	branch = master

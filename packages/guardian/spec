@@ -7,9 +7,11 @@ dependencies:
 
 files:
   - github.com/cloudfoundry-incubator/guardian/rundmc/nstar/*
+  - code.cloudfoundry.org/debugserver/*.go # gosub
+  - code.cloudfoundry.org/lager/*.go # gosub
+  - code.cloudfoundry.org/lager/lagertest/*.go # gosub
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
-  - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
   - github.com/cloudfoundry-incubator/garden/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/*.go # gosub
   - github.com/cloudfoundry-incubator/garden-integration-tests/performance/*.go # gosub
@@ -258,8 +260,6 @@ files:
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/clock/fakeclock/*.go # gosub
-  - github.com/pivotal-golang/lager/*.go # gosub
-  - github.com/pivotal-golang/lager/lagertest/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
   - github.com/tchap/go-patricia/patricia/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
