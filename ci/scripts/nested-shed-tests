@@ -14,8 +14,6 @@ export PATH=$GOPATH/bin:$PATH
 
 cd src/github.com/cloudfoundry-incubator/garden-shed
 
-go install github.com/onsi/ginkgo/ginkgo
-
 permit_device_control
 create_loop_devices 256
 

@@ -57,7 +57,6 @@ $GOPATH/bin/guardian \
 sleep 5
 popd
 
-go install github.com/onsi/ginkgo/ginkgo
 cd src/github.com/cloudfoundry-incubator/garden-integration-tests
 export GARDEN_ADDRESS=$(hostname):7777
 ginkgo -p -nodes=4 "$@"
