@@ -1,6 +1,6 @@
 [submodule "src/code.cloudfoundry.org/guardian"]
 	path = src/code.cloudfoundry.org/guardian
-	url = https://code.cloudfoundry.org/guardian
+	url = https://github.com/cloudfoundry/guardian
 	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
@@ -16,7 +16,7 @@
 	branch = master
 [submodule "src/code.cloudfoundry.org/garden"]
 	path = src/code.cloudfoundry.org/garden
-	url = https://code.cloudfoundry.org/garden
+	url = https://github.com/cloudfoundry/garden
 	branch = master
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
@@ -28,7 +28,7 @@
 	branch = master
 [submodule "src/code.cloudfoundry.org/garden-integration-tests"]
 	path = src/code.cloudfoundry.org/garden-integration-tests
-	url = https://code.cloudfoundry.org/garden-integration-tests
+	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
 [submodule "src/github.com/pivotal-golang/archiver"]
 	path = src/github.com/pivotal-golang/archiver
@@ -56,7 +56,7 @@
 	branch = master
 [submodule "src/code.cloudfoundry.org/garden-shed"]
 	path = src/code.cloudfoundry.org/garden-shed
-	url = https://code.cloudfoundry.org/garden-shed
+	url = https://github.com/cloudfoundry/garden-shed
 	branch = master
 [submodule "src/github.com/docker/distribution"]
 	path = src/github.com/docker/distribution
