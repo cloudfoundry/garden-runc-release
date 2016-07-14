@@ -126,8 +126,6 @@ files:
   - github.com/cloudfoundry/gunk/command_runner/fake_command_runner/*.go # gosub
   - github.com/cloudfoundry/gunk/command_runner/linux_command_runner/*.go # gosub
   - github.com/cloudfoundry/sonde-go/events/*.go # gosub
-  - github.com/coreos/go-systemd/dbus/*.go # gosub
-  - github.com/coreos/go-systemd/util/*.go # gosub
   - github.com/docker/distribution/*.go # gosub
   - github.com/docker/distribution/context/*.go # gosub
   - github.com/docker/distribution/digest/*.go # gosub
@@ -146,7 +144,6 @@ files:
   - github.com/docker/docker/daemon/events/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
-  - github.com/docker/docker/daemon/graphdriver/vfs/*.go # gosub
   - github.com/docker/docker/daemon/network/*.go # gosub
   - github.com/docker/docker/graph/*.go # gosub
   - github.com/docker/docker/graph/tags/*.go # gosub
@@ -192,7 +189,6 @@ files:
   - github.com/docker/go-units/*.go # gosub
   - github.com/docker/libtrust/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
-  - github.com/godbus/dbus/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
@@ -259,7 +255,6 @@ files:
   - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
-  - github.com/opencontainers/runc/libcontainer/utils/*.go # gosub
   - github.com/opencontainers/runtime-spec/schema/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
