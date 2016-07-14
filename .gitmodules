@@ -139,7 +139,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runtime-spec"]
 	path = src/github.com/opencontainers/runtime-spec
-	url = https://uithub.com/cloudfoundry-incubator/specs
+	url = https://github.com/cloudfoundry-incubator/specs
 	branch = master
 [submodule "src/github.com/xeipuuv/gojsonpointer"]
 	path = src/github.com/xeipuuv/gojsonpointer
