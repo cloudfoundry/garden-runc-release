@@ -1,5 +1,5 @@
 ---
-image: docker:///cloudfoundry/golang-ci
+image: docker:///cfgarden/golang-ci
 
 platform: linux
 
