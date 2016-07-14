@@ -2,12 +2,12 @@
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 
 gosub list \
-  -a github.com/cloudfoundry-incubator/guardian/... \
-  -t github.com/cloudfoundry-incubator/guardian/gqt/... \
-  -t github.com/cloudfoundry-incubator/garden-integration-tests/... \
+  -a code.cloudfoundry.org/guardian/... \
+  -t code.cloudfoundry.org/guardian/gqt/... \
+  -t code.cloudfoundry.org/garden-integration-tests/... \
   -a github.com/opencontainers/runtime-spec/... \
   -a github.com/vishvananda/netns/... \
-  -t github.com/cloudfoundry-incubator/garden-shed/... \
+  -t code.cloudfoundry.org/garden-shed/... \
   -a github.com/opencontainers/runc/libcontainer/label/... \
   -a github.com/docker/docker/pkg/directory/... \
   -a github.com/docker/docker/pkg/mount/... \

@@ -8,14 +8,14 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang_1.6.1)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian/
-go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
-go install github.com/cloudfoundry-incubator/guardian/cmd/init/
-go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo/
-go install github.com/cloudfoundry-incubator/guardian/cmd/inspector-garden/
-go install github.com/cloudfoundry-incubator/guardian/cmd/the-secret-garden/
+go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian/
+go install code.cloudfoundry.org/guardian/rundmc/iodaemon/cmd/iodaemon
+go install code.cloudfoundry.org/guardian/cmd/init/
+go install code.cloudfoundry.org/guardian/cmd/dadoo/
+go install code.cloudfoundry.org/guardian/cmd/inspector-garden/
+go install code.cloudfoundry.org/guardian/cmd/the-secret-garden/
 
-pushd github.com/cloudfoundry-incubator/guardian/rundmc/nstar
+pushd code.cloudfoundry.org/guardian/rundmc/nstar
 make
 mv nstar ${BOSH_INSTALL_TARGET}/bin
 popd

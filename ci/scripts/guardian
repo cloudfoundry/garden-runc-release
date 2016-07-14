@@ -25,7 +25,7 @@ if ! aa-status | grep garden-default > /dev/null; then
   apparmor_parser -a ci/assets/garden-default
 fi
 
-cd src/github.com/cloudfoundry-incubator/guardian
+cd src/code.cloudfoundry.org/guardian
 
 export GARDEN_TEST_ROOTFS=/opt/warden/rootfs
 export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs

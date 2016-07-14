@@ -4,18 +4,18 @@ set -e -x
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 cd $ROOT_DIR_PATH
 
-pushd src/github.com/cloudfoundry-incubator/guardian
+pushd src/code.cloudfoundry.org/guardian
 	go vet ./...
 	go fmt ./...
 	ginkgo -r
 popd
 
-pushd src/github.com/cloudfoundry-incubator/garden-shed
+pushd src/code.cloudfoundry.org/garden-shed
   go vet ./...
   go fmt ./...
 popd
 
-pushd src/github.com/cloudfoundry-incubator/garden
+pushd src/code.cloudfoundry.org/garden
   go vet ./...
   go fmt ./...
 popd

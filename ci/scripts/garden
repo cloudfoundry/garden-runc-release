@@ -11,7 +11,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
-cd src/github.com/cloudfoundry-incubator/garden
+cd src/code.cloudfoundry.org/garden
 
 go vet ./...
 ginkgo -r -p -race -keepGoing -nodes=4 "$@"

@@ -1,10 +1,10 @@
 # Garden-runC Release
 
 A [BOSH](http://docs.cloudfoundry.org/bosh/) release for deploying
-[Guardian](https://github.com/cloudfoundry-incubator/guardian).
+[Guardian](https://github.com/cloudfoundry/guardian).
 
 Guardian is a simple single-host [OCI](https://opencontainers.org/) container
-manager. It implements the [Garden](https://github.com/cloudfoundry-incubator/garden/)
+manager. It implements the [Garden](https://github.com/cloudfoundry/garden/)
 API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 
 ## Getting started
@@ -12,7 +12,7 @@ API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 Clone it:
 
 ```bash
-git clone https://github.com/cloudfoundry-incubator/garden-runc-release
+git clone https://github.com/cloudfoundry/garden-runc-release
 cd garden-runc-release
 git submodule update --init --recursive
 ```
@@ -36,7 +36,7 @@ The easiest way to start creating containers in Guardian is
 e.g. `gaol -t 10.244.16.6:7777 create -n my-container`
 
 For more advanced use cases, you'll need to use the [Garden
-client](https://godoc.org/github.com/cloudfoundry-incubator/garden#Client)
+client](https://godoc.org/code.cloudfoundry.org/garden#Client)
 package for Golang.
 
 ## Contributing
@@ -64,15 +64,15 @@ In order to contribute to the project you should have the following installed:
 Garden-runC uses git submodules to maintain its dependencies and components.
 Garden-runC's components currently are:
 
-* [Garden](https://github.com/cloudfoundry-incubator/garden) found under
-   `src/github.com/cloudfoundry-incubator/garden` is the API server and client.
-* [Guardian](https://github.com/cloudfoundry-incubator/guardian) found under
-   `src/github.com/cloudfoundry-incubator/guardian` is the Garden backend.
-* [Garden Shed](https://github.com/cloudfoundry-incubator/garden-shed) found under
-   `src/github.com/cloudfoundry-incubator/garden-shed` downloads and manages
+* [Garden](https://github.com/cloudfoundry/garden) found under
+   `src/code.cloudfoundry.org/garden` is the API server and client.
+* [Guardian](https://github.com/cloudfoundry/guardian) found under
+   `src/code.cloudfoundry.org/guardian` is the Garden backend.
+* [Garden Shed](https://github.com/cloudfoundry/garden-shed) found under
+   `src/code.cloudfoundry.org/garden-shed` downloads and manages
    root filesystems.
-* [GATS](https://github.com/cloudfoundry-incubator/garden-integration-tests)
-   found under `src/github.com/cloudfoundry-incubator/garden-integration-tests`
+* [GATS](https://github.com/cloudfoundry/garden-integration-tests)
+   found under `src/code.cloudfoundry.org/garden-integration-tests`
    are the cross-backend integration tests of Garden.
 
 Set your `$GOPATH` to the checked out directory, or use Direnv to do this, as
@@ -122,11 +122,11 @@ command for any of the components:
 
 ```bash
 # Running Garden unit tests
-cd src/github.com/cloudfoundry-incubator/garden
+cd src/code.cloudfoundry.org/garden
 ginkgo -r
 
 # Running Guardian unit tests
-cd src/github.com/cloudfoundry-incubator/guardian
+cd src/code.cloudfoundry.org/guardian
 ginkgo -r
 ```
 
@@ -151,7 +151,7 @@ executing `./scripts/remote-fly`:
 Write code in a submodule:
 
 ```bash
-cd src/github.com/cloudfoundry-incubator/guardian # for example
+cd src/code.cloudfoundry.org/guardian # for example
 git checkout master
 git pull
 # test, code, test..

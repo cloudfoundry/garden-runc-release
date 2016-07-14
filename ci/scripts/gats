@@ -18,15 +18,15 @@ GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
 mv runc $GOPATH/bin
 popd
 
-pushd src/github.com/cloudfoundry-incubator/guardian/rundmc/nstar
+pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
 make
 popd
 
-pushd src/github.com/cloudfoundry-incubator/guardian
-go install -tags daemon github.com/cloudfoundry-incubator/guardian/cmd/guardian
-go install github.com/cloudfoundry-incubator/guardian/rundmc/iodaemon/cmd/iodaemon
-go install github.com/cloudfoundry-incubator/guardian/cmd/init
-go install github.com/cloudfoundry-incubator/guardian/cmd/dadoo
+pushd src/code.cloudfoundry.org/guardian
+go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian
+go install code.cloudfoundry.org/guardian/rundmc/iodaemon/cmd/iodaemon
+go install code.cloudfoundry.org/guardian/cmd/init
+go install code.cloudfoundry.org/guardian/cmd/dadoo
 
 tmpdir=/tmp/dir
 rm -fr $tmpdir
@@ -57,6 +57,6 @@ $GOPATH/bin/guardian \
 sleep 5
 popd
 
-cd src/github.com/cloudfoundry-incubator/garden-integration-tests
+cd src/code.cloudfoundry.org/garden-integration-tests
 export GARDEN_ADDRESS=$(hostname):7777
 ginkgo -p -nodes=4 "$@"

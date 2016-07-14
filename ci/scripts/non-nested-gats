@@ -8,5 +8,5 @@ cd $(dirname $0)/../..
 export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
-cd src/github.com/cloudfoundry-incubator/garden-integration-tests
+cd src/code.cloudfoundry.org/garden-integration-tests
 ginkgo -p -nodes=4

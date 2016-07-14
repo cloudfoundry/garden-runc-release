@@ -1,6 +1,6 @@
-[submodule "src/github.com/cloudfoundry-incubator/guardian"]
-	path = src/github.com/cloudfoundry-incubator/guardian
-	url = https://github.com/cloudfoundry-incubator/guardian
+[submodule "src/code.cloudfoundry.org/guardian"]
+	path = src/code.cloudfoundry.org/guardian
+	url = https://code.cloudfoundry.org/guardian
 	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
@@ -14,9 +14,9 @@
 	path = src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
 	branch = master
-[submodule "src/github.com/cloudfoundry-incubator/garden"]
-	path = src/github.com/cloudfoundry-incubator/garden
-	url = https://github.com/cloudfoundry-incubator/garden
+[submodule "src/code.cloudfoundry.org/garden"]
+	path = src/code.cloudfoundry.org/garden
+	url = https://code.cloudfoundry.org/garden
 	branch = master
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
@@ -26,9 +26,9 @@
 	path = src/github.com/bmizerany/pat
 	url = https://github.com/bmizerany/pat
 	branch = master
-[submodule "src/github.com/cloudfoundry-incubator/garden-integration-tests"]
-	path = src/github.com/cloudfoundry-incubator/garden-integration-tests
-	url = https://github.com/cloudfoundry-incubator/garden-integration-tests
+[submodule "src/code.cloudfoundry.org/garden-integration-tests"]
+	path = src/code.cloudfoundry.org/garden-integration-tests
+	url = https://code.cloudfoundry.org/garden-integration-tests
 	branch = master
 [submodule "src/github.com/pivotal-golang/archiver"]
 	path = src/github.com/pivotal-golang/archiver
@@ -54,9 +54,9 @@
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
 	branch = master
-[submodule "src/github.com/cloudfoundry-incubator/garden-shed"]
-	path = src/github.com/cloudfoundry-incubator/garden-shed
-	url = https://github.com/cloudfoundry-incubator/garden-shed
+[submodule "src/code.cloudfoundry.org/garden-shed"]
+	path = src/code.cloudfoundry.org/garden-shed
+	url = https://code.cloudfoundry.org/garden-shed
 	branch = master
 [submodule "src/github.com/docker/distribution"]
 	path = src/github.com/docker/distribution
@@ -139,7 +139,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runtime-spec"]
 	path = src/github.com/opencontainers/runtime-spec
-	url = https://github.com/cloudfoundry-incubator/specs
+	url = https://uithub.com/cloudfoundry-incubator/specs
 	branch = master
 [submodule "src/github.com/xeipuuv/gojsonpointer"]
 	path = src/github.com/xeipuuv/gojsonpointer
