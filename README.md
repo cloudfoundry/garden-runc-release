@@ -4,8 +4,8 @@ A [BOSH](http://docs.cloudfoundry.org/bosh/) release for deploying
 [Guardian](https://github.com/cloudfoundry/guardian).
 
 Guardian is a simple single-host [OCI](https://opencontainers.org/) container
-manager. It implements the [Garden](https://github.com/cloudfoundry/garden/)
-API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
+manager. It implements the [Garden](https://github.com/cloudfoundry/garden/) API
+which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 
 ## Getting started
 
@@ -19,18 +19,17 @@ git submodule update --init --recursive
 
 ### Running
 
-Guardian runs on linux, therefore you need to have a linux machine available.
-The easiest way to run Guardian is to deploy it with [BOSH
+The easiest way to run Garden-runC is to deploy it with [BOSH
 Lite](https://github.com/cloudfoundry/bosh-lite), a local development
 environment for [BOSH](https://bosh.io).
 
-You can retrieve the address of the Guardian server by running `bosh vms`.  It
-will be `10.244.16.6` if using the provided bosh-lite manifest. The server port
-defaults to `7777`.
+You can retrieve the address of the Garden-runC server by running `bosh vms`.
+It will be `10.244.16.6` if using the provided bosh-lite manifest. The server
+port defaults to `7777`.
 
 ### Usage
 
-The easiest way to start creating containers in Guardian is
+The easiest way to start creating containers is to use the
 [`gaol`](https://github.com/contraband/gaol) command line client.
 
 e.g. `gaol -t 10.244.16.6:7777 create -n my-container`
@@ -41,10 +40,8 @@ package for Golang.
 
 ## Contributing
 
-In order to help us extend Guardian, we recommend opening a Github issue
-to describe the proposed features or changes. We also welcome pull requests.
-
-Guardian is a Linux project and it currently supports only Ubuntu 14.04 LTS.
+In order to help us extend Garden-runC, we recommend opening a Github issue to
+describe the proposed features or changes. We also welcome pull requests.
 
 You can use other distributions or OS X for development since a good chunk of
 the unit tests work across alternative platforms, and you can run platform
