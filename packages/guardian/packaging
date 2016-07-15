@@ -9,7 +9,6 @@ export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
 go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian/
-go install code.cloudfoundry.org/guardian/rundmc/iodaemon/cmd/iodaemon
 go install code.cloudfoundry.org/guardian/cmd/init/
 go install code.cloudfoundry.org/guardian/cmd/dadoo/
 go install code.cloudfoundry.org/guardian/cmd/inspector-garden/
