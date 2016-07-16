@@ -3,6 +3,9 @@ set -e -x
 tar jxf iptables/iptables-1.4.21.tar.bz2
 
 cd iptables-1.4.21/
+if [ "`uname -m`" == "ppc64le" ]; then
+  cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} ./build-aux
+fi
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
 make install
