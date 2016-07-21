@@ -63,7 +63,6 @@ files:
   - code.cloudfoundry.org/guardian/kawasaki/devices/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/devices/fakedevices/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/dns/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/dns/dnsfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/factory/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/iptables/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/iptables/iptablesfakes/*.go # gosub
