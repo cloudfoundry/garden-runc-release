@@ -18,13 +18,17 @@ cd gr-release-develop/
 git config --global user.email "ci@localhost"
 git config --global user.name "CI Bot"
 
-git merge --no-edit master
+RELEASE_YML=$PWD/releases/garden-runc/garden-run-${VERSION}.yml
 
-bosh -n finalize release --version "$VERSION" ${CANDIDATE_DIR}/garden-runc-*.tgz
+if [ -e ${RELEASE_YML} ]; then
+  echo "release already created; making tarball..."
+  bosh -n create release --with-tarball ${RELEASE_YML}
+else
+  echo "finalizing release"
+  bosh -n finalize release --version "$VERSION" ${CANDIDATE_DIR}/garden-runc-*.tgz
+  git add -A
+  git commit -m "release v${VERSION}"
+fi
 
 mv releases/garden-runc/*.tgz ../final-release/garden-runc-${VERSION}.tgz
-
-git add -A
-git commit -m "release v${VERSION}"
-
 cp -r . ../release/master
