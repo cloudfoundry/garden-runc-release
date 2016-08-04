@@ -18,7 +18,7 @@ cd gr-release-develop/
 git config --global user.email "ci@localhost"
 git config --global user.name "CI Bot"
 
-RELEASE_YML=$PWD/releases/garden-runc/garden-run-${VERSION}.yml
+RELEASE_YML=$PWD/releases/garden-runc/garden-runc-${VERSION}.yml
 
 if [ -e ${RELEASE_YML} ]; then
   echo "release already created; making tarball..."
