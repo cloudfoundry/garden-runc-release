@@ -100,6 +100,7 @@ case $1 in
     export TMPDIR=/var/vcap/data/tmp
     mkdir -p $TMPDIR
 
+    export PATH=/var/vcap/packages/iptables/sbin:$PATH
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
     export PATH=/var/vcap/packages/runc/bin:$PATH
 
@@ -134,9 +135,7 @@ case $1 in
       --graph=$graph_path \
       --properties-path=/var/vcap/data/garden/props.json \
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
-    <% if_p('garden.iptables_bin') do |bin| %>  \
-      --iptables-bin=<%= bin %> \
-    <% end %> \
+      --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --init-bin=/var/vcap/packages/guardian/bin/init \
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
