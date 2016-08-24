@@ -116,8 +116,8 @@ case $1 in
     create_loop_devices 256
     setup_apparmor
 
-    echo 500 > /proc/sys/kernel/keys/maxkeys
-    echo 500 > /proc/sys/kernel/keys/root_maxkeys
+    echo 1000000 > /proc/sys/kernel/keys/maxkeys
+    echo 1000000 > /proc/sys/kernel/keys/root_maxkeys
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
 
