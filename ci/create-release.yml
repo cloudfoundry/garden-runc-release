@@ -1,6 +1,9 @@
 ---
 # may want to replace this with your own image
-image: docker:///cfgarden/garden-ci
+image_resource:
+  type: docker-image
+  source:
+      repository: cfgarden/garden-ci
 
 platform: linux
 
