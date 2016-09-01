@@ -116,3 +116,7 @@ properties:
   garden.apparmor_profile:
     decription: Apparmor profile to use for unprivileged container procesess
     default: garden-default
+
+  garden.experimental_oci_image_binary:
+    description: The grootfs binary path
+    default: /var/vcap/packages/grootfs/grootfs
