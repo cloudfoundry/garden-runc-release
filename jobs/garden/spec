@@ -9,6 +9,7 @@ packages:
   - guardian
   - iptables
   - runc
+  - apparmor
   - shadow
   - busybox
   - tar
