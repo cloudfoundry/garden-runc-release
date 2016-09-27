@@ -123,6 +123,9 @@ case $1 in
 
     ulimit -n 65536
 
+    exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
+         2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
+
     exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE /var/vcap/packages/guardian/bin/guardian \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
@@ -196,10 +199,7 @@ case $1 in
     <% end %> \
     <% if_p("garden.apparmor_profile") do |apparmor_profile| %> \
       --apparmor=<%= apparmor_profile %> \
-    <% end %> \
-      1>>$LOG_DIR/garden.stdout.log \
-      2>>$LOG_DIR/garden.stderr.log
-
+    <% end %>
     ;;
 
   stop)
