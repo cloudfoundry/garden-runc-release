@@ -138,6 +138,7 @@ case $1 in
       --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --init-bin=/var/vcap/packages/guardian/bin/init \
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
+      --oci-image-bin=<%= p("garden.experimental_oci_image_binary") %> \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \
       --log-level=<%= p("garden.log_level") %> \
