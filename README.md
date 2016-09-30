@@ -21,10 +21,16 @@ git submodule update --init --recursive
 
 The easiest way to run Garden-runC is to deploy it with [BOSH
 Lite](https://github.com/cloudfoundry/bosh-lite), a local development
-environment for [BOSH](https://bosh.io).
+environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite (follow the instructions in the bosh-lite repo), just deploy like any bosh release, e.g:
+
+~~~~
+cd garden-runc-release # if you're not already there
+bosh deployment manifests/bosh-lite.yml
+bosh create release && bosh upload release && bosh deploy
+~~~~
 
 You can retrieve the address of the Garden-runC server by running `bosh vms`.
-It will be `10.244.16.6` if using the provided bosh-lite manifest. The server
+It will be `10.244.16.6` if using the provided bosh-lite manifest in [manifests/bosh-lite.yml](https://github.com/cloudfoundry/garden-runc-release/blob/master/manifests/bosh-lite.yml). The server
 port defaults to `7777`.
 
 ### Usage
@@ -166,3 +172,4 @@ Commit the changes, run the tests, and create a bump commit:
 ### License
 
 Apache License 2.0
+
