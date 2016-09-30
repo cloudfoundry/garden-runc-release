@@ -15,10 +15,6 @@ tar/tar-1.28.tar.gz:
   object_id: 5b4d9521-12c3-434f-b537-2df64f0b5764
   sha: cd30a13bbfefb54b17e039be7c43d2592dd3d5d0
   size: 3877043
-golang/go1.6.1.linux-amd64.tar.gz:
-  object_id: 9e9bda5c-03df-4dba-ab5d-a938cf289edb
-  sha: c73492474dcc7a233772d27e948b74468d9f1849
-  size: 84824395
 libseccomp/libseccomp-2.3.1.tar.gz:
   object_id: 21961e23-1d3f-4207-880d-19a566a4683c
   sha: 065b0061924152a9df3eacc0d7ec209c7fc2ee05
@@ -27,7 +23,7 @@ apparmor/apparmor-2.10.1.tar.gz:
   object_id: 2308c8ef-8c6b-480c-b095-fd32c65b568d
   sha: e9f39465f8f3c970522c317cd820c91d3510ad98
   size: 4494037
-golang/golang-linux-amd64.tar.gz/go1.7.1.linux-amd64.tar.gz:
-  object_id: ebad800a-ee98-4730-a812-9206cf7a7280
+golang/go1.7.1.linux-amd64.tar.gz:
+  object_id: 74c82ded-735a-4b28-8aab-66bbe1c04c98
   sha: 919ab01305ada0078a9fdf8a12bb56fb0b8a1444
   size: 81618401

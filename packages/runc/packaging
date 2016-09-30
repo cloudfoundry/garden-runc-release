@@ -10,7 +10,7 @@ ln -s github.com/opencontainers/runc github.com/opencontainers/runc/Godeps/_work
 
 cp -a . $BOSH_INSTALL_TARGET/src/.
 
-export GOROOT=$(readlink -nf /var/vcap/packages/golang_1.6.1)
+export GOROOT=$(readlink -nf /var/vcap/packages/golang_1.7.1)
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=$BOSH_INSTALL_TARGET
 
