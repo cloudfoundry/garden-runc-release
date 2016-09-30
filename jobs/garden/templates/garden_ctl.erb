@@ -126,13 +126,23 @@ case $1 in
     exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
          2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
-    exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE /var/vcap/packages/guardian/bin/guardian \
+   <% if ("garden.experimental_rootless_mode") %>
+     exec_command="exec chpst -u vcap:vcap"
+     echo $$ > $PIDFILE
+   <% else %>
+     exec_command="exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE"
+   <% end %>
+
+    $exec_command /var/vcap/packages/guardian/bin/guardian \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
       --bind-port=<%= port %> \
     <% else %> \
       --bind-socket=<%= p("garden.listen_address") %> \
+    <% end %> \
+    <% if p("garden.experimental_rootless_mode") %>  \
+      --rootless \
     <% end %> \
       --depot=$depot_path \
       --graph=$graph_path \

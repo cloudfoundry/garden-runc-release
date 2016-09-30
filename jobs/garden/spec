@@ -116,3 +116,7 @@ properties:
   garden.apparmor_profile:
     decription: Apparmor profile to use for unprivileged container procesess
     default: garden-default
+
+  garden.experimental_rootless_mode:
+    description: A boolean stating whether or not to run garden-server as non-root user
+    default: false
