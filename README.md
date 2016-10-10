@@ -171,7 +171,7 @@ Commit the changes, run the tests, and create a bump commit:
 
 #### Execute command in container using runc
 
-- Create a container with handle <handle>
+- Create a container with handle &lt;handle&gt;
 - Log in to the host OS with root privileges
 - Find the process id of guardian
 ```
