@@ -173,13 +173,9 @@ Commit the changes, run the tests, and create a bump commit:
 
 - Create a container with handle &lt;handle&gt;
 - Log in to the host OS with root privileges
-- Find the process id of guardian
-```
-cat /var/vcap/sys/run/garden/garden.pid
-```
 - Enter guardian mount namespace
 ```
-/var/vcap/packages/guardian/bin/inspector-garden -pid <pid> /bin/bash
+/var/vcap/packages/guardian/bin/inspector-garden -pid $(cat /var/vcap/sys/run/garden/garden.pid) /bin/bash
 ```
 - Go to container depot directory
 ```
