@@ -171,21 +171,21 @@ Commit the changes, run the tests, and create a bump commit:
 
 #### Execute command in container using runc
 
-1. Create a container with handle <handle>
-1. Log in to the host OS with root privileges
-1. Find the process id of guardian
+- Create a container with handle <handle>
+- Log in to the host OS with root privileges
+- Find the process id of guardian
 ```
 cat /var/vcap/sys/run/garden/garden.pid
 ```
-1. Enter guardian mount namespace
+- Enter guardian mount namespace
 ```
 /var/vcap/packages/guardian/bin/inspector-garden -pid <pid> /bin/bash
 ```
-1. Go to container depot directory
+- Go to container depot directory
 ```
 cd /var/vcap/data/garden/depot/<handle>
 ```
-1. Execute process in container
+- Execute process in container
 ```
 /var/vcap/packages/runc/bin/runc exec <handle> <command>
 ```
