@@ -54,11 +54,12 @@ files:
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/gardenerfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/*.go # gosub
-  - code.cloudfoundry.org/guardian/gqt/cmd/fake_grootfs/*.go # gosub
+  - code.cloudfoundry.org/guardian/gqt/cmd/fake_image_plugin/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_runc/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/networkplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/runner/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
+  - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/configure/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/devices/*.go # gosub
@@ -95,7 +96,6 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/stopperfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
-  - code.cloudfoundry.org/guardian/volplugin/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
   - code.cloudfoundry.org/lager/lagertest/*.go # gosub
   - github.com/Sirupsen/logrus/*.go # gosub
