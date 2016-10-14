@@ -85,6 +85,9 @@ properties:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
     default: []
 
+  garden.image_plugin:
+    description: "Path to an optional image plugin binary"
+
   garden.network_plugin:
     description: "Path to an optional network plugin binary"
 
