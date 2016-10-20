@@ -19,6 +19,8 @@ git submodule update --init --recursive
 
 ### Running
 
+**Note**: If you are transitioning from garden-linux-release to garden-runc-release, please read the transition doc [here](https://github.com/cloudfoundry/garden-runc-release/blob/master/docs/transition-from-garden-linux.md).
+
 The easiest way to run Garden-runC is to deploy it with [BOSH
 Lite](https://github.com/cloudfoundry/bosh-lite), a local development
 environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite (follow the instructions in the bosh-lite repo), just deploy like any bosh release, e.g:
