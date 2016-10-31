@@ -79,6 +79,7 @@ files:
   - code.cloudfoundry.org/guardian/metrics/*.go # gosub
   - code.cloudfoundry.org/guardian/metrics/metricsfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/netplugin/*.go # gosub
+  - code.cloudfoundry.org/guardian/pkg/locksmith/*.go # gosub
   - code.cloudfoundry.org/guardian/pkg/vars/*.go # gosub
   - code.cloudfoundry.org/guardian/properties/*.go # gosub
   - code.cloudfoundry.org/guardian/properties/fakes/*.go # gosub
