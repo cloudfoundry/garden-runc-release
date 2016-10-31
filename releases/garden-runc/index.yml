@@ -30,4 +30,6 @@ builds:
     version: 1.0.0
   9a041b19-dabe-44e6-90b0-cff8271b9989:
     version: 1.0.1
+  943c72bb-e57a-4e50-ad60-dfc0386ee59c:
+    version: 1.0.2
 format-version: '2'
