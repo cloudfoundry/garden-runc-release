@@ -4,10 +4,8 @@ build_yml=$1
 shift
 
 if [ -z $GARDEN_REMOTE_ATC_URL ]; then
-  fly -t lite sync
   fly -t lite login -c http://192.168.100.4:8080
   fly -t lite e -x -p -i gr-release-develop=. -c $build_yml $@
 else
-  fly --target $GARDEN_REMOTE_ATC_URL sync
   fly --target $GARDEN_REMOTE_ATC_URL e -x -p -i gr-release-develop=. -c $build_yml $@
 fi
