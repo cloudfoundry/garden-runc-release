@@ -101,6 +101,18 @@ vagrant init concourse/lite
 vagrant up
 ```
 
+Note: The concourse-lite VM must have at least 6GB of RAM. If it has less than
+6GB, you'll start to see tests failing with 'out of disk' errors.
+The following can be copied to the Vagrantfile to assign the recommended
+resources:
+
+```
+config.vm.provider "virtualbox" do |v|
+  v.memory = 6144
+  v.cpus = 4
+end
+```
+
 Open [http://192.168.100.4:8080](http://192.168.100.4:8080) in a web browser
 and download the [Fly CLI](http://concourse.ci/fly-cli.html) from the
 bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
