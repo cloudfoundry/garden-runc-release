@@ -3,6 +3,11 @@ set -e -x
 tar zxf shadow/shadow-4.2.1.tar.gz
 
 cd shadow-4.2.1/
+
+if [ "`uname -m`" == "ppc64le" ]; then
+  cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} .
+fi
+
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
 make install
