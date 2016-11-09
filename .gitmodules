@@ -48,8 +48,8 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
-	url = https://github.com/cloudfoundry-incubator/runc
-	branch = guardian
+	url = https://github.com/opencontainers/runc
+	branch = master
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
@@ -135,7 +135,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runtime-spec"]
 	path = src/github.com/opencontainers/runtime-spec
-	url = https://github.com/cloudfoundry-incubator/specs
+	url = https://github.com/opencontainers/runtime-spec
 	branch = master
 [submodule "src/github.com/xeipuuv/gojsonpointer"]
 	path = src/github.com/xeipuuv/gojsonpointer
