@@ -51,6 +51,7 @@ files:
   - code.cloudfoundry.org/guardian/cmd/init/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/inspector-garden/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/the-secret-garden/*.go # gosub
+  - code.cloudfoundry.org/guardian/cmd/undoo/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/gardenerfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/*.go # gosub

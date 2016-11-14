@@ -25,6 +25,7 @@ popd
 pushd src/code.cloudfoundry.org/guardian
 go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian
 go install code.cloudfoundry.org/guardian/cmd/init
+go install code.cloudfoundry.org/guardian/cmd/undoo
 go install code.cloudfoundry.org/guardian/cmd/dadoo
 
 tmpdir=/tmp/dir
@@ -41,6 +42,7 @@ create_loop_devices 256
 
 $GOPATH/bin/guardian \
   --init-bin=$GOPATH/bin/init \
+  --undoo-bin=$GOPATH/bin/undoo \
   --dadoo-bin=$GOPATH/bin/dadoo \
   --nstar-bin=./rundmc/nstar/nstar \
   --tar-bin=/opt/tar \
