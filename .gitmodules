@@ -184,3 +184,4 @@
 [submodule "src/github.com/st3v/glager"]
 	path = src/github.com/st3v/glager
 	url = https://github.com/st3v/glager
+	branch = master

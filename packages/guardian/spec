@@ -257,6 +257,7 @@ files:
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/clock/fakeclock/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
+  - github.com/st3v/glager/*.go # gosub
   - github.com/tchap/go-patricia/patricia/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/ginkgomon/*.go # gosub
