@@ -177,3 +177,7 @@
 	path = src/code.cloudfoundry.org/debugserver
 	url = https://github.com/cloudfoundry/debugserver
 	branch = master
+[submodule "src/github.com/tscolari/lagregator"]
+	path = src/github.com/tscolari/lagregator
+	url = https://github.com/tscolari/lagregator
+	branch = master

@@ -99,6 +99,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/stopper/stopperfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
+  - code.cloudfoundry.org/lager/chug/*.go # gosub
   - code.cloudfoundry.org/lager/lagertest/*.go # gosub
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
@@ -262,6 +263,7 @@ files:
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
   - github.com/tedsuo/ifrit/sigmon/*.go # gosub
   - github.com/tedsuo/rata/*.go # gosub
+  - github.com/tscolari/lagregator/*.go # gosub
   - github.com/vbatts/tar-split/archive/tar/*.go # gosub
   - github.com/vbatts/tar-split/tar/asm/*.go # gosub
   - github.com/vbatts/tar-split/tar/storage/*.go # gosub
