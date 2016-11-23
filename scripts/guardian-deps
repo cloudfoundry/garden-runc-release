@@ -16,4 +16,5 @@ gosub list \
   -a github.com/opencontainers/runc/libcontainer/cgroups/... \
   -a github.com/docker/go-units/... \
   -a github.com/golang/protobuf/... \
+  -a github.com/st3v/glager/... \
   -a github.com/kr/pty/

@@ -181,3 +181,6 @@
 	path = src/github.com/tscolari/lagregator
 	url = https://github.com/tscolari/lagregator
 	branch = master
+[submodule "src/github.com/st3v/glager"]
+	path = src/github.com/st3v/glager
+	url = https://github.com/st3v/glager
