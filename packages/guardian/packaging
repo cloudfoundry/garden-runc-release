@@ -10,7 +10,6 @@ export PATH=$GOROOT/bin:$PATH
 
 go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian/
 go install code.cloudfoundry.org/guardian/cmd/init/
-go install code.cloudfoundry.org/guardian/cmd/undoo/
 go install code.cloudfoundry.org/guardian/cmd/dadoo/
 go install code.cloudfoundry.org/guardian/cmd/inspector-garden/
 go install code.cloudfoundry.org/guardian/cmd/the-secret-garden/
