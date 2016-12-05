@@ -11,9 +11,11 @@ inputs:
   - name: gr-version
   - name: garden-ci
   - name: gr-candidate-tarball
+  - name: grootfs-release-tarball
 
 outputs:
   - name: final-release
+  - name: github-release
   - name: release
 
 run:

@@ -3,9 +3,15 @@
 
 set -e -x
 
-VERSION=$(cat ./gr-version/number)
-if [ -z "$VERSION" ]; then
-  echo "missing version number"
+GARDEN_VERSION=$(cat ./gr-version/number)
+if [ -z "$GARDEN_VERSION" ]; then
+  echo "missing garden version number"
+  exit 1
+fi
+
+GROOT_VERSION=$(cat ./grootfs-release-tarball/version)
+if [ -z "$GARDEN_VERSION" ]; then
+  echo "missing groot version number"
   exit 1
 fi
 
@@ -13,22 +19,28 @@ cp garden-ci/config/private.yml gr-release-develop/config/private.yml
 
 CANDIDATE_DIR=$PWD/gr-candidate-tarball
 
-cd gr-release-develop/
+pushd gr-release-develop/
 
-git config --global user.email "ci@localhost"
-git config --global user.name "CI Bot"
+  git config --global user.email "ci@localhost"
+  git config --global user.name "CI Bot"
 
-RELEASE_YML=$PWD/releases/garden-runc/garden-runc-${VERSION}.yml
+  RELEASE_YML=$PWD/releases/garden-runc/garden-runc-${GARDEN_VERSION}.yml
 
-if [ -e ${RELEASE_YML} ]; then
-  echo "release already created; making tarball..."
-  bosh -n create release --with-tarball ${RELEASE_YML}
-else
-  echo "finalizing release"
-  bosh -n finalize release --version "$VERSION" ${CANDIDATE_DIR}/garden-runc-*.tgz
-  git add -A
-  git commit -m "release v${VERSION}"
-fi
+  if [ -e ${RELEASE_YML} ]; then
+    echo "release already created; making tarball..."
+    bosh -n create release --with-tarball ${RELEASE_YML}
+  else
+    echo "finalizing release"
+    bosh -n finalize release --version "$GARDEN_VERSION" ${CANDIDATE_DIR}/garden-runc-*.tgz
+    git add -A
+    git commit -m "release v${GARDEN_VERSION}"
+  fi
 
-mv releases/garden-runc/*.tgz ../final-release/garden-runc-${VERSION}.tgz
-cp -r . ../release/master
+  mv releases/garden-runc/*.tgz ../final-release/garden-runc-${GARDEN_VERSION}.tgz
+  cp -r . ../release/master
+
+popd
+
+# prepare github release
+mv grootfs-release-tarball/release.tgz github-release/grootfs-release-${GROOT_VERSION}.tgz
+echo "* Verified with [grootfs-release v${GROOT_VERSION}](https://github.com/cloudfoundry/grootfs-release/releases/tag/v${GROOT_VERSION})" > github-release/notes
