@@ -166,9 +166,11 @@ case $1 in
     <% if p("garden.allow_host_access") %> \
       --allow-host-access \
     <% end %> \
-    <% debug_ip, debug_port = p("garden.debug_listen_address").split(":") %> \
+    <% if_p("garden.debug_listen_address") do |debug_listen_address| %> \
+      <% debug_ip, debug_port = debug_listen_address.split(":") %> \
       --debug-bind-ip=<%= debug_ip %> \
       --debug-bind-port=<%= debug_port %> \
+    <% end %> \
       --default-rootfs=<%= p("garden.default_container_rootfs") %> \
       --default-grace-time=<%= p("garden.default_container_grace_time") %> \
       --graph-cleanup-threshold-in-megabytes=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
