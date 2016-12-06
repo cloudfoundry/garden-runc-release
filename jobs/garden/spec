@@ -47,7 +47,6 @@ properties:
 
   garden.debug_listen_address:
     description: "tcp address on which to serve debug info"
-    default: "0.0.0.0:17013"
 
   garden.default_container_grace_time:
     description: "duration after which to reap idle containers"
