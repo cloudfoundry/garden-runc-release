@@ -48,6 +48,8 @@ $GOPATH/bin/guardian \
   --graph=$tmpdir/graph \
   --bind-ip=0.0.0.0 \
   --bind-port=7777 \
+  --debug-bind-ip=0.0.0.0 \
+  --debug-bind-port=17013 \
   --default-grace-time=5m \
   --log-level=$LOG_LEVEL \
   --default-rootfs=/opt/warden/rootfs &
@@ -56,6 +58,8 @@ sleep 5
 popd
 
 cd src/code.cloudfoundry.org/garden-integration-tests
-export GARDEN_ADDRESS=$(hostname):7777
+export GARDEN_ADDRESS=$(hostname)
+export GARDEN_PORT=7777
+export GARDEN_DEBUG_PORT=17013
 export NESTED=true
 ginkgo -p -nodes=4 "$@"
