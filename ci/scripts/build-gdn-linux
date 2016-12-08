@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# This script is almost entirely based on
+# https://github.com/concourse/bin/blob/master/ci/build-linux and
+# https://github.com/concourse/bin/blob/master/scripts/build-linux
+
+set -e -u -x
+
+export GOPATH=$PWD/gopath:$PWD/gr-release-develop
+export PATH=$PWD/gopath/bin:$PWD/gr-release-develop:$PATH
+
+go get github.com/jteeuwen/go-bindata/go-bindata
+
+LINUX_ASSETS=$PWD/linux
+
+rm -rf $LINUX_ASSETS
+mkdir -p $LINUX_ASSETS
+
+mkdir -p $LINUX_ASSETS/bin
+cp /opt/static-assets/tar $LINUX_ASSETS/bin/tar
+
+cp -a /opt/static-assets/iptables $LINUX_ASSETS/iptables
+
+# go-bindata does weird stuff with symlinks. we only care about iptables anyway
+rm $LINUX_ASSETS/iptables/sbin/*
+rm -r $LINUX_ASSETS/iptables/bin
+cp -aL /opt/static-assets/iptables/sbin/iptables $LINUX_ASSETS/iptables/sbin/iptables
+
+pushd gr-release-develop
+  # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
+  HOME=$PWD bosh sync-blobs
+
+  (
+    set -e -u -x
+
+    export GOPATH=$PWD
+
+    go install code.cloudfoundry.org/guardian/cmd/dadoo
+    go install code.cloudfoundry.org/guardian/cmd/init
+
+    pushd src/github.com/opencontainers/runc
+      PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
+        GOPATH=$PWD/Godeps/_workspace:$GOPATH \
+        BUILDTAGS=seccomp \
+        make static
+
+      mv runc $LINUX_ASSETS/bin
+    popd
+
+    pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
+      make
+      mv nstar $LINUX_ASSETS/bin
+    popd
+
+    cp bin/{init,dadoo} $LINUX_ASSETS/bin
+  )
+popd
+
+go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/gdn/bindata/bindata.go linux/...
+
+# must be built with 'daemon' flag because of docker packages :|
+go build \
+  -tags daemon \
+  -o binary/gdn_linux_amd64 \
+  code.cloudfoundry.org/gdn/cmd/gdn

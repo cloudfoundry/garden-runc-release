@@ -1,0 +1,15 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: concourse/bin-ci}
+
+inputs:
+- name: gr-release-develop
+
+outputs:
+- name: binary
+
+run:
+  path: gr-release-develop/ci/scripts/build-gdn-linux

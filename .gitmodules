@@ -185,3 +185,11 @@
 	path = src/github.com/st3v/glager
 	url = https://github.com/st3v/glager
 	branch = master
+[submodule "src/github.com/vito/twentythousandtonnesofcrudeoil"]
+	path = src/github.com/vito/twentythousandtonnesofcrudeoil
+	url = https://github.com/vito/twentythousandtonnesofcrudeoil
+	branch = master
+[submodule "src/code.cloudfoundry.org/gdn"]
+	path = src/code.cloudfoundry.org/gdn
+	url = https://github.com/cloudfoundry/gdn
+	branch = master
