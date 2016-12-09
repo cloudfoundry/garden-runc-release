@@ -9,7 +9,7 @@ cd $(dirname $0)/../..
 export GOROOT=/usr/local/go
 export GOPATH=$PWD
 
-GDN_PATH="../gdn-linux-release/gdn_linux_amd64"
+GDN_PATH="../gdn-linux-release/gdn"
 chmod 755 "$GDN_PATH"
 
 tmpdir=/tmp/dir

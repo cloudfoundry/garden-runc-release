@@ -61,5 +61,5 @@ go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.o
 # must be built with 'daemon' flag because of docker packages :|
 go build \
   -tags daemon \
-  -o binary/gdn_linux_amd64 \
+  -o binary/gdn \
   code.cloudfoundry.org/gdn/cmd/gdn
