@@ -1,0 +1,46 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e -x
+
+source $(dirname $0)/aufs
+cd $(dirname $0)/../..
+
+export GOROOT=/usr/local/go
+export GOPATH=$PWD
+
+GDN_PATH="../gdn-linux-release/gdn_linux_amd64"
+chmod 755 "$GDN_PATH"
+
+tmpdir=/tmp/dir
+rm -fr $tmpdir
+mkdir $tmpdir
+mount -t tmpfs none $tmpdir
+
+mkdir $tmpdir/depot
+mkdir $tmpdir/snapshots
+mkdir $tmpdir/graph
+
+permit_device_control
+create_loop_devices 256
+
+$GDN_PATH server \
+  --depot-dir=$tmpdir/depot \
+  --graph-dir=$tmpdir/graph \
+  --bind-ip=0.0.0.0 \
+  --bind-port=7777 \
+  --garden-debug-bind-ip=0.0.0.0 \
+  --garden-debug-bind-port=17013 \
+  --garden-default-grace-time=5m \
+  --garden-log-level=$LOG_LEVEL \
+  --garden-default-rootfs=/opt/warden/rootfs &
+
+# wait for server to start up
+sleep 5
+
+cd src/code.cloudfoundry.org/garden-integration-tests
+export GARDEN_ADDRESS=$(hostname)
+export GARDEN_PORT=7777
+export GARDEN_DEBUG_PORT=17013
+export NESTED=true
+ginkgo -p -nodes=4 "$@"
