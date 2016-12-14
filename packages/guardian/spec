@@ -56,6 +56,7 @@ files:
   - code.cloudfoundry.org/guardian/gqt/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_image_plugin/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_runc/*.go # gosub
+  - code.cloudfoundry.org/guardian/gqt/cmd/fake_runc_stderr/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/networkplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/runner/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
