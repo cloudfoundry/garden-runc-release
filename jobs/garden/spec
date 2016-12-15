@@ -4,6 +4,7 @@ name: garden
 templates:
   garden_ctl.erb: bin/garden_ctl
   garden-default.erb: config/garden-default
+  auplink: bin/auplink
 
 packages:
   - guardian

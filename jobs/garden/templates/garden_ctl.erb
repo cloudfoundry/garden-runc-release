@@ -103,6 +103,7 @@ case $1 in
     export PATH=/var/vcap/packages/iptables/sbin:$PATH
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
     export PATH=/var/vcap/packages/runc/bin:$PATH
+    export PATH=/var/vcap/jobs/garden/bin:$PATH
 
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path

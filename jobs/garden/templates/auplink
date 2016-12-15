@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# This is a hack to circumvent the fact that docker calls auplink.
+# We don't actually need any of it's functionality.
+# This hack prevents auplink error messages from being logged and causing
+# confusion.
