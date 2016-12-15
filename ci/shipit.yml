@@ -12,6 +12,7 @@ inputs:
   - name: garden-ci
   - name: gr-candidate-tarball
   - name: grootfs-release-tarball
+  - name: gdn-linux-release
 
 outputs:
   - name: final-release

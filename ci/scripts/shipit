@@ -43,4 +43,5 @@ popd
 
 # prepare github release
 mv grootfs-release-tarball/release.tgz github-release/grootfs-release-${GROOT_VERSION}.tgz
+mv gdn-linux-release/gdn github-release/gdn-${GARDEN_VERSION}
 echo "* Verified with [grootfs-release v${GROOT_VERSION}](https://github.com/cloudfoundry/grootfs-release/releases/tag/v${GROOT_VERSION})" > github-release/notes
