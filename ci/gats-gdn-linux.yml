@@ -12,7 +12,7 @@ inputs:
 - name: gdn-linux-release
 
 params:
-  LOG_LEVEL: debug
+  LOG_LEVEL: error
 
 run:
   path: gr-release-develop/ci/scripts/gats-gdn-linux
