@@ -28,7 +28,9 @@ jobs:
         listen_address: 0.0.0.0:7777
         debug_listen_address: 0.0.0.0:17013
         log_level: debug
-        image_plugin: /var/vcap/jobs/grootfs/bin/grootfs_wrapper
+        image_plugin: /var/vcap/packages/grootfs/bin/grootfs
+        image_plugin_extra_args: ["--config", "/var/vcap/jobs/grootfs/config/grootfs_config.yml"]
+        privileged_image_plugin_extra_args: ["--config", "/var/vcap/jobs/grootfs/config/privileged_grootfs_config.yml"]
       grootfs:
         store_size_bytes: 524288000
 

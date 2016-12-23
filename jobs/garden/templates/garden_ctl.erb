@@ -180,6 +180,12 @@ case $1 in
     <% end %> \
     <% if_p("garden.image_plugin") do |plugin| %> \
       --image-plugin=<%= plugin %> \
+      <% p("garden.image_plugin_extra_args").each do |arg| %> \
+      --image-plugin-extra-arg=<%= arg %> \
+      <% end %> \
+      <% p("garden.privileged_image_plugin_extra_args").each do |arg| %> \
+      --privileged-image-plugin-extra-arg=<%= arg %> \
+      <% end %> \
     <% end %> \
     <% if_p("garden.network_plugin") do |plugin| %> \
       --network-plugin=<%= plugin %> \

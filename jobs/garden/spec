@@ -88,6 +88,14 @@ properties:
   garden.image_plugin:
     description: "Path to an optional image plugin binary"
 
+  garden.image_plugin_extra_args:
+    description: "An array of additional arguments which will be passed to the image plugin binary"
+    default: []
+
+  garden.privileged_image_plugin_extra_args:
+    description: "An array of additional arguments which will be passed to the image plugin binary when creating privileged containers - these will be passed instead of the contents of image_plugin_extra_args"
+    default: []
+
   garden.network_plugin:
     description: "Path to an optional network plugin binary"
 
