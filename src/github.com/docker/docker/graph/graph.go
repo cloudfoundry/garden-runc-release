@@ -428,13 +428,18 @@ func (graph *Graph) Map() map[string]*image.Image {
 // walkAll iterates over each image in the graph, and passes it to a handler.
 // The walking order is undetermined.
 func (graph *Graph) walkAll(handler func(*image.Image)) {
+	ids := []string{}
 	graph.idIndex.Iterate(func(id string) {
+		ids = append(ids, id)
+	})
+
+	for _, id := range ids {
 		if img, err := graph.Get(id); err != nil {
 			return
 		} else if handler != nil {
 			handler(img)
 		}
-	})
+	}
 }
 
 // ByParent returns a lookup table of images by their parent.
