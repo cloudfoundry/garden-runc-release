@@ -7,7 +7,7 @@ director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
 releases:
   - name: garden-runc
     version: latest
-  - name: grootfs
+  - name: grootfs-release
     version: latest
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     instances: 1
     templates:
       - name: grootfs
-        release: grootfs
+        release: grootfs-release
       - name: garden
         release: garden-runc
     resource_pool: garden
@@ -23,6 +23,7 @@ jobs:
       - name: garden
     properties:
       garden:
+        default_container_rootfs: /var/vcap/packages/busybox-tar/busybox.tar
         graph_cleanup_threshold_in_mb: 1024
         listen_network: tcp
         listen_address: 0.0.0.0:7777

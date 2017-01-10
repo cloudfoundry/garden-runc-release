@@ -12,6 +12,7 @@ packages:
   - runc
   - shadow
   - busybox
+  - busybox-tar
   - tar
 
 properties:
