@@ -7,7 +7,7 @@ director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
 releases:
   - name: garden-runc
     version: latest
-  - name: grootfs-release
+  - name: grootfs
     version: latest
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     instances: 1
     templates:
       - name: grootfs
-        release: grootfs-release
+        release: grootfs
       - name: garden
         release: garden-runc
     resource_pool: garden
