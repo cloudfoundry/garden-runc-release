@@ -1,5 +1,0 @@
----
-name: busybox-tar
-
-files:
-  - busybox/busybox.tar.gz

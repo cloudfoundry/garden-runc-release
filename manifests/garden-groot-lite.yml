@@ -23,7 +23,7 @@ jobs:
       - name: garden
     properties:
       garden:
-        default_container_rootfs: /var/vcap/packages/busybox-tar/busybox.tar
+        default_container_rootfs: docker:///busybox:buildroot-2014.02
         graph_cleanup_threshold_in_mb: 1024
         listen_network: tcp
         listen_address: 0.0.0.0:7777
