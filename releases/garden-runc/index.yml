@@ -38,4 +38,6 @@ builds:
     version: 1.0.4
   4a451a25-f102-4865-a028-aaa77d05d708:
     version: 1.1.0
+  f904e609-ac1e-41a6-9a30-f42f33c2adf4:
+    version: 1.1.1
 format-version: '2'
