@@ -48,8 +48,8 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
-	url = https://github.com/opencontainers/runc
-	branch = master
+	url = https://github.com/cloudfoundry-incubator/runc
+	branch = non-dumpable-patch
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
