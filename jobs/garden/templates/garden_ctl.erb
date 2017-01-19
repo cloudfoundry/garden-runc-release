@@ -183,6 +183,9 @@ case $1 in
       <% p("garden.image_plugin_extra_args").each do |arg| %> \
       --image-plugin-extra-arg=<%= arg %> \
       <% end %> \
+    <% end %> \
+    <% if_p("garden.privileged_image_plugin") do |plugin| %> \
+      --privileged-image-plugin=<%= plugin %> \
       <% p("garden.privileged_image_plugin_extra_args").each do |arg| %> \
       --privileged-image-plugin-extra-arg=<%= arg %> \
       <% end %> \
