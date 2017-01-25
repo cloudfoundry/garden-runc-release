@@ -24,23 +24,27 @@ mkdir $tmpdir/graph
 permit_device_control
 create_loop_devices 256
 
-$GDN_PATH server \
-  --depot-dir=$tmpdir/depot \
-  --graph-dir=$tmpdir/graph \
-  --bind-ip=0.0.0.0 \
-  --bind-port=7777 \
-  --garden-debug-bind-ip=0.0.0.0 \
-  --garden-debug-bind-port=17013 \
-  --garden-default-grace-time=5m \
-  --garden-log-level=$LOG_LEVEL \
-  --garden-default-rootfs=/opt/warden/rootfs &
-
-# wait for server to start up
-sleep 5
-
-cd src/code.cloudfoundry.org/garden-integration-tests
 export GARDEN_ADDRESS=$(hostname)
+export GARDEN_IP=0.0.0.0
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
+
+$GDN_PATH \
+  --depot=$tmpdir/depot \
+  --graph=$tmpdir/graph \
+  --bind-ip=$GARDEN_IP \
+  --bind-port=$GARDEN_PORT \
+  --debug-bind-ip=$GARDEN_IP \
+  --debug-bind-port=$GARDEN_DEBUG_PORT \
+  --default-grace-time=5m \
+  --log-level=$LOG_LEVEL \
+  --default-rootfs=/opt/warden/rootfs &
+
+# wait for server to start up
+# and then curl to confirm that it is
+sleep 5
+curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
+
+cd src/code.cloudfoundry.org/garden-integration-tests
 ginkgo -p -nodes=4 "$@"
