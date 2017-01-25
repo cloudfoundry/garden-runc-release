@@ -23,7 +23,7 @@ make
 popd
 
 pushd src/code.cloudfoundry.org/guardian
-go install -tags daemon code.cloudfoundry.org/guardian/cmd/guardian
+go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
 go install code.cloudfoundry.org/guardian/cmd/init
 go install code.cloudfoundry.org/guardian/cmd/dadoo
 
@@ -39,7 +39,7 @@ mkdir $tmpdir/graph
 permit_device_control
 create_loop_devices 256
 
-$GOPATH/bin/guardian \
+$GOPATH/bin/gdn \
   --init-bin=$GOPATH/bin/init \
   --dadoo-bin=$GOPATH/bin/dadoo \
   --nstar-bin=./rundmc/nstar/nstar \

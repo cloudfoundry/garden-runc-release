@@ -47,7 +47,7 @@ files:
   - code.cloudfoundry.org/garden/server/timebomb/*.go # gosub
   - code.cloudfoundry.org/garden/transport/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/dadoo/*.go # gosub
-  - code.cloudfoundry.org/guardian/cmd/guardian/*.go # gosub
+  - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/init/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/inspector-garden/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/the-secret-garden/*.go # gosub

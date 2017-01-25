@@ -131,7 +131,7 @@ case $1 in
      exec_command="exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE"
    <% end %>
 
-    $exec_command /var/vcap/packages/guardian/bin/guardian \
+    $exec_command /var/vcap/packages/guardian/bin/gdn \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
