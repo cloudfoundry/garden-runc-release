@@ -1,6 +1,0 @@
-#!/bin/bash
-ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
-
-gosub list \
-  -a code.cloudfoundry.org/gdn/... \
-  -a github.com/vito/twentythousandtonnesofcrudeoil/...
