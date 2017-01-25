@@ -185,10 +185,6 @@
 	path = src/github.com/st3v/glager
 	url = https://github.com/st3v/glager
 	branch = master
-[submodule "src/github.com/vito/twentythousandtonnesofcrudeoil"]
-	path = src/github.com/vito/twentythousandtonnesofcrudeoil
-	url = https://github.com/vito/twentythousandtonnesofcrudeoil
-	branch = master
 [submodule "src/github.com/kardianos/osext"]
 	path = src/github.com/kardianos/osext
 	url = https://github.com/kardianos/osext
@@ -201,6 +197,3 @@
 	path = src/github.com/urfave/cli
 	url = https://github.com/urfave/cli
 	branch = master
-[submodule "src/github.com/jteeuwen/go-bindata"]
-	path = src/github.com/jteeuwen/go-bindata
-	url = https://github.com/jteeuwen/go-bindata.git
