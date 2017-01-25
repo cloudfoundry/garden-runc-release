@@ -125,6 +125,7 @@ case $1 in
          2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
    <% if p("garden.experimental_rootless_mode") %>
+     # if rootless mode, we need to run `gdn setup` as the root user here
      exec_command="exec chpst -u vcap:vcap"
      echo $$ > $PIDFILE
    <% else %>

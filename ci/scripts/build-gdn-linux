@@ -6,25 +6,21 @@
 
 set -e -u -x
 
-export GOPATH=$PWD/gopath:$PWD/gr-release-develop
-export PATH=$PWD/gopath/bin:$PWD/gr-release-develop:$PATH
+export GOPATH=$PWD/gr-release-develop
+export PATH=$PATH:$GOPATH/bin
 
 go get github.com/jteeuwen/go-bindata/go-bindata
 
 LINUX_ASSETS=$PWD/linux
 
 rm -rf $LINUX_ASSETS
-mkdir -p $LINUX_ASSETS
+mkdir -p $LINUX_ASSETS/{bin,sbin}
 
-mkdir -p $LINUX_ASSETS/bin
 cp /opt/static-assets/tar $LINUX_ASSETS/bin/tar
 
-cp -a /opt/static-assets/iptables $LINUX_ASSETS/iptables
-
 # go-bindata does weird stuff with symlinks. we only care about iptables anyway
-rm $LINUX_ASSETS/iptables/sbin/*
-rm -r $LINUX_ASSETS/iptables/bin
-cp -aL /opt/static-assets/iptables/sbin/iptables $LINUX_ASSETS/iptables/sbin/iptables
+cp -aL /opt/static-assets/iptables/sbin/iptables $LINUX_ASSETS/sbin/iptables
+cp -aL /opt/static-assets/iptables/sbin/iptables-restore $LINUX_ASSETS/sbin/iptables-restore
 
 pushd gr-release-develop
   # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
@@ -56,10 +52,10 @@ pushd gr-release-develop
   )
 popd
 
-go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/gdn/bindata/bindata.go linux/...
+go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go  linux/...
 
 # must be built with 'daemon' flag because of docker packages :|
 go build \
   -tags daemon \
   -o binary/gdn \
-  code.cloudfoundry.org/gdn/cmd/gdn
+  code.cloudfoundry.org/guardian/cmd/gdn

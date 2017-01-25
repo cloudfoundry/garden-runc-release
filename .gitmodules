@@ -205,3 +205,6 @@
 	path = src/github.com/urfave/cli
 	url = https://github.com/urfave/cli
 	branch = master
+[submodule "src/github.com/jteeuwen/go-bindata"]
+	path = src/github.com/jteeuwen/go-bindata
+	url = https://github.com/jteeuwen/go-bindata.git
