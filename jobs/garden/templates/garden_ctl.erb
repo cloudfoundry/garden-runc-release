@@ -120,6 +120,8 @@ case $1 in
     echo 1 > /proc/sys/kernel/dmesg_restrict
 
     ulimit -n 65536
+    echo 4194304 > /proc/sys/kernel/pid_max
+    ulimit -u unlimited
 
     exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
          2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
