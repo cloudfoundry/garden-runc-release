@@ -2,7 +2,7 @@
 name: guardian
 
 dependencies:
-  - golang_1.7.1
+  - golang_1.7.5
   - runc
 
 files:

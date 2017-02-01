@@ -19,15 +19,11 @@ apparmor/apparmor-2.10.1.tar.gz:
   object_id: 2308c8ef-8c6b-480c-b095-fd32c65b568d
   sha: e9f39465f8f3c970522c317cd820c91d3510ad98
   size: 4494037
-golang/go1.7.1.linux-amd64.tar.gz:
-  object_id: 74c82ded-735a-4b28-8aab-66bbe1c04c98
-  sha: 919ab01305ada0078a9fdf8a12bb56fb0b8a1444
-  size: 81618401
 tar/tar-1.29.tar.gz:
   object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
   sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
   size: 3962257
-golang/golang-linux-amd64.tar.gz/go1.7.5.linux-amd64.tar.gz:
-  object_id: e61f5f01-1462-4878-bd45-e956e557ddac
+golang/go1.7.5.linux-amd64.tar.gz:
+  object_id: 33a628f5-32e4-4d7c-b81f-bac8794165fb
   sha: 7c6902ce8cd3b9963082d748c50df074e4896796
   size: 84176916
