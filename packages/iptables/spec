@@ -2,6 +2,8 @@
 name: iptables
 
 files:
-  - iptables/iptables-1.4.21.tar.bz2
+  - iptables/iptables-1.6.1.tar.bz2
+  - iptables/libnftnl-1.0.7.tar.bz2
+  - iptables/libmnl-1.0.4.tar.bz2
   - config/config.guess
   - config/config.sub

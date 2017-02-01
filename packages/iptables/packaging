@@ -1,11 +1,28 @@
 set -e -x
 
-tar jxf iptables/iptables-1.4.21.tar.bz2
+export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
 
-cd iptables-1.4.21/
-if [ "`uname -m`" == "ppc64le" ]; then
-  cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} ./build-aux
-fi
-./configure --prefix=${BOSH_INSTALL_TARGET}
-make
-make install
+tar jxf iptables/iptables-1.6.1.tar.bz2
+tar jxf iptables/libnftnl-1.0.7.tar.bz2
+tar jxf iptables/libmnl-1.0.4.tar.bz2
+
+pushd libmnl-1.0.4/
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd
+
+pushd libnftnl-1.0.7/
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd
+
+pushd iptables-1.6.1/
+  if [ "`uname -m`" == "ppc64le" ]; then
+    cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} ./build-aux
+  fi
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd

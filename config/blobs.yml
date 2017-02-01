@@ -1,8 +1,4 @@
 ---
-iptables/iptables-1.4.21.tar.bz2:
-  object_id: 66b91b2f-bbd2-42f7-af53-286e7cefa63a
-  sha: 85d4160537546a23a7e42bc26dd7ee62a0ede4c8
-  size: 547439
 shadow/shadow-4.2.1.tar.gz:
   object_id: aea45a48-df25-424e-9ddb-bbcc89ab3cbb
   sha: 1d205418863dd02b2b8af0fa78fcce5d7c848d1f
@@ -27,3 +23,15 @@ apparmor/apparmor-2.11.0.tar.gz:
   object_id: 60e153af-dc01-47c8-a663-721e8418c5ed
   sha: 66240d3aa91f552d936d13b3f8c4fcdb9a8a919c
   size: 5013297
+iptables/iptables-1.6.1.tar.bz2:
+  object_id: bf7d84ea-35b3-4631-8cb1-70c3fb14109f
+  sha: b2592490ca7a6c2cd0f069e167a4337c86acdf91
+  size: 620890
+iptables/libmnl-1.0.4.tar.bz2:
+  object_id: f196a106-27aa-48e6-867b-62e33663e578
+  sha: 2db40dea612e88c62fd321906be40ab5f8f1685a
+  size: 301270
+iptables/libnftnl-1.0.7.tar.bz2:
+  object_id: 5b5b2dcc-dc1e-42b0-a8e3-368723b7cc71
+  sha: 381b2b3cbb3fad186cb3f57bbf32d70f0b3c3c8e
+  size: 384969
