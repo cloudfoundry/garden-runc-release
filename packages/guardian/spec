@@ -7,6 +7,7 @@ dependencies:
 
 files:
   - code.cloudfoundry.org/guardian/rundmc/nstar/*
+  - github.com/opencontainers/runc/libcontainer/utils/*
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
   - code.cloudfoundry.org/garden-integration-tests/*.go # gosub
@@ -144,7 +145,6 @@ files:
   - github.com/docker/docker/daemon/events/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
-  - github.com/docker/docker/daemon/graphdriver/vfs/*.go # gosub
   - github.com/docker/docker/daemon/network/*.go # gosub
   - github.com/docker/docker/graph/*.go # gosub
   - github.com/docker/docker/graph/tags/*.go # gosub
@@ -256,7 +256,6 @@ files:
   - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
-  - github.com/opencontainers/runc/libcontainer/utils/* # gosub
   - github.com/opencontainers/runtime-spec/schema/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
