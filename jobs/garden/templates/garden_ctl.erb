@@ -76,6 +76,17 @@ function setup_apparmor() {
   fi
 }
 
+function set_graph_permissions() {
+  local graph_path
+  graph_path=$1
+
+  # the uid/gid 100000 here is just an arbitrarily high number
+  # chosen as it is not the uid/gid of root (0) or vcap (1000)
+
+  chown 100000:100000 "$graph_path"
+  chmod 750 "$graph_path"
+}
+
 case $1 in
 
   start)
@@ -111,11 +122,10 @@ case $1 in
     graph_path=${GARDEN_DIR}/graph
     mkdir -p $graph_path
 
-    real_graph=${GARDEN_DIR}/realgraph
-
     permit_device_control
     create_loop_devices 256
     setup_apparmor
+    set_graph_permissions "$graph_path"
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
 
@@ -129,10 +139,11 @@ case $1 in
    <% if p("garden.experimental_rootless_mode") %>
      # if rootless mode, we need to run `gdn setup` as the root user here
      exec_command="exec chpst -u vcap:vcap"
-     echo $$ > $PIDFILE
    <% else %>
-     exec_command="exec /var/vcap/packages/guardian/bin/the-secret-garden $DATA_DIR $real_graph $graph_path $PIDFILE"
+     exec_command="exec"
    <% end %>
+
+    echo $$ > $PIDFILE
 
     $exec_command /var/vcap/packages/guardian/bin/gdn \
     <% if p("garden.listen_network") == "tcp" %> \
