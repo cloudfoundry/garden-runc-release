@@ -40,6 +40,7 @@ permit_device_control
 create_loop_devices 256
 
 $GOPATH/bin/gdn \
+  server \
   --init-bin=$GOPATH/bin/init \
   --dadoo-bin=$GOPATH/bin/dadoo \
   --nstar-bin=./rundmc/nstar/nstar \
