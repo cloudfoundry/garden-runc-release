@@ -146,6 +146,7 @@ case $1 in
     echo $$ > $PIDFILE
 
     $exec_command /var/vcap/packages/guardian/bin/gdn \
+    server \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
