@@ -186,10 +186,10 @@ case $1 in
      exec_command="exec"
     <% end %>
 
+    /var/vcap/packages/guardian/bin/gdn setup
     echo $$ > $PIDFILE
-
     $exec_command /var/vcap/packages/guardian/bin/gdn \
-    server \
+    server --skip-setup \
     <% if p("garden.listen_network") == "tcp" %> \
     <% ip, port = p("garden.listen_address").split(":") %> \
       --bind-ip=<%= ip %> \
