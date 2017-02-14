@@ -6,11 +6,9 @@ PIDFILE=$RUN_DIR/garden.pid
 DATA_DIR=/var/vcap/data
 GARDEN_DIR=/var/vcap/data/garden
 
-function setup() {
-  mkdir -p /var/vcap/sys/log/monit
-  exec 1>> /var/vcap/sys/log/monit/garden.out.log
-  exec 2>> /var/vcap/sys/log/monit/garden.err.log
-}
+mkdir -p /var/vcap/sys/log/monit
+exec 1>> /var/vcap/sys/log/monit/garden.out.log
+exec 2>> /var/vcap/sys/log/monit/garden.err.log
 
 <% if_p('garden.http_proxy') do |http_proxy| %>
 export HTTP_PROXY=<%= http_proxy %>
@@ -107,7 +105,6 @@ function wait_pid() {
 
 function stop_guardian() {
   local pid
-  setup
   pid=$(cat "$PIDFILE")
 
   echo "stopping guardian"
@@ -138,8 +135,6 @@ function stop_guardian() {
 case $1 in
 
   start)
-    setup
-
     if [ -f "$PIDFILE" ]; then
       pid=$(head -1 "$PIDFILE")
 
