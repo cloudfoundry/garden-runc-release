@@ -84,7 +84,7 @@ function set_graph_permissions() {
   # chosen as it is not the uid/gid of root (0) or vcap (1000)
 
   chown 100000:100000 "$graph_path"
-  chmod 750 "$graph_path"
+  chmod 700 "$graph_path"
 }
 
 function wait_pid() {
