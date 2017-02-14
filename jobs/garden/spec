@@ -5,6 +5,7 @@ templates:
   garden_ctl.erb: bin/garden_ctl
   garden-default.erb: config/garden-default
   auplink: bin/auplink
+  brutefs: bin/brutefs
 
 packages:
   - guardian

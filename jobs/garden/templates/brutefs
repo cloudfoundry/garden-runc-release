@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# This is a noop image plugin meant to enable gdn server to run rootless
+# without using grootfs images plugin just yet
+echo "brute-image-path"
+

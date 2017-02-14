@@ -154,6 +154,10 @@ case $1 in
     export TMPDIR=/var/vcap/data/tmp
     mkdir -p $TMPDIR
 
+    <% if p("garden.experimental_rootless_mode") %>
+      chown -R 100000:100000 $GARDEN_DIR $LOG_DIR $TMPDIR
+    <% end %>
+
     export PATH=/var/vcap/packages/iptables/sbin:$PATH
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
     export PATH=/var/vcap/packages/runc/bin:$PATH
@@ -181,7 +185,7 @@ case $1 in
 
     <% if p("garden.experimental_rootless_mode") %>
      # if rootless mode, we need to run `gdn setup` as the root user here
-     exec_command="exec chpst -u vcap:vcap"
+     exec_command="exec chpst -u :100000:100000"
     <% else %>
      exec_command="exec"
     <% end %>
