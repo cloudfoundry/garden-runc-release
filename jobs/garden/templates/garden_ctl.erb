@@ -197,9 +197,6 @@ case $1 in
     <% else %> \
       --bind-socket=<%= p("garden.listen_address") %> \
     <% end %> \
-    <% if p("garden.experimental_rootless_mode") %>  \
-      --rootless \
-    <% end %> \
       --depot=$depot_path \
       --graph=$graph_path \
       --properties-path=/var/vcap/data/garden/props.json \
