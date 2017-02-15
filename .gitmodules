@@ -197,3 +197,6 @@
 	path = src/github.com/urfave/cli
 	url = https://github.com/urfave/cli
 	branch = master
+[submodule "src/code.cloudfoundry.org/idmapper"]
+	path = src/code.cloudfoundry.org/idmapper
+	url = https://github.com/cloudfoundry/idmapper.git
