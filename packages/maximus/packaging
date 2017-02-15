@@ -1,0 +1,11 @@
+set -e
+
+export GOROOT=/var/vcap/packages/golang_1.7.5
+export PATH=$GOROOT/bin:$PATH
+
+export GOPATH=$BOSH_INSTALL_TARGET
+mkdir $GOPATH/src
+cp -R code.cloudfoundry.org $GOPATH/src/
+go install code.cloudfoundry.org/idmapper/cmd/maximus
+
+rm -rf $GOPATH/{src,pkg}
