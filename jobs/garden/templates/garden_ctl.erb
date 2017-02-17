@@ -61,6 +61,7 @@ function create_loop_devices() {
 }
 
 function setup_apparmor() {
+  local default_policy=garden-default
   export PATH=$PATH:$(readlink -nf /var/vcap/packages/apparmor/bin)
   POLICY=<%= p("garden.apparmor_profile") %>
   CONFIG_DIR=/var/vcap/jobs/garden/config
@@ -69,10 +70,8 @@ function setup_apparmor() {
     mount -t securityfs securityfs /sys/kernel/security
   fi
 
-  if [ -n "$POLICY" ]; then
-    if ! aa-status | grep $POLICY > /dev/null; then
-        apparmor_parser -a $CONFIG_DIR/$POLICY
-    fi
+  if ! aa-status | grep $default_policy > /dev/null; then
+    apparmor_parser -a $CONFIG_DIR/$default_policy
   fi
 }
 
@@ -290,7 +289,7 @@ case $1 in
     <% p("garden.dns_servers").each do |server| %> \
       --dns-server=<%= server %> \
     <% end %> \
-    <% unless p("garden.apparmor_profile").to_s.empty?  %> \
+    <% if !p("garden.apparmor_profile").empty?  %> \
       --apparmor=<%= p("garden.apparmor_profile") %> \
     <% end %>
     ;;
