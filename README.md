@@ -58,7 +58,7 @@ specific tests in a VM using [Concourse CI](https://concourse.ci/).
 In order to contribute to the project you should have the following installed:
 
 - [Git](https://git-scm.com/) - Distributed version control system
-- [Go 1.6](https://golang.org/doc/install#install) - The Go programming
+- [Go](https://golang.org/doc/install#install) - The Go programming
    language
 - [Direnv](https://github.com/direnv/direnv) - Environment management
 - [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based dependency manager for Go
