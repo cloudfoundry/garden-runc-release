@@ -15,10 +15,6 @@ tar/tar-1.29.tar.gz:
   object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
   sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
   size: 3962257
-golang/go1.7.5.linux-amd64.tar.gz:
-  object_id: 33a628f5-32e4-4d7c-b81f-bac8794165fb
-  sha: 7c6902ce8cd3b9963082d748c50df074e4896796
-  size: 84176916
 apparmor/apparmor-2.11.0.tar.gz:
   object_id: 60e153af-dc01-47c8-a663-721e8418c5ed
   sha: 66240d3aa91f552d936d13b3f8c4fcdb9a8a919c
@@ -35,3 +31,7 @@ iptables/libnftnl-1.0.7.tar.bz2:
   object_id: 5b5b2dcc-dc1e-42b0-a8e3-368723b7cc71
   sha: 381b2b3cbb3fad186cb3f57bbf32d70f0b3c3c8e
   size: 384969
+golang/go1.8.linux-amd64.tar.gz:
+  object_id: 009d19c0-1ee0-478c-8d46-9e02ac3892a6
+  sha: a93fe8fc245e3554f956bc823f30ef4eb23c2068
+  size: 89803580

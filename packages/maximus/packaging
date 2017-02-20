@@ -1,6 +1,6 @@
 set -e
 
-export GOROOT=/var/vcap/packages/golang_1.7.5
+export GOROOT=/var/vcap/packages/golang
 export PATH=$GOROOT/bin:$PATH
 
 export GOPATH=$BOSH_INSTALL_TARGET

@@ -11,7 +11,7 @@ pushd src/code.cloudfoundry.org/guardian
 popd
 
 pushd src/code.cloudfoundry.org/garden-shed
-  go vet ./...
+  go tool vet -printf=false .
   go fmt ./...
 popd
 
