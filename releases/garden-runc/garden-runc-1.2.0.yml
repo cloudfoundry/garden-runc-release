@@ -1,0 +1,71 @@
+---
+packages:
+- name: apparmor
+  version: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  fingerprint: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  sha1: b7638766932827e7d268b57827d434eaf22f3f0e
+  dependencies: []
+- name: busybox
+  version: fc652425c32d0dad62f45bca18e1899671e2e570
+  fingerprint: fc652425c32d0dad62f45bca18e1899671e2e570
+  sha1: 316cbd12d68829eac70962531e99b52702adc8ae
+  dependencies: []
+- name: golang_1.7.5
+  version: fb3379fa5b3afb2e6e515657a33f2145ba4bd076
+  fingerprint: fb3379fa5b3afb2e6e515657a33f2145ba4bd076
+  sha1: ca5231845e7480d8a97ad97b91663927c618a4e3
+  dependencies: []
+- name: guardian
+  version: e9b6be7d9564d65efb551bd8dbabf5efa822e516
+  fingerprint: e9b6be7d9564d65efb551bd8dbabf5efa822e516
+  sha1: 2e5a1c958c24945bc16d63d82699e5278d1c082d
+  dependencies:
+  - golang_1.7.5
+  - runc
+- name: iptables
+  version: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  fingerprint: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  sha1: b1743c4ae0fddfbe606d1e76312fa84d4aa49aa9
+  dependencies: []
+- name: libseccomp
+  version: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  fingerprint: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  sha1: 2d13f089c1541de7b66b1415e04d8f376708377f
+  dependencies: []
+- name: maximus
+  version: 33dee1abc88480ae730f8b51cfbaa4b5e7a7a63d
+  fingerprint: 33dee1abc88480ae730f8b51cfbaa4b5e7a7a63d
+  sha1: fa8f489f59cb71932509d92b5e0974ebe6ff0e93
+  dependencies:
+  - golang_1.7.5
+- name: runc
+  version: 1f956d20f8a140008534e7c9773c7d02a596cce4
+  fingerprint: 1f956d20f8a140008534e7c9773c7d02a596cce4
+  sha1: 4b83905c46fdddf0aee16e4f7521352cdf9d8692
+  dependencies:
+  - apparmor
+  - golang_1.7.5
+  - libseccomp
+- name: shadow
+  version: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  fingerprint: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  sha1: eabcde9bb28f2ccc160a34cd9fcd7256afba1d4b
+  dependencies: []
+- name: tar
+  version: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  fingerprint: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  sha1: d85bd6e9854aa9f766b6ca749411a33afb946232
+  dependencies: []
+jobs:
+- name: garden
+  version: b472d894a8b490697e7fa3b8e8880c1243524862
+  fingerprint: b472d894a8b490697e7fa3b8e8880c1243524862
+  sha1: 9f0ec71e65117a1ea1b2ec0381b02c02cab102ef
+license:
+  version: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  fingerprint: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  sha1: ca927c57ba4c2516b256d48991aa7e5d55e53110
+commit_hash: 2b3dedc5
+uncommitted_changes: false
+name: garden-runc
+version: 1.2.0
