@@ -53,7 +53,7 @@ properties:
 
   garden.default_container_grace_time:
     description: "duration after which to reap idle containers"
-    default: 5m
+    default: 0
 
   garden.default_container_rootfs:
     description: "path to the rootfs to use when a container specifies no rootfs"
