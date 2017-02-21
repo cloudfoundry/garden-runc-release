@@ -28,6 +28,7 @@ fi
 cd src/code.cloudfoundry.org/guardian
 
 export GARDEN_TEST_ROOTFS=/opt/warden/rootfs
+export GARDEN_PREEXISTING_USERS_TEST_ROOTFS=/opt/warden/preexisting-users-rootfs
 export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs
 export GARDEN_NESTABLE_TEST_ROOTFS=/opt/warden/nestable-rootfs
 export GARDEN_TAR_PATH=/opt/tar
