@@ -14,4 +14,4 @@ export PATH=$GOPATH/bin:$PATH
 cd src/code.cloudfoundry.org/garden
 
 go vet ./...
-ginkgo -r -p -race -keepGoing -nodes=4 -failOnPending -randomizeSuites "$@"
+ginkgo -r -p -race -keepGoing -nodes=8 -failOnPending -randomizeSuites "$@"

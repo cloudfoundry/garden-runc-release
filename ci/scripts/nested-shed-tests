@@ -18,4 +18,4 @@ permit_device_control
 create_loop_devices 256
 
 go tool vet -printf=false .
-ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=4 -failOnPending -randomizeSuites "$@"
+ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=8 -failOnPending -randomizeSuites "$@"
