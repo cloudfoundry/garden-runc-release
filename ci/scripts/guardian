@@ -37,4 +37,4 @@ export GARDEN_DORA_PATH=$PWD/../garden-integration-tests/resources/dora.tgz
 [ -d /opt/warden/docker-registry-v2-rootfs ] && export GARDEN_DOCKER_REGISTRY_V2_TEST_ROOTFS=/opt/warden/docker-registry-v2-rootfs
 
 go vet ./...
-ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=8 -failOnPending "$@"
+ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=8 -failOnPending -randomizeSuites "$@"
