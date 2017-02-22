@@ -48,4 +48,4 @@ sleep 5
 curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
 
 cd src/code.cloudfoundry.org/garden-integration-tests
-ginkgo -p -nodes=4 "$@"
+ginkgo -p -nodes=4 -failOnPending "$@"

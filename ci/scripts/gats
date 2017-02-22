@@ -63,4 +63,4 @@ export GARDEN_ADDRESS=$(hostname)
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
-ginkgo -p -nodes=4 "$@"
+ginkgo -p -nodes=4 -failOnPending "$@"

@@ -9,4 +9,4 @@ export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-integration-tests
-ginkgo -p -nodes=4 performance
+ginkgo -p -nodes=4 -failOnPending performance
