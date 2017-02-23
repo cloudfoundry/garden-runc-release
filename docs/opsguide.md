@@ -32,8 +32,6 @@ To determine which path in the graph is being used as the root filesystem of a p
 
 If you installed garden-runc-release using bosh, the graph is located at `/var/vcap/data/garden/aufs_graph`. 
 
-**Note:** For implementation reasons, if you deployed garden-runc-release using bosh, before interacting with containers it is currently neccesary to run `/var/vcap/packages/guardian/bin/inspector-garden -pid $(pidof guardian) /bin/bash`. This ensures the graph path is properly visible. You must be root to run this command.
-
 ## Guardian Components
 
 Guardian consists of three primary “modules”, these are the Networker, The RootFS Manager and the Containerizer. In a default garden-runc installation, these are implemented by the built-in “kawasaki”, “garden-shed” and “rundmc” components, respectively.
@@ -63,5 +61,3 @@ At runtime, you will see that guardian itself runs as a daemon process to which 
 ## Interacting with a Container
 
 At runtime, bundles from the depot directory are run using [runC](http://github.com/opencontainers/runc). As these are standard runc containers and processes, you can interact with them for debug purposes using runc itself (or any compatible tool). For example, to execute a process in a container you can execute `runc exec $containerid /bin/sh` (where $containerid is the directory name of the depot subdirectory in question), to get events from a container you can run `runc events $containerid` and so on. More documentation on runC is available [on its github page](http://github.com/opencontainers/runc).
-
-**Note:** For implementation reasons, if you deployed garden-runc-release using bosh, before interacting with containers it is currently neccesary to run `/var/vcap/packages/guardian/bin/inspector-garden -pid $(pidof guardian) /bin/bash`. This ensures the graph path is properly visible. You must be root to run this command.
