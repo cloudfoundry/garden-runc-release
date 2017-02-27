@@ -113,7 +113,8 @@ properties:
     default: 250
 
   garden.cpu_quota_period_per_share_us:
-    description: "Maximum number of nanoseconds each cpu share assigned to a container allows per quota period"
+    description: "Maximum number of nanoseconds each cpu share assigned to a container allows per quota period. When set to zero cpu limit is disabled."
+    default: 0
 
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
