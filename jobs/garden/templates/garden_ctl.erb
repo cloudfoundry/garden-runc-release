@@ -67,6 +67,7 @@ function setup_apparmor() {
   CONFIG_DIR=/var/vcap/jobs/garden/config
 
   if ! mountpoint -q /sys/kernel/security; then
+    mkdir -p /sys/kernel/security
     mount -t securityfs securityfs /sys/kernel/security
   fi
 
