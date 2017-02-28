@@ -3,7 +3,6 @@ name: guardian
 
 dependencies:
   - golang
-  - runc
 
 files:
   - code.cloudfoundry.org/guardian/rundmc/nstar/*
