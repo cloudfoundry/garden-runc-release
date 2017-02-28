@@ -158,12 +158,15 @@ case $1 in
     export PATH=/var/vcap/packages/maximus/bin:$PATH
     export PATH=/var/vcap/jobs/garden/bin:$PATH
 
-    <% if p("garden.experimental_rootless_mode") %>
-      chown "$(maximus):$(maximus)" $GARDEN_DIR $LOG_DIR $TMPDIR
-    <% end %>
-
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
+
+    <% if p("garden.experimental_rootless_mode") %>
+      runc_root=/run/runc
+      mkdir -p $runc_root
+      chmod 700 $runc_root
+      chown "$(maximus):$(maximus)" $GARDEN_DIR $LOG_DIR $TMPDIR $depot_path $runc_root
+    <% end %>
 
     graph_path=${GARDEN_DIR}/graph
     mkdir -p $graph_path
