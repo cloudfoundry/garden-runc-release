@@ -1,0 +1,59 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e -x
+
+source $(dirname $0)/aufs
+cd $(dirname $0)/../..
+
+export GOROOT=/usr/local/go
+export GOPATH=$PWD
+export PATH=$PATH:$GOPATH/bin
+export BUCKETBENCH_THREADS=${BUCKETBENCH_THREADS:=5}
+
+GDN_PATH="../gdn-linux-release/gdn"
+chmod 755 "$GDN_PATH"
+
+tmpdir=/tmp/dir
+rm -fr $tmpdir
+mkdir $tmpdir
+mount -t tmpfs none $tmpdir
+
+mkdir $tmpdir/depot
+mkdir $tmpdir/snapshots
+mkdir $tmpdir/graph
+
+permit_device_control
+create_loop_devices 256
+
+export GARDEN_ADDRESS=$(hostname)
+export GARDEN_IP=0.0.0.0
+export GARDEN_PORT=7777
+export GARDEN_DEBUG_PORT=17013
+export NESTED=true
+
+$GDN_PATH \
+  server \
+  --depot=$tmpdir/depot \
+  --graph=$tmpdir/graph \
+  --bind-ip=$GARDEN_IP \
+  --bind-port=$GARDEN_PORT \
+  --debug-bind-ip=$GARDEN_IP \
+  --debug-bind-port=$GARDEN_DEBUG_PORT \
+  --default-grace-time=5m \
+  --log-level=$LOG_LEVEL \
+  --default-rootfs=/opt/warden/rootfs &
+
+# wait for server to start up
+# and then curl to confirm that it is
+sleep 5
+curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
+
+
+go get github.com/contraband/gaol
+# go get github.com/estesp/bucketbench
+mkdir -p $GOPATH/src/github.com/estesp/bucketbench
+git clone https://github.com/karampok/bucketbench.git $GOPATH/src/github.com/estesp/bucketbench
+go install github.com/estesp/bucketbench
+
+bucketbench --log-level=warn run -g ${BUCKETBENCH_THREADS}
