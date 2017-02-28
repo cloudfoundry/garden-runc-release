@@ -2,20 +2,15 @@ set -e -x
 
 export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
 
-mkdir -p $BOSH_INSTALL_TARGET/src $BOSH_INSTALL_TARGET/bin
+mkdir -p $BOSH_INSTALL_TARGET/{src,bin}
 
-# recreate Godeps symlink as BOSH doesn't seem to follow the link
-rm -rf github.com/opencontainers/runc/Godeps/_workspace/src/github.com/opencontainers/runc
-ln -s github.com/opencontainers/runc github.com/opencontainers/runc/Godeps/_workspace/src/github.com/opencontainers/runc
-
-cp -a . $BOSH_INSTALL_TARGET/src/.
+cp -a . $BOSH_INSTALL_TARGET/src/
 
 export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=$BOSH_INSTALL_TARGET
 
 cd $GOPATH/src/github.com/opencontainers/runc
-export GOPATH=$PWD/Godeps/_workspace:$GOPATH
 
 export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
 export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib

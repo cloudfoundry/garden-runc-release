@@ -11,7 +11,7 @@ export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
 pushd src/github.com/opencontainers/runc
-  GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp apparmor" --ldflags '-extldflags "-static"' -o runc .
+  go build -tags "seccomp apparmor" --ldflags '-extldflags "-static"' -o runc .
   mv runc /usr/local/bin/runc
 popd
 
