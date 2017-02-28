@@ -154,7 +154,6 @@ case $1 in
 
     export PATH=/var/vcap/packages/iptables/sbin:$PATH
     export PATH=/var/vcap/packages/shadow/sbin:$PATH
-    export PATH=/var/vcap/packages/runc/bin:$PATH
     export PATH=/var/vcap/packages/maximus/bin:$PATH
     export PATH=/var/vcap/jobs/garden/bin:$PATH
 
@@ -218,6 +217,11 @@ case $1 in
       --graph=$graph_path \
       --properties-path=/var/vcap/data/garden/props.json \
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
+    <% if p("garden.experimental_rootless_mode") %> \
+      --runc-bin=/var/vcap/packages/runc-rootless/bin/runc \
+    <% else %> \
+      --runc-bin=/var/vcap/packages/runc/bin/runc \
+    <% end %> \
       --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --iptables-restore-bin=/var/vcap/packages/iptables/sbin/iptables-restore \
       --init-bin=/var/vcap/packages/guardian/bin/init \

@@ -1,0 +1,19 @@
+set -e -x
+
+export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
+
+mkdir -p $BOSH_INSTALL_TARGET/{src,bin}
+
+cp -a rootless/src/github.com $BOSH_INSTALL_TARGET/src/
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=$BOSH_INSTALL_TARGET
+
+cd $GOPATH/src/github.com/opencontainers/runc
+
+export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
+export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib
+make BUILDTAGS='seccomp apparmor' static
+
+cp runc $BOSH_INSTALL_TARGET/bin/

@@ -15,24 +15,14 @@ pushd src/github.com/opencontainers/runc
   mv runc /usr/local/bin/runc
 popd
 
-# Note: this obviously isn't great, but is just a temporary measure that will
-# be addressed in the next story
-# https://www.pivotaltracker.com/story/show/140407919
-rm -rf src/github.com/opencontainers/runc
-pushd src/github.com/opencontainers
-  git clone https://github.com/cyphar/runc
-  cd runc
-  git checkout rootless-containers
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-  git cherry-pick f47980f6b14865906387174e72d060ce2d780a3c
-  git cherry-pick 2d416e5e1dd4b96e13c391d2be76d787dc9e2a30
-
-  make
-  mv runc /usr/local/bin/runc-rootless
-popd
-
+export ROOTLESS_RUNC_PATH=/usr/local/bin/runc-rootless
+(
+cd src/rootless
+export GOPATH=$PWD
+cd src/github.com/opencontainers/runc
+go build -tags "seccomp apparmor" --ldflags '-extldflags "-static"' -o runc .
+mv runc $ROOTLESS_RUNC_PATH
+)
 
 # Set up runC
 mkdir -p /var/run/oci
@@ -53,7 +43,6 @@ export GARDEN_NESTABLE_TEST_ROOTFS=/opt/warden/nestable-rootfs
 export GARDEN_TAR_PATH=/opt/tar
 export GARDEN_TEST_GRAPHPATH=/tmp/aufs_mount
 export GARDEN_DORA_PATH=$PWD/../garden-integration-tests/resources/dora.tgz
-export ROOTLESS_RUNC_PATH=/usr/local/bin/runc-rootless
 [ -d /opt/warden/docker-registry-v2-rootfs ] && export GARDEN_DOCKER_REGISTRY_V2_TEST_ROOTFS=/opt/warden/docker-registry-v2-rootfs
 
 go vet ./...

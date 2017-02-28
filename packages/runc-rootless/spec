@@ -1,0 +1,10 @@
+---
+name: runc-rootless
+
+dependencies:
+  - libseccomp
+  - golang
+  - apparmor
+
+files:
+  - rootless/src/github.com/opencontainers/runc/**/*
