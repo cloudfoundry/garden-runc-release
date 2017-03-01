@@ -9,4 +9,4 @@ which gosub
   $ROOT_DIR_PATH/scripts/guardian-deps
   echo "github.com/opencontainers/runc"
   echo "code.cloudfoundry.org/idmapper/cmd/maximus"
-) | xargs gosub sync
+) | xargs gosub sync -i src/rootless/src/github.com/opencontainers/runc
