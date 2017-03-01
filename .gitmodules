@@ -202,4 +202,4 @@
 	url = https://github.com/cloudfoundry/idmapper
 [submodule "src/rootless/src/github.com/opencontainers/runc"]
 	path = src/rootless/src/github.com/opencontainers/runc
-	url = git@github.com:cloudfoundry-incubator/runc.git
+	url = https://github.com/cloudfoundry-incubator/runc
