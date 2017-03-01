@@ -8,7 +8,7 @@ cd $(dirname $0)/../..
 
 export GOROOT=/usr/local/go
 export GOPATH=$PWD
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:/var/gdn/assets/linux/bin
 export BUCKETBENCH_THREADS=${BUCKETBENCH_THREADS:=5}
 
 GDN_PATH="../gdn-linux-release/gdn"
@@ -56,4 +56,12 @@ mkdir -p $GOPATH/src/github.com/estesp/bucketbench
 git clone https://github.com/karampok/bucketbench.git $GOPATH/src/github.com/estesp/bucketbench
 go install github.com/estesp/bucketbench
 
-bucketbench --log-level=warn run -g ${BUCKETBENCH_THREADS}
+mkdir -p /tmp/bundle
+pushd /tmp/bundle
+runc spec
+sed -i 's/"terminal": true/"terminal": false/' config.json
+sed -i 's/"sh"/"whoami"/' config.json
+sed -i 's/"path": "rootfs"/"path": "\/opt\/warden\/rootfs"/' config.json
+popd
+
+bucketbench --log-level=debug run -g ${BUCKETBENCH_THREADS} -b /tmp/bundle -r ${BUCKETBENCH_THREADS}
