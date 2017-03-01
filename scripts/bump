@@ -14,5 +14,3 @@ git add packages/*/spec
 ./scripts/commit-with-submodule-log "$@"
 
 git duet-commit --amend --reset-author --verbose
-
-
