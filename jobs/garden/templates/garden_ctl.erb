@@ -254,8 +254,8 @@ case $1 in
     <% if_p("garden.max_containers") do |max_containers| %> \
       --max-containers=<%= max_containers %> \
     <% end %> \
-    <% if_p("garden.cpu_quota_period_per_share_us") do |quota_period_per_share| %> \
-      --cpu-quota-period-per-share=<%= quota_period_per_share %> \
+    <% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| %> \
+      --cpu-quota-per-share=<%= quota_per_share %> \
     <% end %> \
     <% if_p("garden.image_plugin") do |plugin| %> \
       --image-plugin=<%= plugin %> \

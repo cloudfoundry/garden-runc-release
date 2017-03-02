@@ -113,8 +113,8 @@ properties:
     description: "Maximum container capacity to advertise. It is not recommended to set this larger than 250."
     default: 250
 
-  garden.cpu_quota_period_per_share_us:
-    description: "Maximum number of nanoseconds each cpu share assigned to a container allows per quota period. When set to zero cpu limit is disabled."
+  garden.cpu_quota_per_share_in_us:
+    description: "Maximum number of microseconds each cpu share assigned to a container allows per quota period. When set to zero cpu limit is disabled."
     default: 0
 
   garden.destroy_containers_on_start:
