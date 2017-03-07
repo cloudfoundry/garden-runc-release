@@ -71,6 +71,7 @@ files:
   - code.cloudfoundry.org/guardian/kawasaki/iptables/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/iptables/iptablesfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/kawasakifakes/*.go # gosub
+  - code.cloudfoundry.org/guardian/kawasaki/mtu/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/netns/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/ports/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/subnets/*.go # gosub
