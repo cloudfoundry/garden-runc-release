@@ -46,6 +46,11 @@ For more advanced use cases, you'll need to use the [Garden
 client](https://godoc.org/code.cloudfoundry.org/garden#Client)
 package for Golang.
 
+### Rootless containers
+
+Garden has experimental support for running containers without requiring root
+privileges. Take a look at the [rootless-containers.md](docs/rootless-containers.md) doc for further info.
+
 ## Contributing
 
 In order to help us extend Garden-runC, we recommend opening a Github issue to

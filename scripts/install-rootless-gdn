@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -e
+
+#GDN_VERSION=1.2.0
+GROOTFS_VERSION=0.15.0
+ROOTLESS_USER=rootless
+
+add_rootless_user() {
+  groupadd -g 4294967294 $ROOTLESS_USER
+  useradd -g $ROOTLESS_USER -u 4294967294 -m -d /home/$ROOTLESS_USER -s /bin/bash $ROOTLESS_USER
+}
+
+install_gdn() {
+# TODO: provide GitHub link to release (once it exists)
+#  wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
+  wget https://s3.amazonaws.com/gdn-linux-release/gdn -O /usr/local/bin/gdn
+  wget https://github.com/contraband/gaol/releases/download/2016-8-22/gaol_linux -O /usr/local/bin/gaol
+  chmod 755 /usr/local/bin/{gdn,gaol}
+}
+
+install_grootfs() {
+  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/grootfs-$GROOTFS_VERSION.tgz | tar xvz -C /usr/local/bin/
+  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/drax-$GROOTFS_VERSION.tgz | tar xvz -C /usr/local/bin/
+  wget https://raw.githubusercontent.com/cloudfoundry/grootfs/v$GROOTFS_VERSION/hack/quick-setup -O /usr/local/bin/grootfs-quick-setup
+  chmod 755 /usr/local/bin/{grootfs,drax,grootfs-quick-setup}
+}
+
+configure_btrfs_filesystem() {
+  if [ -d /var/lib/grootfs ]; then
+    return
+  fi
+
+  grootfs-quick-setup
+
+  chown -R $ROOTLESS_USER:$ROOTLESS_USER /var/lib/grootfs/btrfs
+}
+
+configure_required_dirs() {
+  mkdir -p /var/gdn /var/run/gdn /run/runc
+  chown -R $ROOTLESS_USER:$ROOTLESS_USER /var/gdn /var/run/gdn /run/runc
+}
+
+add_rootless_user
+install_grootfs
+install_gdn
+configure_btrfs_filesystem
+configure_required_dirs
