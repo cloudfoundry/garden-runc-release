@@ -1,4 +1,4 @@
-# Rootless containers in Garden
+# (Experimental) Rootless containers in Garden
 
 With the latest release of Garden it is now possible to create and run processes
 in containers without requiring root privileges! This document details the various
@@ -8,6 +8,10 @@ and configuring Garden to run as a non-root user.
 **HUGE DISCLAIMER**: Garden's support for rootless containers is still very much 
 a work-in-progress at the moment, and as such is subject to a number of known
 limitations (see the end of this doc for details).
+
+**Special Thanks**: A huge thanks to the [OCI community](https://www.opencontainers.org/) (and
+especially [Aleksa Sarai](https://github.com/cyphar)) for their hard work and support
+in making rootless containers a reality.
 
 ## Component Overview
 
@@ -124,9 +128,3 @@ ubuntu@ubuntu-xenial:~$ gaol destroy my-rootless-container
 * `gdn` cannot currently run as _any_ non-root user, it must be run as the `rootless` user
 * You can only map 1 user into the container ([for now](https://www.pivotaltracker.com/story/show/130628237))
 * Probably lots of other things as well
-
-## Special Thanks
-
-A huge thanks to the [OCI community](https://www.opencontainers.org/) (and
-especially [Aleksa Sarai](https://github.com/cyphar)) for their hard work and support
-in making rootless containers a reality.
