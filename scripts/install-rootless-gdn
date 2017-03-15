@@ -2,7 +2,7 @@
 
 set -e
 
-#GDN_VERSION=1.2.0
+GDN_VERSION=1.3.0
 GROOTFS_VERSION=0.15.0
 ROOTLESS_USER=rootless
 
@@ -12,9 +12,7 @@ add_rootless_user() {
 }
 
 install_gdn() {
-# TODO: provide GitHub link to release (once it exists)
-#  wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
-  wget https://s3.amazonaws.com/gdn-linux-release/gdn -O /usr/local/bin/gdn
+  wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
   wget https://github.com/contraband/gaol/releases/download/2016-8-22/gaol_linux -O /usr/local/bin/gaol
   chmod 755 /usr/local/bin/{gdn,gaol}
 }
