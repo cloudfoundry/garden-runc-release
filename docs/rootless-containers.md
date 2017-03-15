@@ -46,7 +46,7 @@ can be used to get started.
 
 ```
 ubuntu@ubuntu-xenial:~$ sudo su -
-root@ubuntu-xenial:~# curl "https://raw.githubusercontent.com/cloudfoundry/garden-runc-release/wip-140759953/scripts/install-rootless-gdn" | bash
+root@ubuntu-xenial:~# curl "https://raw.githubusercontent.com/cloudfoundry/garden-runc-release/develop/scripts/install-rootless-gdn" | bash
 ```
 
 This script will:
