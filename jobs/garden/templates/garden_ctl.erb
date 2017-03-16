@@ -191,17 +191,7 @@ case $1 in
      exec_command="exec"
     <% end %>
 
-    /var/vcap/packages/guardian/bin/gdn setup \
-      --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
-    <% if p("garden.allow_host_access") %> \
-      --allow-host-access \
-    <% end %> \
-    <% p("garden.deny_networks").each do |network| %> \
-      --deny-network=<%= network %> \
-    <% end %> \
-    <% if p("garden.destroy_containers_on_start") %> \
-      --reset-iptables-rules \
-    <% end %>
+    /var/vcap/packages/guardian/bin/gdn setup
 
     echo $$ > $PIDFILE
     $exec_command /var/vcap/packages/guardian/bin/gdn \
