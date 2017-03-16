@@ -81,7 +81,11 @@ properties:
     description: "A URL that points at the Metron agent to which metrics are forwarded. By default, it matches with the default of Metron."
 
   garden.dns_servers:
-    description: Override DNS servers to be used in containers; defaults to the same as the host
+    description: "Override DNS servers to be used in containers; defaults to the same as the host"
+    default: []
+
+  garden.additional_dns_servers:
+    description: "Additional DNS servers to be used in containers; extends those used on the host or those set by dns_servers property"
     default: []
 
   garden.insecure_docker_registry_list:
