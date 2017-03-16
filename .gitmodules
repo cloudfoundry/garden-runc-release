@@ -1,7 +1,7 @@
 [submodule "src/code.cloudfoundry.org/guardian"]
 	path = src/code.cloudfoundry.org/guardian
 	url = https://github.com/cloudfoundry/guardian
-	branch = wip-139851563
+	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
