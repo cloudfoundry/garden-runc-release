@@ -127,7 +127,7 @@ You can enjoy outbound internet access from the containers if some net-out rules
 ```
 $ gaol create -n cake -r docker:///debian
 $ gaol net-out cake --ip-start=0.0.0.0 --ip-end=255.255.255.255 --port-start=0 --port-end=65535 --protocol=tcp
-$ gaol run cake -a -c 'wget google.com'
+$ gaol run cake -a -c 'apt-get update'
 ```
 
 Substitute the protocol/ips/ports as appropriate. Note that `gaol` CLI only supports `tcp` and `udp` protocols, so `ping` (`icmp`) will
