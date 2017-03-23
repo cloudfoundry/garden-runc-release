@@ -55,7 +55,7 @@ This script will:
 * Install all required binaries to `/usr/local/bin/<binary name>`
 * Configure a BTRFS filesystem at `/var/lib/grootfs/btrfs`
 * Set permissions on dirs used by `gdn` and `grootfs`
-* Configures the container network at `/var/gdn/garden-cni`
+* Configure a container network at `/var/gdn/garden-cni`
 
 Once the install script has completed, you'll need to run the `gdn setup` command:
 
