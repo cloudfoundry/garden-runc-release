@@ -1,32 +1,46 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 GDN_VERSION=1.3.0
 GROOTFS_VERSION=0.15.0
 ROOTLESS_USER=rootless
 
 add_rootless_user() {
-  groupadd -g 4294967294 $ROOTLESS_USER
-  useradd -g $ROOTLESS_USER -u 4294967294 -m -d /home/$ROOTLESS_USER -s /bin/bash $ROOTLESS_USER
+  if ! grep -q $ROOTLESS_USER /etc/group ; then
+    groupadd -g 4294967294 $ROOTLESS_USER
+  fi
+  if ! grep -q $ROOTLESS_USER /etc/passwd ; then
+    useradd -g $ROOTLESS_USER -u 4294967294 -m -d /home/$ROOTLESS_USER -s /bin/bash $ROOTLESS_USER
+  fi
 }
 
 install_gdn() {
-  wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
-  wget https://github.com/contraband/gaol/releases/download/2016-8-22/gaol_linux -O /usr/local/bin/gaol
+  if ! which gdn > /dev/null ; then
+    wget https://s3.amazonaws.com/gdn-linux-release/gdn -O /usr/local/bin/gdn
+    #TODO use released version
+    #wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
+  fi
+  if ! which gaol > /dev/null ; then
+    wget https://github.com/contraband/gaol/releases/download/2016-8-22/gaol_linux -O /usr/local/bin/gaol
+  fi
   chmod 755 /usr/local/bin/{gdn,gaol}
 }
 
 install_grootfs() {
-  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/grootfs-$GROOTFS_VERSION.tgz | tar xvz -C /usr/local/bin/
-  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/drax-$GROOTFS_VERSION.tgz | tar xvz -C /usr/local/bin/
+  if which grootfs > /dev/null ; then
+    return 0
+  fi
+
+  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/grootfs-$GROOTFS_VERSION.tgz | tar -xz -C /usr/local/bin/
+  wget -qO- https://github.com/cloudfoundry/grootfs/releases/download/v$GROOTFS_VERSION/drax-$GROOTFS_VERSION.tgz | tar -xz -C /usr/local/bin/
   wget https://raw.githubusercontent.com/cloudfoundry/grootfs/v$GROOTFS_VERSION/hack/quick-setup -O /usr/local/bin/grootfs-quick-setup
   chmod 755 /usr/local/bin/{grootfs,drax,grootfs-quick-setup}
 }
 
 configure_btrfs_filesystem() {
   if [ -d /var/lib/grootfs ]; then
-    return
+    return 0
   fi
 
   grootfs-quick-setup
@@ -39,8 +53,54 @@ configure_required_dirs() {
   chown -R $ROOTLESS_USER:$ROOTLESS_USER /var/gdn /var/run/gdn /run/runc
 }
 
+install_cni_tools() {
+  if ! which garden-external-networker > /dev/null ; then
+    wget -qO /usr/local/bin/garden-external-networker https://s3.amazonaws.com/garden-external-networker/garden-external-networker
+    chmod +x /usr/local/bin/garden-external-networker
+  fi
+  if ! which host-local > /dev/null ; then
+    wget -qO- https://github.com/containernetworking/cni/releases/download/v0.5.0/cni-amd64-v0.5.0.tgz | tar -xz -C /usr/local/bin/
+  fi
+  chmod u+s /usr/local/bin/{garden-external-networker,host-local,bridge}
+}
+
+write_networking_config() {
+  mkdir -p /var/gdn/garden-cni/config
+  cat > /var/gdn/garden-cni/config.json <<EOF
+{
+  "cni_plugin_dir": "/usr/local/bin",
+  "cni_config_dir": "/var/gdn/garden-cni/config",
+  "bind_mount_dir": "/var/gdn/garden-cni/container-netns",
+  "overlay_network" :"10.0.2.0/24",
+  "state_file" : "/var/gdn/garden-cni/external-networker-state.json",
+  "start_port" : 1000,
+  "total_ports" : 2000,
+  "iptables_lock_file" :"/var/gdn/garden-cni/iptables.lock",
+  "instance_address" : "1.2.3.4",
+  "iptables_asg_logging" : false
+}
+EOF
+  cat > /var/gdn/garden-cni/config/bridge.conf <<EOF
+{
+  "name": "mynet",
+  "type": "bridge",
+  "bridge": "mynet0",
+  "isDefaultGateway": true,
+  "forceAddress": false,
+  "ipMasq": true,
+  "hairpinMode": true,
+  "ipam": {
+    "type": "host-local",
+    "subnet": "10.10.0.0/16"
+  }
+}
+EOF
+}
+
 add_rootless_user
 install_grootfs
 install_gdn
 configure_btrfs_filesystem
 configure_required_dirs
+install_cni_tools
+write_networking_config

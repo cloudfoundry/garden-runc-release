@@ -55,6 +55,7 @@ This script will:
 * Install all required binaries to `/usr/local/bin/<binary name>`
 * Configure a BTRFS filesystem at `/var/lib/grootfs/btrfs`
 * Set permissions on dirs used by `gdn` and `grootfs`
+* Configures the container network at `/var/gdn/garden-cni`
 
 Once the install script has completed, you'll need to run the `gdn setup` command:
 
@@ -69,15 +70,19 @@ This command is responsible for mounting cgroups and configuring iptables chains
 
 **NB**: The commands in Step 2 must be run as the rootless user (created in Step 1).
 
+
+## Networking
 ```
 root@ubuntu-xenial:~# su - rootless
+rootless@ubuntu-xenial:~# export PATH=$PATH:/var/gdn/assets/linux/sbin
 rootless@ubuntu-xenial:~$ gdn server \
   --bind-ip 0.0.0.0 \
   --bind-port 7777 \
   --image-plugin /usr/local/bin/grootfs \
   --image-plugin-extra-arg=--store \
   --image-plugin-extra-arg=/var/lib/grootfs/btrfs \
-  --network-plugin /bin/true \
+  --network-plugin /usr/local/bin/garden-external-networker \
+  --network-plugin-extra-arg=--configFile=/var/gdn/garden-cni/config.json \
   --skip-setup
 ```
 
@@ -94,7 +99,7 @@ The `gaol` CLI (installed in Step 1) can be used to interact with Garden.
 Containers can be created as follows:
 
 ```
-ubuntu@ubuntu-xenial:~$ gaol create -n my-rootless-container -r docker:///busybox
+ubuntu@ubuntu-xenial:~$ gaol create -n my-rootless-container -r docker:///debian
 my-rootless-container
 ```
 
@@ -114,6 +119,24 @@ cake
 cake
 ^C
 ```
+
+### Internet access
+
+You can enjoy outbound internet access from the containers if some net-out rules are set. `gaol` CLI can do this for you:
+
+```
+$ gaol create -n cake -r docker:///debian
+$ gaol net-out cake --ip-start=0.0.0.0 --ip-end=255.255.255.255 --port-start=0 --port-end=65535 --protocol=tcp
+$ gaol run cake -a -c 'ping 8.8.8.8'
+```
+
+Substitute the protocol/ips/ports as appropriate. Note that `gaol` CLI only supports `tcp` and `udp` protocols, so `ping` (`icmp`) will
+never work. Garden itself supports all protocols.
+
+If the root filesystem used for the container doesn't contain `/etc/resolv.conf`, gdn won't create one for you, and you are unlikely
+to have DNS until you set it up. Many docker images will contain this file, but Busybox is a notable example of one that doesn't.
+
+### Destroying containers
 
 And finally containers can be destroyed as follows:
 
