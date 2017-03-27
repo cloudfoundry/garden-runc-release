@@ -70,8 +70,6 @@ This command is responsible for mounting cgroups and configuring iptables chains
 
 **NB**: The commands in Step 2 must be run as the rootless user (created in Step 1).
 
-
-## Networking
 ```
 root@ubuntu-xenial:~# su - rootless
 rootless@ubuntu-xenial:~# export PATH=$PATH:/var/gdn/assets/linux/sbin
@@ -90,7 +88,7 @@ As shown above, `gdn` is configurable and extensible via plugins. At the moment 
 a plugin interface for image and network management.
 
 Here, the image plugin is [`grootfs`](https://github.com/cloudfoundry/grootfs-release) (which is also able to run without root privileges). 
-The network plugin is [CF Networking](https://github.com/cloudfoundry-incubator/cf-networking-release).
+The network plugin is [CF Networking](https://github.com/cloudfoundry-incubator/cf-networking-release). Note that networking currently still requires root privileges, the install script in Step 1 sets up the network plugin with the setuid bit set.
 
 ## Step 3: Enjoy rootless containers
 
