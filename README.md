@@ -192,10 +192,6 @@ Commit the changes, run the tests, and create a bump commit:
 
 - Create a container with handle &lt;handle&gt;
 - Log in to the host OS with root privileges
-- Enter guardian mount namespace
-```
-/var/vcap/packages/guardian/bin/inspector-garden -pid $(pidof guardian) /bin/bash
-```
 - Go to container depot directory
 ```
 cd /var/vcap/data/garden/depot/<handle>
@@ -208,4 +204,3 @@ cd /var/vcap/data/garden/depot/<handle>
 ### License
 
 Apache License 2.0
-
