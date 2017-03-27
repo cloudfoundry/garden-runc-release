@@ -87,9 +87,10 @@ rootless@ubuntu-xenial:~$ gdn server \
 ```
 
 As shown above, `gdn` is configurable and extensible via plugins. At the moment `gdn` provides
-a plugin interface for image and network management. The image plugin is fulfilled by `grootfs`
-(which is also able to run without root privileges) but the network plugin is essentially a no op...
-We'll be adding network support to rootless containers [shortly](https://www.pivotaltracker.com/story/show/141110133).
+a plugin interface for image and network management.
+
+Here, the image plugin is [`grootfs`](https://github.com/cloudfoundry/grootfs-release) (which is also able to run without root privileges). 
+The network plugin is [CF Networking](https://github.com/cloudfoundry-incubator/cf-networking-release).
 
 ## Step 3: Enjoy rootless containers
 
