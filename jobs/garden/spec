@@ -56,6 +56,10 @@ properties:
     description: "duration after which to reap idle containers"
     default: 0
 
+  garden.default_container_blockio_weight:
+    description: "default blkio.weight value for containers. Valid values are 0 (use system default), or 10 - 1000."
+    default: 0
+
   garden.default_container_rootfs:
     description: "path to the rootfs to use when a container specifies no rootfs"
     default: /var/vcap/packages/busybox

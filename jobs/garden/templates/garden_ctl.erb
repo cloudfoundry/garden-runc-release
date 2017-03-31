@@ -240,6 +240,7 @@ case $1 in
     <% end %> \
       --default-rootfs=<%= p("garden.default_container_rootfs") %> \
       --default-grace-time=<%= p("garden.default_container_grace_time") %> \
+      --default-container-blockio-weight=<%= p("garden.default_container_blockio_weight") %> \
       --graph-cleanup-threshold-in-megabytes=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
     <% if_p("garden.max_containers") do |max_containers| %> \
       --max-containers=<%= max_containers %> \
