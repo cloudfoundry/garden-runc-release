@@ -43,17 +43,6 @@ pushd gr-release-develop
       mv runc $LINUX_ASSETS/bin
     popd
 
-    rm -rf src/github.com/opencontainers/runc
-    cp -r src/rootless/src/github.com/opencontainers/runc src/github.com/opencontainers/runc
-    pushd src/github.com/opencontainers/runc
-      PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
-        GOPATH=$PWD/Godeps/_workspace:$GOPATH \
-        BUILDTAGS=seccomp \
-        make static
-
-      mv runc $LINUX_ASSETS/bin/runc-rootless
-    popd
-
     pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
       make
       mv nstar $LINUX_ASSETS/bin

@@ -11,7 +11,6 @@ packages:
   - guardian
   - iptables
   - runc
-  - runc-rootless
   - shadow
   - busybox
   - tar

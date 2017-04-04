@@ -200,6 +200,3 @@
 [submodule "src/code.cloudfoundry.org/idmapper"]
 	path = src/code.cloudfoundry.org/idmapper
 	url = https://github.com/cloudfoundry/idmapper
-[submodule "src/rootless/src/github.com/opencontainers/runc"]
-	path = src/rootless/src/github.com/opencontainers/runc
-	url = https://github.com/cloudfoundry-incubator/runc

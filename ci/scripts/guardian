@@ -15,16 +15,6 @@ pushd src/github.com/opencontainers/runc
   mv runc /usr/local/bin/runc
 popd
 
-export ROOTLESS_RUNC_PATH=/usr/local/bin/runc-rootless
-(
-cd src/rootless
-export GOPATH=$PWD
-cd src/github.com/opencontainers/runc
-go build -tags "seccomp apparmor" --ldflags '-extldflags "-static"' -o runc .
-mv runc $ROOTLESS_RUNC_PATH
-)
-
-# Set up runC
 mkdir -p /var/run/oci
 mount -t tmpfs tmpfs /var/run/oci
 
