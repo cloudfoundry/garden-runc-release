@@ -94,6 +94,8 @@ The network plugin is [CF Networking](https://github.com/cloudfoundry-incubator/
 
 **NB**: The commands from Step 3 onwards can be run as any user.
 
+**NB**: Use `docker:///debian` image. Not all docker images are currently supported.
+
 The `gaol` CLI (installed in Step 1) can be used to interact with Garden.
 Containers can be created as follows:
 
