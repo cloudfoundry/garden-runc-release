@@ -148,3 +148,7 @@ properties:
   garden.experimental_rootless_mode:
     description: A boolean stating whether or not to run garden-server as non-root user
     default: false
+
+  garden.cleanup_process_dirs_on_wait:
+    description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
+    default: false
