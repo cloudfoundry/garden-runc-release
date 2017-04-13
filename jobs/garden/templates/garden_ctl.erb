@@ -291,7 +291,7 @@ case $1 in
     <% end %> \
     <% if !p("garden.apparmor_profile").empty?  %> \
       --apparmor=<%= p("garden.apparmor_profile") %> \
-    <% end %>
+    <% end %> \
     <% if p("garden.cleanup_process_dirs_on_wait") %> \
       --cleanup-process-dirs-on-wait \
     <% end %> \
