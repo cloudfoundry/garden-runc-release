@@ -1,0 +1,70 @@
+---
+packages:
+- name: apparmor
+  version: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  fingerprint: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  sha1: b7638766932827e7d268b57827d434eaf22f3f0e
+  dependencies: []
+- name: busybox
+  version: fc652425c32d0dad62f45bca18e1899671e2e570
+  fingerprint: fc652425c32d0dad62f45bca18e1899671e2e570
+  sha1: 316cbd12d68829eac70962531e99b52702adc8ae
+  dependencies: []
+- name: golang
+  version: 63a243be32451af083a062ba2c929c3f2b34f132
+  fingerprint: 63a243be32451af083a062ba2c929c3f2b34f132
+  sha1: 09a280e1c9726b9892bb304d760bc7bb4df88b0c
+  dependencies: []
+- name: guardian
+  version: a15d84de3684675b9139fd95a31397fd01b963af
+  fingerprint: a15d84de3684675b9139fd95a31397fd01b963af
+  sha1: a23617b27fb3dbfeffa432f1c296167e0783dc88
+  dependencies:
+  - golang
+- name: iptables
+  version: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  fingerprint: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  sha1: b1743c4ae0fddfbe606d1e76312fa84d4aa49aa9
+  dependencies: []
+- name: libseccomp
+  version: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  fingerprint: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  sha1: 2d13f089c1541de7b66b1415e04d8f376708377f
+  dependencies: []
+- name: maximus
+  version: d37f10465e2adbfcb708773ab5f540f81bbaf884
+  fingerprint: d37f10465e2adbfcb708773ab5f540f81bbaf884
+  sha1: c6af6c1569a9312853f87e14e684bb2293d1e8cf
+  dependencies:
+  - golang
+- name: runc
+  version: 3f2d5a0ce3766576113adb03265700684d555a59
+  fingerprint: 3f2d5a0ce3766576113adb03265700684d555a59
+  sha1: 248353861fc9b607d7b5930d5c704ba20f235a20
+  dependencies:
+  - apparmor
+  - golang
+  - libseccomp
+- name: shadow
+  version: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  fingerprint: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  sha1: eabcde9bb28f2ccc160a34cd9fcd7256afba1d4b
+  dependencies: []
+- name: tar
+  version: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  fingerprint: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  sha1: d85bd6e9854aa9f766b6ca749411a33afb946232
+  dependencies: []
+jobs:
+- name: garden
+  version: 2d145a63f825dc4a9616435ecce1d3cca4eb01c5
+  fingerprint: 2d145a63f825dc4a9616435ecce1d3cca4eb01c5
+  sha1: 1614ce7d1c30f8b7660490934baf4b218f29bc01
+license:
+  version: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  fingerprint: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  sha1: ca927c57ba4c2516b256d48991aa7e5d55e53110
+commit_hash: 1cffac5d
+uncommitted_changes: false
+name: garden-runc
+version: 1.5.0
