@@ -14,7 +14,7 @@ packages:
   - shadow
   - busybox
   - tar
-  - maximus
+  - garden-idmapper
 
 properties:
   garden.listen_network:
