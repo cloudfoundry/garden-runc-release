@@ -157,8 +157,6 @@ case $1 in
     export PATH=/var/vcap/packages/garden-idmapper/bin:$PATH
     export PATH=/var/vcap/jobs/garden/bin:$PATH
 
-    chmod +s /var/vcap/packages/garden-idmapper/bin/new{u,g}idmap
-
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
 
