@@ -36,6 +36,7 @@ jobs:
       grootfs:
         store_size_bytes: 524288000
         driver: btrfs
+        json_output: true
 
 networks:
   - name: garden

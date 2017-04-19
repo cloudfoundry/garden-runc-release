@@ -35,6 +35,7 @@ jobs:
         privileged_image_plugin_extra_args: ["--config", "/var/vcap/jobs/grootfs/config/privileged_grootfs_config.yml"]
       grootfs:
         store_size_bytes: 524288000
+        json_output: true
 
 networks:
   - name: garden
