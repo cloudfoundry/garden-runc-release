@@ -6,9 +6,9 @@ gosub list \
   -t code.cloudfoundry.org/guardian/gqt/... \
   -t code.cloudfoundry.org/garden-integration-tests/... \
   -a github.com/opencontainers/runtime-spec/... \
+  -a github.com/opencontainers/selinux/go-selinux/label/... \
   -a github.com/vishvananda/netns/... \
   -t code.cloudfoundry.org/garden-shed/... \
-  -a github.com/opencontainers/runc/libcontainer/label/... \
   -a github.com/docker/docker/pkg/directory/... \
   -a github.com/docker/docker/pkg/mount/... \
   -a github.com/vishvananda/netlink/... \

@@ -253,13 +253,13 @@ files:
   - github.com/opencontainers/runc/libcontainer/cgroups/fs/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/cgroups/systemd/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
-  - github.com/opencontainers/runc/libcontainer/label/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - github.com/opencontainers/runc/vendor/github.com/Sirupsen/logrus/*.go # gosub
   - github.com/opencontainers/runc/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - github.com/opencontainers/runtime-spec/schema/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
   - github.com/pivotal-golang/archiver/extractor/test_helper/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/clock/fakeclock/*.go # gosub

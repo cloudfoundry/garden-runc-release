@@ -49,7 +49,7 @@
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
-	branch = logmania
+	branch = await-prs-20170420
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
@@ -200,3 +200,7 @@
 [submodule "src/code.cloudfoundry.org/idmapper"]
 	path = src/code.cloudfoundry.org/idmapper
 	url = https://github.com/cloudfoundry/idmapper
+[submodule "src/github.com/opencontainers/selinux"]
+	path = src/github.com/opencontainers/selinux
+	url = https://github.com/opencontainers/selinux
+	branch = master
