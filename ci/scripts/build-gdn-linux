@@ -33,8 +33,6 @@ pushd gr-release-develop
 
     go install code.cloudfoundry.org/guardian/cmd/dadoo
     go install code.cloudfoundry.org/guardian/cmd/init
-    go install code.cloudfoundry.org/idmapper/cmd/newuidmap
-    go install code.cloudfoundry.org/idmapper/cmd/newgidmap
 
     pushd src/github.com/opencontainers/runc
       PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
@@ -50,12 +48,11 @@ pushd gr-release-develop
       mv nstar $LINUX_ASSETS/bin
     popd
 
-    cp bin/{init,dadoo,newuidmap,newgidmap} $LINUX_ASSETS/bin
-    chmod +s $LINUX_ASSETS/bin/new{u,g}idmap
+    cp bin/{init,dadoo} $LINUX_ASSETS/bin
   )
 popd
 
-go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go  linux/...
+go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
 
 # must be built with 'daemon' flag because of docker packages :|
 go build \
