@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-GDN_VERSION=1.3.0
-GROOTFS_VERSION=0.15.0
+GDN_VERSION=1.5.0
+GROOTFS_VERSION=0.17.0
 ROOTLESS_USER=rootless
 
 add_rootless_user() {
@@ -17,9 +17,7 @@ add_rootless_user() {
 
 install_gdn() {
   if ! which gdn > /dev/null ; then
-    wget https://s3.amazonaws.com/gdn-linux-release/gdn -O /usr/local/bin/gdn
-    #TODO use released version
-    #wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
+    wget https://github.com/cloudfoundry/garden-runc-release/releases/download/v$GDN_VERSION/gdn-$GDN_VERSION -O /usr/local/bin/gdn
   fi
   if ! which gaol > /dev/null ; then
     wget https://github.com/contraband/gaol/releases/download/2016-8-22/gaol_linux -O /usr/local/bin/gaol
