@@ -70,7 +70,7 @@ func (graph *Graph) storeImage(id, parent string, config []byte, layerData archi
 			}
 		}
 
-		if err := graph.saveSize(root, size); err != nil {
+		if err := graph.saveSize(root, int(size)); err != nil {
 			return err
 		}
 
@@ -92,6 +92,8 @@ func (graph *Graph) storeImage(id, parent string, config []byte, layerData archi
 
 		return nil
 	}
+
+	return
 }
 
 // TarLayer returns a tar archive of the image's filesystem layer.
