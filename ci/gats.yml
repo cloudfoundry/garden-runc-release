@@ -12,6 +12,8 @@ inputs:
 
 params:
   LOG_LEVEL: debug
+  REGISTRY_USERNAME:
+  REGISTRY_PASSWORD:
 
 run:
   path: gr-release-develop/ci/scripts/gats
