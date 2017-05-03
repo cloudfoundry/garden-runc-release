@@ -5,4 +5,9 @@ dependencies:
   - golang
 
 files:
-  - code.cloudfoundry.org/idmapper/**/*
+  - code.cloudfoundry.org/idmapper/*.go # gosub
+  - code.cloudfoundry.org/idmapper/cmd/*.go # gosub
+  - code.cloudfoundry.org/idmapper/cmd/maximus/*.go # gosub
+  - code.cloudfoundry.org/idmapper/cmd/newgidmap/*.go # gosub
+  - code.cloudfoundry.org/idmapper/cmd/newuidmap/*.go # gosub
+  - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub

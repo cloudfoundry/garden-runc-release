@@ -12,3 +12,16 @@ pushd $ROOT_DIR_PATH/packages/guardian
 
   mv spec.new spec
 popd
+
+pushd $ROOT_DIR_PATH/packages/garden-idmapper
+  {
+    cat spec | grep -v '# gosub'
+    gosub list \
+      -a code.cloudfoundry.org/idmapper/cmd/newuidmap \
+      -a code.cloudfoundry.org/idmapper/cmd/newgidmap \
+      -a code.cloudfoundry.org/idmapper/cmd/maximus \
+      | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+  } > spec.new
+
+  mv spec.new spec
+popd
