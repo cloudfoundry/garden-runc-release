@@ -200,6 +200,7 @@
 [submodule "src/code.cloudfoundry.org/idmapper"]
 	path = src/code.cloudfoundry.org/idmapper
 	url = https://github.com/cloudfoundry/idmapper
+	branch = master
 [submodule "src/github.com/opencontainers/selinux"]
 	path = src/github.com/opencontainers/selinux
 	url = https://github.com/opencontainers/selinux
