@@ -1,0 +1,70 @@
+---
+packages:
+- name: apparmor
+  version: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  fingerprint: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  sha1: b7638766932827e7d268b57827d434eaf22f3f0e
+  dependencies: []
+- name: busybox
+  version: fc652425c32d0dad62f45bca18e1899671e2e570
+  fingerprint: fc652425c32d0dad62f45bca18e1899671e2e570
+  sha1: 316cbd12d68829eac70962531e99b52702adc8ae
+  dependencies: []
+- name: garden-idmapper
+  version: ecb65789b9c7d1712aba97d5715165b486c34c6e
+  fingerprint: ecb65789b9c7d1712aba97d5715165b486c34c6e
+  sha1: b07e358599c37e7aa2993f7a6fb6a42b13e72b3d
+  dependencies:
+  - golang
+- name: golang
+  version: bda1e7932f5c5b8cc62dd87c71bf87e84a385de1
+  fingerprint: bda1e7932f5c5b8cc62dd87c71bf87e84a385de1
+  sha1: df5661a65857017e4142776eff08ba379f6b74b0
+  dependencies: []
+- name: guardian
+  version: 13ce1781b5ea32745b14ffb6c2952302215d250e
+  fingerprint: 13ce1781b5ea32745b14ffb6c2952302215d250e
+  sha1: d2c8415e350c2fd938700ab11191ee7981b732b3
+  dependencies:
+  - golang
+- name: iptables
+  version: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  fingerprint: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  sha1: b1743c4ae0fddfbe606d1e76312fa84d4aa49aa9
+  dependencies: []
+- name: libseccomp
+  version: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  fingerprint: 7a54b27a61b42980935e863d7060dc5a076b44d0
+  sha1: 2d13f089c1541de7b66b1415e04d8f376708377f
+  dependencies: []
+- name: runc
+  version: c41b275701423e87f87069ca43613a18052d0890
+  fingerprint: c41b275701423e87f87069ca43613a18052d0890
+  sha1: f3d0842e311b84383e30b8403f34297d7d2b484a
+  dependencies:
+  - apparmor
+  - golang
+  - libseccomp
+- name: shadow
+  version: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  fingerprint: 7a5e46357a33cafc8400a8e3e2e1f6d3a1159cb6
+  sha1: eabcde9bb28f2ccc160a34cd9fcd7256afba1d4b
+  dependencies: []
+- name: tar
+  version: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  fingerprint: f2ea61c537d8eb8cb2d691ce51e8516b28fa5bb7
+  sha1: d85bd6e9854aa9f766b6ca749411a33afb946232
+  dependencies: []
+jobs:
+- name: garden
+  version: 200fd855fc7464eb1fdc6f19d8b1abc0231adc1d
+  fingerprint: 200fd855fc7464eb1fdc6f19d8b1abc0231adc1d
+  sha1: 93a6d18525ab97fcc8e88866380329e2c3906297
+license:
+  version: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  fingerprint: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  sha1: ca927c57ba4c2516b256d48991aa7e5d55e53110
+commit_hash: cc2f4478
+uncommitted_changes: false
+name: garden-runc
+version: 1.6.0
