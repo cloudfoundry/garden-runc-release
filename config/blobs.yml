@@ -1,8 +1,4 @@
 ---
-shadow/shadow-4.2.1.tar.gz:
-  object_id: aea45a48-df25-424e-9ddb-bbcc89ab3cbb
-  sha: 1d205418863dd02b2b8af0fa78fcce5d7c848d1f
-  size: 3686676
 busybox/busybox.tar.gz:
   object_id: cc631520-0a72-4cb1-8c87-700f6bdd3305
   sha: 6410617b26644ab3fac9372494cabe34e269970c

@@ -11,7 +11,6 @@ packages:
   - guardian
   - iptables
   - runc
-  - shadow
   - busybox
   - tar
   - garden-idmapper
