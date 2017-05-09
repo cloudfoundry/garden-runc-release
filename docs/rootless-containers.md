@@ -1,11 +1,11 @@
 # (Experimental) Rootless containers in Garden
 
-With the latest release of Garden it is now possible to create and run processes
+With the latest releases of Garden it is now possible to create and run processes
 in containers without requiring root privileges! This document details the various
 components that enable this to work, as well as providing a step-by-step guide for installing
-and configuring Garden to run as a non-root user.
+and configuring the latest Garden dev builds to run as a non-root user.
 
-**HUGE DISCLAIMER**: Garden's support for rootless containers is still very much 
+**HUGE DISCLAIMER**: Garden's support for rootless containers is still very much
 a work-in-progress at the moment, and as such is subject to a number of known
 limitations (see the end of this doc for details).
 
@@ -13,20 +13,12 @@ limitations (see the end of this doc for details).
 especially [Aleksa Sarai](https://github.com/cyphar)) for their hard work and support
 in making rootless containers a reality.
 
-## Component Overview
-
-Following is a brief overview of the components required to enable rootless containers
-with Garden.
-
-* `gdn` - an all-in-one, standalone version of [Garden-runC](https://github.com/cloudfoundry/garden-runc-release),
-the container engine powering [Cloud Foundry](https://www.cloudfoundry.org/) and [Concourse CI](http://concourse.ci/).
-* `grootfs` - a daemonless container image manager.
-* `runc` - a CLI tool for spawning and running containers according to the OCI specification.
-
 # Getting Started
 
 The following documents the process of installing, configuring and running Garden
-as a non-root user on an Ubuntu Xenial machine.
+as a non-root user on an Ubuntu Xenial machine. For this document, we will assume commands
+are run as the ubuntu user, you should be free to use any non-root user (subject to the prerequisites
+below).
 
 If you run into any issues along the way, feel free to chat to us on the
 `#garden` channel of the [Cloud Foundry Slack](http://slack.cloudfoundry.org/).
@@ -34,121 +26,169 @@ If you run into any issues along the way, feel free to chat to us on the
 ## Prerequisites
 
 * An Ubuntu Xenial machine (with kernel version 4.4+)
+* An entry for the non-root user in the `/etc/sub{u,g}id` files
+* Write permissions for the non-root user on a directory at `/var/run/user/$(id -u)`
+* sudo permissions (required only for initial setup)
 
-## Step 1: Install gdn and grootfs
+All prerequisites are met by default for the ubuntu user.
 
-The first step is to download and install `gdn` and `grootfs`. Note that `runc`
-does not need to be installed separately as it is bundled together as part of the
-`gdn` binary. The [install-rootless-gdn](../scripts/install-rootless-gdn) script
-can be used to get started.
+## Step 1: Download binaries and set permissions
 
-**NB**: The commands in Step 1 must be run as the root user. The rootless fun doesn't begin until step 2!
+A quick note on versions - the following copy-and-pastable snippts will download
+the latest, bleeding-edge version of gdn. As such, it is not guaranteed to be stable.
+If you would prefer to use the stable versions, they can be downloaded from the
+following locations:
 
-```
-ubuntu@ubuntu-xenial:~$ sudo su -
-root@ubuntu-xenial:~# curl "https://raw.githubusercontent.com/cloudfoundry/garden-runc-release/develop/scripts/install-rootless-gdn" | bash
-```
-
-This script will:
-
-* Create a new, non-root user named `rootless`
-* Install all required binaries to `/usr/local/bin/<binary name>`
-* Configure a BTRFS filesystem at `/var/lib/grootfs/btrfs`
-* Set permissions on dirs used by `gdn` and `grootfs`
-* Configure a container network at `/var/gdn/garden-cni`
-
-Once the install script has completed, you'll need to run the `gdn setup` command:
+* [gdn](https://github.com/cloudfoundry/garden-runc-release/releases/latest)
+* [grootfs](https://github.com/cloudfoundry/grootfs/releases/latest)
+* [cni](https://github.com/containernetworking/cni/releases/latest)
+* [garden-external-networker](https://s3.amazonaws.com/garden-external-networker/garden-external-networker) *direct download link, stable binaries not available at this time
 
 ```
-root@ubuntu-xenial:~# gdn setup
+sudo apt-get update -y -qq && sudo apt-get install -y -qq jq
+
+GDN_DOWNLOAD_LINK=https://s3.amazonaws.com/gdn-linux-release/gdn
+GROOTFS_DOWNLOAD_LINK=$(curl -s https://api.github.com/repos/cloudfoundry/grootfs/releases/latest | jq -r ".assets[] | select(.name | test(\"grootfs\")) | .browser_download_url")
+CNI_DOWNLOAD_LINK=$(curl -s https://api.github.com/repos/containernetworking/cni/releases/latest | jq -r ".assets[] | select(.name | test(\"cni-amd64.*tgz$\")) | .browser_download_url")
+EXTERNAL_NETWORKER_DOWNLOAD_LINK=https://s3.amazonaws.com/garden-external-networker/garden-external-networker
+
+mkdir -p $HOME/gdn/{assets,bin,config,garden-cni/config}
+
+wget -qO $HOME/gdn/bin/gdn $GDN_DOWNLOAD_LINK
+wget -qO $HOME/gdn/bin/grootfs $GROOTFS_DOWNLOAD_LINK
+wget -qO- $CNI_DOWNLOAD_LINK | tar -xz -C $HOME/gdn/bin/
+wget -qO $HOME/gdn/bin/garden-external-networker $EXTERNAL_NETWORKER_DOWNLOAD_LINK
+
+chmod u+x $HOME/gdn/bin/{gdn,grootfs}
+sudo chown root:root $HOME/gdn/bin/{host-local,bridge,garden-external-networker}
+sudo chmod 4755 $HOME/gdn/bin/{host-local,bridge,garden-external-networker}
 ```
 
-This command is responsible for mounting cgroups and configuring iptables chains
-(both of which still require root permissions at the moment).
-
-## Step 2: Start the `gdn` server
-
-**NB**: The commands in Step 2 must be run as the rootless user (created in Step 1).
+## Step 2: Configure the image and network plugins
 
 ```
-root@ubuntu-xenial:~# su - rootless
-rootless@ubuntu-xenial:~# export PATH=$PATH:/var/gdn/assets/linux/sbin
-rootless@ubuntu-xenial:~$ gdn server \
-  --bind-ip 0.0.0.0 \
-  --bind-port 7777 \
-  --image-plugin /usr/local/bin/grootfs \
-  --image-plugin-extra-arg=--store \
-  --image-plugin-extra-arg=/var/lib/grootfs/btrfs \
-  --network-plugin /usr/local/bin/garden-external-networker \
-  --network-plugin-extra-arg=--configFile=/var/gdn/garden-cni/config.json \
+curl https://raw.githubusercontent.com/cloudfoundry/grootfs/master/hack/quick-setup | sudo bash
+sudo chown -R $(id -u):$(id -u) /var/lib/grootfs/btrfs
+
+cat > $HOME/gdn/config/garden-cni-config.json <<EOF
+{
+  "cni_plugin_dir": "$HOME/gdn/bin",
+  "cni_config_dir": "$HOME/gdn/garden-cni/config/",
+  "bind_mount_dir": "$HOME/gdn/garden-cni/container-netns",
+  "overlay_network" :"10.0.2.0/24",
+  "state_file" : "$HOME/gdn/garden-cni/external-networker-state.json",
+  "start_port" : 1000,
+  "total_ports" : 2000,
+  "iptables_lock_file" :"$HOME/gdn/garden-cni/iptables.lock",
+  "instance_address" : "1.2.3.4",
+  "iptables_asg_logging" : false
+}
+EOF
+
+cat > $HOME/gdn/garden-cni/config/bridge.conf <<EOF
+{
+  "name": "mynet",
+  "type": "bridge",
+  "bridge": "mynet0",
+  "isDefaultGateway": true,
+  "forceAddress": false,
+  "ipMasq": true,
+  "hairpinMode": true,
+  "ipam": {
+    "type": "host-local",
+    "subnet": "10.10.0.0/16"
+  }
+}
+EOF
+
+cat > $HOME/gdn/config/grootfs.conf <<EOF
+store: /var/lib/grootfs/btrfs
+driver: btrfs
+log_level: info
+
+create:
+  json: true
+  uid_mappings:
+  - "0:$(id -u):1"
+  - "1:$(grep $(whoami) /etc/subuid | awk -F: '{print $2":"$3}')"
+  gid_mappings:
+  - "0:$(id -g):1"
+  - "1:$(grep $(whoami) /etc/subgid | awk -F: '{print $2":"$3}')"
+EOF
+```
+
+## Step 3: Running the gdn server
+
+```
+PATH=$HOME/gdn/assets/linux/bin:$HOME/gdn/assets/linux/sbin:$PATH \
+$HOME/gdn/bin/gdn server \
+  --assets-dir=$HOME/gdn/assets \
+  --depot=/var/run/user/$(id -u)/gdn/depot \
+  --bind-ip=0.0.0.0 \
+  --bind-port=7777 \
+  --uid-map-start=$(grep $(whoami) /etc/subuid | awk -F: '{print $2}') \
+  --uid-map-length=$(grep $(whoami) /etc/subuid | awk -F: '{print $3}') \
+  --gid-map-start=$(grep $(whoami) /etc/subgid | awk -F: '{print $2}') \
+  --gid-map-length=$(grep $(whoami) /etc/subgid | awk -F: '{print $3}') \
+  --image-plugin=$HOME/gdn/bin/grootfs \
+  --image-plugin-extra-arg=--config \
+  --image-plugin-extra-arg=$HOME/gdn/config/grootfs.conf \
+  --network-plugin=$HOME/gdn/bin/garden-external-networker \
+  --network-plugin-extra-arg=--configFile=$HOME/gdn/config/garden-cni-config.json \
+  --runc-root=/var/run/user/$(id -u)/runc \
   --skip-setup
 ```
 
-As shown above, `gdn` is configurable and extensible via plugins. At the moment `gdn` provides
-a plugin interface for image and network management.
+## Using gdn
 
-Here, the image plugin is [`grootfs`](https://github.com/cloudfoundry/grootfs-release) (which is also able to run without root privileges). 
-The network plugin is [CF Networking](https://github.com/cloudfoundry-incubator/cf-networking-release). Note that networking currently still requires root privileges, the install script in Step 1 sets up the network plugin with the setuid bit set.
+Container operations can be performed against the gdn server using the `gaol` CLI, available from [here](https://github.com/contraband/gaol/releases).
 
-## Step 3: Enjoy rootless containers
-
-**NB**: The commands from Step 3 onwards can be run as any user.
-
-**NB**: Use `docker:///debian` image. Not all docker images are currently supported.
-
-The `gaol` CLI (installed in Step 1) can be used to interact with Garden.
-Containers can be created as follows:
-
-```
-ubuntu@ubuntu-xenial:~$ gaol create -n my-rootless-container -r docker:///debian
-my-rootless-container
-```
-
-And processes can be run in containers as follows:
-
-```
-ubuntu@ubuntu-xenial:~$ gaol run my-rootless-container -a -c "echo Hello Rootless :D"
-Hello Rootless :D
-ubuntu@ubuntu-xenial:~$ gaol run my-rootless-container -a -c "sh -c 'exit 13'"
-ubuntu@ubuntu-xenial:~$ echo $?
-13 # the exit code of the container process gets propagated
-ubuntu@ubuntu-xenial:~$ gaol run my-rootless-container -c "sh -c 'while true; do echo cake && sleep 1; done'"
-3b119c01-007c-4023-4a4e-65ef3629e647 # without the -a flag, gaol will detach from the process and print the process's ID
-ubuntu@ubuntu-xenial:~$ gaol attach my-rootless-container -p 3b119c01-007c-4023-4a4e-65ef3629e647
-cake
-cake
-cake
-^C
-```
-
-### Internet access
-
-You can enjoy outbound internet access from the containers if some net-out rules are set. `gaol` CLI can do this for you:
+If running `gaol` from the ubuntu machine, creating a container is as easy as:
 
 ```
 $ gaol create -n cake -r docker:///debian
+```
+
+If running `gaol` from elsewhere, the `-t` flag can be passed to target gdn:
+
+```
+$ gaol -t <gdn_machine_ip>:7777 create -n cake -r docker:///debian
+```
+
+Processes can be run in containers by using `gaol run`, for example:
+
+```
+$ gaol run cake -a -c "echo Hello Rootless :D"
+```
+
+Containers can be destroyed as follows:
+
+```
+$ gaol destroy cake
+```
+
+## Internet access
+
+Outbound internet access from the containers can be enabled by setting `net-out` rules:
+
+```
 $ gaol net-out cake --ip-start=0.0.0.0 --ip-end=255.255.255.255 --port-start=0 --port-end=65535 --protocol=tcp
+```
+
+It is then possible to run processes requiring internet access:
+
+```
 $ gaol run cake -a -c 'apt-get update'
 ```
 
 Substitute the protocol/ips/ports as appropriate. Note that `gaol` CLI only supports `tcp` and `udp` protocols, so `ping` (`icmp`) will
 never work. Garden itself supports all protocols.
 
-If the root filesystem used for the container doesn't contain `/etc/resolv.conf`, gdn won't create one for you, and you are unlikely
-to have DNS until you set it up. Many docker images will contain this file, but Busybox is a notable example of one that doesn't.
-
-### Destroying containers
-
-And finally containers can be destroyed as follows:
-
-```
-ubuntu@ubuntu-xenial:~$ gaol destroy my-rootless-container
-```
-
 ## Known Limitations
 
-* There is currently no support for resource limiting
-* Rootless containers do not have any networking (but will do relatively [soon](https://www.pivotaltracker.com/story/show/141110133))
-* `gdn` cannot currently run as _any_ non-root user, it must be run as the `rootless` user
-* You can only map 1 user into the container ([for now](https://www.pivotaltracker.com/story/show/130628237))
-* Probably lots of other things as well
+* You cannot switch user (`su`) inside a container.
+* There is currently no support for resource limiting.
+* Not all images are guaranteed to work (e.g. `docker:///ubuntu` will currently error). The following are known to be ok:
+  * `docker:///debian`
+  * `docker:///busybox`
+  * `docker:///alpine`
