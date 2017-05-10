@@ -206,7 +206,6 @@ case $1 in
       --graph=$graph_path \
       --properties-path=/var/vcap/data/garden/props.json \
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
-      --runc-bin=/var/vcap/packages/runc/bin/runc \
       --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --iptables-restore-bin=/var/vcap/packages/iptables/sbin/iptables-restore \
       --init-bin=/var/vcap/packages/guardian/bin/init \
@@ -245,6 +244,7 @@ case $1 in
     <% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| %> \
       --cpu-quota-per-share=<%= quota_per_share %> \
     <% end %> \
+      --runtime-plugin=<%= p("garden.runtime_plugin", "/var/vcap/packages/runc/bin/runc") %> \
     <% if_p("garden.image_plugin") do |plugin| %> \
       --image-plugin=<%= plugin %> \
       <% p("garden.image_plugin_extra_args").each do |arg| %> \
