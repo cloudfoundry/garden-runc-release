@@ -39,6 +39,7 @@ files:
   - code.cloudfoundry.org/garden-shed/rootfs_provider/fake_namespacer/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_provider/fake_translator/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_provider/rootfs_providerfakes/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/rootfs_spec/*.go # gosub
   - code.cloudfoundry.org/garden/client/*.go # gosub
   - code.cloudfoundry.org/garden/client/connection/*.go # gosub
   - code.cloudfoundry.org/garden/routes/*.go # gosub

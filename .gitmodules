@@ -205,3 +205,15 @@
 	path = src/github.com/opencontainers/selinux
 	url = https://github.com/opencontainers/selinux
 	branch = master
+[submodule "src/github.com/Microsoft/hcsshim"]
+	path = src/github.com/Microsoft/hcsshim
+	url = https://github.com/Microsoft/hcsshim
+	branch = master
+[submodule "src/github.com/Microsoft/go-winio"]
+	path = src/github.com/Microsoft/go-winio
+	url = https://github.com/Microsoft/go-winio
+	branch = master
+[submodule "src/golang.org/x/sys"]
+	path = src/golang.org/x/sys
+	url = https://github.com/golang/sys
+	branch = master
