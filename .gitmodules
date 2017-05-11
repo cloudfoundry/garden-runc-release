@@ -77,6 +77,10 @@
 	path = src/golang.org/x/net
 	url = https://go.googlesource.com/net
 	branch = master
+[submodule "src/golang.org/x/sys"]
+	path = src/golang.org/x/sys
+	url = https://go.googlesource.com/sys
+	branch = master
 [submodule "src/github.com/gorilla/mux"]
 	path = src/github.com/gorilla/mux
 	url = https://github.com/gorilla/mux
@@ -205,3 +209,9 @@
 	path = src/github.com/opencontainers/selinux
 	url = https://github.com/opencontainers/selinux
 	branch = master
+[submodule "src/github.com/microsoft/go-winio"]
+	path = src/github.com/microsoft/go-winio
+	url = https://github.com/microsoft/go-winio
+[submodule "src/github.com/microsoft/hcsshim"]
+	path = src/github.com/microsoft/hcsshim
+	url = https://github.com/microsoft/hcsshim
