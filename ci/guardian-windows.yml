@@ -1,0 +1,13 @@
+---
+platform: windows
+
+inputs:
+- name: gr-release-develop
+
+run:
+  path: powershell
+  args:
+  - "-ExecutionPolicy"
+  - "Bypass"
+  - "-File"
+  - gr-release-develop/ci/scripts/guardian-windows.ps1
