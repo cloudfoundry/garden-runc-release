@@ -39,4 +39,4 @@ go version
 go vet ./...
 echo "compiling test process: $(date)"
 
-ginkgo -tags daemon -r -p -race -cover -keepGoing -nodes=8 -failOnPending "$@"
+ginkgo -tags daemon -r -p -race -keepGoing -nodes=8 -failOnPending "$@"
