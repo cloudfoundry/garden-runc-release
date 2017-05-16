@@ -9,6 +9,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/nstar/*
   - github.com/opencontainers/runc/libcontainer/utils/*
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
+  - github.com/Microsoft/hcsshim/*.go # NOTE - temporary fix
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
   - code.cloudfoundry.org/garden-integration-tests/*.go # gosub
@@ -222,7 +223,6 @@ files:
   - github.com/kardianos/osext/*.go # gosub
   - github.com/kr/logfmt/*.go # gosub
   - github.com/kr/pty/*.go # gosub
-  - github.com/microsoft/hcsshim/*.go # gosub
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
