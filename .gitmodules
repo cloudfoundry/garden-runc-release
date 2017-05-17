@@ -37,7 +37,7 @@
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
-	branch = await-prs-20170420
+	branch = await-prs-20170517
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
 	url = https://github.com/vishvananda/netns
