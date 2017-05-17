@@ -6,7 +6,7 @@ ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 pushd $ROOT_DIR_PATH/packages/guardian
   {
     cat spec | grep -v '# gosub'
-    GOOS=darwin $ROOT_DIR_PATH/scripts/guardian-deps | \
+    GOOS=linux gosub list -a code.cloudfoundry.org/guardian/... | \
       sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 
@@ -16,7 +16,7 @@ popd
 pushd $ROOT_DIR_PATH/packages/guardian-windows
   {
     cat spec | grep -v '# gosub'
-    GOOS=windows $ROOT_DIR_PATH/scripts/guardian-deps | \
+    GOOS=windows gosub list -a code.cloudfoundry.org/guardian/... | \
       sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 

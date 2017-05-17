@@ -1,15 +1,28 @@
 #!/bin/bash
 set -e -x
 
-ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
-
 # fail fast if gosub is not installed
 which gosub
+
+function linux_deps {
+  GOOS=linux gosub list \
+    -a code.cloudfoundry.org/guardian/... \
+    -t code.cloudfoundry.org/guardian/... \
+    -t code.cloudfoundry.org/garden/... \
+    -t code.cloudfoundry.org/garden-shed/... \
+    -t code.cloudfoundry.org/garden-integration-tests/...
+}
+
+function windows_deps {
+  GOOS=windows gosub list \
+    -a code.cloudfoundry.org/guardian/... \
+    -t code.cloudfoundry.org/guardian/... \
+    -t code.cloudfoundry.org/garden/... \
+    -t code.cloudfoundry.org/garden-integration-tests/...
+}
+
 (
   sort -u \
-    <(GOOS=darwin $ROOT_DIR_PATH/scripts/guardian-deps) \
-    <(GOOS=linux $ROOT_DIR_PATH/scripts/guardian-deps) \
-    <(GOOS=windows $ROOT_DIR_PATH/scripts/guardian-deps)
-  echo "github.com/opencontainers/runc"
-  echo "code.cloudfoundry.org/idmapper/cmd/maximus"
+    <(linux_deps) \
+    <(windows_deps)
 ) | xargs gosub sync

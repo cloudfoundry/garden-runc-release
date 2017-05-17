@@ -26,14 +26,6 @@
 	path = src/github.com/bmizerany/pat
 	url = https://github.com/bmizerany/pat
 	branch = master
-[submodule "src/code.cloudfoundry.org/garden-integration-tests"]
-	path = src/code.cloudfoundry.org/garden-integration-tests
-	url = https://github.com/cloudfoundry/garden-integration-tests
-	branch = master
-[submodule "src/github.com/pivotal-golang/archiver"]
-	path = src/github.com/pivotal-golang/archiver
-	url = https://github.com/pivotal-golang/archiver
-	branch = master
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
@@ -41,10 +33,6 @@
 [submodule "src/github.com/cloudfoundry/gunk"]
 	path = src/github.com/cloudfoundry/gunk
 	url = https://github.com/cloudfoundry/gunk
-	branch = master
-[submodule "src/github.com/kr/pty"]
-	path = src/github.com/kr/pty
-	url = https://github.com/kr/pty
 	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
@@ -137,22 +125,6 @@
 	path = src/github.com/opencontainers/runtime-spec
 	url = https://github.com/opencontainers/runtime-spec
 	branch = master
-[submodule "src/github.com/xeipuuv/gojsonpointer"]
-	path = src/github.com/xeipuuv/gojsonpointer
-	url = https://github.com/xeipuuv/gojsonpointer
-	branch = master
-[submodule "src/github.com/xeipuuv/gojsonreference"]
-	path = src/github.com/xeipuuv/gojsonreference
-	url = https://github.com/xeipuuv/gojsonreference
-	branch = master
-[submodule "src/github.com/xeipuuv/gojsonschema"]
-	path = src/github.com/xeipuuv/gojsonschema
-	url = https://github.com/xeipuuv/gojsonschema
-	branch = master
-[submodule "src/github.com/docker/go-units"]
-	path = src/github.com/docker/go-units
-	url = https://github.com/docker/go-units
-	branch = master
 [submodule "src/github.com/mitchellh/reflectwalk"]
 	path = src/github.com/mitchellh/reflectwalk
 	url = https://github.com/mitchellh/reflectwalk
@@ -165,10 +137,6 @@
 	path = src/github.com/mitchellh/copystructure
 	url = https://github.com/mitchellh/copystructure
 	branch = master
-[submodule "src/github.com/golang/protobuf"]
-	path = src/github.com/golang/protobuf
-	url = https://github.com/golang/protobuf
-	branch = master
 [submodule "src/code.cloudfoundry.org/lager"]
 	path = src/code.cloudfoundry.org/lager
 	url = https://github.com/cloudfoundry/lager
@@ -180,10 +148,6 @@
 [submodule "src/github.com/tscolari/lagregator"]
 	path = src/github.com/tscolari/lagregator
 	url = https://github.com/tscolari/lagregator
-	branch = master
-[submodule "src/github.com/st3v/glager"]
-	path = src/github.com/st3v/glager
-	url = https://github.com/st3v/glager
 	branch = master
 [submodule "src/github.com/kardianos/osext"]
 	path = src/github.com/kardianos/osext
@@ -205,15 +169,17 @@
 	path = src/github.com/opencontainers/selinux
 	url = https://github.com/opencontainers/selinux
 	branch = master
-[submodule "src/github.com/Microsoft/hcsshim"]
-	path = src/github.com/Microsoft/hcsshim
-	url = https://github.com/Microsoft/hcsshim
+[submodule "src/github.com/pivotal-golang/archiver"]
+	path = src/github.com/pivotal-golang/archiver
+	url = https://github.com/pivotal-golang/archiver
+[submodule "src/code.cloudfoundry.org/garden-integration-tests"]
+	path = src/code.cloudfoundry.org/garden-integration-tests
+	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
-[submodule "src/github.com/Microsoft/go-winio"]
-	path = src/github.com/Microsoft/go-winio
-	url = https://github.com/Microsoft/go-winio
-	branch = master
-[submodule "src/golang.org/x/sys"]
-	path = src/golang.org/x/sys
-	url = https://github.com/golang/sys
+[submodule "src/github.com/st3v/glager"]
+	path = src/github.com/st3v/glager
+	url = https://github.com/st3v/glager
+[submodule "src/github.com/golang/protobuf"]
+	path = src/github.com/golang/protobuf
+	url = https://github.com/golang/protobuf
 	branch = master
