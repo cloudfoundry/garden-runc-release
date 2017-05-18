@@ -25,7 +25,7 @@ properties:
     default: /var/vcap/data/garden/garden.sock
 
   garden.network_mtu:
-    description: "Maximum network transmission unit length in bytes. Defaults to the mtu of the interface that the host uses for outbound connections."
+    description: "Maximum network transmission unit length in bytes. Defaults to the mtu of the interface that the host uses for outbound connections. Max allowed value is 1500."
     default: 0
 
   garden.deny_networks:
