@@ -3,10 +3,6 @@ busybox/busybox.tar.gz:
   object_id: cc631520-0a72-4cb1-8c87-700f6bdd3305
   sha: 6410617b26644ab3fac9372494cabe34e269970c
   size: 1145751
-libseccomp/libseccomp-2.3.1.tar.gz:
-  object_id: 21961e23-1d3f-4207-880d-19a566a4683c
-  sha: 065b0061924152a9df3eacc0d7ec209c7fc2ee05
-  size: 552299
 tar/tar-1.29.tar.gz:
   object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
   sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
@@ -35,3 +31,7 @@ golang/go1.8.1.windows-amd64.zip:
   object_id: 26ef9ba3-32a0-4136-a650-7959a5d288be
   sha: 26bf854fb81f12e9c80a146d8f0081cd22ae9d02
   size: 96513012
+libseccomp/libseccomp-2.3.2.tar.gz:
+  object_id: fc71e530-c917-4be8-8a8b-c2d3402237e6
+  sha: 6eb7fa147008f4ae189d56c2ea801a619bb08cd0
+  size: 559238

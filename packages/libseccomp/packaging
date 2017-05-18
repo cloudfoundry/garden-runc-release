@@ -1,8 +1,8 @@
 set -e -x
 
-tar zxf libseccomp/libseccomp-2.3.1.tar.gz
+tar zxf libseccomp/libseccomp-2.3.2.tar.gz
 
-cd libseccomp-2.3.1/
+cd libseccomp-2.3.2/
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
 make install
