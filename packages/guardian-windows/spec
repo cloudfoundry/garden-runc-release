@@ -6,6 +6,8 @@ dependencies:
 
 files:
   - exiter.ps1
+  - code.cloudfoundry.org/commandrunner/*.go # gosub
+  - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_spec/*.go # gosub
@@ -93,8 +95,6 @@ files:
   - github.com/cloudfoundry/dropsonde/runtime_stats/*.go # gosub
   - github.com/cloudfoundry/gosigar/*.go # gosub
   - github.com/cloudfoundry/gosteno/*.go # gosub
-  - github.com/cloudfoundry/gunk/command_runner/*.go # gosub
-  - github.com/cloudfoundry/gunk/command_runner/windows_command_runner/*.go # gosub
   - github.com/cloudfoundry/sonde-go/events/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
   - github.com/docker/docker/pkg/archive/*.go # gosub

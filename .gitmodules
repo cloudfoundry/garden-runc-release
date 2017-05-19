@@ -30,10 +30,6 @@
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
 	branch = master
-[submodule "src/github.com/cloudfoundry/gunk"]
-	path = src/github.com/cloudfoundry/gunk
-	url = https://github.com/cloudfoundry/gunk
-	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
 	url = https://github.com/cloudfoundry-incubator/runc
@@ -182,4 +178,8 @@
 [submodule "src/github.com/golang/protobuf"]
 	path = src/github.com/golang/protobuf
 	url = https://github.com/golang/protobuf
+	branch = master
+[submodule "src/code.cloudfoundry.org/commandrunner"]
+	path = src/code.cloudfoundry.org/commandrunner
+	url = https://github.com/cloudfoundry/commandrunner
 	branch = master
