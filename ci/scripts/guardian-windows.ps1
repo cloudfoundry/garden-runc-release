@@ -31,5 +31,10 @@ go version
 go vet ./...
 Write-Host "compiling test process: $(date)"
 
-ginkgo -r -p -race -keepGoing -nodes=8 -failOnPending -randomizeSuites gqt
+$env:GARDEN_TEST_ROOTFS = "N/A"
+ginkgo -r -p -race -keepGoing -failOnPending -skipPackage "dadoo,gqt,kawasaki,locksmith"
+if ($LastExitCode -ne 0) {
+    throw "Ginkgo run returned error code: $LastExitCode"
+}
+ginkgo -r -p -race -keepGoing -failOnPending -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
 Exit $LastExitCode

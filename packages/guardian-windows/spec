@@ -32,6 +32,7 @@ files:
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_runc/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_runc_stderr/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/cmd/fake_runtime_plugin/*.go # gosub
+  - code.cloudfoundry.org/guardian/gqt/cmd/noop_plugin/*.go # gosub
   - code.cloudfoundry.org/guardian/gqt/runner/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
