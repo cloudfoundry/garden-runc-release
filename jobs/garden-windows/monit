@@ -1,0 +1,12 @@
+{
+  "processes": [
+    {
+      "name": "garden-windows",
+      "executable": "powershell",
+      "args": [
+        "C:\\var\\vcap\\jobs\\garden-windows\\bin\\garden_ctl.ps1"
+      ],
+      "env": {}
+    }
+  ]
+}

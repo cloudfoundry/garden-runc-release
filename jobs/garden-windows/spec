@@ -1,0 +1,16 @@
+---
+name: garden-windows
+
+templates:
+  garden_ctl.ps1.erb: bin/garden_ctl.ps1
+
+packages:
+  - guardian-windows
+
+properties:
+  garden.listen_address:
+    description: "Garden server listening address."
+    default: 127.0.0.1:7777
+
+  garden.runtime_plugin:
+    description: "Path to a runtime plugin binary"
