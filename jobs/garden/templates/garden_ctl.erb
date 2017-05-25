@@ -244,6 +244,9 @@ case $1 in
     <% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| %> \
       --cpu-quota-per-share=<%= quota_per_share %> \
     <% end %> \
+    <% if_p("garden.experimental_tcp_mem_limit_in_bytes") do |tcp_memory| %> \
+      --tcp-memory-limit=<%= tcp_memory %> \
+    <% end %> \
       --runtime-plugin=<%= p("garden.runtime_plugin", "/var/vcap/packages/runc/bin/runc") %> \
     <% if_p("garden.image_plugin") do |plugin| %> \
       --image-plugin=<%= plugin %> \
