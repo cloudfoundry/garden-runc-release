@@ -63,10 +63,12 @@ files:
   - code.cloudfoundry.org/guardian/properties/fakes/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/bundlerules/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/dadoo/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/dadoo/dadoofakes/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/depot/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/depot/depotfakes/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/execrunner/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo/dadoofakes/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/execrunner/execrunnerfakes/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/rundmcfakes/*.go # gosub
