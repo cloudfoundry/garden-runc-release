@@ -1,10 +1,10 @@
-New-Item C:\var\vcap\data\garden\depot -ItemType Directory -Force
+﻿New-Item C:\var\vcap\data\garden\depot -ItemType Directory -Force
 
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
   --skip-setup `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
-  --image-plugin=C:\var\vcap\packages\guardian-windows\noop_plugin.exe `
+  --image-plugin=<%= p("garden.image_plugin") %> `
   --network-plugin=C:\var\vcap\packages\guardian-windows\noop_plugin.exe `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `
