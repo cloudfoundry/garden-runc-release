@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e -x
 
+if ! which gosub >/dev/null 2>&1 ; then
+  echo "gosub not found. In the global $GOPATH, try: go get github.com/vito/gosub"
+  exit 1
+fi
+
 ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 
 pushd $ROOT_DIR_PATH/packages/guardian
