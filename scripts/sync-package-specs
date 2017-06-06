@@ -11,8 +11,11 @@ ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
 pushd $ROOT_DIR_PATH/packages/guardian
   {
     cat spec | grep -v '# gosub'
-    GOOS=linux gosub list -a code.cloudfoundry.org/guardian/... | \
-      sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+    GOOS=linux gosub list \
+      -a code.cloudfoundry.org/guardian/cmd/gdn \
+      -a code.cloudfoundry.org/guardian/cmd/dadoo \
+      -a code.cloudfoundry.org/guardian/cmd/init \
+      | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 
   mv spec.new spec
@@ -21,8 +24,11 @@ popd
 pushd $ROOT_DIR_PATH/packages/guardian-windows
   {
     cat spec | grep -v '# gosub'
-    GOOS=windows gosub list -a code.cloudfoundry.org/guardian/... | \
-      sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+    GOOS=windows gosub list \
+      -a code.cloudfoundry.org/guardian/cmd/gdn \
+      -a code.cloudfoundry.org/guardian/gqt/cmd/noop_plugin \
+      -a code.cloudfoundry.org/guardian/gqt/cmd/fake_runtime_plugin \
+      | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 
   mv spec.new spec
