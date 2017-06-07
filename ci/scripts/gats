@@ -51,6 +51,7 @@ $GOPATH/bin/gdn \
   --bind-port=7777 \
   --debug-bind-ip=0.0.0.0 \
   --debug-bind-port=17013 \
+  --network-pool=10.254.1.0/24 \
   --default-grace-time=5m \
   --log-level=$LOG_LEVEL \
   --default-rootfs=/opt/warden/rootfs &
