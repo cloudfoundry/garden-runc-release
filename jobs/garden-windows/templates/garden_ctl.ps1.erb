@@ -9,4 +9,6 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `
   --bind-port=<%= port %> `
+  --nstar-bin=<%= p("garden.nstar_bin") %> `
+  --tar-bin=<%= p("garden.tar_bin") %> `
   --depot C:\var\vcap\data\garden\depot
