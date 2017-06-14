@@ -7,7 +7,6 @@ cd $ROOT_DIR_PATH
 pushd src/code.cloudfoundry.org/guardian
   go vet ./...
   go fmt ./...
-  ginkgo -r -p -race -nodes=8 -failOnPending -randomizeSuites
 popd
 
 pushd src/code.cloudfoundry.org/garden-shed
