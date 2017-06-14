@@ -25,7 +25,6 @@ files:
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/dns/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/factory/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/iptables/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/mtu/*.go # gosub
