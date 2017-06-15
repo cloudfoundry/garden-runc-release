@@ -24,3 +24,7 @@ properties:
   garden.tar_bin:
     description: "Path to tar binary"
     default: "C:\\var\\vcap\\bosh\\bin\\tar.exe"
+
+  garden.max_containers:
+    description: "Maximum container capacity to advertise. It is not recommended to set this larger than 75."
+    default: 75
