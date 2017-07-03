@@ -1,8 +1,4 @@
 ---
-busybox/busybox.tar.gz:
-  object_id: cc631520-0a72-4cb1-8c87-700f6bdd3305
-  sha: 6410617b26644ab3fac9372494cabe34e269970c
-  size: 1145751
 tar/tar-1.29.tar.gz:
   object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
   sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
@@ -35,3 +31,7 @@ golang/go1.8.3.windows-amd64.zip:
   object_id: 580d0dd4-540a-486e-8163-e5aa385755b9
   sha: 8a539ecd86505aca6e70e7e561a2b5877d91c000
   size: 96254597
+busybox/busybox-1.26.2.tar:
+  object_id: 6bc1883a-e5ce-4ea1-a470-a274a57178c4
+  sha: 3bf14133b0342997e6ba414f906fae90c3b9b083
+  size: 1313792

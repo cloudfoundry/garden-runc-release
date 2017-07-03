@@ -2,8 +2,8 @@ set -e -x
 
 # to generate a new busybox tarball:
 #
-# docker run -i -t -cidfile=busybox.cid busybox echo foo
-# docker export $(cat busybox.cid) > busybox.tar.gz
+# docker run -i -t --cidfile=busybox.cid busybox echo foo
+# docker export $(cat busybox.cid) > busybox.tar
 #
 # to add it to the release:
 #
@@ -11,4 +11,6 @@ set -e -x
 # bosh add blob busybox.tar.gz busybox
 # bosh upload blobs
 
-tar zxf busybox/busybox.tar.gz -C ${BOSH_INSTALL_TARGET}
+# the version is based on the tag on DockerHub
+
+tar xf busybox/busybox-1.26.2.tar -C ${BOSH_INSTALL_TARGET}

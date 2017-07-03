@@ -2,4 +2,4 @@
 name: busybox
 
 files:
-  - busybox/busybox.tar.gz
+  - busybox/busybox-1.26.2.tar
