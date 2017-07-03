@@ -39,7 +39,6 @@ $GDN_PATH \
   --debug-bind-ip=$GARDEN_IP \
   --debug-bind-port=$GARDEN_DEBUG_PORT \
   --network-pool=10.254.1.0/24 \
-  --default-grace-time=5m \
   --log-level=$LOG_LEVEL \
   --default-rootfs=/opt/warden/rootfs &
 
