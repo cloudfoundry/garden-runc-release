@@ -5,7 +5,7 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --skip-setup `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
   --image-plugin=<%= p("garden.image_plugin") %> `
-  --network-plugin=C:\var\vcap\packages\guardian-windows\noop_plugin.exe `
+  --network-plugin=<%= p("garden.network_plugin") %> `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `
   --bind-port=<%= port %> `
