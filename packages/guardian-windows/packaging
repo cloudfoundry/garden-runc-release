@@ -24,18 +24,6 @@ if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: ${pkg_path}"
 }
 
-$plugin_path="code.cloudfoundry.org/guardian/gqt/cmd/noop_plugin"
-go.exe build -o "${BOSH_INSTALL_TARGET}\noop_plugin.exe" "${plugin_path}"
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "Error compiling: ${plugin_path}"
-}
-
-$plugin_path="code.cloudfoundry.org/guardian/gqt/cmd/fake_runtime_plugin"
-go.exe build -o "${BOSH_INSTALL_TARGET}\runtime_plugin.exe" "${plugin_path}"
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "Error compiling: ${plugin_path}"
-}
-
 # Cleanup build artifacts
 New-Item -ItemType directory -Path ".\emptydirectory" -Force
 

@@ -20,8 +20,6 @@ files:
   - code.cloudfoundry.org/guardian/bindata/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
-  - code.cloudfoundry.org/guardian/gqt/cmd/fake_runtime_plugin/*.go # gosub
-  - code.cloudfoundry.org/guardian/gqt/cmd/noop_plugin/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
@@ -94,4 +92,3 @@ files:
   - github.com/tedsuo/ifrit/sigmon/*.go # gosub
   - github.com/tedsuo/rata/*.go # gosub
   - github.com/tscolari/lagregator/*.go # gosub
-  - github.com/urfave/cli/*.go # gosub
