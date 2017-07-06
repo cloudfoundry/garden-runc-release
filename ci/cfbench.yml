@@ -1,0 +1,30 @@
+---
+image_resource:
+  type: docker-image
+  source:
+      repository: cfgarden/garden-ci-ubuntu
+      tag: '0.9.4'
+
+platform: linux
+
+inputs:
+- name: gr-release-develop
+- name: cf-acceptance-tests
+- name: cfbench-master
+  path: src/github.com/teddyking/cfbench
+
+caches:
+- path: gr-release-develop/bin
+- path: gr-release-develop/pkg
+- path: cfbench-master/bin
+- path: cfbench-master/pkg
+
+params:
+  CF_API:
+  CF_USERNAME:
+  CF_PASSWORD:
+  CF_ORG:
+  CF_SPACE:
+
+run:
+  path: gr-release-develop/ci/scripts/cfbench

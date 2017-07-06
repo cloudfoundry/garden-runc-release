@@ -1,0 +1,21 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e
+
+export PATH=$(pwd)/bin:$PATH
+export GOPATH=$(pwd)
+
+pushd src/github.com/teddyking/cfbench
+go install
+popd
+
+cf api "$CF_API" --skip-ssl-validation
+cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -s "$CF_SPACE" -o "$CF_ORG" --skip-ssl-validation
+
+export CF_AUTH_TOKEN=$(cf oauth-token)
+DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
+
+cfbench \
+  -app-dir cf-acceptance-tests/assets/dora \
+  -doppler-address "$DOPPLER_ADDRESS"
