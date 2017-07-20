@@ -82,8 +82,6 @@ files:
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
-  - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
-  - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
