@@ -25,6 +25,8 @@ params:
   CF_PASSWORD:
   CF_ORG:
   CF_SPACE:
+  DATADOG_API_KEY:
+  DATADOG_APPLICATION_KEY:
 
 run:
   path: gr-release-develop/ci/scripts/cfbench
