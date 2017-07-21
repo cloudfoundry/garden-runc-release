@@ -16,6 +16,11 @@ cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -s "$CF_SPACE" -o "$CF_ORG" --skip-
 export CF_AUTH_TOKEN=$(cf oauth-token)
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 
+export CF_TAG
+if [ -d "gr-release-develop/.git" ]; then
+  CF_TAG="sha:$(git --git-dir=gr-release-develop/.git rev-parse --short HEAD)"
+fi
+
 cfbench \
   -app-dir cf-acceptance-tests/assets/dora \
   -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
