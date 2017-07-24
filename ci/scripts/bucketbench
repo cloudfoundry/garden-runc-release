@@ -9,28 +9,27 @@ cd $(dirname $0)/../..
 export GOROOT=/usr/local/go
 export GOPATH=$PWD
 export PATH=$PATH:$GOPATH/bin:/var/gdn/assets/linux/bin
-export BUCKETBENCH_THREADS=${BUCKETBENCH_THREADS:=5}
 
+BUCKETBENCH_THREADS=${BUCKETBENCH_THREADS:=5}
+BUCKETBENCH_ITERATIONS=${BUCKETBENCH_ITERATIONS:=50}
 GDN_PATH="../gdn-linux-release/gdn"
-chmod 755 "$GDN_PATH"
+
+GARDEN_ADDRESS=$(hostname)
+GARDEN_IP=0.0.0.0
+GARDEN_PORT=7777
+GARDEN_DEBUG_PORT=17013
+NESTED=true
 
 tmpdir=/tmp/dir
 rm -fr $tmpdir
 mkdir $tmpdir
 mount -t tmpfs none $tmpdir
-
 mkdir $tmpdir/depot
 mkdir $tmpdir/snapshots
 mkdir $tmpdir/graph
-
 permit_device_control
 create_loop_devices 256
-
-export GARDEN_ADDRESS=$(hostname)
-export GARDEN_IP=0.0.0.0
-export GARDEN_PORT=7777
-export GARDEN_DEBUG_PORT=17013
-export NESTED=true
+chmod 755 "$GDN_PATH"
 
 $GDN_PATH \
   server \
@@ -48,19 +47,38 @@ $GDN_PATH \
 sleep 5
 curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
 
-
 go get github.com/contraband/gaol
-# go get github.com/estesp/bucketbench
 mkdir -p $GOPATH/src/github.com/estesp/bucketbench
 git clone https://github.com/karampok/bucketbench.git $GOPATH/src/github.com/estesp/bucketbench
 go install github.com/estesp/bucketbench
 
-mkdir -p /tmp/bundle
-pushd /tmp/bundle
-runc spec
-sed -i 's/"terminal": true/"terminal": false/' config.json
-sed -i 's/"sh"/"whoami"/' config.json
-sed -i 's/"path": "rootfs"/"path": "\/opt\/warden\/rootfs"/' config.json
-popd
+cat << EOF >> /tmp/bucketbench.yml
+---
+name: RunProcessBenchmark
+image: alpine:latest
+rootfs: /tmp/bundle
+detached: true
+drivers:
+- type: Garden
+  binary: gaol
+  threads: ${BUCKETBENCH_THREADS}
+  iterations: ${BUCKETBENCH_ITERATIONS}
+- type: Runc
+  binary: runc
+  threads: ${BUCKETBENCH_THREADS}
+  iterations: ${BUCKETBENCH_ITERATIONS}
+commands:
+- run
+EOF
 
-bucketbench --log-level=debug run -g ${BUCKETBENCH_THREADS} -b /tmp/bundle -r ${BUCKETBENCH_THREADS}
+(
+	mkdir -p /tmp/bundle
+	cd /tmp/bundle
+	runc spec
+	sed -i 's/"terminal": true/"terminal": false/' config.json
+	sed -i 's/"sh"/"whoami"/' config.json
+	sed -i 's/"path": "rootfs"/"path": "\/opt\/warden\/rootfs"/' config.json
+	sed -i 's/"process": {/"process": {\n"consoleSize": {"height":24,"width":80},\n/' config.json
+)
+
+bucketbench --log-level debug run --skip-limit -b /tmp/bucketbench.yml

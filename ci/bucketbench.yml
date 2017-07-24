@@ -14,6 +14,7 @@ inputs:
 params:
   LOG_LEVEL: error
   BUCKETBENCH_THREADS: 5
+  BUCKETBENCH_ITERATIONS: 50
 
 run:
   path: gr-release-develop/ci/scripts/bucketbench
