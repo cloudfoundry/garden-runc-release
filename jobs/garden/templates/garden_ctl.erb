@@ -171,7 +171,11 @@ case $1 in
 
     permit_device_control
     create_loop_devices 256
-    setup_apparmor
+    
+    <% if !p("garden.apparmor_profile").empty?  %>
+      setup_apparmor
+    <% end %>
+
     set_graph_permissions "$graph_path"
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
