@@ -5,6 +5,7 @@ LOG_DIR=/var/vcap/sys/log/garden
 PIDFILE=$RUN_DIR/garden.pid
 DATA_DIR=/var/vcap/data
 GARDEN_DIR=/var/vcap/data/garden
+GARDEN_CONFIG_DIR=/var/vcap/jobs/garden/config
 
 mkdir -p /var/vcap/sys/log/monit
 exec 1>> /var/vcap/sys/log/monit/garden.out.log
@@ -60,19 +61,15 @@ function create_loop_devices() {
   done
 }
 
-function setup_apparmor() {
-  local default_policy=garden-default
+function load_apparmor_profile() {
+  local profile_path=$1
   export PATH=$PATH:$(readlink -nf /var/vcap/packages/apparmor/bin)
-  POLICY=<%= p("garden.apparmor_profile") %>
-  CONFIG_DIR=/var/vcap/jobs/garden/config
 
   if ! mountpoint -q /sys/kernel/security; then
     mount -t securityfs securityfs /sys/kernel/security
   fi
 
-  if ! aa-status | grep $default_policy > /dev/null; then
-    apparmor_parser -a $CONFIG_DIR/$default_policy
-  fi
+  apparmor_parser -r "$profile_path"
 }
 
 function set_graph_permissions() {
@@ -171,7 +168,11 @@ case $1 in
 
     permit_device_control
     create_loop_devices 256
-    setup_apparmor
+
+    <% if p("garden.apparmor_profile") == "garden-default" %>
+      load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
+    <% end %>
+
     set_graph_permissions "$graph_path"
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
@@ -293,7 +294,7 @@ case $1 in
     <% p("garden.additional_dns_servers").each do |server| %> \
       --additional-dns-server=<%= server %> \
     <% end %> \
-    <% if !p("garden.apparmor_profile").empty?  %> \
+    <% if !p("garden.apparmor_profile").empty? %> \
       --apparmor=<%= p("garden.apparmor_profile") %> \
     <% end %> \
     <% if p("garden.cleanup_process_dirs_on_wait") %> \
