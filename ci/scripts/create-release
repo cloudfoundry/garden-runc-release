@@ -16,5 +16,5 @@ cd gr-release-develop
 
 tarball_path="$base/bosh-release/garden-runc-${VERSION}.tgz"
 mkdir -p "$(dirname "$tarball_path")"
-bosh -n create-release --tarball="$tarball_path" "${VERSION}"
+bosh -n create-release --tarball="$tarball_path" --version="${VERSION}"
 )
