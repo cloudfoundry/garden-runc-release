@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # copied from https://github.com/concourse/concourse/blob/master/jobs/baggageclaim/templates/baggageclaim_ctl.erb#L54
 # break out of bosh-lite device limitations
 function permit_device_control() {
