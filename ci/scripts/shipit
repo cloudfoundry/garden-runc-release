@@ -31,10 +31,10 @@ tarball_path="$base/final-release/garden-runc-${GARDEN_VERSION}.tgz"
 
 if [ -e "$RELEASE_YML" ]; then
   echo "release already created; making tarball..."
-  bosh -n create-release --tarball="$tarball_path" "$RELEASE_YML"
+  bosh -n create-release --sha2 --tarball="$tarball_path" "$RELEASE_YML"
 else
   echo "finalizing release"
-  bosh -n finalize-release --version "$GARDEN_VERSION" "${CANDIDATE_DIR}/garden-runc-*.tgz"
+  bosh -n finalize-release --sha2 --version "$GARDEN_VERSION" "${CANDIDATE_DIR}/garden-runc-*.tgz"
   git add -A
   git commit -m "release v${GARDEN_VERSION}"
 fi
