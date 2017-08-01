@@ -184,14 +184,15 @@ case $1 in
     exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
          2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
+    exec_command="exec"
+    setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
     <% if p("garden.experimental_rootless_mode") %>
-     # if rootless mode, we need to run `gdn setup` as the root user here
-     exec_command="exec chpst -u :$(maximus):$(maximus)"
-    <% else %>
-     exec_command="exec"
+      max=$(maximus)
+      exec_command="$exec_command chpst -u :$max:$max"
+      setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
     <% end %>
 
-    /var/vcap/packages/guardian/bin/gdn setup
+    $setup_cmd
 
     echo $$ > $PIDFILE
     $exec_command /var/vcap/packages/guardian/bin/gdn \

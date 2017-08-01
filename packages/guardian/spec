@@ -51,6 +51,7 @@ files:
   - code.cloudfoundry.org/guardian/properties/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/bundlerules/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/cgroups/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/depot/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
