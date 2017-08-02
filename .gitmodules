@@ -183,3 +183,11 @@
 	path = src/code.cloudfoundry.org/commandrunner
 	url = https://github.com/cloudfoundry/commandrunner
 	branch = master
+[submodule "src/github.com/opencontainers/image-spec"]
+	path = src/github.com/opencontainers/image-spec
+	url = https://github.com/opencontainers/image-spec
+	branch = master
+[submodule "src/github.com/opencontainers/go-digest"]
+	path = src/github.com/opencontainers/go-digest
+	url = https://github.com/opencontainers/go-digest
+	branch = master

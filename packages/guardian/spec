@@ -153,6 +153,9 @@ files:
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
+  - github.com/opencontainers/go-digest/*.go # gosub
+  - github.com/opencontainers/image-spec/specs-go/*.go # gosub
+  - github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/cgroups/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
