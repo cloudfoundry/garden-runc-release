@@ -3,6 +3,8 @@
 
 set -e -x
 
+base=$PWD
+
 source $(dirname $0)/aufs
 cd $(dirname $0)/../..
 
@@ -48,4 +50,10 @@ sleep 5
 curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
 
 cd src/code.cloudfoundry.org/garden-integration-tests
-ginkgo -p -nodes=8 -failOnPending -randomizeSuites "$@"
+
+cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites $*"
+if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+  cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
+fi
+
+$cmd
