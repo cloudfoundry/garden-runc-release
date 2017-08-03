@@ -16,6 +16,3 @@ caches:
 
 run:
   path: gr-release-develop/ci/scripts/guardian
-
-params:
-  NETWORK_MODULE_PATH:

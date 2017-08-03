@@ -3,10 +3,18 @@
 
 set -e -x
 
+base=$PWD
+
 cd $(dirname $0)/../..
 
 export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-integration-tests
-ginkgo -p -nodes=8 -failOnPending -randomizeSuites
+
+cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites"
+if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+  cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
+fi
+
+$cmd

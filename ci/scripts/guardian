@@ -2,7 +2,9 @@
 # vim: set ft=sh
 set -ex
 
-cd $(dirname $0)/../..
+base=$PWD
+
+cd "$(dirname "$0")/../.."
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
@@ -41,4 +43,9 @@ go version
 go vet ./...
 echo "compiling test process: $(date)"
 
-ginkgo -tags daemon -r -p -race -keepGoing -nodes=8 -failOnPending "$@"
+cmd="ginkgo -tags daemon -r -p -race -keepGoing -nodes=8 -failOnPending $*"
+if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+  cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
+fi
+
+$cmd
