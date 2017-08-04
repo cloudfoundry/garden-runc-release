@@ -93,10 +93,6 @@
 	path = src/github.com/eapache/go-resiliency
 	url = https://github.com/eapache/go-resiliency
 	branch = master
-[submodule "src/github.com/kr/logfmt"]
-	path = src/github.com/kr/logfmt
-	url = https://github.com/kr/logfmt
-	branch = master
 [submodule "src/github.com/gogo/protobuf"]
 	path = src/github.com/gogo/protobuf
 	url = https://github.com/gogo/protobuf

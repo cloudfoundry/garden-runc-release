@@ -150,7 +150,6 @@ files:
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
   - github.com/jessevdk/go-flags/*.go # gosub
-  - github.com/kr/logfmt/*.go # gosub
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
