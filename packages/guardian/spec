@@ -143,6 +143,7 @@ files:
   - github.com/docker/docker/volume/*.go # gosub
   - github.com/docker/libtrust/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
+  - github.com/go-logfmt/logfmt/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub

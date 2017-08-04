@@ -75,11 +75,11 @@ files:
   - github.com/docker/docker/pkg/reexec/*.go # gosub
   - github.com/docker/docker/pkg/system/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
+  - github.com/go-logfmt/logfmt/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
   - github.com/jessevdk/go-flags/*.go # gosub
-  - github.com/kr/logfmt/*.go # gosub
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub

@@ -191,3 +191,7 @@
 	path = src/github.com/opencontainers/go-digest
 	url = https://github.com/opencontainers/go-digest
 	branch = master
+[submodule "src/github.com/go-logfmt/logfmt"]
+	path = src/github.com/go-logfmt/logfmt
+	url = https://github.com/go-logfmt/logfmt
+	branch = master
