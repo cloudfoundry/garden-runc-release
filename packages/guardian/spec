@@ -143,7 +143,6 @@ files:
   - github.com/docker/docker/volume/*.go # gosub
   - github.com/docker/libtrust/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
-  - github.com/go-logfmt/logfmt/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
@@ -161,9 +160,9 @@ files:
   - github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - github.com/opencontainers/runc/libcontainer/utils/*.go # gosub
-  - github.com/opencontainers/runc/vendor/github.com/Sirupsen/logrus/*.go # gosub
   - github.com/opencontainers/runc/vendor/github.com/docker/go-units/*.go # gosub
   - github.com/opencontainers/runc/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - github.com/opencontainers/runc/vendor/github.com/sirupsen/logrus/*.go # gosub
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
