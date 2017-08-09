@@ -1,10 +1,13 @@
 ﻿New-Item C:\var\vcap\data\garden\depot -ItemType Directory -Force
 
+$imageStore="C:\var\vcap\winc-image\store"
+
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
   --skip-setup `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
   --image-plugin=<%= p("garden.image_plugin") %> `
+  --image-plugin-extra-arg=--store=$imageStore `
   --network-plugin=<%= p("garden.network_plugin") %> `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `
@@ -14,5 +17,6 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --max-containers=<%= p("garden.max_containers") %> `
   <% if p("garden.destroy_containers_on_start") %> `
   --destroy-containers-on-startup `
+  --runc-root=$imageStore `
   <% end %> `
   --depot C:\var\vcap\data\garden\depot
