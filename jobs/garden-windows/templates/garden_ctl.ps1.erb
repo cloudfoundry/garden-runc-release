@@ -1,22 +1,32 @@
-﻿New-Item C:\var\vcap\data\garden\depot -ItemType Directory -Force
+﻿$ErrorActionPreference = "Stop";
+trap { $host.SetShouldExit(1) }
 
-$imageStore="C:\var\vcap\winc-image\store"
+$gardenDir="C:\var\vcap\data\garden"
+$depotDir=(Join-Path $gardenDir "depot")
+$imageStore=(Join-Path $gardenDir "image-store")
+
+New-Item $depotDir -ItemType Directory -Force
+New-Item $imageStore -ItemType Directory -Force
 
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
   --skip-setup `
-  --runtime-plugin=<%= p("garden.runtime_plugin") %> `
-  --image-plugin=<%= p("garden.image_plugin") %> `
-  --image-plugin-extra-arg=--store=$imageStore `
-  --network-plugin=<%= p("garden.network_plugin") %> `
+  --depot=$depotDir `
+  --log-level=<%= p("garden.log_level") %> `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `
   --bind-port=<%= port %> `
+  --max-containers=<%= p("garden.max_containers") %> `
+  <% if !p("garden.default_container_rootfs").empty? %> `
+  --default-rootfs=<%= p("garden.default_container_rootfs") %> `
+  <% end %> `
+  --runtime-plugin=<%= p("garden.runtime_plugin") %> `
+  --runc-root=$imageStore `
+  --image-plugin=<%= p("garden.image_plugin") %> `
+  --image-plugin-extra-arg=--store=$imageStore `
+  --network-plugin=<%= p("garden.network_plugin") %> `
   --nstar-bin=<%= p("garden.nstar_bin") %> `
   --tar-bin=<%= p("garden.tar_bin") %> `
-  --max-containers=<%= p("garden.max_containers") %> `
   <% if p("garden.destroy_containers_on_start") %> `
   --destroy-containers-on-startup `
-  --runc-root=$imageStore `
-  <% end %> `
-  --depot C:\var\vcap\data\garden\depot
+  <% end %>

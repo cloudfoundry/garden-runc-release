@@ -12,6 +12,10 @@ properties:
     description: "Garden server listening address."
     default: 127.0.0.1:7777
 
+  garden.log_level:
+    description: "log level for the Garden server - can be debug, info, error or fatal"
+    default: info
+
   garden.runtime_plugin:
     description: "Path to a runtime plugin binary"
 
@@ -35,3 +39,7 @@ properties:
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
     default: false
+
+  garden.default_container_rootfs:
+    description: "path to the rootfs to use when a container specifies no rootfs"
+    default: ""
