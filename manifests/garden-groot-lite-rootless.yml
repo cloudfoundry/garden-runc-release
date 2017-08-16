@@ -8,7 +8,9 @@ releases:
   - name: garden-runc
     version: latest
   - name: grootfs
-    version: latest
+    version: 0.24.0
+    url: http://bosh.io/d/github.com/cloudfoundry/grootfs-release?v=0.24.0
+    sha1: b342db5da3a7bd7bb2e81c2f6456d75cf38e9e0c
 
 jobs:
   - name: garden
