@@ -1,0 +1,79 @@
+name: garden-runc
+version: 1.9.1
+commit_hash: cfcf49f
+uncommitted_changes: false
+jobs:
+- name: garden
+  version: 33c74245afa90ac960cab25b850962b09d4b9c34
+  fingerprint: 33c74245afa90ac960cab25b850962b09d4b9c34
+  sha1: 52384daebfcdc45b3fb392b7d46a90a4147db4cb
+- name: garden-windows
+  version: a7009294682edef0cda6772152551f6b2302f0c2
+  fingerprint: a7009294682edef0cda6772152551f6b2302f0c2
+  sha1: b64888480a2780a496c45b7c1c3d89842372866c
+packages:
+- name: apparmor
+  version: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  fingerprint: d2a9bb24b85a144e874e7627a5fefb4e9b8b30f3
+  sha1: b7638766932827e7d268b57827d434eaf22f3f0e
+  dependencies: []
+- name: busybox
+  version: eeb02f3df20cef2d7609e33fb4102ce884969acc
+  fingerprint: eeb02f3df20cef2d7609e33fb4102ce884969acc
+  sha1: ebe04fc4455115d5b3cfccd2a3d85110540797bb
+  dependencies: []
+- name: garden-idmapper
+  version: 68d9b8a73a5b05c5907ded18bdd4ab74f7d1f303
+  fingerprint: 68d9b8a73a5b05c5907ded18bdd4ab74f7d1f303
+  sha1: dcc4e94cc6d8c54e8afaaf620473ffd31a396a5d
+  dependencies:
+  - golang
+- name: golang
+  version: 6b1bfba0bc0455c57678161490ce4fa4fd5f70f4
+  fingerprint: 6b1bfba0bc0455c57678161490ce4fa4fd5f70f4
+  sha1: 7d5e3436a45e7a5dfdcae494464214cbe439645b
+  dependencies: []
+- name: golang-windows
+  version: cbd35c89c73f7a0efbb3dfd7e42346bba16a9a22
+  fingerprint: cbd35c89c73f7a0efbb3dfd7e42346bba16a9a22
+  sha1: 5b0679f6dbc1d9a8bef4a696c8d62016ed38edae
+  dependencies: []
+- name: guardian
+  version: fc868cc3617f3c7551d7296e7881eb9d2ed502df
+  fingerprint: fc868cc3617f3c7551d7296e7881eb9d2ed502df
+  sha1: e3fe6bb1ca6b2977a51ff15fd98c0f18223c9a77
+  dependencies:
+  - golang
+- name: guardian-windows
+  version: 12131c5a4b08e71fcc47d6a6e00a9bfd71b42259
+  fingerprint: 12131c5a4b08e71fcc47d6a6e00a9bfd71b42259
+  sha1: dd217f37a568d7584a2252b783090a39de106f22
+  dependencies:
+  - golang-windows
+- name: iptables
+  version: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  fingerprint: 70cd40ad87371de73d6bdfc34967e94422fc2cc4
+  sha1: b1743c4ae0fddfbe606d1e76312fa84d4aa49aa9
+  dependencies: []
+- name: libseccomp
+  version: 9909b2f6b2390c5117515c082ce4b2d586cdfb91
+  fingerprint: 9909b2f6b2390c5117515c082ce4b2d586cdfb91
+  sha1: 2b9e82a21f8ffd4fae6aa49222702303a4d921bb
+  dependencies: []
+- name: runc
+  version: 6ce5d747ecc0c821cf79d3c13548bb30fa33caf0
+  fingerprint: 6ce5d747ecc0c821cf79d3c13548bb30fa33caf0
+  sha1: a81b0fabb5bd753607ba96d3861c827300a28535
+  dependencies:
+  - libseccomp
+  - golang
+  - apparmor
+- name: tar
+  version: 1c85c20331b39d35be32116a20b1fa2e28725cbe
+  fingerprint: 1c85c20331b39d35be32116a20b1fa2e28725cbe
+  sha1: a7a86a77b4ac9ddb28efbb8577454615648d6d94
+  dependencies: []
+license:
+  version: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  fingerprint: 6a29f48faa55a27c626341daf4dbc729fe3d7f6d
+  sha1: ca927c57ba4c2516b256d48991aa7e5d55e53110
