@@ -155,6 +155,14 @@ case $1 in
 
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
+    chgrp "$(maximus)" "$GARDEN_DIR"
+    chmod 750 "$GARDEN_DIR"
+
+    runtime_bin_dir="$GARDEN_DIR/bin"
+    mkdir -p "$runtime_bin_dir"
+    chgrp "$(maximus)" "$runtime_bin_dir"
+    chmod 750 "$runtime_bin_dir"
+    cp /var/vcap/packages/guardian/bin/init "$runtime_bin_dir"
 
     <% if p("garden.experimental_rootless_mode") %>
       runc_root=/run/runc
@@ -210,7 +218,7 @@ case $1 in
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
       --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --iptables-restore-bin=/var/vcap/packages/iptables/sbin/iptables-restore \
-      --init-bin=/var/vcap/packages/guardian/bin/init \
+      --init-bin="$runtime_bin_dir/init" \
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \
