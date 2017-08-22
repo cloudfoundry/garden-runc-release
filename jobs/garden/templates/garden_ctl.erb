@@ -156,7 +156,7 @@ case $1 in
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
     chgrp "$(maximus)" "$GARDEN_DIR"
-    chmod 750 "$GARDEN_DIR"
+    chmod 755 "$GARDEN_DIR"
 
     runtime_bin_dir="$GARDEN_DIR/bin"
     mkdir -p "$runtime_bin_dir"
