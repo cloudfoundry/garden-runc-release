@@ -25,6 +25,10 @@ properties:
   garden.network_plugin:
     description: "Path to a network plugin binary"
 
+  garden.network_plugin_extra_args:
+    description: "An array of additional arguments which will be passed to the network plugin binary"
+    default: []
+
   garden.nstar_bin:
     description: "Path to nstar binary"
 
