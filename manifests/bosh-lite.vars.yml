@@ -1,0 +1,4 @@
+deployment: garden-runc
+vm: container
+network: lite
+az: lite

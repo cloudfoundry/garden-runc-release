@@ -1,0 +1,11 @@
+- type: replace
+  path: /instance_groups/0/jobs/name=garden/properties/garden/experimental_rootless_mode?
+  value: true
+
+- type: replace
+  path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin?
+  value: /bin/true
+
+- type: replace
+  path: /instance_groups/0/jobs/name=grootfs/properties/grootfs/driver?
+  value: btrfs

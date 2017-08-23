@@ -1,0 +1,35 @@
+name: ((deployment))
+
+releases:
+- name: garden-runc
+  version: latest
+
+stemcells:
+- alias: trusty
+  os: ubuntu-trusty
+  version: latest
+
+instance_groups:
+- name: garden
+  instances: 1
+  vm_type: ((vm))
+  networks:
+  - name: ((network))
+  azs: [((az))]
+  stemcell: trusty
+  jobs:
+  - name: garden
+    release: garden-runc
+    properties:
+      garden:
+        graph_cleanup_threshold_in_mb: 1024
+        listen_network: tcp
+        listen_address: 0.0.0.0:7777
+        debug_listen_address: 0.0.0.0:17013
+        log_level: debug
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  canary_watch_time: 1000-240000
+  update_watch_time: 1000-240000

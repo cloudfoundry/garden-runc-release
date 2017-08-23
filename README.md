@@ -4,8 +4,8 @@ A [BOSH](http://docs.cloudfoundry.org/bosh/) release for deploying
 [Guardian](https://github.com/cloudfoundry/guardian).
 
 Guardian is a simple single-host [OCI](https://opencontainers.org/) container
-manager. It implements the [Garden](https://github.com/cloudfoundry/garden/) API
-which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
+manager. It implements the [Garden](https://github.com/cloudfoundry/garden/)
+API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
 
 ## Getting started
 
@@ -19,21 +19,26 @@ git submodule update --init --recursive
 
 ### Running
 
-**Note**: If you are transitioning from garden-linux-release to garden-runc-release, please read the transition doc [here](https://github.com/cloudfoundry/garden-runc-release/blob/master/docs/transition-from-garden-linux.md).
+**Note**: If you are transitioning from garden-linux-release to
+garden-runc-release, please read the transition doc
+[here](https://github.com/cloudfoundry/garden-runc-release/blob/master/docs/transition-from-garden-linux.md).
 
 The easiest way to run Garden-runC is to deploy it with [BOSH
-Lite](https://github.com/cloudfoundry/bosh-lite), a local development
-environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite (follow the instructions in the bosh-lite repo), just deploy like any bosh release, e.g:
+Lite](https://bosh.io/docs/bosh-lite.html), a VirtualBox development
+environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite
+(follow the instructions in the bosh-lite repo), just deploy like any bosh
+release, e.g:
 
 ~~~~
 cd garden-runc-release # if you're not already there
-bosh deployment manifests/bosh-lite.yml
-bosh create release && bosh upload release && bosh deploy
+./scripts/create-upload-lite-release.sh
+./scripts/deploy-lite.sh
 ~~~~
 
 You can retrieve the address of the Garden-runC server by running `bosh vms`.
-It will be `10.244.16.6` if using the provided bosh-lite manifest in [manifests/bosh-lite.yml](https://github.com/cloudfoundry/garden-runc-release/blob/master/manifests/bosh-lite.yml). The server
-port defaults to `7777`.
+It will be `10.244.16.6` if using the provided bosh-lite manifest in
+[manifests/bosh-lite.yml](https://github.com/cloudfoundry/garden-runc-release/blob/master/manifests/bosh-lite.yml).
+The server port defaults to `7777`.
 
 ### Usage
 
@@ -49,7 +54,8 @@ package for Golang.
 ### Rootless containers
 
 Garden has experimental support for running containers without requiring root
-privileges. Take a look at the [rootless-containers.md](docs/rootless-containers.md) doc for further info.
+privileges. Take a look at the
+[rootless-containers.md](docs/rootless-containers.md) doc for further info.
 
 ## Contributing
 
