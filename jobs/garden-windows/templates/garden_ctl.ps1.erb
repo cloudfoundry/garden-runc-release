@@ -25,6 +25,9 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --image-plugin=<%= p("garden.image_plugin") %> `
   --image-plugin-extra-arg=--store=$imageStore `
   --network-plugin=<%= p("garden.network_plugin") %> `
+  <% p("garden.network_plugin_extra_args").each do |arg| %> `
+  --network-plugin-extra-arg=<%= arg %> `
+  <% end %> `
   --nstar-bin=<%= p("garden.nstar_bin") %> `
   --tar-bin=<%= p("garden.tar_bin") %> `
   <% if p("garden.destroy_containers_on_start") %> `
