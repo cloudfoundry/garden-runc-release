@@ -9,3 +9,9 @@
 - type: replace
   path: /instance_groups/0/jobs/name=grootfs/properties/grootfs/driver?
   value: btrfs
+
+- type: remove
+  path: /instance_groups/0/jobs/name=garden/properties/garden/privileged_image_plugin?
+
+- type: remove
+  path: /instance_groups/0/jobs/name=garden/properties/garden/privileged_image_plugin_extra_args?
