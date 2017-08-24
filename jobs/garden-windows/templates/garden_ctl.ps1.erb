@@ -30,6 +30,12 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   <% end %> `
   --nstar-bin=<%= p("garden.nstar_bin") %> `
   --tar-bin=<%= p("garden.tar_bin") %> `
+  <% if !p("garden.dropsonde.origin").empty? %> `
+    --dropsonde-origin=<%= p("garden.dropsonde.origin") %> `
+  <% end %> `
+  <% if_p("garden.dropsonde.destination") do |destination| %> `
+    --dropsonde-destination=<%= destination %> `
+  <% end %> `
   <% if p("garden.destroy_containers_on_start") %> `
   --destroy-containers-on-startup `
   <% end %>

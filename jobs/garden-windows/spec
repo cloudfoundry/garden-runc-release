@@ -12,6 +12,13 @@ properties:
     description: "Garden server listening address."
     default: 127.0.0.1:7777
 
+  garden.dropsonde.origin:
+    description: "A string identifier that will be used when reporting metrics to Dropsonde."
+    default: "garden-windows"
+
+  garden.dropsonde.destination:
+    description: "A URL that points at the Metron agent to which metrics are forwarded. By default, it matches with the default of Metron."
+
   garden.log_level:
     description: "log level for the Garden server - can be debug, info, error or fatal"
     default: info
