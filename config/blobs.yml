@@ -1,37 +1,36 @@
----
-tar/tar-1.29.tar.gz:
-  object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
-  sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
-  size: 3962257
 apparmor/apparmor-2.11.0.tar.gz:
+  size: 5013297
   object_id: 60e153af-dc01-47c8-a663-721e8418c5ed
   sha: 66240d3aa91f552d936d13b3f8c4fcdb9a8a919c
-  size: 5013297
-iptables/iptables-1.6.1.tar.bz2:
-  object_id: bf7d84ea-35b3-4631-8cb1-70c3fb14109f
-  sha: b2592490ca7a6c2cd0f069e167a4337c86acdf91
-  size: 620890
-iptables/libmnl-1.0.4.tar.bz2:
-  object_id: f196a106-27aa-48e6-867b-62e33663e578
-  sha: 2db40dea612e88c62fd321906be40ab5f8f1685a
-  size: 301270
-iptables/libnftnl-1.0.7.tar.bz2:
-  object_id: 5b5b2dcc-dc1e-42b0-a8e3-368723b7cc71
-  sha: 381b2b3cbb3fad186cb3f57bbf32d70f0b3c3c8e
-  size: 384969
-libseccomp/libseccomp-2.3.2.tar.gz:
-  object_id: fc71e530-c917-4be8-8a8b-c2d3402237e6
-  sha: 6eb7fa147008f4ae189d56c2ea801a619bb08cd0
-  size: 559238
-golang/go1.8.3.linux-amd64.tar.gz:
-  object_id: bfe8ad14-c5bd-43f7-9d95-73a6dad03fca
-  sha: 838c415896ef5ecd395dfabde5e7e6f8ac943c8e
-  size: 90029041
-golang/go1.8.3.windows-amd64.zip:
-  object_id: 580d0dd4-540a-486e-8163-e5aa385755b9
-  sha: 8a539ecd86505aca6e70e7e561a2b5877d91c000
-  size: 96254597
 busybox/busybox-1.26.2.tar:
+  size: 1313792
   object_id: 6bc1883a-e5ce-4ea1-a470-a274a57178c4
   sha: 3bf14133b0342997e6ba414f906fae90c3b9b083
-  size: 1313792
+golang/go1.9.linux-amd64.tar.gz:
+  size: 102601309
+  object_id: d7fa9dd3-e80e-4009-48ab-b3d925d29c84
+  sha: 6a00c39435edc1e102f1fb75cc1137fba4c9e4e2
+golang/go1.9.windows-amd64.zip:
+  size: 109276513
+  object_id: e86c9c68-5664-4d1f-77cd-e9a454c95816
+  sha: 9f2f0cd3b98c7cab0ed5c55aaa6689e8da754f65
+iptables/iptables-1.6.1.tar.bz2:
+  size: 620890
+  object_id: bf7d84ea-35b3-4631-8cb1-70c3fb14109f
+  sha: b2592490ca7a6c2cd0f069e167a4337c86acdf91
+iptables/libmnl-1.0.4.tar.bz2:
+  size: 301270
+  object_id: f196a106-27aa-48e6-867b-62e33663e578
+  sha: 2db40dea612e88c62fd321906be40ab5f8f1685a
+iptables/libnftnl-1.0.7.tar.bz2:
+  size: 384969
+  object_id: 5b5b2dcc-dc1e-42b0-a8e3-368723b7cc71
+  sha: 381b2b3cbb3fad186cb3f57bbf32d70f0b3c3c8e
+libseccomp/libseccomp-2.3.2.tar.gz:
+  size: 559238
+  object_id: fc71e530-c917-4be8-8a8b-c2d3402237e6
+  sha: 6eb7fa147008f4ae189d56c2ea801a619bb08cd0
+tar/tar-1.29.tar.gz:
+  size: 3962257
+  object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a
+  sha: 73b694191c802e1bda5ec4fce5aae26d4134412f
