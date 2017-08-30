@@ -16,7 +16,7 @@ LINUX_ASSETS=$PWD/linux
 rm -rf $LINUX_ASSETS
 mkdir -p $LINUX_ASSETS/{bin,sbin}
 
-cp /opt/static-assets/tar $LINUX_ASSETS/bin/tar
+cp /opt/static-assets/tar/bin/tar $LINUX_ASSETS/bin/tar
 
 # go-bindata does weird stuff with symlinks. we only care about iptables anyway
 cp -aL /opt/static-assets/iptables/sbin/iptables $LINUX_ASSETS/sbin/iptables

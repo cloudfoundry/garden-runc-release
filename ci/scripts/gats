@@ -46,7 +46,9 @@ $GOPATH/bin/gdn \
   --init-bin=$GOPATH/bin/init \
   --dadoo-bin=$GOPATH/bin/dadoo \
   --nstar-bin=./rundmc/nstar/nstar \
-  --tar-bin=/opt/tar \
+  --tar-bin=/opt/static-assets/tar/bin/tar \
+  --iptables-bin=/opt/static-assets/iptables/sbin/iptables \
+  --iptables-restore-bin=/opt/static-assets/iptables/sbin/iptables-restore \
   --depot=$tmpdir/depot \
   --graph=$tmpdir/graph \
   --bind-ip=0.0.0.0 \
