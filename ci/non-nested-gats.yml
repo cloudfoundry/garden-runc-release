@@ -21,6 +21,7 @@ params:
   EXTERNAL_IMAGE_PLUGIN_PROVIDED: ""
   REGISTRY_USERNAME:
   REGISTRY_PASSWORD:
+  ROOTLESS: ""
 
 run:
   path: gr-release-develop/ci/scripts/non-nested-gats
