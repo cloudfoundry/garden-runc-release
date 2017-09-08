@@ -2,9 +2,9 @@
   path: /releases/-
   value:
     name: grootfs
-    version: 0.24.0
-    url: http://bosh.io/d/github.com/cloudfoundry/grootfs-release?v=0.24.0
-    sha1: b342db5da3a7bd7bb2e81c2f6456d75cf38e9e0c
+    version: 0.25.0
+    url: http://bosh.io/d/github.com/cloudfoundry/grootfs-release?v=0.25.0
+    sha1: 9e517f58669c5a4e6d368d607843749b1e10654d
 
 - type: replace
   path: /instance_groups/0/jobs/name=garden/properties/garden/default_container_rootfs?
