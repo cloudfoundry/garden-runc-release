@@ -32,7 +32,8 @@ and Image.
 
 Both runC and grootfs provide rootless support out of the box. The garden
 server (aka `gdn`) is also able to run as a non-root user. Networking is a
-little more difficult... and so right now we have to rely on the setuid bit for the networking binaries.
+little more difficult... and so right now we have to rely on the setuid bit for
+the networking binaries.
 
 ## Step-by-Step installation
 
@@ -56,14 +57,14 @@ All prerequisites are met by default for the ubuntu user.
 
 ### Step 1: Download binaries and set permissions
 
-* [gdn](https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.8.0/gdn-1.8.0)
-* [grootfs](https://github.com/cloudfoundry/grootfs/releases/download/v0.20.0/grootfs-0.20.0)
+* [gdn](https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.3/gdn-1.9.3)
+* [grootfs](https://github.com/cloudfoundry/grootfs/releases/download/v0.25.0/grootfs-0.25.0)
 * [cni](https://github.com/containernetworking/cni/releases/download/v0.5.0/cni-amd64-v0.5.0.tgz)
 * [garden-external-networker](https://s3.amazonaws.com/garden-external-networker/garden-external-networker)
 
 ```
-GDN_DOWNLOAD_LINK=https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.8.0/gdn-1.8.0
-GROOTFS_DOWNLOAD_LINK=https://github.com/cloudfoundry/grootfs/releases/download/v0.20.0/grootfs-0.20.0
+GDN_DOWNLOAD_LINK=https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.3/gdn-1.9.3
+GROOTFS_DOWNLOAD_LINK=https://github.com/cloudfoundry/grootfs/releases/download/v0.25.0/grootfs-0.25.0
 CNI_DOWNLOAD_LINK=https://github.com/containernetworking/cni/releases/download/v0.5.0/cni-amd64-v0.5.0.tgz
 EXTERNAL_NETWORKER_DOWNLOAD_LINK=https://s3.amazonaws.com/garden-external-networker/garden-external-networker
 
@@ -82,7 +83,7 @@ sudo chmod 4755 $HOME/gdn/bin/{host-local,bridge,garden-external-networker}
 ### Step 2: Configure the image and network plugins
 
 ```
-curl -s https://raw.githubusercontent.com/cloudfoundry/grootfs/v0.20.0/hack/quick-setup | sudo bash
+curl -s https://raw.githubusercontent.com/cloudfoundry/grootfs/v0.25.0/hack/quick-setup | sudo bash
 sudo chown -R $(id -u):$(id -u) /var/lib/grootfs/btrfs
 
 cat > $HOME/gdn/config/garden-cni-config.json <<EOF
@@ -134,7 +135,16 @@ sudo $HOME/gdn/bin/grootfs \
   --gid-mapping "1:$(grep $(whoami) /etc/subgid | awk -F: '{print $2":"$3}')"
 ```
 
-### Step 3: Run the gdn server
+### Step 3: Run the gdn setup command
+
+```
+id=$(id -u) gid=$(id -g) \
+  sudo $HOME/gdn/bin/gdn setup \
+  --rootless-uid "$id" \
+  --rootless-gid "$gid"
+```
+
+### Step 4: Run the gdn server
 
 ```
 PATH=$HOME/gdn/assets/linux/bin:$HOME/gdn/assets/linux/sbin:$PATH \
@@ -203,15 +213,11 @@ It is then possible to run processes requiring internet access:
 $ gaol run cake -a -c 'apk update'
 ```
 
-Substitute the protocol/ips/ports as appropriate.
+Substitute the protocol/IPs/ports as appropriate.
 
 ## Known Limitations
 
-There are a number of known limitations with rootless containers. These are listed below:
-
-* You cannot switch user (`su`) inside a container.
-* There is currently no support for resource limiting.
-* Not all images are guaranteed to work (e.g. `docker:///ubuntu` will currently error). The following are known to be ok:
-  * `docker:///debian`
-  * `docker:///busybox`
-  * `docker:///alpine`
+Use of `setgroups` does not work inside a rootless container, and as such
+operations that attempt to call `setgroups` will fail with a permission error.
+See the [user namespaces manpage](http://man7.org/linux/man-pages/man7/user_namespaces.7.html)
+for further details.
