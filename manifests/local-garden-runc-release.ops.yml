@@ -3,4 +3,4 @@
   value:
    name: garden-runc
    version: create
-   url: file:///Users/pivotal/workspace/garden-runc-release
+   url: file://.
