@@ -155,8 +155,8 @@ case $1 in
 
     depot_path=${GARDEN_DIR}/depot
     mkdir -p $depot_path
-    chgrp "$(maximus)" "$GARDEN_DIR"
-    chmod 755 "$GARDEN_DIR"
+    chown "vcap:$(maximus)" "$GARDEN_DIR"
+    chmod 770 "$GARDEN_DIR"
 
     runtime_bin_dir="$GARDEN_DIR/bin"
     mkdir -p "$runtime_bin_dir"
@@ -168,7 +168,7 @@ case $1 in
       runc_root=/run/runc
       mkdir -p $runc_root
       chmod 700 $runc_root
-      chown "$(maximus):$(maximus)" $GARDEN_DIR $LOG_DIR $TMPDIR $depot_path $runc_root
+      chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $depot_path $runc_root
     <% end %>
 
     graph_path=${GARDEN_DIR}/graph
