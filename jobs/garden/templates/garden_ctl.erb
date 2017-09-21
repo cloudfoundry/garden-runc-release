@@ -149,6 +149,7 @@ case $1 in
     export TMPDIR=/var/vcap/data/tmp
     mkdir -p $TMPDIR
 
+    export PATH=/var/vcap/packages/guardian/bin:$PATH
     export PATH=/var/vcap/packages/iptables/sbin:$PATH
     export PATH=/var/vcap/packages/garden-idmapper/bin:$PATH
     export PATH=/var/vcap/jobs/garden/bin:$PATH
@@ -196,7 +197,12 @@ case $1 in
     setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
     <% if p("garden.experimental_rootless_mode") %>
       max=$(maximus)
-      exec_command="$exec_command chpst -u :$max:$max"
+      exec_command="$exec_command chpst -u :$max:$max" # TODO remove
+      <% if p("garden.listen_address") == "tcp" %>
+        exec_command="$exec_command chpst -u :$max:$max"
+      <% else %>
+        exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $max --gid $max --socket-uid 1000 --socket-gid 1000"
+      <% end %>
       setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
     <% end %>
 

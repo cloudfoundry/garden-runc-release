@@ -10,9 +10,10 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn/
-go install code.cloudfoundry.org/guardian/cmd/init/
-go install code.cloudfoundry.org/guardian/cmd/dadoo/
+go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
+go install code.cloudfoundry.org/guardian/cmd/init
+go install code.cloudfoundry.org/guardian/cmd/dadoo
+go install code.cloudfoundry.org/guardian/cmd/socket2me
 
 pushd code.cloudfoundry.org/guardian/rundmc/nstar
 make

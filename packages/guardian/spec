@@ -31,6 +31,7 @@ files:
   - code.cloudfoundry.org/guardian/cmd/dadoo/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/init/*.go # gosub
+  - code.cloudfoundry.org/guardian/cmd/socket2me/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
