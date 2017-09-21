@@ -197,8 +197,7 @@ case $1 in
     setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
     <% if p("garden.experimental_rootless_mode") %>
       max=$(maximus)
-      exec_command="$exec_command chpst -u :$max:$max" # TODO remove
-      <% if p("garden.listen_address") == "tcp" %>
+      <% if p("garden.listen_network") == "tcp" %>
         exec_command="$exec_command chpst -u :$max:$max"
       <% else %>
         exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $max --gid $max --socket-uid 1000 --socket-gid 1000"
