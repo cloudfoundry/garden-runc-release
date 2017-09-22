@@ -3,7 +3,7 @@ set -euo pipefail
 
 (
 cd "$(dirname "$0")/.."
-bosh -n -e "${BOSH_ENVIRONMENT:-lite}" -d garden-runc deploy --recreate --no-redact \
+bosh -n -e "${BOSH_ENVIRONMENT:-lite}" -d garden-runc deploy --no-redact \
   -l manifests/bosh-lite.vars.yml \
   -o manifests/local-garden-runc-release.ops.yml \
   "$@" \
