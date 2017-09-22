@@ -5,8 +5,8 @@ set -e -x
 
 base=$PWD
 
-source $(dirname $0)/aufs
-cd $(dirname $0)/../..
+source "$( dirname "$0" )/aufs"
+cd "$( dirname "$0" )/../.."
 
 export GOROOT=/usr/local/go
 export GOPATH=$PWD
@@ -26,7 +26,8 @@ mkdir $tmpdir/graph
 permit_device_control
 create_loop_devices 256
 
-export GARDEN_ADDRESS=$(hostname)
+export GARDEN_ADDRESS
+GARDEN_ADDRESS="$( hostname )"
 export GARDEN_IP=0.0.0.0
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
@@ -41,17 +42,17 @@ $GDN_PATH \
   --debug-bind-ip=$GARDEN_IP \
   --debug-bind-port=$GARDEN_DEBUG_PORT \
   --network-pool=10.254.1.0/24 \
-  --log-level=$LOG_LEVEL \
+  --log-level="$LOG_LEVEL" \
   --default-rootfs=/opt/warden/rootfs &
 
 # wait for server to start up
 # and then curl to confirm that it is
 sleep 5
-curl ${GARDEN_ADDRESS}:${GARDEN_PORT}/ping
+curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
 
 cd src/code.cloudfoundry.org/garden-integration-tests
 
-cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites $*"
+cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
 fi
