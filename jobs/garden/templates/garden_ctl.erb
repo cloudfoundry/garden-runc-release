@@ -227,8 +227,6 @@ case $1 in
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \
-      --newuidmap-bin=/var/vcap/packages/garden-idmapper/bin/newuidmap \
-      --newgidmap-bin=/var/vcap/packages/garden-idmapper/bin/newgidmap \
       --log-level=<%= p("garden.log_level") %> \
       --mtu=<%= p("garden.network_mtu") %> \
       --network-pool=<%= p("garden.network_pool") %> \
@@ -314,6 +312,10 @@ case $1 in
     <% if p("garden.cleanup_process_dirs_on_wait") %> \
       --cleanup-process-dirs-on-wait \
     <% end %> \
+    --uid-map-start=1 \
+    --uid-map-length=$(($(maximus)-1)) \
+    --gid-map-start=1 \
+    --gid-map-length=$(($(maximus)-1)) \
     ;;
 
   stop)
