@@ -14,6 +14,12 @@ packages:
   - tar
   - garden-idmapper
 
+provides:
+  - name: rootless_link
+    type: garden_rootless_link
+    properties:
+      - garden.experimental_rootless_mode
+
 properties:
   garden.listen_network:
     description: "Garden server connection mode (tcp or unix)."

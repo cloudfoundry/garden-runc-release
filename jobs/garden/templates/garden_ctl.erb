@@ -195,6 +195,7 @@ case $1 in
 
     exec_command="exec"
     setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
+    id_map_start=1
     <% if p("garden.experimental_rootless_mode") %>
       max=$(maximus)
       <% if p("garden.listen_network") == "tcp" %>
@@ -203,6 +204,7 @@ case $1 in
         exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $max --gid $max --socket-uid 1000 --socket-gid 1000"
       <% end %>
       setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
+      id_map_start=65536
     <% end %>
 
     $setup_cmd
@@ -312,10 +314,10 @@ case $1 in
     <% if p("garden.cleanup_process_dirs_on_wait") %> \
       --cleanup-process-dirs-on-wait \
     <% end %> \
-    --uid-map-start=1 \
-    --uid-map-length=$(($(maximus)-1)) \
-    --gid-map-start=1 \
-    --gid-map-length=$(($(maximus)-1)) \
+    --uid-map-start="$id_map_start" \
+    --uid-map-length=$(($(maximus)-$id_map_start)) \
+    --gid-map-start="$id_map_start" \
+    --gid-map-length=$(($(maximus)-$id_map_start))
     ;;
 
   stop)
