@@ -6,9 +6,9 @@ if ! which gosub >/dev/null 2>&1 ; then
   exit 1
 fi
 
-ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
+ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
 
-pushd $ROOT_DIR_PATH/packages/guardian
+pushd "$ROOT_DIR_PATH"/packages/guardian
   {
     cat spec | grep -v '# gosub'
     GOOS=linux gosub list \
@@ -22,7 +22,7 @@ pushd $ROOT_DIR_PATH/packages/guardian
   mv spec.new spec
 popd
 
-pushd $ROOT_DIR_PATH/packages/guardian-windows
+pushd "$ROOT_DIR_PATH"/packages/guardian-windows
   {
     cat spec | grep -v '# gosub'
     GOOS=windows gosub list \
@@ -33,7 +33,7 @@ pushd $ROOT_DIR_PATH/packages/guardian-windows
   mv spec.new spec
 popd
 
-pushd $ROOT_DIR_PATH/packages/garden-idmapper
+pushd "$ROOT_DIR_PATH"/packages/garden-idmapper
   {
     cat spec | grep -v '# gosub'
     GOOS=linux gosub list \

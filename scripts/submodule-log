@@ -1,11 +1,11 @@
 #!/bin/bash
 
-ROOT_DIR_PATH=$(cd $(dirname $0)/.. && pwd)
-cd $ROOT_DIR_PATH
+ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
+cd "$ROOT_DIR_PATH"
 
 echo -n "bump "
 for submodule in $(git diff --cached --submodule | grep '^Submodule' | awk '{print $2}'); do
-  echo -n "$(basename $submodule) "
+  echo -n "$(basename "$submodule") "
 done
 
 echo
