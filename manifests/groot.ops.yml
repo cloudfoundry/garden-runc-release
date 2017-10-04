@@ -1,14 +1,14 @@
 - type: replace
   path: /releases/-
   value:
-     name: grootfs
-     version: 0.25.0
-     url: http://bosh.io/d/github.com/cloudfoundry/grootfs-release?v=0.25.0
-     sha1: 9e517f58669c5a4e6d368d607843749b1e10654d
+    name: grootfs
+    version: 0.27.0
+    url: http://bosh.io/d/github.com/cloudfoundry/grootfs-release?v=0.27.0
+    sha1: 361e8df0e96933551bda5cfb825d3a27e6461281
 
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/default_container_rootfs?
-  value: docker:///busybox:buildroot-2014.02
+  value: docker:///busybox:1.27.2
 
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/image_plugin?
