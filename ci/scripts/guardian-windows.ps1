@@ -36,5 +36,5 @@ ginkgo -r -p -race -keepGoing -failOnPending -skipPackage "dadoo,gqt,kawasaki,lo
 if ($LastExitCode -ne 0) {
     throw "Ginkgo run returned error code: $LastExitCode"
 }
-ginkgo -r -p -race -keepGoing -failOnPending -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
+ginkgo -r -p -race -keepGoing -failOnPending -randomizeSuites -randomizeAllSpecs -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
 Exit $LastExitCode
