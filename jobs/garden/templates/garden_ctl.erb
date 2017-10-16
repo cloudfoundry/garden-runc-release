@@ -159,8 +159,6 @@ case $1 in
     chown "vcap:$(maximus)" "$GARDEN_DIR"
     chmod 770 "$GARDEN_DIR"
 
-    runc_root=/run/runc
-
     runtime_bin_dir="$GARDEN_DIR/bin"
     mkdir -p "$runtime_bin_dir"
     chgrp "$(maximus)" "$runtime_bin_dir"
@@ -168,10 +166,13 @@ case $1 in
     cp /var/vcap/packages/guardian/bin/init "$runtime_bin_dir"
 
     <% if p("garden.experimental_rootless_mode") %>
+      # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
+      # where to place the runc root dir in rootless mode.
+      # Given that this is not set on stemcells we choose to set it explicitely
+      # here.
+      export XDG_RUNTIME_DIR=/var/run/user/$(maximus)
       export TMPDIR=$TMPDIR/user/$(maximus)/tmp
-      export XDG_RUNTIME_DIR=$runc_root/user/$(maximus)
 
-      runc_root=$XDG_RUNTIME_DIR
       mkdir -p $XDG_RUNTIME_DIR $TMPDIR
       chmod 700 $XDG_RUNTIME_DIR
       chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $depot_path $XDG_RUNTIME_DIR
@@ -224,7 +225,6 @@ case $1 in
     <% else %> \
       --bind-socket=<%= p("garden.listen_address") %> \
     <% end %> \
-      --runc-root=$runc_root \
       --depot=$depot_path \
       --graph=$graph_path \
       --properties-path=/var/vcap/data/garden/props.json \

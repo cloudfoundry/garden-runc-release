@@ -49,7 +49,6 @@ $GOPATH/bin/gdn \
   server \
   --init-bin=$GOPATH/bin/init \
   --dadoo-bin=$GOPATH/bin/dadoo \
-  --runc-root=/run/runc \
   --nstar-bin=./rundmc/nstar/nstar \
   --tar-bin=/opt/static-assets/tar/bin/tar \
   --iptables-bin=/opt/static-assets/iptables/sbin/iptables \

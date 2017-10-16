@@ -41,7 +41,6 @@ export NESTED=true
 $GDN_PATH \
   server \
   --depot=$tmpdir/depot \
-  --runc-root=/run/runc \
   --graph=$tmpdir/graph \
   --bind-ip=$GARDEN_IP \
   --bind-port=$GARDEN_PORT \
