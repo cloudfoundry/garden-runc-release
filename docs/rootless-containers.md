@@ -138,10 +138,10 @@ sudo $HOME/gdn/bin/grootfs \
 ### Step 3: Run the gdn setup command
 
 ```
-id=$(id -u) gid=$(id -g) \
-  sudo $HOME/gdn/bin/gdn setup \
-  --rootless-uid "$id" \
-  --rootless-gid "$gid"
+id=$(id -u) gid=$(id -g)
+sudo $HOME/gdn/bin/gdn setup \
+--rootless-uid "$id" \
+--rootless-gid "$gid"
 ```
 
 ### Step 4: Run the gdn server
@@ -162,7 +162,6 @@ $HOME/gdn/bin/gdn server \
   --image-plugin-extra-arg=$HOME/gdn/config/grootfs.conf \
   --network-plugin=$HOME/gdn/bin/garden-external-networker \
   --network-plugin-extra-arg=--configFile=$HOME/gdn/config/garden-cni-config.json \
-  --runc-root=/var/run/user/$(id -u)/runc \
   --skip-setup
 ```
 
