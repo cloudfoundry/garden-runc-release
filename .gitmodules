@@ -32,7 +32,7 @@
 	branch = master
 [submodule "src/github.com/opencontainers/runc"]
 	path = src/github.com/opencontainers/runc
-	url = https://github.com/cloudfoundry-incubator/runc
+	url = https://github.com/opencontainers/runc
 	branch = master
 [submodule "src/github.com/vishvananda/netns"]
 	path = src/github.com/vishvananda/netns
