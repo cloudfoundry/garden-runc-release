@@ -57,14 +57,14 @@ All prerequisites are met by default for the ubuntu user.
 
 ### Step 1: Download binaries and set permissions
 
-* [gdn](https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.3/gdn-1.9.3)
-* [grootfs](https://github.com/cloudfoundry/grootfs/releases/download/v0.25.0/grootfs-0.25.0)
+* [gdn](https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.5/gdn-1.9.5)
+* [grootfs](https://github.com/cloudfoundry/grootfs/releases/download/v0.28.1/grootfs-0.28.1)
 * [cni](https://github.com/containernetworking/cni/releases/download/v0.5.0/cni-amd64-v0.5.0.tgz)
 * [garden-external-networker](https://s3.amazonaws.com/garden-external-networker/garden-external-networker)
 
 ```
-GDN_DOWNLOAD_LINK=https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.3/gdn-1.9.3
-GROOTFS_DOWNLOAD_LINK=https://github.com/cloudfoundry/grootfs/releases/download/v0.25.0/grootfs-0.25.0
+GDN_DOWNLOAD_LINK=https://github.com/cloudfoundry/garden-runc-release/releases/download/v1.9.5/gdn-1.9.5
+GROOTFS_DOWNLOAD_LINK=https://github.com/cloudfoundry/grootfs/releases/download/v0.28.1/grootfs-0.28.1
 CNI_DOWNLOAD_LINK=https://github.com/containernetworking/cni/releases/download/v0.5.0/cni-amd64-v0.5.0.tgz
 EXTERNAL_NETWORKER_DOWNLOAD_LINK=https://s3.amazonaws.com/garden-external-networker/garden-external-networker
 
@@ -83,7 +83,7 @@ sudo chmod 4755 $HOME/gdn/bin/{host-local,bridge,garden-external-networker}
 ### Step 2: Configure the image and network plugins
 
 ```
-curl -s https://raw.githubusercontent.com/cloudfoundry/grootfs/v0.25.0/hack/quick-setup | sudo bash
+curl -s https://raw.githubusercontent.com/cloudfoundry/grootfs/v0.28.1/hack/quick-setup | sudo bash
 sudo chown -R $(id -u):$(id -u) /var/lib/grootfs/btrfs
 
 cat > $HOME/gdn/config/garden-cni-config.json <<EOF
