@@ -7,7 +7,10 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"os/user"
+	"path"
 	"strconv"
+	"syscall"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -73,10 +76,85 @@ var _ = Describe("Greenskeeper", func() {
 			})
 		})
 	})
+
+	Describe("#SetupDirectories", func() {
+		var (
+			dir        string
+			pikachuDir string
+			setupErr   error
+			directory  Directory
+		)
+
+		BeforeEach(func() {
+			var err error
+			dir, err = ioutil.TempDir("", "")
+			Expect(err).NotTo(HaveOccurred())
+			pikachuDir = path.Join(dir, "pikachu")
+			directory = NewDirectory(pikachuDir, 0644, "mew", "mewtwo")
+		})
+
+		JustBeforeEach(func() {
+			setupErr = SetupDirectories(directory)
+		})
+
+		AfterEach(func() {
+			Expect(os.RemoveAll(dir)).To(Succeed())
+		})
+
+		It("does not return an error", func() {
+			Expect(setupErr).NotTo(HaveOccurred())
+		})
+
+		It("sets up a directory", func() {
+			By("creating the directory")
+			Expect(pikachuDir).To(BeAnExistingFile())
+
+			By("setting the correct permissions")
+			fileInfo, err := os.Stat(pikachuDir)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(0644)))
+
+			By("setting the correct user ownership")
+			mewUser, err := user.Lookup("mew")
+			Expect(err).NotTo(HaveOccurred())
+			mewUID := atouint32(mewUser.Uid)
+			Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(mewUID))
+
+			By("setting the correct group ownership")
+			mewGID := atouint32(mewUser.Gid)
+			Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(mewGID))
+		})
+
+		Context("when creating a directory fails", func() {
+			BeforeEach(func() {
+				directory.mkdirAll = func(string, os.FileMode) error { return errors.New("I failed") }
+			})
+
+			It("returns an error", func() {
+				Expect(setupErr).To(HaveOccurred())
+			})
+		})
+
+		Context("when the user does not exist", func() {
+			BeforeEach(func() {
+				directory.User = "missingno"
+			})
+
+			It("returns an error", func() {
+				Expect(setupErr).To(HaveOccurred())
+			})
+		})
+	})
 })
 
 func gexecStart(cmd *exec.Cmd, stdout, stderr io.Writer) *gexec.Session {
 	session, err := gexec.Start(cmd, stdout, stderr)
 	Expect(err).NotTo(HaveOccurred())
 	return session
+}
+
+func atouint32(n string) uint32 {
+	i, err := strconv.Atoi(n)
+	Expect(err).NotTo(HaveOccurred())
+	return uint32(i)
 }
