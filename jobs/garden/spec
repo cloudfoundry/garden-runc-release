@@ -13,6 +13,7 @@ packages:
   - busybox
   - tar
   - garden-idmapper
+  - greenskeeper
 
 provides:
   - name: rootless_link

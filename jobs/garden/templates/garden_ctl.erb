@@ -2,7 +2,7 @@
 
 RUN_DIR=/var/vcap/sys/run/garden
 LOG_DIR=/var/vcap/sys/log/garden
-PIDFILE=$RUN_DIR/garden.pid
+export PIDFILE=$RUN_DIR/garden.pid
 DATA_DIR=/var/vcap/data
 GARDEN_DIR=/var/vcap/data/garden
 GARDEN_CONFIG_DIR=/var/vcap/jobs/garden/config
@@ -130,17 +130,7 @@ function stop_guardian() {
 case $1 in
 
   start)
-    if [ -f "$PIDFILE" ]; then
-      pid=$(head -1 "$PIDFILE")
-
-      if [ -n "$pid" ] && [ -e /proc/$pid ]; then
-        echo "Garden is already running (pid: $pid); aborting."
-        exit 1
-      fi
-
-      echo "Removing stale pidfile..."
-      rm "$PIDFILE"
-    fi
+    /var/vcap/packages/greenskeeper/bin/greenskeeper
 
     mkdir -p $RUN_DIR
     mkdir -p $GARDEN_DIR
@@ -164,19 +154,6 @@ case $1 in
     chgrp "$(maximus)" "$runtime_bin_dir"
     chmod 750 "$runtime_bin_dir"
     cp /var/vcap/packages/guardian/bin/init "$runtime_bin_dir"
-
-    <% if p("garden.experimental_rootless_mode") %>
-      # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
-      # where to place the runc root dir in rootless mode.
-      # Given that this is not set on stemcells we choose to set it explicitely
-      # here.
-      export XDG_RUNTIME_DIR=/var/run/user/$(maximus)
-      export TMPDIR=$TMPDIR/user/$(maximus)/tmp
-
-      mkdir -p $XDG_RUNTIME_DIR $TMPDIR
-      chmod 700 $XDG_RUNTIME_DIR
-      chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $depot_path $XDG_RUNTIME_DIR
-    <% end %>
 
     graph_path=${GARDEN_DIR}/graph
     mkdir -p $graph_path
@@ -211,6 +188,17 @@ case $1 in
       <% end %>
       setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
       id_map_start=65536
+
+      # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
+      # where to place the runc root dir in rootless mode.
+      # Given that this is not set on stemcells we choose to set it explicitely
+      # here.
+      export XDG_RUNTIME_DIR=/var/run/user/$(maximus)
+      export TMPDIR=$TMPDIR/user/$(maximus)/tmp
+
+      mkdir -p $XDG_RUNTIME_DIR $TMPDIR
+      chmod 700 $XDG_RUNTIME_DIR
+      chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $depot_path $XDG_RUNTIME_DIR
     <% end %>
 
     $setup_cmd

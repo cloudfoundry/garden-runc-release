@@ -1,0 +1,8 @@
+---
+name: greenskeeper
+
+dependencies:
+  - golang
+
+files:
+  - greenskeeper/**/*.go
