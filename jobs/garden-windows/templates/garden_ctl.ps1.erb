@@ -21,7 +21,6 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --default-rootfs=<%= p("garden.default_container_rootfs") %> `
   <% end %> `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
-  --runc-root=$imageStore `
   --image-plugin=<%= p("garden.image_plugin") %> `
   --image-plugin-extra-arg=--store=$imageStore `
   --network-plugin=<%= p("garden.network_plugin") %> `
