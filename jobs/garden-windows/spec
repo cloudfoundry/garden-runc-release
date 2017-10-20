@@ -26,6 +26,10 @@ properties:
   garden.runtime_plugin:
     description: "Path to a runtime plugin binary"
 
+  garden.runtime_plugin_extra_args:
+    description: "An array of additional arguments which will be passed to the runtime plugin binary"
+    default: []
+
   garden.image_plugin:
     description: "Path to an image plugin binary"
 
