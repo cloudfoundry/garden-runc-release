@@ -1,28 +1,12 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 
-RUN_DIR=/var/vcap/sys/run/garden
-LOG_DIR=/var/vcap/sys/log/garden
-export PIDFILE=$RUN_DIR/garden.pid
-DATA_DIR=/var/vcap/data
-GARDEN_DIR=/var/vcap/data/garden
-GARDEN_CONFIG_DIR=/var/vcap/jobs/garden/config
+set -e
 
-mkdir -p /var/vcap/sys/log/monit
-exec 1>> /var/vcap/sys/log/monit/garden.out.log
-exec 2>> /var/vcap/sys/log/monit/garden.err.log
+source /var/vcap/jobs/garden/bin/envs
 
-<% if_p('garden.http_proxy') do |http_proxy| %>
-export HTTP_PROXY='<%= http_proxy %>'
-export http_proxy='<%= http_proxy %>'
-<% end %>
-<% if_p('garden.https_proxy') do |https_proxy| %>
-export HTTPS_PROXY='<%= https_proxy %>'
-export https_proxy='<%= https_proxy %>'
-<% end %>
-<% if_p('garden.no_proxy') do |no_proxy| %>
-export NO_PROXY='<%= no_proxy %>'
-export no_proxy='<%= no_proxy %>'
-<% end %>
+mkdir -p "$MONIT_DIR"
+exec 1>> "${MONIT_DIR}/garden.out.log"
+exec 2>> "${MONIT_DIR}/garden.err.log"
 
 # copied from https://github.com/concourse/concourse/blob/master/jobs/baggageclaim/templates/baggageclaim_ctl.erb#L54
 # break out of bosh-lite device limitations
@@ -135,28 +119,18 @@ case $1 in
     mkdir -p $RUN_DIR
     mkdir -p $GARDEN_DIR
     mkdir -p $LOG_DIR
-
-    export TMPDIR=/var/vcap/data/tmp
     mkdir -p $TMPDIR
+    mkdir -p $DEPOT_PATH
 
-    export PATH=/var/vcap/packages/guardian/bin:$PATH
-    export PATH=/var/vcap/packages/iptables/sbin:$PATH
-    export PATH=/var/vcap/packages/garden-idmapper/bin:$PATH
-    export PATH=/var/vcap/jobs/garden/bin:$PATH
-
-    depot_path=${GARDEN_DIR}/depot
-    mkdir -p $depot_path
     chown "vcap:$(maximus)" "$GARDEN_DIR"
     chmod 770 "$GARDEN_DIR"
 
-    runtime_bin_dir="$GARDEN_DIR/bin"
-    mkdir -p "$runtime_bin_dir"
-    chgrp "$(maximus)" "$runtime_bin_dir"
-    chmod 750 "$runtime_bin_dir"
-    cp /var/vcap/packages/guardian/bin/init "$runtime_bin_dir"
+    mkdir -p "$RUNTIME_BIN_DIR"
+    chgrp "$(maximus)" "$RUNTIME_BIN_DIR"
+    chmod 750 "$RUNTIME_BIN_DIR"
+    cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"
 
-    graph_path=${GARDEN_DIR}/graph
-    mkdir -p $graph_path
+    mkdir -p $GRAPH_PATH
 
     permit_device_control
     create_loop_devices 256
@@ -165,7 +139,7 @@ case $1 in
       load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
     <% end %>
 
-    set_graph_permissions "$graph_path"
+    set_graph_permissions "$GRAPH_PATH"
 
     echo 1 > /proc/sys/kernel/dmesg_restrict
 
@@ -198,7 +172,7 @@ case $1 in
 
       mkdir -p $XDG_RUNTIME_DIR $TMPDIR
       chmod 700 $XDG_RUNTIME_DIR
-      chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $depot_path $XDG_RUNTIME_DIR
+      chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
     <% end %>
 
     $setup_cmd
@@ -213,13 +187,13 @@ case $1 in
     <% else %> \
       --bind-socket=<%= p("garden.listen_address") %> \
     <% end %> \
-      --depot=$depot_path \
-      --graph=$graph_path \
+      --depot=$DEPOT_PATH \
+      --graph=$GRAPH_PATH \
       --properties-path=/var/vcap/data/garden/props.json \
       --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
       --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
       --iptables-restore-bin=/var/vcap/packages/iptables/sbin/iptables-restore \
-      --init-bin="$runtime_bin_dir/init" \
+      --init-bin="$RUNTIME_BIN_DIR/init" \
       --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
       --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
       --tar-bin=/var/vcap/packages/tar/tar \

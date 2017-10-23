@@ -3,6 +3,7 @@ name: garden
 
 templates:
   garden_ctl.erb: bin/garden_ctl
+  envs.erb: bin/envs
   garden-default.erb: config/garden-default
   auplink: bin/auplink
 
