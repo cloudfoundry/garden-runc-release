@@ -1,0 +1,238 @@
+#!/usr/bin/env bash
+
+set -e
+
+source /var/vcap/jobs/garden/bin/envs
+
+mkdir -p "$MONIT_DIR"
+exec 1>> "${MONIT_DIR}/garden.out.log"
+exec 2>> "${MONIT_DIR}/garden.err.log"
+
+# copied from https://github.com/concourse/concourse/blob/f4b40a18b94ed816cea7dfba20ad365bb566483b/jobs/baggageclaim/templates/baggageclaim_ctl.erb#L23-L54
+# # break out of bosh-lite device limitations
+function permit_device_control() {
+  local devices_mount_info=$(cat /proc/self/cgroup | grep devices)
+
+  if [ -z "$devices_mount_info" ]; then
+    # cgroups not set up; must not be in a container
+    return
+  fi
+
+  local devices_subsytems=$(echo $devices_mount_info | cut -d: -f2)
+  local devices_subdir=$(echo $devices_mount_info | cut -d: -f3)
+
+  if [ "$devices_subdir" = "/" ]; then
+    # we're in the root devices cgroup; must not be in a container
+    return
+  fi
+
+  if [ ! -e /tmp/devices-cgroup ]; then
+    # mount our container's devices subsystem somewhere
+    mkdir /tmp/devices-cgroup
+    mount -t cgroup -o $devices_subsytems none /tmp/devices-cgroup
+  fi
+
+  # permit our cgroup to do everything with all devices
+  echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow || true
+
+  umount /tmp/devices-cgroup || true
+}
+
+function create_loop_devices() {
+  amt=$1
+  for i in $(seq 0 $amt); do
+    mknod -m 0660 /dev/loop$i b 7 $i || true
+  done
+}
+
+function load_apparmor_profile() {
+  local profile_path=$1
+  export PATH=$PATH:$(readlink -nf /var/vcap/packages/apparmor/bin)
+
+  if ! mountpoint -q /sys/kernel/security; then
+    mount -t securityfs securityfs /sys/kernel/security
+  fi
+
+  apparmor_parser -r "$profile_path"
+}
+
+function set_graph_permissions() {
+  local graph_path
+  graph_path=$1
+
+  chown "$(maximus):$(maximus)" "$graph_path"
+  chmod 700 "$graph_path"
+}
+
+/var/vcap/packages/greenskeeper/bin/greenskeeper
+
+mkdir -p $RUN_DIR
+mkdir -p $GARDEN_DIR
+mkdir -p $LOG_DIR
+mkdir -p $TMPDIR
+mkdir -p $DEPOT_PATH
+
+chown "vcap:$(maximus)" "$GARDEN_DIR"
+chmod 770 "$GARDEN_DIR"
+
+mkdir -p "$RUNTIME_BIN_DIR"
+chgrp "$(maximus)" "$RUNTIME_BIN_DIR"
+chmod 750 "$RUNTIME_BIN_DIR"
+cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"
+
+mkdir -p $GRAPH_PATH
+
+permit_device_control
+create_loop_devices 256
+
+<% if p("garden.apparmor_profile") == "garden-default" %>
+  load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
+<% end %>
+
+set_graph_permissions "$GRAPH_PATH"
+
+echo 1 > /proc/sys/kernel/dmesg_restrict
+
+ulimit -n 65536
+echo 4194304 > /proc/sys/kernel/pid_max
+ulimit -u unlimited
+
+exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
+     2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
+
+exec_command="exec"
+setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
+id_map_start=1
+<% if p("garden.experimental_rootless_mode") %>
+  max=$(maximus)
+  <% if p("garden.listen_network") == "tcp" %>
+    exec_command="$exec_command chpst -u :$max:$max"
+  <% else %>
+    exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $max --gid $max --socket-uid 1000 --socket-gid 1000"
+  <% end %>
+  setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
+  id_map_start=65536
+
+  # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
+  # where to place the runc root dir in rootless mode.
+  # Given that this is not set on stemcells we choose to set it explicitely
+  # here.
+  export XDG_RUNTIME_DIR=/var/run/user/$(maximus)
+  export TMPDIR=$TMPDIR/user/$(maximus)/tmp
+
+  mkdir -p $XDG_RUNTIME_DIR $TMPDIR
+  chmod 700 $XDG_RUNTIME_DIR
+  chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
+<% end %>
+
+$setup_cmd
+
+echo $$ > $PIDFILE
+$exec_command /var/vcap/packages/guardian/bin/gdn \
+server --skip-setup \
+<% if p("garden.listen_network") == "tcp" %> \
+<% ip, port = p("garden.listen_address").split(":") %> \
+  --bind-ip=<%= ip %> \
+  --bind-port=<%= port %> \
+<% else %> \
+  --bind-socket=<%= p("garden.listen_address") %> \
+<% end %> \
+  --depot=$DEPOT_PATH \
+  --graph=$GRAPH_PATH \
+  --properties-path=/var/vcap/data/garden/props.json \
+  --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
+  --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
+  --iptables-restore-bin=/var/vcap/packages/iptables/sbin/iptables-restore \
+  --init-bin="$RUNTIME_BIN_DIR/init" \
+  --dadoo-bin=/var/vcap/packages/guardian/bin/dadoo \
+  --nstar-bin=/var/vcap/packages/guardian/bin/nstar \
+  --tar-bin=/var/vcap/packages/tar/tar \
+  --log-level=<%= p("garden.log_level") %> \
+  --mtu=<%= p("garden.network_mtu") %> \
+  --network-pool=<%= p("garden.network_pool") %> \
+<% p("garden.deny_networks").each do |network| %> \
+  --deny-network=<%= network %> \
+<% end %> \
+<% p("garden.allow_networks").each do |network| %> \
+  --allow-network=<%= network %> \
+<% end %> \
+<% if p("garden.destroy_containers_on_start") %> \
+  --destroy-containers-on-startup \
+<% end %> \
+<% if p("garden.allow_host_access") %> \
+  --allow-host-access \
+<% end %> \
+<% if_p("garden.debug_listen_address") do |debug_listen_address| %> \
+  <% debug_ip, debug_port = debug_listen_address.split(":") %> \
+  --debug-bind-ip=<%= debug_ip %> \
+  --debug-bind-port=<%= debug_port %> \
+<% end %> \
+  --default-rootfs=<%= p("garden.default_container_rootfs") %> \
+  --default-grace-time=<%= p("garden.default_container_grace_time") %> \
+  --default-container-blockio-weight=<%= p("garden.default_container_blockio_weight") %> \
+  --graph-cleanup-threshold-in-megabytes=<%= p("garden.graph_cleanup_threshold_in_mb") %> \
+<% if_p("garden.max_containers") do |max_containers| %> \
+  --max-containers=<%= max_containers %> \
+<% end %> \
+<% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| %> \
+  --cpu-quota-per-share=<%= quota_per_share %> \
+<% end %> \
+<% if_p("garden.experimental_tcp_mem_limit_in_bytes") do |tcp_memory| %> \
+  --tcp-memory-limit=<%= tcp_memory %> \
+<% end %> \
+  --runtime-plugin=<%= p("garden.runtime_plugin", "/var/vcap/packages/runc/bin/runc") %> \
+<% if_p("garden.image_plugin") do |plugin| %> \
+  --image-plugin=<%= plugin %> \
+  <% p("garden.image_plugin_extra_args").each do |arg| %> \
+  --image-plugin-extra-arg=<%= arg %> \
+  <% end %> \
+<% end %> \
+<% if_p("garden.privileged_image_plugin") do |plugin| %> \
+  --privileged-image-plugin=<%= plugin %> \
+  <% p("garden.privileged_image_plugin_extra_args").each do |arg| %> \
+  --privileged-image-plugin-extra-arg=<%= arg %> \
+  <% end %> \
+<% end %> \
+<% if_p("garden.network_plugin") do |plugin| %> \
+  --network-plugin=<%= plugin %> \
+  <% p("garden.network_plugin_extra_args").each do |arg| %> \
+  --network-plugin-extra-arg=<%= arg %> \
+  <% end %> \
+<% end %> \
+<% if_p("garden.docker_registry_endpoint") do |endpoint| %> \
+  --docker-registry=<%= endpoint %> \
+<% end %> \
+<% if_p("garden.dropsonde.origin") do |origin| %> \
+  --dropsonde-origin=<%= origin %> \
+<% end %> \
+<% if_p("garden.dropsonde.destination") do |destination| %> \
+  --dropsonde-destination=<%= destination %> \
+<% end %> \
+<% if_p("garden.port_pool.start") do |start| %> \
+  --port-pool-start=<%= start %> \
+<% end %> \
+<% if_p("garden.port_pool.size") do |size| %> \
+  --port-pool-size=<%= size %> \
+<% end %> \
+<% p("garden.insecure_docker_registry_list").each do |url| %> \
+  --insecure-docker-registry=<%= url %> \
+<% end %> \
+<% p("garden.persistent_image_list").each do |url| %> \
+  --persistent-image=<%= url %> \
+<% end %> \
+<% p("garden.dns_servers").each do |server| %> \
+  --dns-server=<%= server %> \
+<% end %> \
+<% p("garden.additional_dns_servers").each do |server| %> \
+  --additional-dns-server=<%= server %> \
+<% end %> \
+<% if !p("garden.apparmor_profile").empty? %> \
+  --apparmor=<%= p("garden.apparmor_profile") %> \
+<% end %> \
+<% if p("garden.cleanup_process_dirs_on_wait") %> \
+  --cleanup-process-dirs-on-wait \
+<% end %> \
+--uid-map-start="$id_map_start" \
+--uid-map-length=$(($(maximus)-$id_map_start)) \
+--gid-map-start="$id_map_start" \
+--gid-map-length=$(($(maximus)-$id_map_start))

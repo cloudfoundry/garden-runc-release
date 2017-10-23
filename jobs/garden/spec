@@ -2,7 +2,8 @@
 name: garden
 
 templates:
-  garden_ctl.erb: bin/garden_ctl
+  garden_start.erb: bin/garden_start
+  garden_stop.erb: bin/garden_stop
   envs.erb: bin/envs
   garden-default.erb: config/garden-default
   auplink: bin/auplink
