@@ -1,7 +1,7 @@
-apparmor/apparmor-2.11.0.tar.gz:
-  size: 5013297
-  object_id: 60e153af-dc01-47c8-a663-721e8418c5ed
-  sha: 66240d3aa91f552d936d13b3f8c4fcdb9a8a919c
+apparmor/apparmor-2.11.1.tar.gz:
+  size: 5017646
+  object_id: f1c3b159-86ac-4860-6e29-3fa09d84880c
+  sha: 561289f546b46f368665f864acab024bfd6b1220
 busybox/busybox-1.26.2.tar:
   size: 1313792
   object_id: 6bc1883a-e5ce-4ea1-a470-a274a57178c4
