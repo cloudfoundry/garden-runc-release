@@ -9,9 +9,6 @@ cd $(dirname $0)/../..
 export GOROOT=/usr/local/go
 export GOPATH=$PWD
 export PATH=$PATH:$GOPATH/bin:/var/gdn/assets/linux/bin
-pushd src/code.cloudfoundry.org/idmapper/cmd/maximus
-go install
-popd
 
 BUCKETBENCH_THREADS=${BUCKETBENCH_THREADS:=5}
 BUCKETBENCH_ITERATIONS=${BUCKETBENCH_ITERATIONS:=50}
@@ -43,10 +40,6 @@ $GDN_PATH \
   --debug-bind-ip=$GARDEN_IP \
   --debug-bind-port=$GARDEN_DEBUG_PORT \
   --log-level=$LOG_LEVEL \
-  --uid-map-start=1 \
-  --uid-map-length=$(($(maximus)-1)) \
-  --gid-map-start=1 \
-  --gid-map-length=$(($(maximus)-1)) \
   --default-rootfs=/opt/warden/rootfs &
 
 # wait for server to start up

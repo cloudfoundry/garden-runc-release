@@ -24,10 +24,6 @@ pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
 make
 popd
 
-pushd src/code.cloudfoundry.org/idmapper/cmd/maximus
-go install
-popd
-
 pushd src/code.cloudfoundry.org/guardian
 go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
 go install code.cloudfoundry.org/guardian/cmd/init
@@ -61,10 +57,6 @@ $GOPATH/bin/gdn \
   --debug-bind-port=17013 \
   --network-pool=10.254.1.0/24 \
   --log-level=$LOG_LEVEL \
-  --uid-map-start=1 \
-  --uid-map-length=$(($(maximus)-1)) \
-  --gid-map-start=1 \
-  --gid-map-length=$(($(maximus)-1)) \
   --default-rootfs=/opt/warden/rootfs &
 
 sleep 5
