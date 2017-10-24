@@ -11,23 +11,12 @@ exec 2>> "${MONIT_DIR}/garden.err.log"
 
 /var/vcap/packages/greenskeeper/bin/greenskeeper
 
-mkdir -p $RUN_DIR
-mkdir -p $GARDEN_DIR
-mkdir -p $LOG_DIR
-mkdir -p $TMPDIR
-mkdir -p $DEPOT_PATH
-
 chown "vcap:$(maximus)" "$GARDEN_DIR"
-chmod 770 "$GARDEN_DIR"
 
-mkdir -p "$RUNTIME_BIN_DIR"
 chgrp "$(maximus)" "$RUNTIME_BIN_DIR"
-chmod 750 "$RUNTIME_BIN_DIR"
 cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"
 
-mkdir -p $GRAPH_PATH
 chown "$(maximus):$(maximus)" "$GRAPH_PATH"
-chmod 700 "$GRAPH_PATH"
 
 permit_device_control
 create_loop_devices 256

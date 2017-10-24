@@ -10,23 +10,121 @@ import (
 	"strings"
 )
 
+const defaultDirectoryMode = os.FileMode(0777)
+
 type Directory struct {
 	Path  string
-	Mode  os.FileMode
+	Mode  *os.FileMode
 	User  string
 	Group string
 
 	mkdirAll func(string, os.FileMode) error
+	chown    func(string, int, int) error
+	chmod    func(string, os.FileMode) error
 }
 
-func NewDirectory(path string, mode os.FileMode, user, group string) Directory {
-	return Directory{
-		Path:     path,
-		Mode:     mode,
-		User:     user,
-		Group:    group,
+type DirectoryBuilder struct {
+	directory Directory
+}
+
+func NewDirectoryBuilder(path string) DirectoryBuilder {
+	return DirectoryBuilder{directory: Directory{
+		Path: path,
+
 		mkdirAll: os.MkdirAll,
+		chown:    os.Chown,
+		chmod:    os.Chmod,
+	}}
+}
+
+func (b DirectoryBuilder) Build() Directory {
+	return b.directory
+}
+
+func (b DirectoryBuilder) User(user string) DirectoryBuilder {
+	b.directory.User = user
+	return b
+}
+
+func (b DirectoryBuilder) Group(group string) DirectoryBuilder {
+	b.directory.Group = group
+	return b
+}
+
+func (b DirectoryBuilder) Mode(mode os.FileMode) DirectoryBuilder {
+	b.directory.Mode = &mode
+	return b
+}
+
+func CreateDirectories(directories ...Directory) error {
+	for _, directory := range directories {
+		if err := directory.Create(); err != nil {
+			return err
+		}
 	}
+
+	return nil
+}
+
+func (d Directory) Create() error {
+	if err := d.mkdirAll(d.Path, defaultDirectoryMode); err != nil {
+		return err
+	}
+
+	if d.Mode != nil {
+		if err := d.chmod(d.Path, *d.Mode); err != nil {
+			return err
+		}
+	}
+
+	user, err := d.getUID()
+	if err != nil {
+		return err
+	}
+
+	group, err := d.getGID()
+	if err != nil {
+		return err
+	}
+
+	return d.chown(d.Path, user, group)
+}
+
+func (d Directory) getMode() {
+}
+
+func (d Directory) getUID() (int, error) {
+	if d.User == "" {
+		currentUser, err := user.Current()
+		if err != nil {
+			return 0, err
+		}
+		return strconv.Atoi(currentUser.Uid)
+	}
+
+	directoryUser, err := user.Lookup(d.User)
+	if err != nil {
+		return 0, err
+	}
+
+	return strconv.Atoi(directoryUser.Uid)
+}
+
+func (d Directory) getGID() (int, error) {
+	if d.Group == "" {
+		currentUser, err := user.Current()
+		if err != nil {
+			return 0, err
+		}
+		return strconv.Atoi(currentUser.Gid)
+	}
+
+	directoryUser, err := user.Lookup(d.User)
+	if err != nil {
+		return 0, err
+	}
+
+	return strconv.Atoi(directoryUser.Gid)
 }
 
 func CheckExistingGdnProcess(pidFilePath string) error {
@@ -57,49 +155,7 @@ func isRunning(pid string) bool {
 	return false
 }
 
-func SetupDirectories(directories ...Directory) error {
-	for _, directory := range directories {
-		if err := directory.Setup(); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (d Directory) Setup() error {
-	if err := d.mkdirAll(d.Path, d.Mode); err != nil {
-		return err
-	}
-
-	uid, err := d.GetUID()
-	if err != nil {
-		return err
-	}
-
-	gid, err := d.GetGID()
-	if err != nil {
-		return err
-	}
-
-	os.Chown(d.Path, uid, gid)
-	return nil
-}
-
-func (d Directory) GetUID() (int, error) {
-	directoryUser, err := user.Lookup(d.User)
-	if err != nil {
-		return -1, err
-	}
-
-	return strconv.Atoi(directoryUser.Uid)
-}
-
-func (d Directory) GetGID() (int, error) {
-	directoryUser, err := user.Lookup(d.User)
-	if err != nil {
-		return -1, err
-	}
-
-	return strconv.Atoi(directoryUser.Gid)
+func newFileMode(mode os.FileMode) *os.FileMode {
+	fileMode := mode
+	return &fileMode
 }
