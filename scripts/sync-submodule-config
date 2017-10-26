@@ -6,16 +6,13 @@ which gosub
 
 function linux_deps {
   GOOS=linux gosub list \
-    -a code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/garden/... \
-    -t code.cloudfoundry.org/garden-shed/... \
     -t code.cloudfoundry.org/garden-integration-tests/...
 }
 
 function windows_deps {
   GOOS=windows gosub list \
-    -a code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/garden/... \
     -t code.cloudfoundry.org/garden-integration-tests/...
