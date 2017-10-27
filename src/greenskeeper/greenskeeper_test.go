@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"os/user"
 	"path"
 	"strconv"
 	"syscall"
@@ -90,7 +89,8 @@ var _ = Describe("Greenskeeper", func() {
 			dir, err = ioutil.TempDir("", "")
 			Expect(err).NotTo(HaveOccurred())
 			pikachuDir = path.Join(dir, "pikachu")
-			directories = []Directory{NewDirectoryBuilder(pikachuDir).Mode(0644).User("mew").Group("mewtwo").Build()}
+			directories = []Directory{NewDirectoryBuilder(pikachuDir).Mode(0644).
+				UID(1001).GID(1002).Build()}
 		})
 
 		JustBeforeEach(func() {
@@ -114,29 +114,15 @@ var _ = Describe("Greenskeeper", func() {
 			Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(0644)))
 
 			By("setting the correct user ownership")
-			mewUser, err := user.Lookup("mew")
-			Expect(err).NotTo(HaveOccurred())
-			mewUID := atouint32(mewUser.Uid)
-			Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(mewUID))
+			Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(uint32(1001)))
 
 			By("setting the correct group ownership")
-			mewGID := atouint32(mewUser.Gid)
-			Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(mewGID))
+			Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(uint32(1002)))
 		})
 
 		Context("when creating a directory fails", func() {
 			BeforeEach(func() {
 				directories[0].mkdirAll = func(string, os.FileMode) error { return errors.New("I failed") }
-			})
-
-			It("returns an error", func() {
-				Expect(setupErr).To(HaveOccurred())
-			})
-		})
-
-		Context("when the user does not exist", func() {
-			BeforeEach(func() {
-				directories[0].User = "missingno"
 			})
 
 			It("returns an error", func() {
@@ -154,6 +140,30 @@ var _ = Describe("Greenskeeper", func() {
 			})
 		})
 
+		Context("when user and group are not specified", func() {
+			BeforeEach(func() {
+				directories = []Directory{NewDirectoryBuilder(pikachuDir).Build()}
+				directories[0].chown = func(string, int, int) error {
+					return errors.New("I should not have been called")
+				}
+			})
+
+			It("should not chown", func() {
+				Expect(setupErr).NotTo(HaveOccurred())
+			})
+		})
+
+		Context("when group only is specfied", func() {
+			BeforeEach(func() {
+				directories = []Directory{NewDirectoryBuilder(pikachuDir).GID(1001).Build()}
+			})
+
+			It("should chown using current user ID", func() {
+				Expect(stat(pikachuDir).Sys().(*syscall.Stat_t).Uid).To(Equal(uint32(0)))
+				Expect(stat(pikachuDir).Sys().(*syscall.Stat_t).Gid).To(Equal(uint32(1001)))
+			})
+		})
+
 		Context("when chmodding the directory fails", func() {
 			BeforeEach(func() {
 				directories[0].chmod = func(string, os.FileMode) error { return errors.New("I failed") }
@@ -168,15 +178,14 @@ var _ = Describe("Greenskeeper", func() {
 			BeforeEach(func() {
 				directories[0].Mode = nil
 			})
-
-			It("defaults to umask", func() {
+			It("defaults to the permissions when system umask is applied", func() {
 				Expect(stat(pikachuDir).Mode().Perm()).To(Equal(applyUmask(defaultDirectoryMode)))
 			})
 		})
 
 		Context("when setting up two directories", func() {
 			BeforeEach(func() {
-				directories = append(directories, NewDirectoryBuilder(path.Join(dir, "charmander")).User("mew").Group("mewtwo").Build())
+				directories = append(directories, NewDirectoryBuilder(path.Join(dir, "charmander")).UID(1001).GID(1002).Build())
 			})
 
 			It("sets up both", func() {

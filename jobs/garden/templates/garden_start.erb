@@ -11,12 +11,7 @@ exec 2>> "${MONIT_DIR}/garden.err.log"
 
 /var/vcap/packages/greenskeeper/bin/greenskeeper
 
-chown "vcap:$(maximus)" "$GARDEN_DIR"
-
-chgrp "$(maximus)" "$RUNTIME_BIN_DIR"
 cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"
-
-chown "$(maximus):$(maximus)" "$GRAPH_PATH"
 
 permit_device_control
 create_loop_devices 256
@@ -38,25 +33,24 @@ exec_command="exec"
 setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 id_map_start=1
 <% if p("garden.experimental_rootless_mode") %>
-  max=$(maximus)
   <% if p("garden.listen_network") == "tcp" %>
-    exec_command="$exec_command chpst -u :$max:$max"
+    exec_command="$exec_command chpst -u :$MAXIMUS:$MAXIMUS"
   <% else %>
-    exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $max --gid $max --socket-uid 1000 --socket-gid 1000"
+    exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $MAXIMUS --gid $MAXIMUS --socket-uid 1000 --socket-gid 1000"
   <% end %>
-  setup_cmd="$setup_cmd --rootless-uid $max --rootless-gid $max"
+  setup_cmd="$setup_cmd --rootless-uid $MAXIMUS --rootless-gid $MAXIMUS"
   id_map_start=65536
 
   # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
   # where to place the runc root dir in rootless mode.
   # Given that this is not set on stemcells we choose to set it explicitely
   # here.
-  export XDG_RUNTIME_DIR=/var/run/user/$(maximus)
-  export TMPDIR=$TMPDIR/user/$(maximus)/tmp
+  export XDG_RUNTIME_DIR=/var/run/user/$MAXIMUS
+  export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
 
   mkdir -p $XDG_RUNTIME_DIR $TMPDIR
   chmod 700 $XDG_RUNTIME_DIR
-  chown "$(maximus):$(maximus)" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
+  chown "$MAXIMUS:$MAXIMUS" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
 <% end %>
 
 $setup_cmd
@@ -167,6 +161,6 @@ server --skip-setup \
   --cleanup-process-dirs-on-wait \
 <% end %> \
 --uid-map-start="$id_map_start" \
---uid-map-length=$(($(maximus)-$id_map_start)) \
+--uid-map-length=$((MAXIMUS-id_map_start)) \
 --gid-map-start="$id_map_start" \
---gid-map-length=$(($(maximus)-$id_map_start))
+--gid-map-length=$((MAXIMUS-id_map_start))

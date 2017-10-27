@@ -4,19 +4,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
 	"path"
-	"strconv"
 	"strings"
 )
 
-const defaultDirectoryMode = os.FileMode(0777)
+const defaultDirectoryMode = os.FileMode(0700)
 
 type Directory struct {
-	Path  string
-	Mode  *os.FileMode
-	User  string
-	Group string
+	Path string
+	Mode *os.FileMode
+	UID  int
+	GID  int
 
 	mkdirAll func(string, os.FileMode) error
 	chown    func(string, int, int) error
@@ -30,6 +28,8 @@ type DirectoryBuilder struct {
 func NewDirectoryBuilder(path string) DirectoryBuilder {
 	return DirectoryBuilder{directory: Directory{
 		Path: path,
+		UID:  -1,
+		GID:  -1,
 
 		mkdirAll: os.MkdirAll,
 		chown:    os.Chown,
@@ -41,13 +41,13 @@ func (b DirectoryBuilder) Build() Directory {
 	return b.directory
 }
 
-func (b DirectoryBuilder) User(user string) DirectoryBuilder {
-	b.directory.User = user
+func (b DirectoryBuilder) UID(uid int) DirectoryBuilder {
+	b.directory.UID = uid
 	return b
 }
 
-func (b DirectoryBuilder) Group(group string) DirectoryBuilder {
-	b.directory.Group = group
+func (b DirectoryBuilder) GID(gid int) DirectoryBuilder {
+	b.directory.GID = gid
 	return b
 }
 
@@ -77,54 +77,14 @@ func (d Directory) Create() error {
 		}
 	}
 
-	user, err := d.getUID()
-	if err != nil {
-		return err
+	if d.GID > -1 {
+		return d.chown(d.Path, d.UID, d.GID)
 	}
 
-	group, err := d.getGID()
-	if err != nil {
-		return err
-	}
-
-	return d.chown(d.Path, user, group)
+	return nil
 }
 
 func (d Directory) getMode() {
-}
-
-func (d Directory) getUID() (int, error) {
-	if d.User == "" {
-		currentUser, err := user.Current()
-		if err != nil {
-			return 0, err
-		}
-		return strconv.Atoi(currentUser.Uid)
-	}
-
-	directoryUser, err := user.Lookup(d.User)
-	if err != nil {
-		return 0, err
-	}
-
-	return strconv.Atoi(directoryUser.Uid)
-}
-
-func (d Directory) getGID() (int, error) {
-	if d.Group == "" {
-		currentUser, err := user.Current()
-		if err != nil {
-			return 0, err
-		}
-		return strconv.Atoi(currentUser.Gid)
-	}
-
-	directoryUser, err := user.Lookup(d.User)
-	if err != nil {
-		return 0, err
-	}
-
-	return strconv.Atoi(directoryUser.Gid)
 }
 
 func CheckExistingGdnProcess(pidFilePath string) error {
