@@ -29,6 +29,7 @@ files:
   - code.cloudfoundry.org/garden/transport/*.go # gosub
   - code.cloudfoundry.org/guardian/bindata/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/dadoo/*.go # gosub
+  - code.cloudfoundry.org/guardian/cmd/execas/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/init/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/socket2me/*.go # gosub

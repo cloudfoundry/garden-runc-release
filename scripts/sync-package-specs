@@ -16,6 +16,7 @@ pushd "$ROOT_DIR_PATH"/packages/guardian
       -a code.cloudfoundry.org/guardian/cmd/dadoo \
       -a code.cloudfoundry.org/guardian/cmd/init \
       -a code.cloudfoundry.org/guardian/cmd/socket2me \
+      -a code.cloudfoundry.org/guardian/cmd/execas \
       | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 

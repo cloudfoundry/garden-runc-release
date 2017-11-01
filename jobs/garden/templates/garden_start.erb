@@ -34,7 +34,7 @@ setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 id_map_start=1
 <% if p("garden.experimental_rootless_mode") %>
   <% if p("garden.listen_network") == "tcp" %>
-    exec_command="$exec_command chpst -u :$MAXIMUS:$MAXIMUS"
+    exec_command="execas --uid $MAXIMUS --gid $MAXIMUS"
   <% else %>
     exec_command="socket2me --socket-path <%= p("garden.listen_address") %> --uid $MAXIMUS --gid $MAXIMUS --socket-uid 1000 --socket-gid 1000"
   <% end %>
