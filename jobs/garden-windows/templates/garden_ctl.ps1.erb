@@ -21,11 +21,15 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --default-rootfs=<%= p("garden.default_container_rootfs") %> `
   <% end %> `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
+  --runtime-plugin-extra-arg=--image-store=$imageStore `
   <% p("garden.runtime_plugin_extra_args").each do |arg| %> `
   --runtime-plugin-extra-arg=<%= arg %> `
   <% end %> `
   --image-plugin=<%= p("garden.image_plugin") %> `
   --image-plugin-extra-arg=--store=$imageStore `
+  <% p("garden.image_plugin_extra_args").each do |arg| %> `
+  --image-plugin-extra-arg=<%= arg %> `
+  <% end %> `
   --network-plugin=<%= p("garden.network_plugin") %> `
   <% p("garden.network_plugin_extra_args").each do |arg| %> `
   --network-plugin-extra-arg=<%= arg %> `
