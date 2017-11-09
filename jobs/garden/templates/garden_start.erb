@@ -160,6 +160,9 @@ server --skip-setup \
 <% if p("garden.cleanup_process_dirs_on_wait") %> \
   --cleanup-process-dirs-on-wait \
 <% end %> \
+<% if p("garden.experimental_rootless_mode") %> \
+  --disable-privileged-containers \
+<% end %> \
 --uid-map-start="$id_map_start" \
 --uid-map-length=$((MAXIMUS-id_map_start)) \
 --gid-map-start="$id_map_start" \
