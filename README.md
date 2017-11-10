@@ -55,7 +55,10 @@ package for Golang.
 
 Garden has experimental support for running containers without requiring root
 privileges. Take a look at the
-[rootless-containers.md](docs/rootless-containers.md) doc for further info.
+[rootless-containers.md](docs/articles/rootless-containers.md) doc for further info.
+
+If you would like to enable rootless containers please read [this
+document](docs/enabling-rootless-containers.md).
 
 ## Contributing
 
