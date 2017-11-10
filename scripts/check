@@ -10,6 +10,6 @@ read -p "Did you make sure CI is green? (yes/no):" response
 if  [ "$response" == "yes" ]; then
   echo "Thanks! Continuing with bump..."
 else
-  open "https://garden.ci.cf-app.com/?groups=garden-runc&groups=garden-runc-long"
+  open "https://garden.ci.cf-app.com/"
   exit 1
 fi
