@@ -156,7 +156,7 @@ properties:
     description: List of comma-separated hosts that should skip connecting to the proxy
 
   garden.apparmor_profile:
-    decription: Apparmor profile to use for unprivileged container procesess
+    description: Apparmor profile to use for unprivileged container procesess
     default: garden-default
 
   garden.experimental_rootless_mode:
