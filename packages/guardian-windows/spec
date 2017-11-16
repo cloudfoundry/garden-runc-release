@@ -7,9 +7,18 @@ dependencies:
 files:
   - exiter.ps1
   - code.cloudfoundry.org/commandrunner/*.go # gosub
+  - code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/distclient/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/docker_drivers/aufs/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/layercake/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/layercake/cleaner/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/pkg/chown/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/quota_manager/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/repository_fetcher/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/rootfs_provider/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_spec/*.go # gosub
   - code.cloudfoundry.org/garden/routes/*.go # gosub
   - code.cloudfoundry.org/garden/server/*.go # gosub
@@ -23,6 +32,9 @@ files:
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
+  - code.cloudfoundry.org/guardian/kawasaki/configure/*.go # gosub
+  - code.cloudfoundry.org/guardian/kawasaki/devices/*.go # gosub
+  - code.cloudfoundry.org/guardian/kawasaki/dns/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/factory/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/iptables/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/mtu/*.go # gosub
@@ -36,8 +48,10 @@ files:
   - code.cloudfoundry.org/guardian/properties/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/bundlerules/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/cgroups/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/depot/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/execrunner/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
@@ -66,20 +80,75 @@ files:
   - github.com/cloudfoundry/dropsonde/runtime_stats/*.go # gosub
   - github.com/cloudfoundry/gosigar/*.go # gosub
   - github.com/cloudfoundry/gosteno/*.go # gosub
+  - github.com/cloudfoundry/gosteno/syslog/*.go # gosub
   - github.com/cloudfoundry/sonde-go/events/*.go # gosub
+  - github.com/docker/distribution/*.go # gosub
+  - github.com/docker/distribution/context/*.go # gosub
+  - github.com/docker/distribution/digest/*.go # gosub
+  - github.com/docker/distribution/manifest/*.go # gosub
+  - github.com/docker/distribution/registry/api/errcode/*.go # gosub
+  - github.com/docker/distribution/registry/api/v2/*.go # gosub
+  - github.com/docker/distribution/registry/client/*.go # gosub
+  - github.com/docker/distribution/registry/client/auth/*.go # gosub
+  - github.com/docker/distribution/registry/client/transport/*.go # gosub
+  - github.com/docker/distribution/registry/storage/cache/*.go # gosub
+  - github.com/docker/distribution/registry/storage/cache/memory/*.go # gosub
+  - github.com/docker/distribution/uuid/*.go # gosub
+  - github.com/docker/docker/api/types/*.go # gosub
+  - github.com/docker/docker/autogen/dockerversion/*.go # gosub
+  - github.com/docker/docker/cliconfig/*.go # gosub
+  - github.com/docker/docker/daemon/events/*.go # gosub
+  - github.com/docker/docker/daemon/graphdriver/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
+  - github.com/docker/docker/daemon/network/*.go # gosub
+  - github.com/docker/docker/graph/*.go # gosub
+  - github.com/docker/docker/graph/tags/*.go # gosub
+  - github.com/docker/docker/image/*.go # gosub
+  - github.com/docker/docker/opts/*.go # gosub
   - github.com/docker/docker/pkg/archive/*.go # gosub
   - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
+  - github.com/docker/docker/pkg/directory/*.go # gosub
   - github.com/docker/docker/pkg/fileutils/*.go # gosub
+  - github.com/docker/docker/pkg/homedir/*.go # gosub
+  - github.com/docker/docker/pkg/httputils/*.go # gosub
   - github.com/docker/docker/pkg/ioutils/*.go # gosub
+  - github.com/docker/docker/pkg/jsonmessage/*.go # gosub
+  - github.com/docker/docker/pkg/mflag/*.go # gosub
+  - github.com/docker/docker/pkg/mount/*.go # gosub
+  - github.com/docker/docker/pkg/nat/*.go # gosub
+  - github.com/docker/docker/pkg/parsers/*.go # gosub
+  - github.com/docker/docker/pkg/parsers/filters/*.go # gosub
+  - github.com/docker/docker/pkg/parsers/kernel/*.go # gosub
   - github.com/docker/docker/pkg/pools/*.go # gosub
+  - github.com/docker/docker/pkg/progressreader/*.go # gosub
   - github.com/docker/docker/pkg/promise/*.go # gosub
+  - github.com/docker/docker/pkg/pubsub/*.go # gosub
   - github.com/docker/docker/pkg/reexec/*.go # gosub
+  - github.com/docker/docker/pkg/streamformatter/*.go # gosub
+  - github.com/docker/docker/pkg/stringid/*.go # gosub
+  - github.com/docker/docker/pkg/symlink/*.go # gosub
   - github.com/docker/docker/pkg/system/*.go # gosub
+  - github.com/docker/docker/pkg/tarsum/*.go # gosub
+  - github.com/docker/docker/pkg/term/*.go # gosub
+  - github.com/docker/docker/pkg/timeutils/*.go # gosub
+  - github.com/docker/docker/pkg/tlsconfig/*.go # gosub
+  - github.com/docker/docker/pkg/truncindex/*.go # gosub
+  - github.com/docker/docker/pkg/ulimit/*.go # gosub
+  - github.com/docker/docker/pkg/units/*.go # gosub
+  - github.com/docker/docker/pkg/urlutil/*.go # gosub
+  - github.com/docker/docker/pkg/useragent/*.go # gosub
+  - github.com/docker/docker/pkg/version/*.go # gosub
+  - github.com/docker/docker/registry/*.go # gosub
+  - github.com/docker/docker/runconfig/*.go # gosub
+  - github.com/docker/docker/utils/*.go # gosub
+  - github.com/docker/docker/volume/*.go # gosub
+  - github.com/docker/libtrust/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
+  - github.com/gorilla/context/*.go # gosub
+  - github.com/gorilla/mux/*.go # gosub
   - github.com/jessevdk/go-flags/*.go # gosub
   - github.com/mitchellh/copystructure/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
@@ -87,12 +156,28 @@ files:
   - github.com/opencontainers/go-digest/*.go # gosub
   - github.com/opencontainers/image-spec/specs-go/*.go # gosub
   - github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/cgroups/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
+  - github.com/opencontainers/runc/libcontainer/user/*.go # gosub
+  - github.com/opencontainers/runc/vendor/github.com/docker/go-units/*.go # gosub
+  - github.com/opencontainers/runc/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - github.com/opencontainers/runc/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
   - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/localip/*.go # gosub
   - github.com/pkg/errors/*.go # gosub
+  - github.com/tchap/go-patricia/patricia/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
   - github.com/tedsuo/ifrit/sigmon/*.go # gosub
   - github.com/tedsuo/rata/*.go # gosub
   - github.com/tscolari/lagregator/*.go # gosub
+  - github.com/vbatts/tar-split/archive/tar/*.go # gosub
+  - github.com/vbatts/tar-split/tar/asm/*.go # gosub
+  - github.com/vbatts/tar-split/tar/storage/*.go # gosub
+  - github.com/vishvananda/netlink/*.go # gosub
+  - github.com/vishvananda/netlink/nl/*.go # gosub
+  - github.com/vishvananda/netns/*.go # gosub
+  - golang.org/x/net/context/*.go # gosub

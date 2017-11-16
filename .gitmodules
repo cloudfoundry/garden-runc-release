@@ -41,7 +41,7 @@
 [submodule "src/code.cloudfoundry.org/garden-shed"]
 	path = src/code.cloudfoundry.org/garden-shed
 	url = https://github.com/cloudfoundry/garden-shed
-	branch = new-volumecreator-schema
+	branch = master
 [submodule "src/github.com/docker/distribution"]
 	path = src/github.com/docker/distribution
 	url = https://github.com/docker/distribution
