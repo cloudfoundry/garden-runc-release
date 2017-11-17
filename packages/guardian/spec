@@ -10,7 +10,6 @@ files:
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
   - code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
-  - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
   - code.cloudfoundry.org/garden-shed/distclient/*.go # gosub
@@ -56,7 +55,6 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/bundlerules/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/cgroups/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/depot/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/execrunner/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
