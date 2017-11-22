@@ -19,9 +19,9 @@ go vet ./...
 Write-Host "compiling test process: $(date)"
 
 $env:GARDEN_TEST_ROOTFS = "N/A"
-ginkgo -r -p -race -keepGoing -failOnPending -skipPackage "dadoo,gqt,kawasaki,locksmith,socket2me,signals"
+ginkgo -r -nodes 8 -race -keepGoing -failOnPending -skipPackage "dadoo,gqt,kawasaki,locksmith,socket2me,signals"
 if ($LastExitCode -ne 0) {
     throw "Ginkgo run returned error code: $LastExitCode"
 }
-ginkgo -r -p -race -keepGoing -failOnPending -randomizeSuites -randomizeAllSpecs -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
+ginkgo -r -nodes 8 -race -keepGoing -failOnPending -randomizeSuites -randomizeAllSpecs -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
 Exit $LastExitCode
