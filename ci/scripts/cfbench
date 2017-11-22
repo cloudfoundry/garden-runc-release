@@ -18,6 +18,8 @@ DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 CF_ENV=${CF_ENV:-local}
 
 cfbench \
+  -action $CF_ACTION \
+  -instances $INSTANCES \
   -tag $CF_ENV \
   -app-dir cf-acceptance-tests/assets/dora \
   -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
