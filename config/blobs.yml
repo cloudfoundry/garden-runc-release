@@ -30,6 +30,10 @@ libseccomp/libseccomp-2.3.2.tar.gz:
   size: 559238
   object_id: fc71e530-c917-4be8-8a8b-c2d3402237e6
   sha: 6eb7fa147008f4ae189d56c2ea801a619bb08cd0
+pkg-config/pkg-config-0.29.tar.gz:
+  size: 1973875
+  object_id: 2c79a436-7142-43d8-663a-2a9340f66418
+  sha: f4b19d203b3896a4293af4b62c7f908063c88a5a
 tar/tar-1.29.tar.gz:
   size: 3962257
   object_id: 97d1a0f2-d47b-4efd-9df1-4502e9eaae4a

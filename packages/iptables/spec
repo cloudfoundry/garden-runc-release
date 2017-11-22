@@ -1,6 +1,9 @@
 ---
 name: iptables
 
+dependencies:
+  - pkg-config
+
 files:
   - iptables/iptables-1.6.1.tar.bz2
   - iptables/libnftnl-1.0.8.tar.bz2

@@ -1,0 +1,15 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+export PREFIX=${BOSH_INSTALL_TARGET}
+export PATH=${PREFIX}/bin:$PATH
+
+# pkg-config
+tar xzf pkg-config/pkg-config-0.29.tar.gz
+(
+  set -e
+  cd pkg-config-0.29
+  ./configure --prefix=$PREFIX --with-internal-glib
+  make
+  make install prefix=$PREFIX
+)

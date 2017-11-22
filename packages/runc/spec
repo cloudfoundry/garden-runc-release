@@ -5,6 +5,7 @@ dependencies:
   - libseccomp
   - golang
   - apparmor
+  - pkg-config
 
 files:
   - github.com/opencontainers/runc/**/*
