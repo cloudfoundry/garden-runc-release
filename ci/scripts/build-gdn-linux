@@ -32,7 +32,6 @@ pushd gr-release-develop
     export GOPATH=$PWD
 
     go install code.cloudfoundry.org/guardian/cmd/dadoo
-    go install code.cloudfoundry.org/guardian/cmd/init
 
     pushd src/github.com/opencontainers/runc
       PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
@@ -48,7 +47,12 @@ pushd gr-release-develop
       mv nstar $LINUX_ASSETS/bin
     popd
 
-    cp bin/{init,dadoo} $LINUX_ASSETS/bin
+    pushd src/code.cloudfoundry.org/guardian/cmd/init
+      gcc -static -o init init.c
+      mv init $LINUX_ASSETS/bin
+    popd
+
+    cp bin/dadoo $LINUX_ASSETS/bin
   )
 popd
 

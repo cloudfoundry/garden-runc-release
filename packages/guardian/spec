@@ -8,6 +8,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/nstar/*
   - github.com/opencontainers/runc/libcontainer/utils/*
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
+  - code.cloudfoundry.org/guardian/cmd/init/init.c
   - code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
@@ -31,7 +32,6 @@ files:
   - code.cloudfoundry.org/guardian/cmd/dadoo/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/execas/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
-  - code.cloudfoundry.org/guardian/cmd/init/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/socket2me/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
