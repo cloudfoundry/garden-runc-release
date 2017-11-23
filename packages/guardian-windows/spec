@@ -41,7 +41,6 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/signals/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
