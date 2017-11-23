@@ -11,7 +11,8 @@ exec 2>> "${MONIT_DIR}/garden.err.log"
 
 /var/vcap/packages/greenskeeper/bin/greenskeeper
 
-cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"
+rm -f "$RUNTIME_BIN_DIR"/init
+cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 
 permit_device_control
 create_loop_devices 256
