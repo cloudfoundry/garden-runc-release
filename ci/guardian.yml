@@ -14,5 +14,8 @@ caches:
 - path: gr-release-develop/bin
 - path: gr-release-develop/pkg
 
+params:
+  RACE_DETECTION:
+
 run:
   path: gr-release-develop/ci/scripts/guardian
