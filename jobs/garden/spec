@@ -104,6 +104,10 @@ properties:
     description: "Additional DNS servers to be used in containers; extends those used on the host or those set by dns_servers property"
     default: []
 
+  garden.additional_host_entries:
+    description: ""
+    default: []
+
   garden.insecure_docker_registry_list:
     description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
     default: []
