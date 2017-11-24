@@ -17,11 +17,13 @@ export CF_AUTH_TOKEN=$(cf oauth-token)
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 CF_ENV=${CF_ENV:-local}
 
+dd if=/dev/urandom of=cf-acceptance-tests/assets/java/big-file bs=10M count=20
+
 cfbench \
   -action $CF_ACTION \
   -instances $INSTANCES \
   -tag $CF_ENV \
-  -app-dir cf-acceptance-tests/assets/dora \
+  -app-dir cf-acceptance-tests/assets/java \
   -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
 
 curl -X POST -H 'Content-Type: application/json' -d @metrics.json \
