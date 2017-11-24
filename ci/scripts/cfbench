@@ -17,7 +17,7 @@ export CF_AUTH_TOKEN=$(cf oauth-token)
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 CF_ENV=${CF_ENV:-local}
 
-dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=20
+dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=9
 
 cfbench \
   -action $CF_ACTION \
