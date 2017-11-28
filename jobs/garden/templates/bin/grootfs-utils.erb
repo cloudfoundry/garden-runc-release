@@ -21,18 +21,18 @@ create_volume_file() {
 setup_unprivileged_store() {
   local store_path=$1
 
-  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  maximus_uid=$(/var/vcap/packages/garden-idmapper/bin/maximus)
   chown $maximus_uid:$maximus_uid $store_path
   chmod 0700 $store_path
 }
 
 unprivileged_root_mapping() {
-  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  maximus_uid=$(/var/vcap/packages/garden-idmapper/bin/maximus)
   echo -n "0:${maximus_uid}:1"
 }
 
 unprivileged_range_mapping() {
-  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  maximus_uid=$(/var/vcap/packages/garden-idmapper/bin/maximus)
   range="1:1:$((maximus_uid-1))"
   <% if p('garden.experimental_rootless_mode') %>
     range="1:65536:$((maximus_uid-65536))"

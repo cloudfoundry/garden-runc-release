@@ -23,10 +23,9 @@ packages:
   - runc
   - busybox
   - tar
-  - idmapper
+  - garden-idmapper
   - greenskeeper
   - grootfs
-  - idmapper
   - btrfs-progs
   - xfs-progs
 

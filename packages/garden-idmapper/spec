@@ -1,5 +1,5 @@
 ---
-name: idmapper
+name: garden-idmapper
 
 dependencies:
   - golang
