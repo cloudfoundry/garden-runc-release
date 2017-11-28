@@ -1,0 +1,19 @@
+set -e
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export GOPATH=${BOSH_INSTALL_TARGET}
+export PATH=$GOROOT/bin:$PATH
+
+mkdir -p ${BOSH_INSTALL_TARGET}/src
+cp -ra * ${BOSH_INSTALL_TARGET}/src
+
+mkdir ${BOSH_INSTALL_TARGET}/bin
+pushd ${BOSH_INSTALL_TARGET}/src/code.cloudfoundry.org/idmapper
+  make
+  mv {newuidmap,newgidmap,maximus} ${BOSH_INSTALL_TARGET}/bin
+popd
+
+chmod u+s ${BOSH_INSTALL_TARGET}/bin/*
+
+rm -rf ${BOSH_INSTALL_TARGET}/src
+

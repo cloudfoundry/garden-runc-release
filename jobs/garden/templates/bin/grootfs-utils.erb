@@ -1,0 +1,66 @@
+#!/bin/bash
+
+export store_mountpoint="/var/vcap/data"
+
+vcap_data_filesystem() {
+  store="$(echo $store_mountpoint | sed 's|/|\\/|g')"
+  echo $(df --print-type | awk '/'"$store"\$'/ {print $2}')
+}
+
+create_volume_file() {
+  local volume_file=$1
+
+  # Do no recreate the volume file if it already exists
+  if [ ! -f "$volume_file" ]
+  then
+    echo "creating volume..."
+    truncate -s $(volume_size)  $volume_file
+  fi
+}
+
+setup_unprivileged_store() {
+  local store_path=$1
+
+  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  chown $maximus_uid:$maximus_uid $store_path
+  chmod 0700 $store_path
+}
+
+unprivileged_root_mapping() {
+  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  echo -n "0:${maximus_uid}:1"
+}
+
+unprivileged_range_mapping() {
+  maximus_uid=$(/var/vcap/packages/idmapper/bin/maximus)
+  range="1:1:$((maximus_uid-1))"
+  <% if p('garden.experimental_rootless_mode') %>
+    range="1:65536:$((maximus_uid-65536))"
+  <% end %>
+  echo -n $range
+}
+
+volume_size() {
+  <% if p('grootfs.driver') == 'overlay-xfs' %>
+    if [ $(vcap_data_filesystem) = "xfs" ]; then
+      echo "0"
+      return
+    fi
+  <% end %>
+  echo "$(( $(df --output=size  $store_mountpoint | sed 1d) * 1024 ))"
+}
+
+delete_store() {
+  local config_path=$1
+  local store_path=$2
+  local volume_file=$3
+
+  # Allow grootfs delete-store and umount to fail, because we could
+  # have an malformed store.
+  grootfs --config $config_path delete-store || true
+  umount --force $store_path || true
+
+  # Ensure that the store is deleted, or fail
+  rm -rf $store_path
+  rm -f $volume_file
+}

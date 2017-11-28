@@ -1,0 +1,14 @@
+---
+name: xfs-progs
+
+dependencies:
+- autoconf
+- automake
+- libtool
+- lzo
+- pkg-config
+- util-linux
+- zlib
+
+files:
+- xfs-progs/xfsprogs-4.3.0.tar.gz

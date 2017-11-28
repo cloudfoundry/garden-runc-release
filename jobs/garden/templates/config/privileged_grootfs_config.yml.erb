@@ -1,0 +1,23 @@
+store: /var/vcap/data/grootfs/store/privileged
+driver: <%= p('grootfs.driver') %>
+btrfs_progs_path: /var/vcap/packages/btrfs-progs/bin
+drax_bin: /var/vcap/packages/grootfs/bin/drax
+tardis_bin: /var/vcap/packages/grootfs/bin/tardis
+newuidmap_bin: /var/vcap/packages/idmapper/bin/newuidmap
+newgidmap_bin: /var/vcap/packages/idmapper/bin/newgidmap
+log_level: <%= p('grootfs.log_level') %>
+<% if_p("grootfs.dropsonde_port") do |dropsonde_port| %>
+metron_endpoint: 127.0.0.1:<%= dropsonde_port %>
+<% end %>
+
+create:
+  with_clean: <%= p("grootfs.graph_cleanup_threshold_in_mb") >= 0 %>
+  without_mount: <%= p("grootfs.skip_mount") %>
+  insecure_registries: <%= p('grootfs.insecure_docker_registry_list') %>
+  skip_layer_validation: true
+  remote_layer_client_certificates_path: /var/vcap/jobs/grootfs/certs
+
+clean:
+  <% if p("grootfs.graph_cleanup_threshold_in_mb") >= 0 %>
+  threshold_bytes: <%= p("grootfs.graph_cleanup_threshold_in_mb") * 1048576 %>
+  <% end %>

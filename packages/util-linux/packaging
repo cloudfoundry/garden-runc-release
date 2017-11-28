@@ -1,0 +1,27 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+export PACKAGES=/var/vcap/packages
+export PATH=$PACKAGES/util-linux/bin:$PATH
+
+addBuildTool(){
+  export PATH=$PACKAGES/$1/bin:$PATH
+}
+
+setDeps() {
+  addBuildTool libtool
+  addBuildTool automake
+  addBuildTool pkg-config
+  addBuildTool autoconf
+  export AL_OPTS="-I/${PACKAGES}/pkg-config/share/aclocal"
+}
+
+tar xvzf util-linux/util-linux-2.28.tar.gz
+(
+  cd util-linux-2.28
+
+  setDeps
+  ./configure --prefix=$BOSH_INSTALL_TARGET
+  make
+  make install prefix=$BOSH_INSTALL_TARGET
+)

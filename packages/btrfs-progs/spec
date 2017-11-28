@@ -1,0 +1,14 @@
+---
+name: btrfs-progs
+
+dependencies:
+- autoconf
+- automake
+- libtool
+- lzo
+- pkg-config
+- util-linux
+- zlib
+
+files:
+- btrfs-progs/btrfs-progs-4.4.1.tar.gz

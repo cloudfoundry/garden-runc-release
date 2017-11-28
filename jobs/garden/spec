@@ -2,11 +2,20 @@
 name: garden
 
 templates:
-  garden_start.erb: bin/garden_start
-  garden_stop.erb: bin/garden_stop
-  envs.erb: bin/envs
-  garden-default.erb: config/garden-default
-  auplink: bin/auplink
+  bin/garden_start.erb:                     bin/garden_start
+  bin/garden_stop.erb:                      bin/garden_stop
+  bin/envs.erb:                             bin/envs
+  config/garden-default.erb:                config/garden-default
+  bin/auplink:                              bin/auplink
+  bin/btrfs-setup.erb:                      bin/btrfs-setup
+  bin/overlay-xfs-setup.erb:                bin/overlay-xfs-setup
+  bin/grootfs-utils.erb:                    bin/grootfs-utils
+  config/grootfs_config.yml.erb:            config/grootfs_config.yml
+  config/privileged_grootfs_config.yml.erb: config/privileged_grootfs_config.yml
+  certs/remote-layer.crt.erb:               certs/remote-layer.crt
+  certs/remote-layer.cert.erb:              certs/remote-layer.cert
+  certs/remote-layer.key.erb:               certs/remote-layer.key
+
 
 packages:
   - guardian
@@ -14,14 +23,12 @@ packages:
   - runc
   - busybox
   - tar
-  - garden-idmapper
+  - idmapper
   - greenskeeper
-
-provides:
-  - name: rootless_link
-    type: garden_rootless_link
-    properties:
-      - garden.experimental_rootless_mode
+  - grootfs
+  - idmapper
+  - btrfs-progs
+  - xfs-progs
 
 properties:
   garden.listen_network:
@@ -105,6 +112,10 @@ properties:
   garden.runtime_plugin:
     description: "Path to a runtime plugin binary"
 
+  garden.experimental_enable_grootfs:
+    description: "you want this. shed sucks"
+    default: false
+
   garden.image_plugin:
     description: "Path to an optional image plugin binary"
 
@@ -166,3 +177,36 @@ properties:
   garden.cleanup_process_dirs_on_wait:
     description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
     default: false
+
+  grootfs.driver:
+    description: "Filesystem driver to use."
+    default: overlay-xfs
+
+  grootfs.log_level:
+    description: "Log level for grootfs - can be debug, info, error or fatal."
+    default: info
+
+  grootfs.dropsonde_port:
+    description: "Local metron agent's port."
+    default: 3457
+
+  grootfs.insecure_docker_registry_list:
+    description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
+    default: []
+
+  grootfs.graph_cleanup_threshold_in_mb:
+    description: "Total size of all container image filesystem layers before graph cleanup is activated. -1 disables graph cleanup."
+    default: -1
+
+  grootfs.skip_mount:
+    description: "Do not mount image root filesystem automatically, just return the mount information."
+    default: false
+
+  tls.cert:
+    description: "PEM-encoded tls certificate that can be used for client or server auth"
+
+  tls.key:
+    description: "PEM-encoded tls client key"
+
+  tls.ca_cert:
+    description: "PEM-encoded tls client CA certificate for asset upload/download"

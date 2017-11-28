@@ -1,10 +1,11 @@
 ---
-name: garden-idmapper
+name: idmapper
 
 dependencies:
   - golang
 
 files:
+  - code.cloudfoundry.org/idmapper/Makefile
   - code.cloudfoundry.org/idmapper/*.go # gosub
   - code.cloudfoundry.org/idmapper/cmd/*.go # gosub
   - code.cloudfoundry.org/idmapper/cmd/maximus/*.go # gosub

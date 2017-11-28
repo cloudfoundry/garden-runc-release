@@ -17,6 +17,10 @@ cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 permit_device_control
 create_loop_devices 256
 
+<% if p("garden.experimental_enable_grootfs") %>
+${BASE_PATH}/<%= p("grootfs.driver") %>-setup
+<% end %>
+
 <% if p("garden.apparmor_profile") == "garden-default" %>
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
 <% end %>
@@ -122,6 +126,14 @@ server --skip-setup \
   --privileged-image-plugin-extra-arg=<%= arg %> \
   <% end %> \
 <% end %> \
+<% if p("garden.experimental_enable_grootfs") && !if_p("garden.image_plugin") %>
+  --image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
+  --image-plugin-extra-arg=/var/vcap/jobs/guardian/config/grootfs_config.yml \
+<% end %>
+<% if p("garden.experimental_enable_grootfs") && !if_p("garden.privileged_image_plugin") %>
+  --privileged-image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
+  --privileged-image-plugin-extra-arg=/var/vcap/jobs/guardian/config/privileged_grootfs_config.yml \
+<% end %>
 <% if_p("garden.network_plugin") do |plugin| %> \
   --network-plugin=<%= plugin %> \
   <% p("garden.network_plugin_extra_args").each do |arg| %> \

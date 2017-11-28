@@ -187,3 +187,6 @@
 	path = src/github.com/opencontainers/go-digest
 	url = https://github.com/opencontainers/go-digest
 	branch = master
+[submodule "src/code.cloudfoundry.org/grootfs"]
+	path = src/code.cloudfoundry.org/grootfs
+	url = https://github.com/cloudfoundry/grootfs

@@ -1,0 +1,11 @@
+---
+name: zlib
+
+dependencies:
+- autoconf
+- automake
+- libtool
+- pkg-config
+
+files:
+- zlib/*
