@@ -18,8 +18,14 @@ function windows_deps {
     -t code.cloudfoundry.org/garden-integration-tests/...
 }
 
+function grootfs_deps {
+  echo "code.cloudfoundry.org/grootfs"
+}
+
 (
   sort -u \
     <(linux_deps) \
-    <(windows_deps)
+    <(windows_deps) \
+    <(grootfs_deps)
+
 ) | xargs gosub sync
