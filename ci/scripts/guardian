@@ -41,7 +41,12 @@ go version
 go vet ./...
 echo "compiling test process: $(date)"
 
-cmd="ginkgo -tags daemon -r -p -race -keepGoing -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*"
+cmd="ginkgo -tags daemon -r -p -keepGoing -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs"
+if [ -n "${RACE_DETECTION:-}" ]; then
+  cmd="$cmd -race"
+fi
+cmd="$cmd $*"
+
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
 fi
