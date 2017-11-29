@@ -7,7 +7,7 @@
   value: /bin/true
 
 - type: replace
-  path: /instance_groups/0/jobs/name=garden/properties/grootfs/skip_mount?
+  path: /instance_groups/0/jobs/name=garden/properties/grootfs?/skip_mount?
   value: true
 
 - type: remove

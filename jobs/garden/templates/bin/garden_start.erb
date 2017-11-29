@@ -126,18 +126,18 @@ server --skip-setup \
   --privileged-image-plugin-extra-arg=<%= arg %> \
   <% end %> \
 <% end %> \
-<% if p("garden.image_plugin", "") == "" %>
-<% if p("garden.experimental_enable_grootfs") %>
+<% if p("garden.image_plugin", "") == "" %> \
+<% if p("garden.experimental_enable_grootfs") %> \
   --image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --image-plugin-extra-arg=/var/vcap/jobs/guardian/config/grootfs_config.yml \
-<% end %>
-<% end %>
-<% if p("garden.privileged_image_plugin", "") == "" %>
-<% if p("garden.experimental_enable_grootfs") %>
+<% end %> \
+<% end %> \
+<% if p("garden.privileged_image_plugin", "") == "" %> \
+<% if p("garden.experimental_enable_grootfs") %> \
   --privileged-image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --privileged-image-plugin-extra-arg=/var/vcap/jobs/guardian/config/privileged_grootfs_config.yml \
-<% end %>
-<% end %>
+<% end %> \
+<% end %> \
 <% if_p("garden.network_plugin") do |plugin| %> \
   --network-plugin=<%= plugin %> \
   <% p("garden.network_plugin_extra_args").each do |arg| %> \
