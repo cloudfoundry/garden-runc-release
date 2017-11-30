@@ -13,4 +13,7 @@ set -e -x
 
 # the version is based on the tag on DockerHub
 
-tar xf busybox/busybox-1.26.2.tar -C ${BOSH_INSTALL_TARGET}
+name=busybox-1.26.2
+mkdir -p $BOSH_INSTALL_TARGET/$name
+mv busybox/$name.tar ${BOSH_INSTALL_TARGET}/
+tar xf ${BOSH_INSTALL_TARGET}/$name.tar -C ${BOSH_INSTALL_TARGET}/$name

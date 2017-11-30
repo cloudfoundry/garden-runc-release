@@ -1,6 +1,6 @@
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/default_container_rootfs?
-  value: docker:///busybox:1.27.2
+  value: /var/vcap/packages/busybox/busybox-1.26.2.tar
 
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/experimental_enable_grootfs?
