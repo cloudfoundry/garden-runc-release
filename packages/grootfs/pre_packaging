@@ -1,8 +1,0 @@
-# abort script on any command that exits with a non zero value
-set -e
-
-# download and package the dependencies
-if [ ! -d code.cloudfoundry.org/grootfs/vendor/ ]; then
-  echo "please run scripts/update before creating this release"
-  exit 1
-fi
