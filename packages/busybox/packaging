@@ -1,19 +1,10 @@
 set -e -x
 
-# to generate a new busybox tarball:
-#
-# docker run -i -t --cidfile=busybox.cid busybox echo foo
-# docker export $(cat busybox.cid) > busybox.tar
-#
-# to add it to the release:
-#
-# cd garden-runc-release
-# bosh add blob busybox.tar.gz busybox
-# bosh upload blobs
+# Busybox tarball created with:
+# <garden-runc-release>/scripts/create-busybox-tar.sh busybox:1.27.2 busybox
 
-# the version is based on the tag on DockerHub
-
-name=busybox-1.26.2
+name=busybox-1.27.2
 mkdir -p $BOSH_INSTALL_TARGET/$name
-mv busybox/$name.tar ${BOSH_INSTALL_TARGET}/
-tar xf ${BOSH_INSTALL_TARGET}/$name.tar -C ${BOSH_INSTALL_TARGET}/$name
+mv busybox/$name.tar.gz ${BOSH_INSTALL_TARGET}/
+gunzip $BOSH_INSTALL_TARGET/$name.tar.gz # We need the uncompressed tar for Groot
+tar -xf ${BOSH_INSTALL_TARGET}/$name.tar -C ${BOSH_INSTALL_TARGET}/$name
