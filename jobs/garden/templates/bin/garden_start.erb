@@ -25,6 +25,10 @@ ${BASE_PATH}/<%= p("grootfs.driver") %>-setup
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
 <% end %>
 
+if ! echo madvise > /sys/kernel/mm/transparent_hugepage/enabled ; then
+  echo "Could not disable automatic transparent hugepage allocation. This is normal in bosh lite."
+fi
+
 echo 1 > /proc/sys/kernel/dmesg_restrict
 
 ulimit -n 65536
