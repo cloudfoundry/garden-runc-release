@@ -13,7 +13,8 @@ popd
 cf api "$CF_API" --skip-ssl-validation
 cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -s "$CF_SPACE" -o "$CF_ORG" --skip-ssl-validation
 
-cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f
+# Clean up any cruft
+cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
 
 export CF_AUTH_TOKEN=$(cf oauth-token)
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
