@@ -3,7 +3,7 @@ image_resource:
   type: docker-image
   source:
     repository: cfgarden/garden-ci-ubuntu
-    tag: '0.10.4'
+    tag: '0.10.6'
 
 platform: linux
 

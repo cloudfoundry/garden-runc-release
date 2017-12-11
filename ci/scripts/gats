@@ -15,6 +15,11 @@ export PATH=$GOPATH/bin:$PATH
 
 mkdir -p $GOPATH/bin
 
+pushd /opt/warden
+  mkdir gats-rootfs
+  tar -xf rootfs.tar -C gats-rootfs
+popd
+
 pushd src/github.com/opencontainers/runc
 GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
 mv runc $GOPATH/bin
@@ -61,7 +66,7 @@ pushd src/code.cloudfoundry.org/guardian
     --debug-bind-port=17013 \
     --network-pool=10.254.1.0/24 \
     --log-level=$LOG_LEVEL \
-    --default-rootfs=/opt/warden/rootfs &
+    --default-rootfs=/opt/warden/gats-rootfs &
 
   sleep 5
 popd
