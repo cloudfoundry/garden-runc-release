@@ -34,6 +34,11 @@ export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
 
+pushd /opt/warden
+  mkdir gats-rootfs
+  tar -xf rootfs.tar -C gats-rootfs
+popd
+
 $GDN_PATH \
   server \
   --depot=$tmpdir/depot \
@@ -44,7 +49,7 @@ $GDN_PATH \
   --debug-bind-port=$GARDEN_DEBUG_PORT \
   --network-pool=10.254.1.0/24 \
   --log-level="$LOG_LEVEL" \
-  --default-rootfs=/opt/warden/rootfs &
+  --default-rootfs=/opt/warden/gats-rootfs &
 
 # wait for server to start up
 # and then curl to confirm that it is
