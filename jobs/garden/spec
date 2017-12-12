@@ -74,7 +74,7 @@ properties:
 
   garden.default_container_rootfs:
     description: "path to the rootfs to use when a container specifies no rootfs"
-    default: /var/vcap/packages/busybox/busybox-1.27.2
+    default: /var/vcap/packages/busybox/busybox-1.27.2.tar
 
   garden.graph_cleanup_threshold_in_mb:
     description: "Total size of all filesystem layers downloaded from Docker registries before graph cleanup is activated. -1 disables graph cleanup."
