@@ -42,7 +42,7 @@ cd src/code.cloudfoundry.org/garden-integration-tests
 
 cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-  cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
+  cmd="$basedir/gr-release-develop/ci/scripts/slowmobius $cmd"
 fi
 
 $cmd
