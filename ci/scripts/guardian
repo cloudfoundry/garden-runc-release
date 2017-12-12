@@ -2,7 +2,7 @@
 # vim: set ft=sh
 set -ex
 
-source $(dirname $0)/aufs
+source $(dirname $0)/device-control
 
 base=$PWD
 

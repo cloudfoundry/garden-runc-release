@@ -3,7 +3,7 @@
 
 set -e -x
 
-source $(dirname $0)/aufs
+source $(dirname $0)/device-control
 cd $(dirname $0)/../..
 
 export GOROOT=/usr/local/go

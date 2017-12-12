@@ -1,0 +1,147 @@
+build_runc() {
+  local grreleasedevelopdir="$1"
+
+  pushd "$grreleasedevelopdir"/src/github.com/opencontainers/runc
+    GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
+    mv runc "$GOPATH"/bin
+  popd
+}
+
+build_nstar() {
+  local grreleasedevelopdir="$1"
+
+  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/guardian/rundmc/nstar
+    make
+    mv nstar $GOPATH/bin/
+  popd
+}
+
+build_grootfs() {
+  local grreleasedevelopdir="$1"
+
+  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/grootfs
+    make
+    mv grootfs $GOPATH/bin/
+    mv drax $GOPATH/bin/
+    mv tardis $GOPATH/bin/
+  popd
+}
+
+build_gdn() {
+  local grreleasedevelopdir="$1"
+
+  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/guardian
+    go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
+    go install code.cloudfoundry.org/guardian/cmd/dadoo
+
+    pushd cmd/init
+      gcc -static -o init init.c
+      mv init $GOPATH/bin/init
+    popd
+  popd
+}
+
+build_idmapper_binaries() {
+  local grreleasedevelopdir="$1"
+
+  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/idmapper
+    make
+    mv newuidmap $GOPATH/bin/
+    mv newgidmap $GOPATH/bin/
+    mv maximus $GOPATH/bin/
+  popd
+}
+
+setup_dirs() {
+  rm -fr $tmpdir
+  mkdir $tmpdir
+  mount -t tmpfs none $tmpdir
+
+  mkdir $tmpdir/depot
+  mkdir $tmpdir/snapshots
+  mkdir $tmpdir/graph
+  mkdir /opt/grootfs
+  mkdir -p /var/lib/grootfs/store /var/lib/grootfs-privileged/store
+}
+
+write_groot_config_file() {
+  cat <<EOF > /opt/grootfs/grootfs.yml
+---
+store: /var/lib/grootfs/store
+drax_bin: $GOPATH/bin/drax
+tardis_bin: $GOPATH/bin/tardis
+newuidmap_bin: $GOPATH/bin/newuidmap
+newgidmap_bin: $GOPATH/bin/newgidmap
+log_level: $LOG_LEVEL
+
+create:
+  with_clean: false
+  without_mount: false
+EOF
+
+  cat <<EOF > /opt/grootfs/grootfs-privileged.yml
+---
+store: /var/lib/grootfs/store-privileged
+drax_bin: $GOPATH/bin/drax
+tardis_bin: $GOPATH/bin/tardis
+newuidmap_bin: $GOPATH/bin/newuidmap
+newgidmap_bin: $GOPATH/bin/newgidmap
+log_level: $LOG_LEVEL
+
+create:
+  with_clean: false
+  without_mount: false
+EOF
+}
+
+setup_groot_stores() {
+  permit_device_control
+  create_loop_devices 256
+
+  $GOPATH/bin/grootfs \
+    --config /opt/grootfs/grootfs.yml \
+    init-store \
+    --store-size-bytes 2147483648 \
+    --uid-mapping=0:4294967294:1 \
+    --uid-mapping=1:1:4294967293 \
+    --gid-mapping=0:4294967294:1 \
+    --gid-mapping=1:1:4294967293
+
+  $GOPATH/bin/grootfs \
+    --config /opt/grootfs/grootfs-privileged.yml \
+    init-store \
+    --store-size-bytes 2147483648
+}
+
+start_gdn_server() {
+  local pathtogdn="$1"
+
+  $pathtogdn \
+    server \
+    --init-bin=$GOPATH/bin/init \
+    --dadoo-bin=$GOPATH/bin/dadoo \
+    --nstar-bin=$GOPATH/bin/nstar \
+    --tar-bin=/opt/static-assets/tar/bin/tar \
+    --iptables-bin=/opt/static-assets/iptables/sbin/iptables \
+    --iptables-restore-bin=/opt/static-assets/iptables/sbin/iptables-restore \
+    --image-plugin=$GOPATH/bin/grootfs \
+    --image-plugin-extra-arg=--config \
+    --image-plugin-extra-arg=/opt/grootfs/grootfs.yml \
+    --privileged-image-plugin=$GOPATH/bin/grootfs \
+    --privileged-image-plugin-extra-arg=--config \
+    --privileged-image-plugin-extra-arg=/opt/grootfs/grootfs-privileged.yml \
+    --uid-map-start=1 \
+    --uid-map-length=4294967293 \
+    --gid-map-start=1 \
+    --gid-map-length=4294967293 \
+    --depot=$tmpdir/depot \
+    --bind-ip=0.0.0.0 \
+    --bind-port=7777 \
+    --debug-bind-ip=0.0.0.0 \
+    --debug-bind-port=17013 \
+    --network-pool=10.254.1.0/24 \
+    --log-level=$LOG_LEVEL \
+    --default-rootfs=/opt/warden/rootfs.tar &
+
+  sleep 5
+}

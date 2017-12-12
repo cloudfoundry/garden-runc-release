@@ -3,57 +3,39 @@
 
 set -e -x
 
-base=$PWD
+basedir=$PWD
+grreleasedevelopdir="$basedir"/gr-release-develop
 
-source "$( dirname "$0" )/aufs"
-cd "$( dirname "$0" )/../.."
+source $(dirname $0)/device-control
+source $(dirname $0)/gats-utils
+cd $(dirname $0)/../..
 
 export GOROOT=/usr/local/go
+export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
+export tmpdir=/tmp/dir
 
-GDN_PATH="../gdn-linux-release/gdn"
-chmod 755 "$GDN_PATH"
-
-tmpdir=/tmp/dir
-rm -fr $tmpdir
-mkdir $tmpdir
-mount -t tmpfs none $tmpdir
-
-mkdir $tmpdir/depot
-mkdir $tmpdir/snapshots
-mkdir $tmpdir/graph
-
-permit_device_control
-create_loop_devices 256
-
-export GARDEN_ADDRESS
-GARDEN_ADDRESS="$( hostname )"
-export GARDEN_IP=0.0.0.0
+export GARDEN_ADDRESS=$(hostname)
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
 
-pushd /opt/warden
-  mkdir gats-rootfs
-  tar -xf rootfs.tar -C gats-rootfs
-popd
+mkdir -p $GOPATH/bin
 
-$GDN_PATH \
-  server \
-  --depot=$tmpdir/depot \
-  --graph=$tmpdir/graph \
-  --bind-ip=$GARDEN_IP \
-  --bind-port=$GARDEN_PORT \
-  --debug-bind-ip=$GARDEN_IP \
-  --debug-bind-port=$GARDEN_DEBUG_PORT \
-  --network-pool=10.254.1.0/24 \
-  --log-level="$LOG_LEVEL" \
-  --default-rootfs=/opt/warden/gats-rootfs &
+GDN_PATH="../gdn-linux-release/gdn"
+chmod 755 "$GDN_PATH"
 
-# wait for server to start up
-# and then curl to confirm that it is
-sleep 5
+build_runc "$grreleasedevelopdir"
+build_nstar "$grreleasedevelopdir"
+build_grootfs "$grreleasedevelopdir"
+build_gdn "$grreleasedevelopdir"
+build_idmapper_binaries "$grreleasedevelopdir"
+setup_dirs
+write_groot_config_file
+setup_groot_stores
+start_gdn_server "$GDN_PATH"
+
 curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
 
 cd src/code.cloudfoundry.org/garden-integration-tests

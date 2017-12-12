@@ -3,83 +3,43 @@
 
 set -e -x
 
-base=$PWD
+basedir=$PWD
+grreleasedevelopdir="$basedir"/gr-release-develop
 
-source $(dirname $0)/aufs
+source $(dirname $0)/device-control
+source $(dirname $0)/gats-utils
 cd $(dirname $0)/../..
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
+export tmpdir=/tmp/dir
 
-mkdir -p $GOPATH/bin
-
-pushd /opt/warden
-  mkdir gats-rootfs
-  tar -xf rootfs.tar -C gats-rootfs
-popd
-
-pushd src/github.com/opencontainers/runc
-GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
-mv runc $GOPATH/bin
-popd
-
-pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
-make
-popd
-
-pushd src/code.cloudfoundry.org/guardian
-  go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
-  go install code.cloudfoundry.org/guardian/cmd/dadoo
-
-  pushd cmd/init
-    gcc -static -o init init.c
-    mv init $GOPATH/bin/init
-  popd
-
-  tmpdir=/tmp/dir
-  rm -fr $tmpdir
-  mkdir $tmpdir
-  mount -t tmpfs none $tmpdir
-
-  mkdir $tmpdir/depot
-  mkdir $tmpdir/snapshots
-  mkdir $tmpdir/graph
-
-  permit_device_control
-  create_loop_devices 256
-
-  $GOPATH/bin/gdn \
-    server \
-    --init-bin=$GOPATH/bin/init \
-    --dadoo-bin=$GOPATH/bin/dadoo \
-    --nstar-bin=./rundmc/nstar/nstar \
-    --tar-bin=/opt/static-assets/tar/bin/tar \
-    --iptables-bin=/opt/static-assets/iptables/sbin/iptables \
-    --iptables-restore-bin=/opt/static-assets/iptables/sbin/iptables-restore \
-    --depot=$tmpdir/depot \
-    --graph=$tmpdir/graph \
-    --bind-ip=0.0.0.0 \
-    --bind-port=7777 \
-    --debug-bind-ip=0.0.0.0 \
-    --debug-bind-port=17013 \
-    --network-pool=10.254.1.0/24 \
-    --log-level=$LOG_LEVEL \
-    --default-rootfs=/opt/warden/gats-rootfs &
-
-  sleep 5
-popd
-
-cd src/code.cloudfoundry.org/garden-integration-tests
 export GARDEN_ADDRESS=$(hostname)
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
 
+mkdir -p $GOPATH/bin
+
+build_runc "$grreleasedevelopdir"
+build_nstar "$grreleasedevelopdir"
+build_grootfs "$grreleasedevelopdir"
+build_gdn "$grreleasedevelopdir"
+build_idmapper_binaries "$grreleasedevelopdir"
+setup_dirs
+write_groot_config_file
+setup_groot_stores
+start_gdn_server "$GOPATH"/bin/gdn
+
+curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
+
+cd src/code.cloudfoundry.org/garden-integration-tests
+
 cmd="ginkgo -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-  cmd="$base/gr-release-develop/ci/scripts/slowmobius $cmd"
+  cmd="$basedir/gr-release-develop/ci/scripts/slowmobius $cmd"
 fi
 
 $cmd
