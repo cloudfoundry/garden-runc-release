@@ -17,7 +17,7 @@ cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 permit_device_control
 create_loop_devices 256
 
-<% if p("garden.experimental_enable_grootfs") %>
+<% if !p("garden.deprecated_use_garden_shed") && p("garden.image_plugin", "") == "" %>
 ${BASE_PATH}/<%= p("grootfs.driver") %>-setup
 <% end %>
 
@@ -75,7 +75,6 @@ server --skip-setup \
   --bind-socket=<%= p("garden.listen_address") %> \
 <% end %> \
   --depot=$DEPOT_PATH \
-  --graph=$GRAPH_PATH \
   --properties-path=/var/vcap/data/garden/props.json \
   --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
   --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
@@ -131,14 +130,16 @@ server --skip-setup \
   <% end %> \
 <% end %> \
 <% if p("garden.image_plugin", "") == "" %> \
-<% if p("garden.experimental_enable_grootfs") %> \
+  <% if p("garden.deprecated_use_garden_shed") %> \
+  --graph=$GRAPH_PATH \
+  <% else %> \
   --image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --image-plugin-extra-arg="--config" \
   --image-plugin-extra-arg=/var/vcap/jobs/garden/config/grootfs_config.yml \
-<% end %> \
+  <% end %> \
 <% end %> \
 <% if p("garden.privileged_image_plugin", "") == "" %> \
-<% if p("garden.experimental_enable_grootfs") && !p("garden.experimental_rootless_mode") %> \
+<% if !p("garden.deprecated_use_garden_shed") && !p("garden.experimental_rootless_mode") %> \
   --privileged-image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --privileged-image-plugin-extra-arg="--config" \
   --privileged-image-plugin-extra-arg=/var/vcap/jobs/garden/config/privileged_grootfs_config.yml \

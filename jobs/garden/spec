@@ -111,8 +111,8 @@ properties:
   garden.runtime_plugin:
     description: "Path to a runtime plugin binary"
 
-  garden.experimental_enable_grootfs:
-    description: "you want this. shed sucks"
+  garden.deprecated_use_garden_shed:
+    description: "Use the deprecated garden-shed component for image management. The image_plugin property overrides this and if neither property is set, GrootFS will be used."
     default: false
 
   garden.image_plugin:
