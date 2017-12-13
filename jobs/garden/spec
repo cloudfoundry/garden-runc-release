@@ -77,7 +77,7 @@ properties:
     default: /var/vcap/packages/busybox/busybox-1.27.2.tar
 
   garden.graph_cleanup_threshold_in_mb:
-    description: "Total size of all filesystem layers downloaded from Docker registries before graph cleanup is activated. -1 disables graph cleanup."
+    description: "DEPRECATED in favour of grootfs property, unless also using deprecated_use_garden_shed property."
     default: -1
 
   garden.persistent_image_list:
@@ -105,7 +105,7 @@ properties:
     default: []
 
   garden.insecure_docker_registry_list:
-    description: "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates."
+    description: "DEPRECATED in favour of grootfs property, unless also using deprecated_use_garden_shed property."
     default: []
 
   garden.runtime_plugin:

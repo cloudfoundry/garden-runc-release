@@ -10,14 +10,15 @@ log_level: <%= p('grootfs.log_level') %>
 metron_endpoint: 127.0.0.1:<%= dropsonde_port %>
 <% end %>
 
+<% threshold_bytes = p("garden.graph_cleanup_threshold_in_mb") >= 0 ? p("garden.graph_cleanup_threshold_in_mb") : p("grootfs.graph_cleanup_threshold_in_mb") %>
 create:
-  with_clean: <%= p("grootfs.graph_cleanup_threshold_in_mb") >= 0 %>
+  with_clean: <%= threshold_bytes >= 0 %>
   without_mount: <%= p("grootfs.skip_mount") %>
-  insecure_registries: <%= p('grootfs.insecure_docker_registry_list') %>
+  insecure_registries: <%= p("garden.insecure_docker_registry_list").any? ? p("garden.insecure_docker_registry_list") : p("grootfs.insecure_docker_registry_list") %>
   skip_layer_validation: true
   remote_layer_client_certificates_path: /var/vcap/jobs/garden/certs
 
 clean:
-  <% if p("grootfs.graph_cleanup_threshold_in_mb") >= 0 %>
-  threshold_bytes: <%= p("grootfs.graph_cleanup_threshold_in_mb") * 1048576 %>
+  <% if threshold_bytes >= 0 %>
+  threshold_bytes: <%= threshold_bytes * 1048576 %>
   <% end %>
