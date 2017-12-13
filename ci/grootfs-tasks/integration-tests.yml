@@ -1,0 +1,27 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: cfgarden/grootfs-ci
+    tag: latest
+
+inputs:
+- name: gr-release-develop
+
+caches:
+- path: gr-release-develop/bin
+- path: gr-release-develop/pkg
+
+params:
+  REGISTRY_USERNAME:
+  REGISTRY_PASSWORD:
+  VOLUME_DRIVER: btrfs
+  GROOTFS_TEST_UID: 0
+  GROOTFS_TEST_GID: 0
+
+run:
+  dir: gr-release-develop
+  path: src/code.cloudfoundry.org/grootfs/ci/scripts/integration-tests.sh
+  user: root
