@@ -201,11 +201,11 @@ properties:
     description: "Do not mount image root filesystem automatically, just return the mount information."
     default: false
 
-  tls.cert:
+  grootfs.tls.cert:
     description: "PEM-encoded tls certificate that can be used for client or server auth"
 
-  tls.key:
+  grootfs.tls.key:
     description: "PEM-encoded tls client key"
 
-  tls.ca_cert:
+  grootfs.tls.ca_cert:
     description: "PEM-encoded tls client CA certificate for asset upload/download"
