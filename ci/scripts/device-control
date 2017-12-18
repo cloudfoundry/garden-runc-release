@@ -34,13 +34,11 @@ function permit_device_control() {
 }
 
 function create_loop_devices() {
-  set +x
+  set +ex
   amt=${1:-256}
   for i in $(seq 0 $amt); do
-    if ! mknod -m 0660 /dev/loop$i b 7 $i; then
-      break
-    fi
+    mknod -m 0660 /dev/loop$i b 7 $i > /dev/null 2>&1
   done
-  set -x
+  set -ex
 }
 
