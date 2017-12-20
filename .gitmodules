@@ -192,3 +192,7 @@
 	path = src/code.cloudfoundry.org/grootfs
 	url = https://github.com/cloudfoundry/grootfs
 	branch = master
+[submodule "src/github.com/hashicorp/go-multierror"]
+	path = src/github.com/hashicorp/go-multierror
+	url = https://github.com/hashicorp/go-multierror
+	branch = master
