@@ -182,6 +182,9 @@ server --skip-setup \
 <% p("garden.additional_dns_servers").each do |server| %> \
   --additional-dns-server=<%= server %> \
 <% end %> \
+<% p("garden.additional_host_entries").each do |host_entry| %> \
+  --additional-host-entry="<%= host_entry %>" \
+<% end %>
 <% if !p("garden.apparmor_profile").empty? %> \
   --apparmor=<%= p("garden.apparmor_profile") %> \
 <% end %> \
