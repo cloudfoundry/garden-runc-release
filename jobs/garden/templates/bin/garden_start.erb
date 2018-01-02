@@ -184,7 +184,7 @@ server --skip-setup \
 <% end %> \
 <% p("garden.additional_host_entries").each do |host_entry| %> \
   --additional-host-entry="<%= host_entry %>" \
-<% end %>
+<% end %> \
 <% if !p("garden.apparmor_profile").empty? %> \
   --apparmor=<%= p("garden.apparmor_profile") %> \
 <% end %> \
