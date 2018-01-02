@@ -105,7 +105,7 @@ properties:
     default: []
 
   garden.additional_host_entries:
-    description: ""
+    description: "Additional hosts file entries to be used in containers."
     default: []
 
   garden.insecure_docker_registry_list:
