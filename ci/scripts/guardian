@@ -17,11 +17,6 @@ export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 
-mkdir -p /var/run/oci
-mount -t tmpfs tmpfs /var/run/oci
-
-trap "umount /var/run/oci" EXIT
-
 # Set up AppArmor
 if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
   mount -t securityfs securityfs /sys/kernel/security
