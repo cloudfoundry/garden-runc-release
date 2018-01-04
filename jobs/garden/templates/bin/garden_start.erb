@@ -38,6 +38,7 @@ ulimit -u unlimited
 exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
      2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
+groot_config_dir="$GARDEN_CONFIG_DIR"
 exec_command="exec"
 setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 id_map_start=1
@@ -60,6 +61,11 @@ id_map_start=1
   mkdir -p $XDG_RUNTIME_DIR $TMPDIR
   chmod 700 $XDG_RUNTIME_DIR
   chown "$MAXIMUS:$MAXIMUS" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
+
+  groot_config_dir="$GARDEN_DIR/config"
+  mkdir -p $groot_config_dir
+  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" $groot_config_dir
+  chmod o+r $groot_config_dir/grootfs_config.yml
 <% end %>
 
 $setup_cmd
@@ -137,14 +143,14 @@ server --skip-setup \
   <% else %> \
   --image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --image-plugin-extra-arg="--config" \
-  --image-plugin-extra-arg=/var/vcap/jobs/garden/config/grootfs_config.yml \
+  --image-plugin-extra-arg=$groot_config_dir/grootfs_config.yml \
   <% end %> \
 <% end %> \
 <% if p("garden.privileged_image_plugin", "") == "" %> \
 <% if !p("garden.deprecated_use_garden_shed") && !p("garden.experimental_rootless_mode") %> \
   --privileged-image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --privileged-image-plugin-extra-arg="--config" \
-  --privileged-image-plugin-extra-arg=/var/vcap/jobs/garden/config/privileged_grootfs_config.yml \
+  --privileged-image-plugin-extra-arg=$groot_config_dir/privileged_grootfs_config.yml \
 <% end %> \
 <% end %> \
 <% if_p("garden.network_plugin") do |plugin| %> \
