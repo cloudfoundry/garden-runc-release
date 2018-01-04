@@ -2,4 +2,4 @@
 name: tar
 
 files:
-  - tar/tar-1.29.tar.gz
+  - tar/tar-1.30.tar.xz

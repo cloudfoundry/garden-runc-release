@@ -1,8 +1,8 @@
 set -e
 
-tar xzf tar/tar-1.29.tar.gz
+tar xf tar/tar-1.30.tar.xz
 
-cd tar-1.29
+cd tar-1.30
 export LDFLAGS=-static
 export FORCE_UNSAFE_CONFIGURE=1
 ./configure
