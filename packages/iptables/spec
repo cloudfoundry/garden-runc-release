@@ -6,7 +6,7 @@ dependencies:
 
 files:
   - iptables/iptables-1.6.1.tar.bz2
-  - iptables/libnftnl-1.0.8.tar.bz2
+  - iptables/libnftnl-1.0.9.tar.bz2
   - iptables/libmnl-1.0.4.tar.bz2
   - config/config.guess
   - config/config.sub

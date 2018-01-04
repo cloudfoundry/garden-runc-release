@@ -4,7 +4,7 @@ export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
 
 tar jxf iptables/iptables-1.6.1.tar.bz2
-tar jxf iptables/libnftnl-1.0.8.tar.bz2
+tar jxf iptables/libnftnl-1.0.9.tar.bz2
 tar jxf iptables/libmnl-1.0.4.tar.bz2
 
 pushd libmnl-1.0.4/
@@ -13,7 +13,7 @@ pushd libmnl-1.0.4/
   make install
 popd
 
-pushd libnftnl-1.0.8/
+pushd libnftnl-1.0.9/
   ./configure --prefix=${BOSH_INSTALL_TARGET}
   make
   make install
