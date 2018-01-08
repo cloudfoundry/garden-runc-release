@@ -6,7 +6,7 @@ releases:
 
 stemcells:
 - alias: stemcell
-  os: ((ubuntu-name))
+  os: ((stemcell-os))
   version: latest
 
 instance_groups:
