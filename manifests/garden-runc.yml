@@ -5,8 +5,8 @@ releases:
   version: latest
 
 stemcells:
-- alias: trusty
-  os: ubuntu-trusty
+- alias: stemcell
+  os: ((ubuntu-name))
   version: latest
 
 instance_groups:
@@ -16,7 +16,7 @@ instance_groups:
   networks:
   - name: ((network))
   azs: [((az))]
-  stemcell: trusty
+  stemcell: stemcell
   jobs:
   - name: garden
     release: garden-runc
