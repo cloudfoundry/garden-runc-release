@@ -1,4 +1,5 @@
 deployment: garden-runc
+stemcell-os: ubuntu-trusty
 vm: container
 network: lite
 az: lite
