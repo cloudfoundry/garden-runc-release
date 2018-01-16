@@ -42,6 +42,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/privchecker/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
