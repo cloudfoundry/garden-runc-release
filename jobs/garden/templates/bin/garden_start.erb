@@ -95,9 +95,6 @@ server --skip-setup \
 <% p("garden.deny_networks").each do |network| %> \
   --deny-network=<%= network %> \
 <% end %> \
-<% p("garden.allow_networks").each do |network| %> \
-  --allow-network=<%= network %> \
-<% end %> \
 <% if p("garden.destroy_containers_on_start") %> \
   --destroy-containers-on-startup \
 <% end %> \

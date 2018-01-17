@@ -46,10 +46,6 @@ properties:
     description: "List of CIDR blocks to which containers will be denied access."
     default: []
 
-  garden.allow_networks:
-    description: "List of CIDR blocks to which containers will be allowed access (applied after deny)."
-    default: []
-
   garden.allow_host_access:
     description: "A boolean stating whether or not containers started on this host should be able to reach this host."
     default: false
