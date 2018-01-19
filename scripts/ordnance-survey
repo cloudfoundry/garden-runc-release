@@ -1,0 +1,35 @@
+#/usr/bin/env bash
+# vim: set ft=sh
+set -e
+
+DIR="$( pwd )"
+
+if [[ "$(whoami)" != "root" ]]; then
+  echo "ordnance-survey needs to be run as root" 1>&2
+  exit 1
+fi
+
+mkdir os-report
+
+(
+cd os-report
+hostname > hostname
+date > date
+ps aux --forest > forest
+free -mt > free
+uname -a > uname
+uptime > uptime
+df -h > df
+( cd /var/vcap/sys/log && tar czf "${DIR}/os-report/garden.tgz" garden )
+( cd /var/log && tar czf "${DIR}/os-report/kernlog.tgz" kern.log )
+dmesg > dmesg
+cp /var/vcap/monit/monit.log .
+ls -lah /var/vcap/data/garden/depot > depot-contents
+ifconfig > ifconfig
+iptables -L > iptables-L
+iptables -tnat -L > iptables-tnat
+)
+
+tar zcf os-report.tgz os-report
+rm -rf os-report
+echo "file created: os-report.tgz"
