@@ -18,6 +18,8 @@ params:
   LOG_LEVEL: debug
   DOCKER_REGISTRY_USERNAME:
   DOCKER_REGISTRY_PASSWORD:
+  AZURE_REGISTRY_USERNAME:
+  AZURE_REGISTRY_PASSWORD:
 
 run:
   path: gr-release-develop/ci/scripts/gats
