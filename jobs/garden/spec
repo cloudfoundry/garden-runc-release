@@ -39,7 +39,7 @@ properties:
     default: /var/vcap/data/garden/garden.sock
 
   garden.network_mtu:
-    description: "Maximum network transmission unit length in bytes. Defaults to the mtu of the interface that the host uses for outbound connections. Max allowed value is 1500."
+    description: "Maximum network transmission unit length in bytes. Defaults to the mtu of the interface that the host uses for outbound connections. Max allowed value is 1500. Changed value applies only to newly created containers."
     default: 0
 
   garden.deny_networks:
@@ -47,7 +47,7 @@ properties:
     default: []
 
   garden.allow_host_access:
-    description: "A boolean stating whether or not containers started on this host should be able to reach this host."
+    description: "A boolean stating whether or not containers started on this host should be able to reach this host. Changing the value on an existing deployment requires a recreate"
     default: false
 
   garden.docker_registry_endpoint:
