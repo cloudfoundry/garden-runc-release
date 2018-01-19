@@ -210,6 +210,14 @@ cd /var/vcap/data/garden/depot/<handle>
 /var/vcap/packages/runc/bin/runc exec <handle> <command>
 ```
 
+### Troubleshooting
+
+The garden-ordnance-survey tool can be used to gather information useful for
+debuggging issues on garden-runc-release deployments. Run this command on the
+deployment VM as root:
+
+`curl bit.ly/garden-ordnance-survey -sSfL | bash`
+
 ### License
 
 Apache License 2.0
