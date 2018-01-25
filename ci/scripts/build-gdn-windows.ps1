@@ -8,7 +8,7 @@ $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
 
 if ((Get-Command "go.exe" -ErrorAction SilentlyContinue) -eq $null) {
   Write-Host "Installing Go 1.9!"
-  Invoke-WebRequest https://storage.googleapis.com/golang/go1.9.2.windows-amd64.msi -OutFile go.msi
+  Invoke-WebRequest https://storage.googleapis.com/golang/go1.9.3.windows-amd64.msi -OutFile go.msi
 
   $p = Start-Process -FilePath "msiexec" -ArgumentList "/passive /norestart /i go.msi" -Wait -PassThru
 
