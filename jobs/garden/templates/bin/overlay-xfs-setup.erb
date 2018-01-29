@@ -31,7 +31,7 @@ pre_init_store() {
 init_privileged_store() {
   local config_path=/var/vcap/jobs/garden/config/privileged_grootfs_config.yml
 
-  echo "Initialising privilged store using config at ${config_path}"
+  echo "Initialising privileged store using config at ${config_path}"
 
   grootfs --config ${config_path} init-store \
     --store-size-bytes $(volume_size)
