@@ -68,6 +68,11 @@ id_map_start=1
   chmod o+r $groot_config_dir/grootfs_config.yml
 <% end %>
 
+graph=""
+<% if p("garden.deprecated_use_garden_shed") %>
+  graph=$GRAPH_PATH
+<% end %>
+
 $setup_cmd
 
 echo $$ > $PIDFILE
@@ -81,6 +86,7 @@ server --skip-setup \
   --bind-socket=<%= p("garden.listen_address") %> \
 <% end %> \
   --depot=$DEPOT_PATH \
+  --graph="$graph" \
   --properties-path=/var/vcap/data/garden/props.json \
   --port-pool-properties-path=/var/vcap/data/garden/port-pool-props.json \
   --iptables-bin=/var/vcap/packages/iptables/sbin/iptables \
@@ -134,14 +140,10 @@ server --skip-setup \
   --privileged-image-plugin-extra-arg=<%= arg %> \
   <% end %> \
 <% end %> \
-<% if p("garden.image_plugin", "") == "" %> \
-  <% if p("garden.deprecated_use_garden_shed") %> \
-  --graph=$GRAPH_PATH \
-  <% else %> \
+<% if p("garden.image_plugin", "") == "" && !p("garden.deprecated_use_garden_shed") %> \
   --image-plugin=/var/vcap/packages/grootfs/bin/grootfs \
   --image-plugin-extra-arg="--config" \
   --image-plugin-extra-arg=$groot_config_dir/grootfs_config.yml \
-  <% end %> \
 <% end %> \
 <% if p("garden.privileged_image_plugin", "") == "" %> \
 <% if !p("garden.deprecated_use_garden_shed") && !p("garden.experimental_rootless_mode") %> \
