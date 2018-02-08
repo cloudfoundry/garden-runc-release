@@ -9,7 +9,7 @@ set -e -u -x
 export GOPATH=$PWD/gr-release-develop
 export PATH=$PATH:$GOPATH/bin
 
-go get github.com/jteeuwen/go-bindata/go-bindata
+go get github.com/masters-of-cats/go-bindata/go-bindata
 
 LINUX_ASSETS=$PWD/linux
 
