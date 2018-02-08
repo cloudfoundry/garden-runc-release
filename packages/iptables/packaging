@@ -3,7 +3,7 @@ set -e -x
 export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
 
-tar jxf iptables/iptables-1.6.1.tar.bz2
+tar jxf iptables/iptables-1.6.2.tar.bz2
 tar jxf iptables/libnftnl-1.0.9.tar.bz2
 tar jxf iptables/libmnl-1.0.4.tar.bz2
 
@@ -19,7 +19,7 @@ pushd libnftnl-1.0.9/
   make install
 popd
 
-pushd iptables-1.6.1/
+pushd iptables-1.6.2/
   if [ "`uname -m`" == "ppc64le" ]; then
     cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} ./build-aux
   fi
