@@ -20,6 +20,7 @@ params:
   DOCKER_REGISTRY_PASSWORD:
   AZURE_REGISTRY_USERNAME:
   AZURE_REGISTRY_PASSWORD:
+  GINKGO_NODES:
 
 run:
   path: gr-release-develop/ci/scripts/gats

@@ -16,6 +16,7 @@ caches:
 
 params:
   RACE_DETECTION:
+  GINKGO_NODES:
 
 run:
   path: gr-release-develop/ci/scripts/guardian

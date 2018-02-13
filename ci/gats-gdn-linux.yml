@@ -13,6 +13,7 @@ inputs:
 
 params:
   LOG_LEVEL: error
+  GINKGO_NODES:
 
 run:
   path: gr-release-develop/ci/scripts/gats-gdn-linux
