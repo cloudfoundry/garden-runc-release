@@ -1,0 +1,15 @@
+#!/bin/bash
+# vim: set ft=sh
+set -euo pipefail
+
+base=$PWD
+base_guardian=$base/gr-release-develop/src/code.cloudfoundry.org/guardian
+head_guardian=$base/guardian-pr
+
+pr_ref=$(cat "$head_guardian"/.git/head_sha)
+
+git -C "$base_guardian" remote add pr "$head_guardian"
+git -C "$base_guardian" fetch pr
+git -C "$base_guardian" checkout "$pr_ref"
+
+$base/gr-release-develop/ci/scripts/guardian
