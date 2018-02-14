@@ -28,6 +28,7 @@ packages:
   - grootfs
   - btrfs-progs
   - xfs-progs
+  - thresholder
 
 properties:
   garden.listen_network:
@@ -73,7 +74,7 @@ properties:
     default: /var/vcap/packages/busybox/busybox-1.27.2.tar
 
   garden.graph_cleanup_threshold_in_mb:
-    description: "DEPRECATED in favour of grootfs property, unless also using deprecated_use_garden_shed property."
+    description: "DEPRECATED in favour of grootfs.reserved_space_for_other_jobs_in_mb, unless also using deprecated_use_garden_shed property."
     default: -1
 
   garden.persistent_image_list:
@@ -194,7 +195,7 @@ properties:
     default: []
 
   grootfs.graph_cleanup_threshold_in_mb:
-    description: "Total size of all container image filesystem layers before graph cleanup is activated. -1 disables graph cleanup."
+    description: "DEPRECATED in favour of grootfs.reserved_space_for_other_jobs_in_mb. Total size of all container image filesystem layers before graph cleanup is activated. -1 disables graph cleanup."
     default: -1
 
   grootfs.skip_mount:
@@ -209,3 +210,7 @@ properties:
 
   grootfs.tls.ca_cert:
     description: "PEM-encoded tls client CA certificate for asset upload/download"
+
+  grootfs.reserved_space_for_other_jobs_in_mb:
+    description: "Amount of space the GC algorithm should attempt to keep free for other jobs. GC will delete  unneeded layers as needed to keep this space free (but it cannot guarantee this space remains free if more containers are created than disk space allows). -1 disables GC."
+    default: 15360
