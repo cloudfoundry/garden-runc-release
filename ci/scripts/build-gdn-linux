@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script is almost entirely based on
 # https://github.com/concourse/bin/blob/master/ci/build-linux and
 # https://github.com/concourse/bin/blob/master/scripts/build-linux
 
-set -e -u -x
+set -eux
 
 export GOPATH=$PWD/gr-release-develop
 export PATH=$PATH:$GOPATH/bin
@@ -13,14 +13,15 @@ go get github.com/masters-of-cats/go-bindata/go-bindata
 
 LINUX_ASSETS=$PWD/linux
 
-rm -rf $LINUX_ASSETS
-mkdir -p $LINUX_ASSETS/{bin,sbin}
+rm -rf "$LINUX_ASSETS"
+mkdir -p "${LINUX_ASSETS}/sbin"
+mkdir -p "${LINUX_ASSETS}/bin"
 
-cp /opt/static-assets/tar/bin/tar $LINUX_ASSETS/bin/tar
+cp /opt/static-assets/tar/bin/tar "${LINUX_ASSETS}/bin/tar"
 
 # go-bindata does weird stuff with symlinks. we only care about iptables anyway
-cp -aL /opt/static-assets/iptables/sbin/iptables $LINUX_ASSETS/sbin/iptables
-cp -aL /opt/static-assets/iptables/sbin/iptables-restore $LINUX_ASSETS/sbin/iptables-restore
+cp -aL /opt/static-assets/iptables/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
+cp -aL /opt/static-assets/iptables/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
 
 pushd gr-release-develop
   # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
@@ -32,6 +33,7 @@ pushd gr-release-develop
     export GOPATH=$PWD
 
     go install code.cloudfoundry.org/guardian/cmd/dadoo
+    cp bin/dadoo "${LINUX_ASSETS}/bin"
 
     pushd src/github.com/opencontainers/runc
       PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
@@ -39,20 +41,18 @@ pushd gr-release-develop
         BUILDTAGS=seccomp \
         make static
 
-      mv runc $LINUX_ASSETS/bin
+      mv runc "${LINUX_ASSETS}/bin"
     popd
 
     pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
       make
-      mv nstar $LINUX_ASSETS/bin
+      mv nstar "${LINUX_ASSETS}/bin"
     popd
 
     pushd src/code.cloudfoundry.org/guardian/cmd/init
       gcc -static -o init init.c
-      mv init $LINUX_ASSETS/bin
+      mv init "${LINUX_ASSETS}/bin"
     popd
-
-    cp bin/dadoo $LINUX_ASSETS/bin
   )
 popd
 
