@@ -2,21 +2,78 @@
 set -euo pipefail
 
 ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
-(
-cd "$ROOT_DIR_PATH"
+RED=1
+GREEN=2
+print_message() {
+  message=$1
+  colour=$2
+  printf "\r\033[00;3%sm[%s]\033[0m\n" "$colour" "$message"
+}
 
-pushd src/code.cloudfoundry.org/guardian
-  go vet ./...
-  go fmt ./...
-popd
+usage() {
+  colour=$1
+  print_message "Usage:" "$colour"
+  print_message "test -a --- run all tests in parallel (tmux panes will autosplit)" "$colour"
+  print_message "test -s --- run all tests in serial (very boring not advised)" "$colour"
+}
 
-pushd src/code.cloudfoundry.org/garden
-  go vet ./...
-  go fmt ./...
-popd
+go_vet_and_fmt() {
+  cd "$ROOT_DIR_PATH"
 
-./scripts/remote-fly ci/garden.yml
-./scripts/remote-fly ci/guardian.yml
-./scripts/remote-fly ci/guardian-windows.yml
-./scripts/remote-fly ci/gats.yml
-)
+  pushd src/code.cloudfoundry.org/guardian
+    go vet ./...
+    go fmt ./...
+  popd
+
+  pushd src/code.cloudfoundry.org/garden
+    go vet ./...
+    go fmt ./...
+  popd
+}
+
+run_tests_in_serial() {
+  go_vet_and_fmt
+  ./scripts/remote-fly ci/garden.yml
+  ./scripts/remote-fly ci/guardian.yml
+  ./scripts/remote-fly ci/guardian-windows.yml
+  ./scripts/remote-fly ci/gdn-linux.yml
+  ./scripts/remote-fly ci/gdn-linux-standalone.yml
+}
+
+run_tests_in_parallel() {
+  print_message "about to run tests in parallel, it will be awesome" $GREEN
+  print_message "ctrl-d panes when they are done" $RED
+  ( go_vet_and_fmt )
+  tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/garden.yml; bash\""
+  tmux split-window -h -p 70 "/bin/bash -c \"./scripts/remote-fly ci/guardian.yml; bash\""
+  tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/guardian-windows.yml; bash\""
+  tmux split-window -p 70 "/bin/bash -c \"./scripts/remote-fly ci/gdn-linux.yml; bash\""
+  tmux split-window -p 60 "/bin/bash -c \"./scripts/remote-fly ci/gdn-linux-standalone.yml; bash\""
+}
+
+if [ -z "$*" ]; then
+  print_message "you are about to run tests in serial, are you sure you don't want to try the new exciting test option?" $RED
+  print_message "ctrl-c this garbage and run './scripts/test -h' to find out more" $GREEN
+  ( run_tests_in_serial )
+fi
+
+while getopts "ash" OPTION; do
+  case $OPTION in
+    a)
+      run_tests_in_parallel
+     exit
+     ;;
+    s)
+      ( run_tests_in_serial )
+    exit
+    ;;
+    h)
+      usage $GREEN
+    exit
+    ;;
+    *)
+      usage $RED
+    exit
+    ;;
+ esac
+done
