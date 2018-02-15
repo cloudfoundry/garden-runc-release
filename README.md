@@ -168,14 +168,15 @@ ginkgo -r
 #### Integration tests
 
 The integration tests can be executed in Concourse CI by using Fly CLI and
-executing `./scripts/remote-fly`:
+executing `./scripts/test`.
+To run individual tests, use`./scripts/remote-fly`:
 
 ```bash
 # Running Guardian tests
 ./scripts/remote-fly ci/guardian.yml
 
-# Running Garden Shed tests
-./scripts/remote-fly ci/nested-shed-tests.yml
+# Running Garden tests
+./scripts/remote-fly ci/garden.yml
 
 # Running Garden integration tests in Concourse CI
 ./scripts/remote-fly ci/gats.yml
