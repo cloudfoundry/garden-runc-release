@@ -114,9 +114,7 @@ setup_groot_stores() {
 }
 
 start_gdn_server() {
-  local pathtogdn="$1"
-
-  $pathtogdn \
+  "${GOPATH}/bin/gdn" \
     server \
     --init-bin=$GOPATH/bin/init \
     --dadoo-bin=$GOPATH/bin/dadoo \

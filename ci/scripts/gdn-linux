@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# vim: set ft=sh
+
+set -ex
+
+basedir=$PWD
+grreleasedevelopdir="$basedir"/gr-release-develop
+
+# shellcheck source=./device-control
+source "$( dirname "$0" )/device-control"
+
+# shellcheck source=./gats-utils
+source "$( dirname "$0" )/gats-utils"
+
+function build() {
+  mkdir -p "${GOPATH}/bin"
+  build_runc "$grreleasedevelopdir"
+  build_nstar "$grreleasedevelopdir"
+  build_grootfs "$grreleasedevelopdir"
+  build_gdn "$grreleasedevelopdir"
+  build_idmapper_binaries "$grreleasedevelopdir"
+}
+
+function prepare() {
+  setup_dirs
+  write_groot_config_file
+  setup_groot_stores
+  start_gdn_server
+
+  curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
+}
+
+function test() {
+  cd src/code.cloudfoundry.org/garden-integration-tests
+
+  cmd="ginkgo -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
+  if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+    cmd="$basedir/gr-release-develop/ci/scripts/slowmobius $cmd"
+  fi
+
+  $cmd
+}
+
+cd "$( dirname "$0" )/../.."
+
+export GOPATH=$PWD
+export PATH=$GOPATH/bin:$PATH
+export tmpdir=/tmp/dir
+
+export GARDEN_ADDRESS
+GARDEN_ADDRESS="$( hostname )"
+export GARDEN_PORT=7777
+export GARDEN_DEBUG_PORT=17013
+export NESTED=true
+
+build
+prepare
+test "$*"

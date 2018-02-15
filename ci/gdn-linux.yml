@@ -13,5 +13,8 @@ inputs:
 outputs:
 - name: binary
 
+params:
+  LOG_LEVEL: error
+
 run:
-  path: gr-release-develop/ci/scripts/build-gdn-linux
+  path: gr-release-develop/ci/scripts/gdn-linux

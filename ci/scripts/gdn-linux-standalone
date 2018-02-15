@@ -4,10 +4,13 @@
 # https://github.com/concourse/bin/blob/master/ci/build-linux and
 # https://github.com/concourse/bin/blob/master/scripts/build-linux
 
-set -eux
+set -ex
 
 export GOPATH=$PWD/gr-release-develop
 export PATH=$PATH:$GOPATH/bin
+
+# shellcheck source=./device-control
+source "$( dirname "$0" )/device-control"
 
 go get github.com/masters-of-cats/go-bindata/go-bindata
 
@@ -28,10 +31,6 @@ pushd gr-release-develop
   HOME=$PWD bosh sync-blobs
 
   (
-    set -e -u -x
-
-    export GOPATH=$PWD
-
     go install code.cloudfoundry.org/guardian/cmd/dadoo
     cp bin/dadoo "${LINUX_ASSETS}/bin"
 
@@ -53,6 +52,12 @@ pushd gr-release-develop
       gcc -static -o init init.c
       mv init "${LINUX_ASSETS}/bin"
     popd
+
+    pushd src/code.cloudfoundry.org/grootfs
+      make
+      mv grootfs "${LINUX_ASSETS}/bin"
+      mv tardis "${LINUX_ASSETS}/bin"
+    popd
   )
 popd
 
@@ -63,3 +68,46 @@ go build \
   -tags daemon \
   -o binary/gdn \
   code.cloudfoundry.org/guardian/cmd/gdn
+
+start_gdn_server() {
+  binary/gdn \
+    server \
+    --depot="${tmpdir}/depot" \
+    --bind-ip=0.0.0.0 \
+    --bind-port=7777 \
+    --debug-bind-ip=0.0.0.0 \
+    --debug-bind-port=17013 \
+    --network-pool=10.254.1.0/24 \
+    --log-level="${LOG_LEVEL}" \
+    --default-rootfs=/opt/warden/rootfs.tar &
+
+  sleep 5
+  curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
+}
+
+function test() {
+  cd "${GOPATH}"/src/code.cloudfoundry.org/garden-integration-tests
+
+  cmd="ginkgo -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
+  if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+    cmd="$basedir/gr-release-develop/ci/scripts/slowmobius $cmd"
+  fi
+
+  $cmd
+}
+
+# permit_device_control
+# create_loop_devices 256
+
+# export tmpdir=/tmp/dir
+# export GARDEN_ADDRESS
+# GARDEN_ADDRESS="$( hostname )"
+# export GARDEN_PORT=7777
+# export GARDEN_DEBUG_PORT=17013
+# export NESTED=true
+
+# mkdir -p /var/lib/grootfs/store
+# mkdir -p /var/lib/grootfs-privileged/store
+
+# start_gdn_server
+# test "$*"

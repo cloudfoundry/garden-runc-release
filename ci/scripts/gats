@@ -1,14 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # vim: set ft=sh
 
-set -e -x
+set -ex
 
 basedir=$PWD
 grreleasedevelopdir="$basedir"/gr-release-develop
 
-source $(dirname $0)/device-control
-source $(dirname $0)/gats-utils
-cd $(dirname $0)/../..
+# shellcheck source=./device-control
+source "$( dirname "$0" )/device-control"
+
+# shellcheck source=./gats-utils
+source "$( dirname "$0" )/gats-utils"
+
+cd "$( dirname "$0" )/../.."
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
@@ -16,12 +20,13 @@ export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 export tmpdir=/tmp/dir
 
-export GARDEN_ADDRESS=$(hostname)
+export GARDEN_ADDRESS
+GARDEN_ADDRESS="$( hostname )"
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true
 
-mkdir -p $GOPATH/bin
+mkdir -p "${GOPATH}/bin"
 
 build_runc "$grreleasedevelopdir"
 build_nstar "$grreleasedevelopdir"
@@ -31,7 +36,7 @@ build_idmapper_binaries "$grreleasedevelopdir"
 setup_dirs
 write_groot_config_file
 setup_groot_stores
-start_gdn_server "$GOPATH"/bin/gdn
+start_gdn_server
 
 curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
 
