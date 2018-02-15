@@ -24,6 +24,32 @@ For each process created inside the container (via the garden `container.Run` AP
 
 Inside this directory are named pipes (FIFOs) representing the stdin/out/err streams, a pipe named ‘exit’ which remains open while the process is open and then is closed when it exits and a named pipe named ‘winsz’ which is used to communicate window size change events to the running process. These files are connected to the container process by the `dadoo` helper executable (described below), allowing guardian to re-connect to the process’s streams and wait for the process to exit even after restarting.
 
+#### Partially-unshared processes
+
+Many container processes share everything with other processes in the same
+container. At the runC level, these are also modelled as processes "inside" a
+container, and can be listed using `runc ps`. However, using the fields `Image`
+or `OverrideContainerLimits` on a `ProcessSpec`, processes that do not share
+everything with other processes in the same container can be created.
+
+At the runC level, these "partially unshared" Garden processes are not runC
+processes, but runC containers. This separate container will still share many
+of its resources with the initial runC container that was created when we
+created the Garden container that this process is a member of.
+
+Like the other runC containers, these process containers also have a bundle
+directory. It is located in
+`$depot_dir/$outer_container_handle/processes/$inner_container_dir/` and is a
+combination of the `Container subdirectories` and the `Process subdirectories`
+described above. The directory contains a `config.json` which describes the
+"inner container" that is going to be created when calling `runc run -d` and
+also the pipes and `pidfile` of the process that is going to run in that
+container.
+
+The newly created container can be seen by running `runc list`, and all
+container-related operations apply to it as usual. Using its id, you can get
+information about the partially-unshared process through `runc ps <id>`.
+
 ### The Graph
 
 The graph stores the filesystem layers which make up the root filesystem images for containers. In the case of docker images these are downloaded from a remote docker registry. In the case of "preloaded" root filesystems these are imported from a path on disk. 

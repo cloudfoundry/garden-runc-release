@@ -51,6 +51,10 @@ For more advanced use cases, you'll need to use the [Garden
 client](https://godoc.org/code.cloudfoundry.org/garden#Client)
 package for Golang.
 
+### Operating garden-runc
+
+[Operator's guide.](docs/opsguide.md)
+
 ### Rootless containers
 
 Garden has experimental support for running containers without requiring root
