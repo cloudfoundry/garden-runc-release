@@ -105,37 +105,37 @@ direnv allow
 
 [Concourse CI](https://concourse.ci/) is used for running Garden-runC tests
 in a VM. It provides the [Fly CLI](https://github.com/concourse/fly) for
-Linux and MacOSX. Concourse has a pre-built Vagrant box for VirtualBox. You
-can create a new instance by executing the following commands:
+Linux and MacOSX. A Single VM Concourse can be deployed using BOSH.
+Create a new directory:
 
 ```bash
 mkdir concourse-lite
 cd concourse-lite
-vagrant init concourse/lite
-vagrant up
 ```
 
-Note: The concourse-lite VM must have at least 6GB of RAM. If it has less than
-6GB, you'll start to see tests failing with 'out of disk' errors.
-The following can be copied to the Vagrantfile to assign the recommended
-resources:
+Then follow the instructions [here](http://concourse.ci/concourse-lite.html)
 
-```
-config.vm.provider "virtualbox" do |v|
-  v.memory = 6144
-  v.cpus = 4
-end
-```
-
-Open [http://192.168.100.4:8080](http://192.168.100.4:8080) in a web browser
-and download the [Fly CLI](http://concourse.ci/fly-cli.html) from the
-bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
+Then open [http://192.168.100.4:8080](http://192.168.100.4:8080) in a web browser
+and download the [Fly CLI](http://concourse.ci/fly-cli.html) using the links at
+the bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
 
 The tests use the [Ginkgo](https://onsi.github.io/ginkgo/) BDD testing
 framework.
 
 Assuming you have configured a Concourse and installed Ginkgo, you can run all
 the tests by executing `./scripts/test`.
+
+Note: The concourse-lite VM may need to be provisioned with more RAM
+If you start to see tests failing with 'out of disk' errors,  open the
+`concourse-lite.yml`, change the properties detailed below, and [recreate the env](http://concourse.ci/concourse-lite.html). 
+
+```
+resource_pools:
+- cloud_properties:
+    cpus: 4
+    ephemeral_disk: 32768
+    memory: 6144
+```
 
 #### Unit tests
 
