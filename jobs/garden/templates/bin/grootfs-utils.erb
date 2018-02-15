@@ -49,18 +49,3 @@ volume_size() {
   <% end %>
   echo "$(( $(df --output=size  $store_mountpoint | sed 1d) * 1024 ))"
 }
-
-delete_store() {
-  local config_path=$1
-  local store_path=$2
-  local volume_file=$3
-
-  # Allow grootfs delete-store and umount to fail, because we could
-  # have an malformed store.
-  grootfs --config $config_path delete-store || true
-  umount --force $store_path || true
-
-  # Ensure that the store is deleted, or fail
-  rm -rf $store_path
-  rm -f $volume_file
-}
