@@ -12,64 +12,69 @@ export PATH=$PATH:$GOPATH/bin
 # shellcheck source=./device-control
 source "$( dirname "$0" )/device-control"
 
-go get github.com/masters-of-cats/go-bindata/go-bindata
+function build() {
+  go get github.com/masters-of-cats/go-bindata/go-bindata
 
-LINUX_ASSETS=$PWD/linux
+  LINUX_ASSETS=$PWD/linux
 
-rm -rf "$LINUX_ASSETS"
-mkdir -p "${LINUX_ASSETS}/sbin"
-mkdir -p "${LINUX_ASSETS}/bin"
+  rm -rf "$LINUX_ASSETS"
+  mkdir -p "${LINUX_ASSETS}/sbin"
+  mkdir -p "${LINUX_ASSETS}/bin"
 
-cp /opt/static-assets/tar/bin/tar "${LINUX_ASSETS}/bin/tar"
+  cp /opt/static-assets/tar/bin/tar "${LINUX_ASSETS}/bin/tar"
 
-# go-bindata does weird stuff with symlinks. we only care about iptables anyway
-cp -aL /opt/static-assets/iptables/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
-cp -aL /opt/static-assets/iptables/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
+  # go-bindata does weird stuff with symlinks. we only care about iptables anyway
+  cp -aL /opt/static-assets/iptables/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
+  cp -aL /opt/static-assets/iptables/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
 
-pushd gr-release-develop
-  # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
-  HOME=$PWD bosh sync-blobs
+  pushd gr-release-develop
+    # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
+    HOME=$PWD bosh sync-blobs
 
-  (
-    go install code.cloudfoundry.org/guardian/cmd/dadoo
-    cp bin/dadoo "${LINUX_ASSETS}/bin"
+    (
+      go install code.cloudfoundry.org/guardian/cmd/dadoo
+      cp bin/dadoo "${LINUX_ASSETS}/bin"
 
-    pushd src/github.com/opencontainers/runc
-      PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
-        GOPATH=$PWD/Godeps/_workspace:$GOPATH \
-        BUILDTAGS=seccomp \
-        make static
+      pushd src/github.com/opencontainers/runc
+        PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
+          GOPATH=$PWD/Godeps/_workspace:$GOPATH \
+          BUILDTAGS=seccomp \
+          make static
 
-      mv runc "${LINUX_ASSETS}/bin"
-    popd
+        mv runc "${LINUX_ASSETS}/bin"
+      popd
 
-    pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
-      make
-      mv nstar "${LINUX_ASSETS}/bin"
-    popd
+      pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
+        make
+        mv nstar "${LINUX_ASSETS}/bin"
+      popd
 
-    pushd src/code.cloudfoundry.org/guardian/cmd/init
-      gcc -static -o init init.c
-      mv init "${LINUX_ASSETS}/bin"
-    popd
+      pushd src/code.cloudfoundry.org/guardian/cmd/init
+        gcc -static -o init init.c
+        mv init "${LINUX_ASSETS}/bin"
+      popd
 
-    pushd src/code.cloudfoundry.org/grootfs
-      make
-      mv grootfs "${LINUX_ASSETS}/bin"
-      mv tardis "${LINUX_ASSETS}/bin"
-    popd
-  )
-popd
+      pushd src/code.cloudfoundry.org/grootfs
+        make
+        mv grootfs "${LINUX_ASSETS}/bin"
+        mv tardis "${LINUX_ASSETS}/bin"
+      popd
+    )
+  popd
 
-go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
+  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
 
-# must be built with 'daemon' flag because of docker packages :|
-go build \
-  -tags daemon \
-  -o binary/gdn \
-  code.cloudfoundry.org/guardian/cmd/gdn
+  # must be built with 'daemon' flag because of docker packages :|
+  go build \
+    -tags daemon \
+    -o binary/gdn \
+    code.cloudfoundry.org/guardian/cmd/gdn
+}
 
-start_gdn_server() {
+function prepare() {
+  permit_device_control
+  create_loop_devices 256
+
   binary/gdn \
     server \
     --depot="${tmpdir}/depot" \
@@ -96,18 +101,13 @@ function test() {
   $cmd
 }
 
-# permit_device_control
-# create_loop_devices 256
+export tmpdir=/tmp/dir
+export GARDEN_ADDRESS
+GARDEN_ADDRESS="$( hostname )"
+export GARDEN_PORT=7777
+export GARDEN_DEBUG_PORT=17013
+export NESTED=true
 
-# export tmpdir=/tmp/dir
-# export GARDEN_ADDRESS
-# GARDEN_ADDRESS="$( hostname )"
-# export GARDEN_PORT=7777
-# export GARDEN_DEBUG_PORT=17013
-# export NESTED=true
-
-# mkdir -p /var/lib/grootfs/store
-# mkdir -p /var/lib/grootfs-privileged/store
-
-# start_gdn_server
-# test "$*"
+build
+prepare
+test "$*"
