@@ -179,7 +179,7 @@ To run individual tests, use`./scripts/remote-fly`:
 ./scripts/remote-fly ci/garden.yml
 
 # Running Garden integration tests in Concourse CI
-./scripts/remote-fly ci/gats.yml
+./scripts/remote-fly ci/gdn-linux.yml
 ```
 
 #### Comitting code
