@@ -2,12 +2,13 @@
 
 ## About
 
-This document details how garbage collection of unused container image layers occurs inside Garden and Grootfs.
-When a container is created in garden, Grootfs is invoked to download all required image layers and to combine them into a single container rootfs.
-If creating a buildpack-based application, there are only 2 layers - the rootfs layer (typically cflinuxfs2) and the droplet layer (your appliaction code + deps).
+This document details how garbage collection of unused container image layers occurs inside Garden and GrootFS.
+When using the default configuration, when a container is created in garden, GrootFS is invoked to fetch all required image layers and to combine them into a single container rootfs.
+If creating a buildpack-based application, there is currently on a single layer - the Cloud Foundry stack (typically cflinuxfs2). The droplet (your application code + deps) is later copied into the rootfs.
+There is work undergoing to also provide the droplet as a layer, resulting in the rootfs consisting of a 2 layer (the stack and the droplet) OCI image, but this can be ignored for now.
 If creating a docker-based application, there are potentially many more layers!
 
-It is desirable to keep these layers in a cache in order to improve the efficiency of future container creates.
+It is desirable to keep these layers in a cache in order to improve the efficiency of future container creates, to avoid having to fetch layers again.
 However, over time and with more and more creates, the cache can expand in size and start to take up a considerable amount of space on the `/var/vcap/data` disk.
 Garbage collection in this context is the process by which we prune the cache of unused layers in order to free up disk space.
 
@@ -15,8 +16,7 @@ Garbage collection in this context is the process by which we prune the cache of
 
 An unused layer is one that is not currently in use by any running container, and as such can be marked for garbage collection.
 
-For example: Imagine that we create two containers from different base
-images, `Container A` and `Container B`:
+For example: Imagine that we create two containers, `Container A` and `Container B` from different base images:
 
 ```
 - Container A
@@ -38,13 +38,13 @@ They have a layer in common, `layer-1`. After deleting  `Container B`,
 
 ## When does garbage collection run?
 
-Garbage collection occurs at the time of container creation, specifically just immediately after Grootfs has created the rootfs. This is to avoid pruning the cache of layers that might be used by the container that's being created.
-However, layers will only be deleted if the configured threshold has been reached. When determining if the threshold has been reached, the following things are taken into consideration:
+Garbage collection occurs at the time of container creation, specifically just immediately after GrootFS has created the rootfs in order to avoid pruning the cache of layers that might be used by the container that's being created.
+However, layers will only be deleted if a configured threshold has been exceeded. When determining if the threshold has been exceeded, the following things are taken into consideration:
 
-1. Total disk size used by all layers on disk
+1. Total disk size used by all layers, excluding the top level read-write layer presented to the container
 1. The total disk size of all container disk quotas 
 
-If the sum of these two things is >= the configured threshold, then we attempt to clean up unused layers.
+If the sum of these two things is >= the configured threshold, an attempt is made to clean up unused layers.
 
 ## How do I configure the garbage collection threshold?
 
@@ -58,14 +58,14 @@ The recommended way to set the threshold is to use the `grootfs.reserved_space_f
 When this property is set (and assuming the two deprecated properties are not set), the threshold is calculated as follows:
 
 ```
-threshold = size of the /var/vcap/data disk - the value of grootfs.reserved_space_for_other_jobs_in_mb
+threshold = sizeof(/var/vcap/data disk) in MB - (grootfs.reserved_space_for_other_jobs_in_mb)
 ```
 
-In other words, Grootfs will use as much of the disk as possible, but will try to preserve at least `grootfs.reserved_space_for_other_jobs_in_mb` MB for other jobs to use. The hope is that this makes it easier for operators to configure the threshold to a value that actually makes sense! I.e. Rather than having to correctly guess a value to explicitly set the threshold value to.
+In other words, GrootFS will use as much of the disk as possible, but will try to preserve at least `grootfs.reserved_space_for_other_jobs_in_mb` MB for other jobs to use. The hope is that this makes it easier for operators to configure the threshold to a value that actually makes sense! I.e. Rather than having to correctly guess a value to explicitly set the threshold value to.
 
 **Note** If the value of `grootfs.reserved_space_for_other_jobs_in_mb` is > the size of the disk, then the threshold is set to 0, meaning that garbage collection will run on every container create.
 
-**Note** Container creates will not fail if the new container would cause Grootfs to encroach into the reserved disk space.
+**Note** Container creates will not fail if the new container would cause GrootFS to encroach into the reserved disk space, but garbage collection will be performed after creation.
 
 The `garden.graph_cleanup_threshold_in_mb` and `grootfs.graph_cleanup_threshold_in_mb` properties cause the threshold to be set explicitly. These are now marked as deprecated and only exist in order to preserve backwards compatibility. We recommend that you stop setting these properties entirely, and instead set the threshold implicitly via the `grootfs.reserved_space_for_other_jobs_in_mb`. 
 
