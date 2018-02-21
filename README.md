@@ -19,25 +19,19 @@ git submodule update --init --recursive
 
 ### Running
 
-**Note**: If you are transitioning from garden-linux-release to
-garden-runc-release, please read the transition doc
-[here](https://github.com/cloudfoundry/garden-runc-release/blob/master/docs/transition-from-garden-linux.md).
-
 The easiest way to run Garden-runC is to deploy it with [BOSH
 Lite](https://bosh.io/docs/bosh-lite.html), a VirtualBox development
 environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite
-(follow the instructions in the bosh-lite repo), just deploy like any bosh
+(follow the instructions in the bosh-lite docs), just deploy like any bosh
 release, e.g:
 
-~~~~
+```bash
 cd garden-runc-release # if you're not already there
-./scripts/create-upload-lite-release.sh
 ./scripts/deploy-lite.sh
-~~~~
+```
 
 You can retrieve the address of the Garden-runC server by running `bosh vms`.
-It will be `10.244.16.6` if using the provided bosh-lite manifest in
-[manifests/bosh-lite.yml](https://github.com/cloudfoundry/garden-runc-release/blob/master/manifests/bosh-lite.yml).
+It will be `10.244.0.2` if using the provided deploy-lite script. 
 The server port defaults to `7777`.
 
 ### Usage
@@ -45,7 +39,7 @@ The server port defaults to `7777`.
 The easiest way to start creating containers is to use the
 [`gaol`](https://github.com/contraband/gaol) command line client.
 
-e.g. `gaol -t 10.244.16.6:7777 create -n my-container`
+e.g. `gaol -t 10.244.0.2:7777 create -n my-container`
 
 For more advanced use cases, you'll need to use the [Garden
 client](https://godoc.org/code.cloudfoundry.org/garden#Client)
@@ -73,7 +67,7 @@ You can use other distributions or OS X for development since a good chunk of
 the unit tests work across alternative platforms, and you can run platform
 specific tests in a VM using [Concourse CI](https://concourse.ci/).
 
-In order to contribute to the project you should have the following installed:
+In order to contribute to the project you may want some of the following installed:
 
 - [Git](https://git-scm.com/) - Distributed version control system
 - [Go](https://golang.org/doc/install#install) - The Go programming
@@ -85,15 +79,18 @@ In order to contribute to the project you should have the following installed:
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
 
 Garden-runC uses git submodules to maintain its dependencies and components.
-Garden-runC's components currently are:
+Some of Garden-runC's important components currently are:
 
 * [Garden](https://github.com/cloudfoundry/garden) found under
    `src/code.cloudfoundry.org/garden` is the API server and client.
 * [Guardian](https://github.com/cloudfoundry/guardian) found under
    `src/code.cloudfoundry.org/guardian` is the Garden backend.
-* [Garden Shed](https://github.com/cloudfoundry/garden-shed) found under
-   `src/code.cloudfoundry.org/garden-shed` downloads and manages
+* [GrootFS](https://github.com/cloudfoundry/grootfs) found under
+   `src/code.cloudfoundry.org/grootfs` downloads and manages
    root filesystems.
+* [Garden Shed](https://github.com/cloudfoundry/garden-shed) found under
+   `src/code.cloudfoundry.org/garden-shed` is the legacy rootfs management piece,
+   superseded by GrootFS.
 * [GATS](https://github.com/cloudfoundry/garden-integration-tests)
    found under `src/code.cloudfoundry.org/garden-integration-tests`
    are the cross-backend integration tests of Garden.
@@ -109,61 +106,21 @@ direnv allow
 
 [Concourse CI](https://concourse.ci/) is used for running Garden-runC tests
 in a VM. It provides the [Fly CLI](https://github.com/concourse/fly) for
-Linux and MacOSX. A Single VM Concourse can be deployed using BOSH.
-Create a new directory:
+Linux and MacOSX. Instructions for deploying a single VM Concourse using BOSH
+can be found in the [concourse-deployment repo](https://github.com/concourse/concourse-deployment)
 
-```bash
-mkdir concourse-lite
-cd concourse-lite
-```
-
-Then follow the instructions [here](http://concourse.ci/concourse-lite.html)
-
-Then open [http://192.168.100.4:8080](http://192.168.100.4:8080) in a web browser
-and download the [Fly CLI](http://concourse.ci/fly-cli.html) using the links at
+Once running, navigate to [https://192.168.100.4:8080](https://192.168.100.4:8080) in a web browser
+and download the [Fly CLI](https://concourse.ci/fly-cli.html) using the links found in
 the bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
 
 The tests use the [Ginkgo](https://onsi.github.io/ginkgo/) BDD testing
 framework.
 
 Assuming you have configured a Concourse and installed Ginkgo, you can run all
-the tests by executing `./scripts/test`.
+the tests by executing `./scripts/test` from the top level `garden-runc-release` directory.
 
 Note: The concourse-lite VM may need to be provisioned with more RAM
-If you start to see tests failing with 'out of disk' errors,  open the
-`concourse-lite.yml`, change the properties detailed below, and [recreate the env](http://concourse.ci/concourse-lite.html). 
-
-```
-resource_pools:
-- cloud_properties:
-    cpus: 4
-    ephemeral_disk: 32768
-    memory: 6144
-```
-
-#### Unit tests
-
-If you are using Linux based operation system like Ubuntu, you should install
-[Aufs](http://aufs.sourceforge.net/) if you want to run tests on your local
-machine.
-
-```bash
-sudo apt-get install linux-image-extra-$(uname -r)
-sudo modprobe aufs
-```
-
-The unit tests can be executed without Concourse CLI by running `ginkgo -r`
-command for any of the components:
-
-```bash
-# Running Garden unit tests
-cd src/code.cloudfoundry.org/garden
-ginkgo -r
-
-# Running Guardian unit tests
-cd src/code.cloudfoundry.org/guardian
-ginkgo -r
-```
+If you start to see tests failing with 'out of disk' errors.
 
 #### Integration tests
 
@@ -182,7 +139,34 @@ To run individual tests, use`./scripts/remote-fly`:
 ./scripts/remote-fly ci/gdn-linux.yml
 ```
 
-#### Comitting code
+#### Running the tests locally
+
+It is possible to run the integration tests locally on a Linux based OS like Ubuntu, but we don't recommend it
+due to the dependencies required, and the need for parts of the testing suite to run as a privileged user. 
+If you'd like to run them locally, you will need at least:
+* A recent version of Go (1.8+)
+* Kernel version 4.4+
+* Running as a privileged user
+* [AUFS](https://aufs.sourceforge.net)
+* [Overlayfs](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt)
+* [xfs](http://xfs.org)
+
+The tests can be executed without Concourse CLI by running `ginkgo -r`
+command for any of the components:
+
+```bash
+# Running Garden unit tests
+cd src/code.cloudfoundry.org/garden
+ginkgo -r
+
+# Running Guardian unit tests
+cd src/code.cloudfoundry.org/guardian
+ginkgo -r
+```
+
+It should be possible to run the unit tests on any system that satisfies golang build constraints.
+
+#### Committing code
 
 Write code in a submodule:
 
@@ -218,7 +202,7 @@ cd /var/vcap/data/garden/depot/<handle>
 ### Troubleshooting
 
 The garden-ordnance-survey tool can be used to gather information useful for
-debuggging issues on garden-runc-release deployments. Run this command on the
+debugging issues on garden-runc-release deployments. Run this command on the
 deployment VM as root:
 
 `curl bit.ly/garden-ordnance-survey -sSfL | bash`
