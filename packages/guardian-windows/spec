@@ -10,7 +10,6 @@ files:
   - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/garden/*.go # gosub
-  - code.cloudfoundry.org/garden-shed/rootfs_spec/*.go # gosub
   - code.cloudfoundry.org/garden/routes/*.go # gosub
   - code.cloudfoundry.org/garden/server/*.go # gosub
   - code.cloudfoundry.org/garden/server/bomberman/*.go # gosub
