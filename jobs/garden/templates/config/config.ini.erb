@@ -20,7 +20,7 @@
       privileged_image_plugin          = plugin
     end
 
-    use_garden_shed                       = p("garden.deprecated_use_garden_shed")
+    use_garden_shed                       = p("garden.deprecated_use_garden_shed") && !image_plugin_provided
     use_provided_image_plugin             = image_plugin_provided
     use_provided_privileged_image_plugin  = privileged_image_plugin_provided
     use_default_image_plugin              = !image_plugin_provided && !use_garden_shed
