@@ -12,10 +12,10 @@ templates:
   bin/grootfs-utils.erb:                    bin/grootfs-utils
   config/grootfs_config.yml.erb:            config/grootfs_config.yml
   config/privileged_grootfs_config.yml.erb: config/privileged_grootfs_config.yml
+  config/config.ini.erb:                    config/config.ini
   certs/remote-layer.crt.erb:               certs/remote-layer.crt
   certs/remote-layer.cert.erb:              certs/remote-layer.cert
   certs/remote-layer.key.erb:               certs/remote-layer.key
-
 
 packages:
   - guardian
@@ -111,6 +111,7 @@ properties:
 
   garden.runtime_plugin:
     description: "Path to a runtime plugin binary"
+    default: /var/vcap/packages/runc/bin/runc
 
   garden.deprecated_use_garden_shed:
     description: "Use the deprecated garden-shed component for image management. The image_plugin property overrides this and if neither property is set, GrootFS will be used."
