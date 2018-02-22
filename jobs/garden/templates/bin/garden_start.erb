@@ -41,10 +41,11 @@ ulimit -u unlimited
 exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
      2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
-groot_config_dir="$GARDEN_CONFIG_DIR"
-exec_command="exec"
 setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
+exec_command="exec"
 id_map_start=1
+garden_configfile_path="$GARDEN_CONFIG_DIR/config.ini"
+
 <% if p("garden.experimental_rootless_mode") %>
   <% if p("garden.listen_network") == "tcp" %>
     exec_command="exec execas --uid $MAXIMUS --gid $MAXIMUS"
@@ -65,10 +66,12 @@ id_map_start=1
   chmod 700 $XDG_RUNTIME_DIR
   chown "$MAXIMUS:$MAXIMUS" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
 
-  groot_config_dir="$GARDEN_DIR/config"
-  mkdir -p $groot_config_dir
-  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" $groot_config_dir
-  chmod o+r $groot_config_dir/grootfs_config.yml
+  garden_rootless_config_dir="$GARDEN_DIR/config"
+  mkdir -p "$garden_rootless_config_dir"
+  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" "$GARDEN_CONFIG_DIR/config.ini" "$garden_rootless_config_dir"
+  chown "$MAXIMUS:$MAXIMUS" "$garden_rootless_config_dir/grootfs_config.yml" "$garden_rootless_config_dir/config.ini"
+
+  garden_configfile_path="$garden_rootless_config_dir/config.ini"
 <% end %>
 
 $setup_cmd
@@ -76,7 +79,7 @@ $setup_cmd
 echo $$ > $PIDFILE
 
 $exec_command /var/vcap/packages/guardian/bin/gdn \
-  --config /var/vcap/jobs/garden/config/config.ini \
+  --config "$garden_configfile_path" \
   server \
   --uid-map-start="$id_map_start" \
   --uid-map-length=$((MAXIMUS-id_map_start)) \
