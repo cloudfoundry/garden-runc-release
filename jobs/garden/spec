@@ -7,7 +7,7 @@ templates:
   bin/envs.erb:                             bin/envs
   config/garden-default.erb:                config/garden-default
   bin/auplink:                              bin/auplink
-  bin/btrfs-setup.erb:                      bin/btrfs-setup
+  bin/btrfs-setup:                          bin/btrfs-setup
   bin/overlay-xfs-setup.erb:                bin/overlay-xfs-setup
   bin/grootfs-utils.erb:                    bin/grootfs-utils
   config/grootfs_config.yml.erb:            config/grootfs_config.yml

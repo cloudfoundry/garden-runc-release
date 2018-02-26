@@ -1,12 +1,13 @@
-!/bin/bash
-
+#!/usr/bin/env bash
 set -ex
 
 main() {
+  # shellcheck disable=SC1091
   source /var/vcap/jobs/garden/bin/grootfs-utils
 
   export PATH=/var/vcap/packages/grootfs/bin:/var/vcap/packages/btrfs-progs/bin:$PATH
 
+  store_mountpoint=${store_mountpoint:?}
   local privileged_store_path=${store_mountpoint}/grootfs/store/privileged
   local privileged_volume_file=${store_mountpoint}/grootfs/store/privileged.backing-store
   local privileged_config=/var/vcap/jobs/garden/config/privileged_grootfs_config.yml
@@ -14,10 +15,10 @@ main() {
   local unprivileged_volume_file=${store_mountpoint}/grootfs/store/unprivileged.backing-store
   local unprivileged_config=/var/vcap/jobs/garden/config/grootfs_config.yml
 
-  create_store $privileged_store_path $privileged_volume_file $privileged_config
-  init_privileged_store $privileged_config
+  create_store "$privileged_store_path" "$privileged_volume_file" "$privileged_config"
+  init_privileged_store "$privileged_config"
 
-  create_store $unprivileged_store_path $unprivileged_volume_file $unprivileged_config
+  create_store "$unprivileged_store_path" "$unprivileged_volume_file" "$unprivileged_config"
   init_unprivileged_store $unprivileged_config
 
   drax_setup
@@ -35,21 +36,21 @@ create_store() {
   converge_store "privileged"
   converge_store "unprivileged"
 
-  create_volume_file $volume_file
-  format_volume_file $volume_file
+  create_volume_file "$volume_file"
+  format_volume_file "$volume_file"
 
-  mount_btrfs_volume $volume_file $store_path
-  enable_btrfs_quotas $store_path
+  mount_btrfs_volume "$volume_file" "$store_path"
+  enable_btrfs_quotas "$store_path"
 }
 
 init_privileged_store() {
   local config_path=$1
-  grootfs --config ${config_path} init-store
+  grootfs --config "$config_path" init-store
 }
 
 init_unprivileged_store() {
   local config_path=$1
-  grootfs --config ${config_path} init-store \
+  grootfs --config "$config_path" init-store \
     --uid-mapping "$(unprivileged_root_mapping)" \
     --uid-mapping "$(unprivileged_range_mapping)" \
     --gid-mapping "$(unprivileged_root_mapping)" \
@@ -64,10 +65,10 @@ drax_setup() {
 
 format_volume_file() {
   local volume_file=$1
-  if [ -z "$(file $volume_file | grep -i "BTRFS Filesystem")" ]
+  if [ -z "$(file "$volume_file" | grep -i "BTRFS Filesystem")" ]
   then
     echo "formatting btrfs volume..."
-    mkfs.btrfs -f $volume_file
+    mkfs.btrfs -f "$volume_file"
   fi
 }
 
@@ -76,12 +77,12 @@ mount_btrfs_volume() {
   local store_path=$2
 
   echo "mounting the btrfs volume..."
-  mount -o remount,user_subvol_rm_allowed $volume_file $store_path || mount -o user_subvol_rm_allowed $volume_file $store_path
+  mount -o remount,user_subvol_rm_allowed "$volume_file" "$store_path" || mount -o user_subvol_rm_allowed "$volume_file" "$store_path"
 }
 
 enable_btrfs_quotas() {
   local store_path=$1
-  btrfs quota enable $store_path
+  btrfs quota enable "$store_path"
 }
 
 # Temporary upgrade path
@@ -92,10 +93,10 @@ converge_store() {
   local new_volume_path=${store_mountpoint}/grootfs/store/${store_type}.backing-store
   local store_path=${store_mountpoint}/grootfs/store/${store_type}
 
-  if mount | grep $old_volume_path | grep btrfs
+  if mount | grep "$old_volume_path" | grep btrfs
   then
-    mv $old_volume_path $new_volume_path
-    mount -t btrfs -o remount,user_subvol_rm_allowed $new_volume_path $store_path
+    mv "$old_volume_path" "$new_volume_path"
+    mount -t btrfs -o remount,user_subvol_rm_allowed "$new_volume_path" "$store_path"
   fi
 }
 
