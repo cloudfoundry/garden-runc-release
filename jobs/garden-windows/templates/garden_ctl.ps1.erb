@@ -3,10 +3,8 @@ trap { $host.SetShouldExit(1) }
 
 $gardenDir="C:\var\vcap\data\garden"
 $depotDir=(Join-Path $gardenDir "depot")
-$imageStore=(Join-Path $gardenDir "image-store")
 
 New-Item $depotDir -ItemType Directory -Force
-New-Item $imageStore -ItemType Directory -Force
 
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
@@ -21,12 +19,10 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --default-rootfs=<%= p("garden.default_container_rootfs") %> `
   <% end %> `
   --runtime-plugin=<%= p("garden.runtime_plugin") %> `
-  --runtime-plugin-extra-arg=--image-store=$imageStore `
   <% p("garden.runtime_plugin_extra_args").each do |arg| %> `
   --runtime-plugin-extra-arg=<%= arg %> `
   <% end %> `
   --image-plugin=<%= p("garden.image_plugin") %> `
-  --image-plugin-extra-arg=--store=$imageStore `
   <% p("garden.image_plugin_extra_args").each do |arg| %> `
   --image-plugin-extra-arg=<%= arg %> `
   <% end %> `
