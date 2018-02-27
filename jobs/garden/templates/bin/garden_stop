@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
 set -e
 
+# shellcheck disable=SC1091
 source /var/vcap/jobs/garden/bin/envs
 
 function wait_pid() {
