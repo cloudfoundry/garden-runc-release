@@ -22,11 +22,11 @@ var _ = Describe("Greenskeeper", func() {
 
 	Context("happy path", func() {
 		var (
-			stdout      *gbytes.Buffer
 			envs        []string
 			pidFileName string
 			tmpDir      string
 		)
+
 		BeforeEach(func() {
 			var err error
 			tmpDir, err = ioutil.TempDir("", "")
@@ -46,15 +46,15 @@ var _ = Describe("Greenskeeper", func() {
 
 			gkCmd = exec.Command(gkBin)
 			gkCmd.Env = envs
-			stdout = gbytes.NewBuffer()
 		})
 
 		JustBeforeEach(func() {
-			session := gexecStartAndWait(gkCmd, stdout, GinkgoWriter)
+			session := gexecStartAndWait(gkCmd, GinkgoWriter, GinkgoWriter)
 			Expect(session.ExitCode()).To(Equal(0))
 			Expect(pidFileName).NotTo(BeAnExistingFile())
-			Expect(stdout).To(gbytes.Say("Removing stale pidfile..."))
+			Expect(session.Out).To(gbytes.Say("Removing stale pidfile..."))
 		})
+
 		AfterEach(func() {
 			os.RemoveAll(tmpDir)
 			Expect(tmpDir).NotTo(BeADirectory())
