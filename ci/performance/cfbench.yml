@@ -32,4 +32,4 @@ params:
   DATADOG_APPLICATION_KEY:
 
 run:
-  path: gr-release-develop/ci/scripts/cfbench
+  path: gr-release-develop/ci/performance/cfbench

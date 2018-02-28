@@ -2,8 +2,8 @@
 image_resource:
   type: docker-image
   source:
-    repository: cfgarden/garden-ci-ubuntu
-    tag: '0.11.6'
+    repository: cfgarden/golang-ci
+    tag: 0.4.2
 
 platform: linux
 
@@ -15,9 +15,9 @@ caches:
 - path: gr-release-develop/pkg
 
 params:
-  RACE_DETECTION:
-  PATCH_RUNC:
-  GINKGO_NODES:
+  GARDEN_ADDRESS: ""
+  DATADOG_API_KEY: ""
+  ENVIRONMENT: ""
 
 run:
-  path: gr-release-develop/ci/scripts/guardian
+  path: gr-release-develop/ci/performance/performance-tests

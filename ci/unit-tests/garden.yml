@@ -9,11 +9,9 @@ platform: linux
 
 inputs:
 - name: gr-release-develop
-- name: gdn-linux-release
-- name: wooter
 
 params:
-  LOG_LEVEL: error
+  GINKGO_NODES:
 
 run:
-  path: gr-release-develop/ci/scripts/gats-gdn-wootfs
+  path: gr-release-develop/ci/unit-tests/garden

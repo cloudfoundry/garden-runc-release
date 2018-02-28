@@ -1,17 +1,14 @@
 ---
+platform: linux
+
 image_resource:
   type: docker-image
   source:
     repository: cfgarden/garden-ci-ubuntu
     tag: '0.11.6'
 
-platform: linux
-
 inputs:
-- name: gr-release-develop
-
-params:
-  GINKGO_NODES:
+  - name: gr-release-develop
 
 run:
-  path: gr-release-develop/ci/scripts/garden
+  path: gr-release-develop/ci/unit-tests/thresholder

@@ -18,4 +18,4 @@ params:
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
 
 run:
-  path: gr-release-develop/ci/scripts/gdn-linux-standalone
+  path: gr-release-develop/ci/build-steps/gdn-linux-standalone

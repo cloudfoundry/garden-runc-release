@@ -25,4 +25,4 @@ params:
   ROOTLESS: ""
 
 run:
-  path: gr-release-develop/ci/scripts/non-nested-gats
+  path: gr-release-develop/ci/integration-tests/non-nested-gats

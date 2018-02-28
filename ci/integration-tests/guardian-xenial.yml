@@ -2,8 +2,8 @@
 image_resource:
   type: docker-image
   source:
-    repository: cfgarden/golang-ci
-    tag: 0.4.2
+    repository: cfgarden/garden-ci-xenial
+    tag: 0.1.1
 
 platform: linux
 
@@ -15,9 +15,8 @@ caches:
 - path: gr-release-develop/pkg
 
 params:
-  GARDEN_ADDRESS: ""
-  DATADOG_API_KEY: ""
-  ENVIRONMENT: ""
+  RACE_DETECTION:
+  GINKGO_NODES:
 
 run:
-  path: gr-release-develop/ci/scripts/performance-tests
+  path: gr-release-develop/ci/unit-tests/guardian

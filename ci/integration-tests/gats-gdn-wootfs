@@ -39,7 +39,8 @@ export GARDEN_DEBUG_PORT=17013
 GDN_PATH=gdn-linux-release/gdn
 chmod 755 "$GDN_PATH"
 
-source gr-release-develop/ci/scripts/device-control
+# shellcheck source=../helpers/device-control
+source gr-release-develop/ci/helpers/device-control
 
 tmpdir=/tmp/dir
 rm -fr $tmpdir
@@ -81,7 +82,7 @@ export WOOT=true
 pushd gr-release-develop/src/code.cloudfoundry.org/garden-integration-tests
   cmd="ginkgo -failOnPending -randomizeSuites -randomizeAllSpecs $*"
   if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-    cmd="gr-release-develop/ci/scripts/slowmobius $cmd"
+    cmd="gr-release-develop/ci/helpers/slowmobius $cmd"
   fi
 
   $cmd

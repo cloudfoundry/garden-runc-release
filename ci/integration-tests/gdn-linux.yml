@@ -18,4 +18,4 @@ params:
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
 
 run:
-  path: gr-release-develop/ci/scripts/gdn-linux
+  path: gr-release-develop/ci/intgration-tests/gdn-linux

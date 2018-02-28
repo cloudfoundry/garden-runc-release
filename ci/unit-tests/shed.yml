@@ -2,8 +2,8 @@
 image_resource:
   type: docker-image
   source:
-    repository: cfgarden/garden-ci-xenial
-    tag: 0.1.1
+    repository: cfgarden/garden-ci-ubuntu
+    tag: '0.11.6'
 
 platform: linux
 
@@ -14,9 +14,5 @@ caches:
 - path: gr-release-develop/bin
 - path: gr-release-develop/pkg
 
-params:
-  RACE_DETECTION:
-  GINKGO_NODES:
-
 run:
-  path: gr-release-develop/ci/scripts/guardian
+  path: gr-release-develop/ci/unit-tests/shed

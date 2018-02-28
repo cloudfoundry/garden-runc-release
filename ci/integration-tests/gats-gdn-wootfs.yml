@@ -1,0 +1,19 @@
+---
+image_resource:
+  type: docker-image
+  source:
+    repository: cfgarden/garden-ci-ubuntu
+    tag: '0.11.6'
+
+platform: linux
+
+inputs:
+- name: gr-release-develop
+- name: gdn-linux-release
+- name: wooter
+
+params:
+  LOG_LEVEL: error
+
+run:
+  path: gr-release-develop/ci/integration-tests/gats-gdn-wootfs

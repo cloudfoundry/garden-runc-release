@@ -14,5 +14,10 @@ caches:
 - path: gr-release-develop/bin
 - path: gr-release-develop/pkg
 
+params:
+  RACE_DETECTION:
+  PATCH_RUNC:
+  GINKGO_NODES:
+
 run:
-  path: gr-release-develop/ci/scripts/shed
+  path: gr-release-develop/ci/unit-tests/guardian

@@ -13,4 +13,4 @@ outputs:
   - name: release-merged
 
 run:
-  path: gr-release-develop/ci/scripts/merge-master
+  path: gr-release-develop/ci/build-steps/merge-master

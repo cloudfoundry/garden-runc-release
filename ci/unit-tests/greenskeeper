@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# vim: set ft=sh
+set -ex
+
+export GOPATH="${PWD}/gr-release-develop"
+
+cd gr-release-develop/src/greenskeeper
+
+ginkgo --race -r --randomizeAllSpecs "$@"

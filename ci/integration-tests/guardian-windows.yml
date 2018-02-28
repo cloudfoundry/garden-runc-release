@@ -10,4 +10,4 @@ run:
   - "-ExecutionPolicy"
   - "Bypass"
   - "-File"
-  - gr-release-develop/ci/scripts/guardian-windows.ps1
+  - gr-release-develop/ci/integration-tests/guardian-windows.ps1
