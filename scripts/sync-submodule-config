@@ -1,5 +1,5 @@
-#!/bin/bash
-set -e -x
+#!/usr/bin/env bash
+set -ex
 
 # fail fast if gosub is not installed
 which gosub

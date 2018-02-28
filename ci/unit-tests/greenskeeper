@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# vim: set ft=sh
 set -ex
 
 export GOPATH="${PWD}/gr-release-develop"

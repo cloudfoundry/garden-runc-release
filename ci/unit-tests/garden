@@ -1,6 +1,4 @@
-#!/bin/bash
-# vim: set ft=sh
-
+#!/usr/bin/env bash
 set -ex
 
 cd "$( dirname "$0" )/../.."
@@ -14,4 +12,4 @@ export PATH=$GOPATH/bin:$PATH
 cd src/code.cloudfoundry.org/garden
 
 go vet ./...
-ginkgo -r -p -race -keepGoing -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs "$@"
+ginkgo -r -p --race --keepGoing --nodes="${GINKGO_NODES:-8}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"

@@ -1,12 +1,10 @@
-#!/bin/bash
-# vim: set ft=sh
-
+#!/usr/bin/env bash
 set -ex
 
 # shellcheck source=../helpers/device-control
 source "$( dirname "$0" )/../helpers/device-control"
 
-cd $(dirname $0)/../..
+cd "$( dirname "$0" )/../.."
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
@@ -20,4 +18,4 @@ permit_device_control
 create_loop_devices 256
 
 go tool vet -printf=false .
-ginkgo -tags daemon -r -p -race -keepGoing -nodes=8 -failOnPending -randomizeSuites "$@"
+ginkgo --tags daemon -r -p --race --keepGoing --nodes=8 --failOnPending --randomizeSuites "$@"

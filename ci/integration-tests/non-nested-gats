@@ -1,7 +1,5 @@
-#!/bin/bash
-# vim: set ft=sh
-
-set -e -x
+#!/usr/bin/env bash
+set -ex
 
 base=$PWD
 
@@ -12,7 +10,7 @@ export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-integration-tests
 
-cmd="ginkgo -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs"
+cmd="ginkgo -p --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
 fi

@@ -1,12 +1,10 @@
-#!/bin/bash
-# vim: set ft=sh
+#!/usr/bin/env bash
 
 # *** HOWTO run ***
 # fly -t garden-ci e -c ci/build-gdn-linux.yml -i gr-release-develop=. -o binary=.
 # fly -t garden-ci e -p -c ci/gats-gdn-wootfs.yml -i gr-release-develop=. -i gdn-linux-release=. -i wooter=$HOME/go/src/github.com/julz/wooter
 # *****************
-
-set -e -x
+set -ex
 
 mkdir go
 
@@ -80,7 +78,7 @@ export WOOT=true
 
 # do not parallelize tests because wooter plugin writes to shared folder
 pushd gr-release-develop/src/code.cloudfoundry.org/garden-integration-tests
-  cmd="ginkgo -failOnPending -randomizeSuites -randomizeAllSpecs $*"
+  cmd="ginkgo --failOnPending --randomizeSuites --randomizeAllSpecs $*"
   if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
     cmd="gr-release-develop/ci/helpers/slowmobius $cmd"
   fi

@@ -1,5 +1,4 @@
-#!/bin/bash
-# vim: set ft=sh
+#!/usr/bin/env bash
 set -ex
 
 # shellcheck source=../helpers/device-control
@@ -55,9 +54,9 @@ if [ -z "${NO_GO_VET:-}" ]; then
 fi
 echo "compiling test process: $(date)"
 
-cmd="ginkgo -tags daemon -r -p -keepGoing -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs"
+cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
 if [ -n "${RACE_DETECTION:-}" ]; then
-  cmd="$cmd -race"
+  cmd="$cmd --race"
 fi
 cmd="$cmd $*"
 

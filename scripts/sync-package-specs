@@ -1,5 +1,5 @@
-#!/bin/bash
-set -e -x
+#!/usr/bin/env bash
+set -ex
 
 if ! which gosub >/dev/null 2>&1 ; then
   echo "gosub not found. In the global $GOPATH, try: go get github.com/vito/gosub"

@@ -1,5 +1,5 @@
-#!/bin/bash
-set -e -x
+#!/usr/bin/env bash
+set -ex
 
 ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
 cd "$ROOT_DIR_PATH"

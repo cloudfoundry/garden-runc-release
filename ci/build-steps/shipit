@@ -1,7 +1,5 @@
-#!/bin/bash
-# vim: set ft=sh
-
-set -exuo pipefail
+#!/usr/bin/env bash
+set -euo pipefail
 
 base=$PWD
 

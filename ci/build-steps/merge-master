@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e -x
+#!/usr/bin/env bash
+set -ex
 
 export PATH=$GOPATH/bin:$PATH
 
@@ -9,7 +9,7 @@ git clone ./gr-release-master ./release-merged
 
 cd release-merged
 
-git remote add local $DEVELOP
+git remote add local "$DEVELOP"
 
 git fetch local
 git checkout local/develop

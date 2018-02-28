@@ -1,10 +1,11 @@
-#!/bin/bash
-# vim: set ft=sh
-
+#!/usr/bin/env bash
 set -e
 
-export PATH=$(pwd)/bin:$PATH
-export GOPATH=$(pwd)
+export PATH
+PATH="$( pwd )/bin:${PATH}"
+
+export GOPATH
+GOPATH="$( pwd )"
 
 pushd src/github.com/teddyking/cfbench
 go install
@@ -16,16 +17,18 @@ cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -s "$CF_SPACE" -o "$CF_ORG" --skip-
 # Clean up any cruft
 cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
 
-export CF_AUTH_TOKEN=$(cf oauth-token)
+export CF_AUTH_TOKEN
+CF_AUTH_TOKEN="$( cf oauth-token )"
+
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 CF_ENV=${CF_ENV:-local}
 
 dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=9
 
 cfbench \
-  -action $CF_ACTION \
-  -instances $INSTANCES \
-  -tag $CF_ENV \
+  -action "$CF_ACTION" \
+  -instances "$INSTANCES" \
+  -tag "$CF_ENV" \
   -app-dir cf-acceptance-tests/assets/dora \
   -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
 
