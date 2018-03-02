@@ -3,7 +3,7 @@ image_resource:
   type: docker-image
   source:
     repository: cfgarden/golang-ci
-    tag: 0.4.2
+    tag: 0.4.3
 
 platform: linux
 
