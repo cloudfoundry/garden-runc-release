@@ -20,6 +20,7 @@ files:
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/winit/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
+  - code.cloudfoundry.org/guardian/gardener/container-spec/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
   - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
