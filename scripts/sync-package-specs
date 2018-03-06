@@ -27,6 +27,7 @@ pushd "$ROOT_DIR_PATH"/packages/guardian-windows
     cat spec | grep -v '# gosub'
     GOOS=windows gosub list \
       -a code.cloudfoundry.org/guardian/cmd/gdn \
+      -a code.cloudfoundry.org/guardian/cmd/winit \
       | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
   } > spec.new
 

@@ -10,6 +10,8 @@ $env:GOPATH="${BOSH_INSTALL_TARGET}"
 $env:PATH="${env:GOROOT}\bin;${env:PATH}"
 $pkg_name="gdn"
 $pkg_path="code.cloudfoundry.org/guardian/cmd/gdn"
+$init_bin_name="winit"
+$init_bin_path="code.cloudfoundry.org/guardian/cmd/winit"
 
 # Create GOPATH
 New-Item -ItemType "directory" -Force "${BOSH_INSTALL_TARGET}\src"
@@ -20,6 +22,11 @@ if ($LASTEXITCODE -ge 8) {
 }
 
 go.exe build -o "${BOSH_INSTALL_TARGET}\${pkg_name}.exe" "${pkg_path}"
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Error compiling: ${pkg_path}"
+}
+
+go.exe build -o "${BOSH_INSTALL_TARGET}\${init_bin_name}.exe" "${init_bin_path}"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: ${pkg_path}"
 }

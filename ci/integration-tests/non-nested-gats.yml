@@ -23,6 +23,8 @@ params:
   AZURE_REGISTRY_USERNAME:
   AZURE_REGISTRY_PASSWORD:
   ROOTLESS: ""
+  WINDOWS_TEST_ROOTFS:
+  SLOW_MOBIUS_TIME_LIMIT_SECONDS:
 
 run:
   path: gr-release-develop/ci/integration-tests/non-nested-gats

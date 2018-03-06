@@ -14,6 +14,7 @@ go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
 go install code.cloudfoundry.org/guardian/cmd/dadoo
 go install code.cloudfoundry.org/guardian/cmd/socket2me
 go install code.cloudfoundry.org/guardian/cmd/execas
+go install code.cloudfoundry.org/guardian/cmd/winit
 
 pushd code.cloudfoundry.org/guardian/rundmc/nstar
   make

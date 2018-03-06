@@ -18,6 +18,7 @@ files:
   - code.cloudfoundry.org/garden/transport/*.go # gosub
   - code.cloudfoundry.org/guardian/bindata/*.go # gosub
   - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
+  - code.cloudfoundry.org/guardian/cmd/winit/*.go # gosub
   - code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
   - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
