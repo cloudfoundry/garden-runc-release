@@ -46,7 +46,7 @@ run_tests_in_parallel() {
   ( go_vet_and_fmt )
   tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/garden.yml; bash\""
   tmux split-window -h -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian.yml; bash\""
-  tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/integration-tests/guardian-windows.yml; bash\""
+  tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian-windows.yml; bash\""
   tmux split-window -p 70 "/bin/bash -c \"./scripts/remote-fly ci/integration-tests/gdn-linux.yml; bash\""
   tmux split-window -p 60 "/bin/bash -c \"./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml; bash\""
 }
