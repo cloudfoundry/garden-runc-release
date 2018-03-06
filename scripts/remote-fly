@@ -8,5 +8,5 @@ if [ -z "$GARDEN_REMOTE_ATC_URL" ]; then
   fly -t lite login -c http://192.168.100.4:8080
   fly -t lite e -x -p -i gr-release-develop=. -c "$build_yml" "$@"
 else
-  fly --target "$GARDEN_REMOTE_ATC_URL" e -p -i gr-release-develop=. -c "$build_yml" "$@"
+  fly --target "$GARDEN_REMOTE_ATC_URL" e -p -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
 fi
