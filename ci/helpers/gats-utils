@@ -22,7 +22,6 @@ build_grootfs() {
   pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/grootfs
     make
     mv grootfs $GOPATH/bin/
-    mv drax $GOPATH/bin/
     mv tardis $GOPATH/bin/
   popd
 }
@@ -68,7 +67,6 @@ write_groot_config_file() {
   cat <<EOF > /opt/grootfs/grootfs.yml
 ---
 store: /var/lib/grootfs/store
-drax_bin: $GOPATH/bin/drax
 tardis_bin: $GOPATH/bin/tardis
 newuidmap_bin: $GOPATH/bin/newuidmap
 newgidmap_bin: $GOPATH/bin/newgidmap
@@ -82,7 +80,6 @@ EOF
   cat <<EOF > /opt/grootfs/grootfs-privileged.yml
 ---
 store: /var/lib/grootfs/store-privileged
-drax_bin: $GOPATH/bin/drax
 tardis_bin: $GOPATH/bin/tardis
 newuidmap_bin: $GOPATH/bin/newuidmap
 newgidmap_bin: $GOPATH/bin/newgidmap

@@ -1,7 +1,5 @@
 store: /var/vcap/data/grootfs/store/privileged
-driver: <%= p('grootfs.driver') %>
-btrfs_progs_path: /var/vcap/packages/btrfs-progs/bin
-drax_bin: /var/vcap/packages/grootfs/bin/drax
+driver: overlay-xfs
 tardis_bin: /var/vcap/packages/grootfs/bin/tardis
 newuidmap_bin: /var/vcap/packages/garden-idmapper/bin/newuidmap
 newgidmap_bin: /var/vcap/packages/garden-idmapper/bin/newgidmap

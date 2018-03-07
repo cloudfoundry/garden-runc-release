@@ -66,7 +66,7 @@ Guardian consists of three primary “modules”, these are the Networker, The R
 
 It is possible to override the networker and the rootfs manager by specifying, respectively, the `network_plugin` and/or the `image_plugin` bosh properties. Setting either of these properties to the path of a binary will cause guardian to shell out to that binary to create the network and/or to download and prepare the root filesystem for the container._
 
-The [container-to-container networking project](https://github.com/cloudfoundry-incubator/netman-release) implements the `network_plugin` contract and the “[grootFS](https://github.com/cloudfoundry/grootfs-release)” btrfs-based oci-compliant rootfs manager implements the `image_plugin` contract.
+The [container-to-container networking project](https://github.com/cloudfoundry-incubator/netman-release) implements the `network_plugin` contract and the “[grootFS](https://github.com/cloudfoundry/grootfs-release)” overlay/xfs-based oci-compliant rootfs manager implements the `image_plugin` contract.
 
 ### RunDMC
 

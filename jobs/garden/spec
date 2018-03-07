@@ -7,7 +7,6 @@ templates:
   bin/envs.erb:                             bin/envs
   config/garden-default.erb:                config/garden-default
   bin/auplink:                              bin/auplink
-  bin/btrfs-setup:                          bin/btrfs-setup
   bin/overlay-xfs-setup:                    bin/overlay-xfs-setup
   bin/grootfs-utils.erb:                    bin/grootfs-utils
   config/grootfs_config.yml.erb:            config/grootfs_config.yml
@@ -26,7 +25,6 @@ packages:
   - garden-idmapper
   - greenskeeper
   - grootfs
-  - btrfs-progs
   - xfs-progs
   - thresholder
 
@@ -180,7 +178,7 @@ properties:
     default: false
 
   grootfs.driver:
-    description: "Filesystem driver to use."
+    description: "To be deprecated: Filesystem driver to use. Only supported option is overlay-xfs."
     default: overlay-xfs
 
   grootfs.log_level:
