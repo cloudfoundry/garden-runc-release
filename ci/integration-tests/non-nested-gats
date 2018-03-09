@@ -10,13 +10,13 @@ export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-integration-tests
 
-cmd="ginkgo --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -v -stream"
+cmd="ginkgo --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -stream"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
 fi
 
 if [ -n "${WINDOWS_TEST_ROOTFS:-}" ]; then
-  cmd="ginkgo -v -stream gats98"
+  cmd="ginkgo -stream gats98"
 fi
 
 $cmd
