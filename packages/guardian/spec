@@ -59,6 +59,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/privchecker/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/peas/processwaiter/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
@@ -158,6 +159,7 @@ files:
   - github.com/hashicorp/go-multierror/vendor/github.com/hashicorp/errwrap/*.go # gosub
   - github.com/jessevdk/go-flags/*.go # gosub
   - github.com/mitchellh/copystructure/*.go # gosub
+  - github.com/mitchellh/go-ps/*.go # gosub
   - github.com/mitchellh/reflectwalk/*.go # gosub
   - github.com/nu7hatch/gouuid/*.go # gosub
   - github.com/opencontainers/go-digest/*.go # gosub
