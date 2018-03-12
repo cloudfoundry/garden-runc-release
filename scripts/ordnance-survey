@@ -23,7 +23,7 @@ df -h > df
 ( cd /var/log && tar czf "${DIR}/os-report/kernlog.tgz" kern.log )
 dmesg > dmesg
 cp /var/vcap/monit/monit.log .
-ls -lah /var/vcap/data/garden/depot > depot-contents
+find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents
 ifconfig > ifconfig
 iptables -L > iptables-L
 iptables -tnat -L > iptables-tnat
