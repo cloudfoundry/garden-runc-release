@@ -18,15 +18,21 @@ exec 2>> "${MONIT_DIR}/garden.err.log"
 rm -f "$RUNTIME_BIN_DIR"/init
 cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 
+log "preparing system"
 permit_device_control
 create_loop_devices 256
+log "done"
 
 <% if !p("garden.deprecated_use_garden_shed") && p("garden.image_plugin", "") == "" %>
+log "configuring overlay"
 ${BASE_PATH}/overlay-xfs-setup
+log "done"
 <% end %>
 
+log "running thresholder"
 /var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
 /var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml"
+log "done"
 
 <% if p("garden.apparmor_profile") == "garden-default" %>
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
@@ -78,10 +84,13 @@ garden_configfile_path="$GARDEN_CONFIG_DIR/config.ini"
   garden_configfile_path="$garden_rootless_config_dir/config.ini"
 <% end %>
 
+log "running setup"
 $setup_cmd
+log "done"
 
 echo $$ > $PIDFILE
 
+log "running gdn"
 $exec_command /var/vcap/packages/guardian/bin/gdn \
   --config "$garden_configfile_path" \
   server \

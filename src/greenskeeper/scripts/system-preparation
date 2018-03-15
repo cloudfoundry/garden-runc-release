@@ -46,3 +46,7 @@ function load_apparmor_profile() {
   apparmor_parser -r "$profile_path"
 }
 
+function log() {
+  local msg=$1
+  echo "$(date) - $msg"
+}
