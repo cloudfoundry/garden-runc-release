@@ -84,9 +84,6 @@ func (d Directory) Create() error {
 	return nil
 }
 
-func (d Directory) getMode() {
-}
-
 func CheckExistingGdnProcess(pidFilePath string) error {
 	return checkExistingGdnProcess(pidFilePath, os.Remove)
 }
