@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tar -xzf containerd/containerd-1.0.2.linux-amd64.tar.gz -C "${BOSH_INSTALL_TARGET}"

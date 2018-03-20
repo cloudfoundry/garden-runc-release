@@ -27,6 +27,7 @@ packages:
   - grootfs
   - xfs-progs
   - thresholder
+  - containerd
 
 properties:
   garden.listen_network:
