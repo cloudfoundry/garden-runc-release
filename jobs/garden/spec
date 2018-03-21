@@ -27,7 +27,6 @@ packages:
   - grootfs
   - xfs-progs
   - thresholder
-  - containerd
 
 properties:
   garden.listen_network:
@@ -176,6 +175,10 @@ properties:
 
   garden.cleanup_process_dirs_on_wait:
     description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
+    default: false
+
+  garden.experimental_containerd_mode:
+    description: (Under development) Use containerd for container lifecycle management
     default: false
 
   grootfs.driver:

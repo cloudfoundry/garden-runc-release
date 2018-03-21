@@ -1,0 +1,17 @@
+---
+name: containerd
+
+templates:
+  config/containerd.toml: config/containerd.toml
+  bin/start: bin/start
+  bin/stop: bin/stop
+  bin/envs: bin/envs
+
+packages:
+- containerd
+- runc
+
+properties:
+  garden.experimental_containerd_mode:
+    description: (Under development) Use containerd for container lifecycle management
+    default: false

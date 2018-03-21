@@ -1,0 +1,7 @@
+<% if p("garden.experimental_containerd_mode") %>
+check process containerd
+  with pidfile /var/vcap/sys/run/containerd/containerd.pid
+  start program "/var/vcap/jobs/containerd/bin/start"
+  stop program "/var/vcap/jobs/containerd/bin/stop"
+  group vcap
+<% end %>

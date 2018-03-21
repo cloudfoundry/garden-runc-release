@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -eu
+
+# shellcheck disable=SC1091
+source /var/vcap/jobs/containerd/bin/envs
+
+log() {
+  local msg
+  local time
+
+  msg=$1
+  time=$(date +"%e/%m/%Y - %T")
+
+  echo "$time $msg" >> "${LOG_DIR}/containerd_ctl.log"
+}
+
+export PATH="${PATH}:/var/vcap/packages/containerd/bin"
+export PATH="${PATH}:/var/vcap/packages/runc/bin"
+
+mkdir -p "$RUN_DIR" "$LOG_DIR" "$DATA_DIR" "$STATE_DIR"
+
+echo $$ > "$PID_FILEPATH"
+
+log "starting containerd"
+
+exec 1>> "${LOG_DIR}/containerd.stdout.log"
+exec 2>> "${LOG_DIR}/containerd.stderr.log"
+exec containerd -c "$CONFIG_FILEPATH"
