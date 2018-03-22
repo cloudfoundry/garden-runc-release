@@ -12,21 +12,22 @@ mkdir os-report
 
 (
 cd os-report
-hostname > hostname
-date > date
-ps aux --forest > forest
-free -mt > free
-uname -a > uname
-uptime > uptime
-df -h > df
+hostname > hostname.log
+date > date.log
+ps aux --forest > forest.log
+free -mt > free.log
+uname -a > uname.log
+uptime > uptime.log
+df -h > df.log
 ( cd /var/vcap/sys/log && tar czf "${DIR}/os-report/garden.tgz" garden )
 ( cd /var/log && tar czf "${DIR}/os-report/kernlog.tgz" kern.log )
-dmesg > dmesg
+dmesg > dmesg.log
 cp /var/vcap/monit/monit.log .
-find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents
-ifconfig > ifconfig
-iptables -L > iptables-L
-iptables -tnat -L > iptables-tnat
+find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents.log
+ifconfig > ifconfig.log
+iptables -L > iptables-L.log
+iptables -tnat -L > iptables-tnat.log
+cat /proc/self/mountinfo > mountinfo.log
 )
 
 tar zcf os-report.tgz os-report
