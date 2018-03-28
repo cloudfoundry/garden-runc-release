@@ -17,6 +17,9 @@ main() {
   init_privileged_store
 
   tardis_setup
+
+  ensure_successful_initialisation unprivileged
+  ensure_successful_initialisation privileged
 }
 
 pre_init_store() {
@@ -70,6 +73,18 @@ converge_store() {
     mv "$old_volume_path" "$new_volume_path"
     mount -t xfs -o remount,noatime,pquota,nobarrier "$new_volume_path" "$store_path"
   fi
+}
+
+ensure_successful_initialisation() {
+  local store="${store_mountpoint}/grootfs/store/${1}"
+  local xfs_quota_test_dir="${store}/images/xfs_test"
+
+  echo "verifing that store initialisation succeeded..."
+  pushd "$store"
+  mkdir -p "$xfs_quota_test_dir"
+  /var/vcap/packages/grootfs/bin/tardis limit --disk-limit-bytes 102400 --image-path "$xfs_quota_test_dir"
+  rm -rf "$xfs_quota_test_dir"
+  popd
 }
 
 main

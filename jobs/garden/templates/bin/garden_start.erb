@@ -24,7 +24,7 @@ create_loop_devices 256
 log "done"
 
 <% if !p("garden.deprecated_use_garden_shed") && p("garden.image_plugin", "") == "" %>
-log "configuring overlay"
+log "configuring xfs"
 ${BASE_PATH}/overlay-xfs-setup
 log "done"
 <% end %>
