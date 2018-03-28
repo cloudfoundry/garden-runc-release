@@ -12,23 +12,13 @@ main() {
 
   mkdir -p "${store_mountpoint}/grootfs/store"
 
-  pre_init_store unprivileged
   init_unprivileged_store
-
-  pre_init_store privileged
   init_privileged_store
 
   tardis_setup
 
   ensure_successful_initialisation unprivileged
   ensure_successful_initialisation privileged
-}
-
-pre_init_store() {
-  local store_name=$1
-  local store_path="${store_mountpoint}/grootfs/store/${store_name}"
-
-  converge_store "$store_name"
 }
 
 init_privileged_store() {
@@ -60,21 +50,6 @@ init_unprivileged_store() {
 tardis_setup() {
   echo "setting up tardis..."
   chmod u+s /var/vcap/packages/grootfs/bin/tardis
-}
-
-# Temporary upgrade path
-converge_store() {
-  local store_type=$1
-
-  local old_volume_path="${store_mountpoint}/grootfs/volume_${store_type}"
-  local new_volume_path="${store_mountpoint}/grootfs/store/${store_type}.backing-store"
-  local store_path="${store_mountpoint}/grootfs/store/${store_type}"
-
-  if mount | grep "$old_volume_path" | grep xfs
-  then
-    mv "$old_volume_path" "$new_volume_path"
-    mount -t xfs -o remount,noatime,pquota,nobarrier "$new_volume_path" "$store_path"
-  fi
 }
 
 ensure_successful_initialisation() {
