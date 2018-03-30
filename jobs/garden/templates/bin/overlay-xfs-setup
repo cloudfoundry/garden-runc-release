@@ -8,7 +8,7 @@ main() {
   source /var/vcap/jobs/garden/bin/grootfs-utils
   store_mountpoint=${store_mountpoint:?}
 
-  export PATH=/var/vcap/packages/grootfs/bin:/var/vcap/packages/xfs-progs/sbin:$PATH
+  export PATH=/var/vcap/packages/grootfs/bin:$PATH
 
   mkdir -p "${store_mountpoint}/grootfs/store"
 
