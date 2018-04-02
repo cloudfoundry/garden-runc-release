@@ -15,15 +15,6 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
-if [ -n "${PATCH_RUNC:-}" ]; then
-  (
-  # Using patch instead of `git apply` to keep this path working with `fly
-  # execute`, which does not preserve the `.git` dir.
-  cd "$base"/gr-release-develop/src/github.com/opencontainers/runc
-  patch < "$base"/gr-release-develop/ci/runc-patches/0001-remove-delete-timeout.patch
-  )
-fi
-
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 
 # Set up AppArmor

@@ -16,7 +16,6 @@ caches:
 
 params:
   RACE_DETECTION:
-  PATCH_RUNC:
   GINKGO_NODES:
 
 run:
