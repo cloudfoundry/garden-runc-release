@@ -2,8 +2,6 @@
 set -ex
 
 main() {
-  lock
-  trap unlock EXIT
   # shellcheck disable=SC1091
   source /var/vcap/jobs/garden/bin/grootfs-utils
   store_mountpoint=${store_mountpoint:?}
@@ -62,18 +60,6 @@ ensure_successful_initialisation() {
   /var/vcap/packages/grootfs/bin/tardis limit --disk-limit-bytes 102400 --image-path "$xfs_quota_test_dir"
   rm -rf "$xfs_quota_test_dir"
   popd
-}
-
-lock_file=/tmp/xfs-setup.lock
-
-lock() {
-  exec {lock_fd}>"$lock_file"
-  flock -n "$lock_fd" || exit 0
-  echo $lock_fd
-}
-
-unlock() {
-  exec {lock_fd}>&-
 }
 
 main
