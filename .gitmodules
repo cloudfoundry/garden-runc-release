@@ -200,3 +200,7 @@
 	path = src/github.com/mitchellh/go-ps
 	url = https://github.com/mitchellh/go-ps
 	branch = master
+[submodule "src/golang.org/x/sys"]
+	path = src/golang.org/x/sys
+	url = https://github.com/golang/sys
+	branch = master
