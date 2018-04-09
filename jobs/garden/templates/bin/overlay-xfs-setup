@@ -22,7 +22,7 @@ main() {
 init_privileged_store() {
   local config_path=/var/vcap/jobs/garden/config/privileged_grootfs_config.yml
 
-  echo "Initialising privileged store using config at ${config_path}"
+  log "Initialising privileged store using config at ${config_path}"
 
   grootfs --config ${config_path} init-store --store-size-bytes "$(volume_size)"
 
@@ -32,7 +32,7 @@ init_privileged_store() {
 init_unprivileged_store() {
   local config_path=/var/vcap/jobs/garden/config/grootfs_config.yml
 
-  echo "Initialising unprivileged store using config at ${config_path}"
+  log "Initialising unprivileged store using config at ${config_path}"
 
   grootfs --config ${config_path} init-store \
     --store-size-bytes "$(volume_size)" \
@@ -46,7 +46,7 @@ init_unprivileged_store() {
 
 
 tardis_setup() {
-  echo "setting up tardis..."
+  log "setting up tardis..."
   chmod u+s /var/vcap/packages/grootfs/bin/tardis
 }
 
@@ -54,12 +54,13 @@ ensure_successful_initialisation() {
   local store="${store_mountpoint}/grootfs/store/${1}"
   local xfs_quota_test_dir="${store}/images/xfs_test"
 
-  echo "verifing that store initialisation succeeded..."
-  pushd "$store"
+  log "verifing that store initialisation for ${store} succeeded..."
+  cwd=$(pwd)
+  cd "$store"
   mkdir -p "$xfs_quota_test_dir"
   /var/vcap/packages/grootfs/bin/tardis limit --disk-limit-bytes 102400 --image-path "$xfs_quota_test_dir"
   rm -rf "$xfs_quota_test_dir"
-  popd
+  cd "$cwd"
 }
 
 main
