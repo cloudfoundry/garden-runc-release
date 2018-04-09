@@ -16,6 +16,8 @@ import (
 	"sync"
 	"time"
 
+	"code.cloudfoundry.org/garden-shed/quotaedreader"
+
 	"github.com/Sirupsen/logrus"
 	"github.com/docker/distribution/digest"
 	"github.com/docker/docker/autogen/dockerversion"
@@ -256,10 +258,27 @@ func (graph *Graph) Register(im image.ImageDescriptor, layerData archive.Archive
 	graph.imageMutex.Lock(imgID)
 	defer graph.imageMutex.Unlock(imgID)
 
-	return graph.register(im, layerData)
+	return graph.register(im, layerData, -1)
 }
 
-func (graph *Graph) register(im image.ImageDescriptor, layerData archive.ArchiveReader) (err error) {
+// Register imports a pre-existing image into the graph.
+// Returns nil if the image is already registered.
+func (graph *Graph) RegisterWithQuota(im image.ImageDescriptor, layerData archive.ArchiveReader, quota int64) (err error) {
+	imgID := im.ID()
+
+	if err := image.ValidateID(imgID); err != nil {
+		return err
+	}
+
+	// We need this entire operation to be atomic within the engine. Note that
+	// this doesn't mean Register is fully safe yet.
+	graph.imageMutex.Lock(imgID)
+	defer graph.imageMutex.Unlock(imgID)
+
+	return graph.register(im, layerData, quota)
+}
+
+func (graph *Graph) register(im image.ImageDescriptor, layerData archive.ArchiveReader, quota int64) (err error) {
 	imgID := im.ID()
 
 	// Skip register if image is already registered
@@ -308,7 +327,7 @@ func (graph *Graph) register(im image.ImageDescriptor, layerData archive.Archive
 	if err != nil {
 		return err
 	}
-	if err := graph.storeImage(imgID, parent, config, layerData, tmp); err != nil {
+	if err := graph.storeImage(imgID, parent, config, layerData, tmp, quota); err != nil {
 		return err
 	}
 	// Commit
@@ -679,7 +698,7 @@ func jsonPath(root string) string {
 	return filepath.Join(root, jsonFileName)
 }
 
-func (graph *Graph) disassembleAndApplyTarLayer(id, parent string, layerData archive.ArchiveReader, root string) (size int64, err error) {
+func (graph *Graph) disassembleAndApplyTarLayer(id, parent string, layerData archive.ArchiveReader, root string, quota int64) (size int64, err error) {
 	// this is saving the tar-split metadata
 	mf, err := os.OpenFile(filepath.Join(root, tarDataFileName), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.FileMode(0600))
 	if err != nil {
@@ -693,6 +712,10 @@ func (graph *Graph) disassembleAndApplyTarLayer(id, parent string, layerData arc
 	inflatedLayerData, err := archive.DecompressStream(layerData)
 	if err != nil {
 		return 0, err
+	}
+
+	if quota > -1 {
+		inflatedLayerData = quotaedreader.New(inflatedLayerData, quota)
 	}
 
 	// we're passing nil here for the file putter, because the ApplyDiff will

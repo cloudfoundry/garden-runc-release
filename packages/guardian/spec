@@ -19,6 +19,7 @@ files:
   - code.cloudfoundry.org/garden-shed/layercake/cleaner/*.go # gosub
   - code.cloudfoundry.org/garden-shed/pkg/chown/*.go # gosub
   - code.cloudfoundry.org/garden-shed/quota_manager/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/quotaedreader/*.go # gosub
   - code.cloudfoundry.org/garden-shed/repository_fetcher/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_provider/*.go # gosub
   - code.cloudfoundry.org/garden/routes/*.go # gosub

@@ -385,7 +385,7 @@ func (p *v2Puller) pullV2Tag(tag, taggedName string) (tagUpdated bool, err error
 						}
 					}
 
-					if err := p.graph.register(d.img, reader); err != nil {
+					if err := p.graph.register(d.img, reader, -1); err != nil {
 						return err
 					}
 

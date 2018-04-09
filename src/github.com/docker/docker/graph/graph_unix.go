@@ -80,11 +80,11 @@ func (graph *Graph) restoreBaseImages() ([]string, error) {
 // storeImage stores file system layer data for the given image to the
 // graph's storage driver. Image metadata is stored in a file
 // at the specified root directory.
-func (graph *Graph) storeImage(id, parent string, config []byte, layerData archive.ArchiveReader, root string) (err error) {
+func (graph *Graph) storeImage(id, parent string, config []byte, layerData archive.ArchiveReader, root string, quota int64) (err error) {
 	var size int64
 	// Store the layer. If layerData is not nil, unpack it into the new layer
 	if layerData != nil {
-		if size, err = graph.disassembleAndApplyTarLayer(id, parent, layerData, root); err != nil {
+		if size, err = graph.disassembleAndApplyTarLayer(id, parent, layerData, root, quota); err != nil {
 			return err
 		}
 	}
