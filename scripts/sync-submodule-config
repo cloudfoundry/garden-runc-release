@@ -8,6 +8,7 @@ function linux_deps {
   GOOS=linux gosub list \
     -t code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/garden/... \
+    -t code.cloudfoundry.org/garden-shed/... \
     -t code.cloudfoundry.org/garden-integration-tests/...
 }
 
