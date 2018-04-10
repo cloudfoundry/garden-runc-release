@@ -204,3 +204,6 @@
 	path = src/golang.org/x/sys
 	url = https://github.com/golang/sys
 	branch = master
+[submodule "src/github.com/containerd/containerd"]
+	path = src/github.com/containerd/containerd
+	url = https://github.com/containerd/containerd

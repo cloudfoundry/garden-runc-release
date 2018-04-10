@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tar -xzf containerd/containerd-1.0.2.linux-amd64.tar.gz -C "${BOSH_INSTALL_TARGET}"
+mkdir -p "${BOSH_INSTALL_TARGET}/src"
+cp -a . "${BOSH_INSTALL_TARGET}/src/"
+
+export GOROOT
+GOROOT="$( readlink -nf /var/vcap/packages/golang )"
+export GOPATH="$BOSH_INSTALL_TARGET"
+export PATH="${GOROOT}/bin:${PATH}"
+
+cd "${GOPATH}/src/github.com/containerd/containerd"
+BUILDTAGS=no_btrfs make
+cp -R bin "$BOSH_INSTALL_TARGET"

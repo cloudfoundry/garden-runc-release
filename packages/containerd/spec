@@ -1,3 +1,8 @@
 ---
 name: containerd
-files: [containerd/containerd-1.0.2.linux-amd64.tar.gz]
+
+dependencies:
+  - golang
+
+files:
+  - github.com/containerd/containerd/**/*
