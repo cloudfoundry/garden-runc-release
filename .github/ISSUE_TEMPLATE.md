@@ -22,6 +22,11 @@ If you do not have a set of steps to reproduce the issue, please explain in deta
 Provide any output you think may be useful in understanding/explaining the issue.
 The garden log files are found in `/var/vcap/sys/log/garden/`.
 
+# Docker image (if relevant)
+
+If there is a particular docker image related to this issue, please provide a
+link to this image.
+
 # Cause
 
 If known, provide the cause of the issue here.
