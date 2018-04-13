@@ -23,10 +23,15 @@ function grootfs_deps {
   echo "code.cloudfoundry.org/grootfs"
 }
 
+function containerd_deps {
+  echo "github.com/containerd/containerd"
+}
+
 (
   sort -u \
-    <(linux_deps) \
-    <(windows_deps) \
-    <(grootfs_deps)
+    <( linux_deps ) \
+    <( windows_deps ) \
+    <( grootfs_deps ) \
+    <( containerd_deps )
 
 ) | xargs gosub sync
