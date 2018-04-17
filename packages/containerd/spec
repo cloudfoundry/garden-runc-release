@@ -6,3 +6,5 @@ dependencies:
 
 files:
   - github.com/containerd/containerd/**/*
+  - github.com/opencontainers/runtime-spec/**/*
+  - github.com/gogo/protobuf/**/*

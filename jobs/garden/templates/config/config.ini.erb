@@ -164,3 +164,8 @@
 <% if rootless -%>
   disable-privileged-containers = true
 <% end -%>
+
+<% if p("garden.experimental_containerd_mode") -%>
+; containerd
+  containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
+<% end -%>

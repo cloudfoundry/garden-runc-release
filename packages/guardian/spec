@@ -8,6 +8,8 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/nstar/*
   - github.com/opencontainers/runc/libcontainer/utils/*
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
+  - github.com/containerd/containerd/vendor/github.com/containerd/continuity/sysx/*
+  - github.com/containerd/containerd/vendor/golang.org/x/sys/unix/* # gosub
   - code.cloudfoundry.org/guardian/cmd/init/init.c
   - code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
@@ -63,6 +65,8 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/peas/processwaiter/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/runcontainerd/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/runcontainerd/nerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/signals/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
@@ -89,6 +93,102 @@ files:
   - github.com/cloudfoundry/gosteno/*.go # gosub
   - github.com/cloudfoundry/gosteno/syslog/*.go # gosub
   - github.com/cloudfoundry/sonde-go/events/*.go # gosub
+  - github.com/containerd/containerd/*.go # gosub
+  - github.com/containerd/containerd/api/services/containers/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/content/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/diff/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/events/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/images/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/introspection/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/leases/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/namespaces/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/snapshots/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/tasks/v1/*.go # gosub
+  - github.com/containerd/containerd/api/services/version/v1/*.go # gosub
+  - github.com/containerd/containerd/api/types/*.go # gosub
+  - github.com/containerd/containerd/api/types/task/*.go # gosub
+  - github.com/containerd/containerd/cio/*.go # gosub
+  - github.com/containerd/containerd/containers/*.go # gosub
+  - github.com/containerd/containerd/content/*.go # gosub
+  - github.com/containerd/containerd/defaults/*.go # gosub
+  - github.com/containerd/containerd/dialer/*.go # gosub
+  - github.com/containerd/containerd/diff/*.go # gosub
+  - github.com/containerd/containerd/errdefs/*.go # gosub
+  - github.com/containerd/containerd/events/*.go # gosub
+  - github.com/containerd/containerd/events/exchange/*.go # gosub
+  - github.com/containerd/containerd/filters/*.go # gosub
+  - github.com/containerd/containerd/identifiers/*.go # gosub
+  - github.com/containerd/containerd/images/*.go # gosub
+  - github.com/containerd/containerd/leases/*.go # gosub
+  - github.com/containerd/containerd/linux/runctypes/*.go # gosub
+  - github.com/containerd/containerd/log/*.go # gosub
+  - github.com/containerd/containerd/mount/*.go # gosub
+  - github.com/containerd/containerd/namespaces/*.go # gosub
+  - github.com/containerd/containerd/oci/*.go # gosub
+  - github.com/containerd/containerd/platforms/*.go # gosub
+  - github.com/containerd/containerd/plugin/*.go # gosub
+  - github.com/containerd/containerd/reference/*.go # gosub
+  - github.com/containerd/containerd/remotes/*.go # gosub
+  - github.com/containerd/containerd/remotes/docker/*.go # gosub
+  - github.com/containerd/containerd/remotes/docker/schema1/*.go # gosub
+  - github.com/containerd/containerd/rootfs/*.go # gosub
+  - github.com/containerd/containerd/snapshots/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/continuity/fs/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/fifo/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/typeurl/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/docker/go-events/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/gogo/googleapis/google/rpc/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/golang/protobuf/proto/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/golang/protobuf/ptypes/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/golang/protobuf/ptypes/any/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/golang/protobuf/ptypes/duration/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/golang/protobuf/ptypes/timestamp/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/opencontainers/go-digest/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/opencontainers/image-spec/identity/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/pkg/errors/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/syndtr/gocapability/capability/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/context/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/context/ctxhttp/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/http2/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/http2/hpack/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/idna/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/internal/timeseries/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/lex/httplex/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/net/trace/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/sync/errgroup/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/text/secure/bidirule/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/text/transform/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/text/unicode/bidi/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/text/unicode/norm/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/genproto/googleapis/rpc/status/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/balancer/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/balancer/base/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/balancer/roundrobin/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/codes/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/connectivity/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/credentials/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/encoding/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/encoding/proto/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/grpclb/grpc_lb_v1/messages/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/grpclog/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/health/grpc_health_v1/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/internal/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/keepalive/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/metadata/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/naming/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/peer/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/resolver/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/resolver/dns/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/resolver/passthrough/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/stats/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/status/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/tap/*.go # gosub
+  - github.com/containerd/containerd/vendor/google.golang.org/grpc/transport/*.go # gosub
   - github.com/docker/distribution/*.go # gosub
   - github.com/docker/distribution/context/*.go # gosub
   - github.com/docker/distribution/digest/*.go # gosub
@@ -154,6 +254,8 @@ files:
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub
   - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
+  - github.com/gogo/protobuf/sortkeys/*.go # gosub
+  - github.com/gogo/protobuf/types/*.go # gosub
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
   - github.com/hashicorp/go-multierror/*.go # gosub

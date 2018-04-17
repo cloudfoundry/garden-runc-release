@@ -206,4 +206,9 @@
 	branch = master
 [submodule "src/github.com/containerd/containerd"]
 	path = src/github.com/containerd/containerd
-	url = https://github.com/containerd/containerd
+	url = https://github.com/cloudfoundry-incubator/containerd.git
+	branch = master
+[submodule "src/github.com/burntsushi/toml"]
+	path = src/github.com/burntsushi/toml
+	url = https://github.com/burntsushi/toml
+	branch = master
