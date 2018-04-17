@@ -9,7 +9,7 @@ files:
   - github.com/opencontainers/runc/libcontainer/utils/*
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
   - github.com/containerd/containerd/vendor/github.com/containerd/continuity/sysx/*
-  - github.com/containerd/containerd/vendor/golang.org/x/sys/unix/* # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/sys/unix/*
   - code.cloudfoundry.org/guardian/cmd/init/init.c
   - code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
@@ -134,6 +134,7 @@ files:
   - github.com/containerd/containerd/rootfs/*.go # gosub
   - github.com/containerd/containerd/snapshots/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/continuity/fs/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/continuity/sysx/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/fifo/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/typeurl/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/docker/go-events/*.go # gosub
@@ -160,6 +161,7 @@ files:
   - github.com/containerd/containerd/vendor/golang.org/x/net/lex/httplex/*.go # gosub
   - github.com/containerd/containerd/vendor/golang.org/x/net/trace/*.go # gosub
   - github.com/containerd/containerd/vendor/golang.org/x/sync/errgroup/*.go # gosub
+  - github.com/containerd/containerd/vendor/golang.org/x/sys/unix/*.go # gosub
   - github.com/containerd/containerd/vendor/golang.org/x/text/secure/bidirule/*.go # gosub
   - github.com/containerd/containerd/vendor/golang.org/x/text/transform/*.go # gosub
   - github.com/containerd/containerd/vendor/golang.org/x/text/unicode/bidi/*.go # gosub
