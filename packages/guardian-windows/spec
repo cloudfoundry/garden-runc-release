@@ -74,6 +74,7 @@ files:
   - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
   - github.com/docker/docker/pkg/fileutils/*.go # gosub
   - github.com/docker/docker/pkg/ioutils/*.go # gosub
+  - github.com/docker/docker/pkg/mount/*.go # gosub
   - github.com/docker/docker/pkg/pools/*.go # gosub
   - github.com/docker/docker/pkg/promise/*.go # gosub
   - github.com/docker/docker/pkg/reexec/*.go # gosub
