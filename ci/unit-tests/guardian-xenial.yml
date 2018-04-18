@@ -3,7 +3,7 @@ image_resource:
   type: docker-image
   source:
     repository: cfgarden/garden-ci-xenial
-    tag: 0.1.1
+    tag: 0.1.2
 
 platform: linux
 

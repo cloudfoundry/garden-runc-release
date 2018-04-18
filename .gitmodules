@@ -211,3 +211,4 @@
 [submodule "src/github.com/containerd/containerd"]
 	path = src/github.com/containerd/containerd
 	url = https://github.com/cloudfoundry-incubator/containerd
+	branch = master
