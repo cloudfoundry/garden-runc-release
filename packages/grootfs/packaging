@@ -13,4 +13,6 @@ pushd ${BOSH_INSTALL_TARGET}/src/code.cloudfoundry.org/grootfs
   mv {grootfs,tardis} ${BOSH_INSTALL_TARGET}/bin
 popd
 
+chmod u+s ${BOSH_INSTALL_TARGET}/bin/tardis
+
 rm -rf ${BOSH_INSTALL_TARGET}/src

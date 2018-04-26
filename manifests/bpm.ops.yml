@@ -1,0 +1,15 @@
+- type: replace
+  path: /releases/-
+  value:
+    name: bpm
+    version: latest
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/name=garden/properties/bpm?/enabled?
+  value: true

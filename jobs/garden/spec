@@ -2,10 +2,12 @@
 name: garden
 
 templates:
+  bin/bpm-pre-start.erb:                    bin/bpm-pre-start
   bin/garden_start.erb:                     bin/garden_start
   bin/garden_stop:                          bin/garden_stop
   bin/envs.erb:                             bin/envs
   config/garden-default.erb:                config/garden-default
+  config/bpm.yml.erb:                       config/bpm.yml
   bin/auplink:                              bin/auplink
   bin/overlay-xfs-setup:                    bin/overlay-xfs-setup
   bin/grootfs-utils.erb:                    bin/grootfs-utils
@@ -216,3 +218,7 @@ properties:
   grootfs.reserved_space_for_other_jobs_in_mb:
     description: "Amount of space the GC algorithm should attempt to keep free for other jobs. GC will delete  unneeded layers as needed to keep this space free (but it cannot guarantee this space remains free if more containers are created than disk space allows). -1 disables GC."
     default: 15360
+
+  bpm.enabled:
+    description: "Use bpm"
+    default: false

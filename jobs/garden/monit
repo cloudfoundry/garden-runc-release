@@ -1,3 +1,13 @@
+<% if p("bpm.enabled") %>
+
+check process garden
+  with pidfile /var/vcap/sys/run/bpm/garden/garden.pid
+  start program "/var/vcap/jobs/bpm/bin/bpm start garden"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop garden"
+  group vcap
+
+<% else %>
+
 check process garden
   with pidfile /var/vcap/sys/run/garden/garden.pid
   start program "/bin/sh -c '/var/vcap/jobs/garden/bin/garden_start'" with timeout 120 seconds
@@ -12,3 +22,5 @@ check process garden
     then restart
 <% end %>
   group vcap
+
+<% end %>

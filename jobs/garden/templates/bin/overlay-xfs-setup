@@ -13,8 +13,6 @@ main() {
   init_unprivileged_store
   init_privileged_store
 
-  tardis_setup
-
   ensure_successful_initialisation unprivileged
   ensure_successful_initialisation privileged
 }
@@ -42,12 +40,6 @@ init_unprivileged_store() {
     --gid-mapping "$(unprivileged_range_mapping)"
 
   grootfs --config ${config_path} generate-volume-size-metadata
-}
-
-
-tardis_setup() {
-  log "setting up tardis..."
-  chmod u+s /var/vcap/packages/grootfs/bin/tardis
 }
 
 ensure_successful_initialisation() {

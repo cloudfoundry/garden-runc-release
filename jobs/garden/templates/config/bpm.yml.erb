@@ -1,0 +1,10 @@
+processes:
+  - name: garden
+    executable: /bin/sh
+    args:
+      - -c
+      - /var/vcap/jobs/garden/bin/garden_start
+    unsafe:
+      privileged: true
+    hooks:
+      pre_start: /var/vcap/jobs/garden/bin/bpm-pre-start

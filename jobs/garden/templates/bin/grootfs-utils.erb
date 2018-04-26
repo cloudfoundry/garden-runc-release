@@ -42,7 +42,7 @@ unprivileged_range_mapping() {
 
 volume_size() {
   <% if p('grootfs.driver') == 'overlay-xfs' %>
-    if [ $(vcap_data_filesystem) = "xfs" ]; then
+    if [[ $(vcap_data_filesystem) == "xfs" ]]; then
       echo "0"
       return
     fi
