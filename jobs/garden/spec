@@ -150,7 +150,7 @@ properties:
     default: 0
 
   garden.disable_swap_limit:
-    description: "If true, container is not going to be limited in swap space. Useful when swap space is not configured on the VM."
+    description: "If true, container is not going to be limited in swap space. Should only be used if swap is disabled on the VM."
     default: false
 
   garden.destroy_containers_on_start:
