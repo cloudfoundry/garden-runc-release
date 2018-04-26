@@ -149,6 +149,10 @@ properties:
     description: "Hard limit for the tcp buffer memory in bytes. When set to zero tcp memory limit is disabled."
     default: 0
 
+  garden.disable_swap_limit:
+    description: "If true, container is not going to be limited in swap space. Useful when swap space is not configured on the VM."
+    default: false
+
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
     default: false
