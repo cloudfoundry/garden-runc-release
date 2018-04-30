@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+: "${FLY_TARGET:=garden-ci}"
+
 ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
 RED=1
 GREEN=2
 print_message() {
   message=$1
   colour=$2
-  printf "\r\033[00;3%sm[%s]\033[0m\n" "$colour" "$message"
+  printf "\\r\\033[00;3%sm[%s]\\033[0m\\n" "$colour" "$message"
 }
 
 usage() {
@@ -31,7 +33,14 @@ go_vet_and_fmt() {
   popd
 }
 
+fly_login() {
+  if ! grep -A5 $FLY_TARGET ~/.flyrc | grep Bearer &>/dev/null; then
+    fly -t $FLY_TARGET login
+  fi
+}
+
 run_tests_in_serial() {
+  fly_login
   go_vet_and_fmt
   ./scripts/remote-fly ci/unit-tests/garden.yml
   ./scripts/remote-fly ci/unit-tests/guardian.yml
@@ -41,6 +50,7 @@ run_tests_in_serial() {
 }
 
 run_tests_in_parallel() {
+  fly_login
   print_message "about to run tests in parallel, it will be awesome" $GREEN
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )
