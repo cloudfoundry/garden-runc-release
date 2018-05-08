@@ -61,7 +61,7 @@ var _ = Describe("Thresholder", func() {
 		Expect(os.Remove(pathToGrootfsConfig)).To(Succeed())
 	})
 
-	Context("when garden GC threshold is set", func() {
+	Context("when garden GC threshold is > 0", func() {
 		BeforeEach(func() {
 			gardenGcThreshold = "1000"
 		})
@@ -75,12 +75,12 @@ var _ = Describe("Thresholder", func() {
 		})
 	})
 
-	Context("when groot GC threshold is set", func() {
+	Context("when groot GC threshold is > 0", func() {
 		BeforeEach(func() {
 			grootGcThreshold = "2000"
 		})
 
-		Context("and garden GC threshold is NOT set", func() {
+		Context("and garden GC threshold is -1", func() {
 			It("sets the clean.threshold_bytes value to groot GC threshold", func() {
 				Expect(resultingConfig().Clean.ThresholdBytes).To(Equal(bytesToMb(2000)))
 			})
@@ -90,7 +90,7 @@ var _ = Describe("Thresholder", func() {
 			})
 		})
 
-		Context("and garden GC threshold is set", func() {
+		Context("and garden GC threshold is > 0", func() {
 			BeforeEach(func() {
 				gardenGcThreshold = "3000"
 			})
@@ -105,7 +105,47 @@ var _ = Describe("Thresholder", func() {
 		})
 	})
 
-	Context("when garden and groot GC thresholds are NOT specified", func() {
+	Context("when the garden GC threshold is 0", func() {
+		BeforeEach(func() {
+			gardenGcThreshold = "0"
+		})
+
+		Context("and the reserved space is -1", func() {
+			BeforeEach(func() {
+				reservedSpace = "-1"
+			})
+
+			It("sets the create.with_clean value to true", func() {
+				Expect(resultingConfig().Create.WithClean).To(BeTrue())
+			})
+
+			It("sets the clean.threshold_bytes value to 0", func() {
+				Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
+			})
+		})
+	})
+
+	Context("when the groot GC threshold is 0", func() {
+		BeforeEach(func() {
+			grootGcThreshold = "0"
+		})
+
+		Context("and the reserved space is -1", func() {
+			BeforeEach(func() {
+				reservedSpace = "-1"
+			})
+
+			It("sets the create.with_clean value to true", func() {
+				Expect(resultingConfig().Create.WithClean).To(BeTrue())
+			})
+
+			It("sets the clean.threshold_bytes value to 0", func() {
+				Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
+			})
+		})
+	})
+
+	Context("when garden and groot GC thresholds are both -1", func() {
 		Context("and the reserved space is less than the disk space", func() {
 			It("sets the clean.threshold_bytes value to total disk space minus reserved space", func() {
 				reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
@@ -123,7 +163,7 @@ var _ = Describe("Thresholder", func() {
 				reservedSpace = strconv.Itoa(1 + int(diskSize/1024/1024))
 			})
 
-			It("sets the clean.threshold_bytes value to a negative value", func() {
+			It("sets the clean.threshold_bytes value to 0", func() {
 				Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
 			})
 
@@ -147,7 +187,7 @@ var _ = Describe("Thresholder", func() {
 		})
 	})
 
-	Context("when the store path cannot be stat", func() {
+	Context("when the store path doesn't exist", func() {
 		BeforeEach(func() {
 			pathToDisk = "/path/to/foo/bar"
 			Expect(pathToDisk).NotTo(BeADirectory())

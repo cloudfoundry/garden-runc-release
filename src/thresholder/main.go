@@ -35,11 +35,11 @@ func main() {
 }
 
 func calculateThreshold(gardenGcThresholdInMb, grootGcThresholdInMb, reservedSpaceInMb, diskSize int64) int64 {
-	if gardenGcThresholdInMb > 0 {
+	if gardenGcThresholdInMb >= 0 {
 		return gardenGcThresholdInMb
 	}
 
-	if grootGcThresholdInMb > 0 {
+	if grootGcThresholdInMb >= 0 {
 		return grootGcThresholdInMb
 	}
 
