@@ -68,6 +68,7 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/nerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/runrunc/pidgetter/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/signals/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
