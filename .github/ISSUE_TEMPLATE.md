@@ -22,6 +22,8 @@ If you do not have a set of steps to reproduce the issue, please explain in deta
 Provide any output you think may be useful in understanding/explaining the issue.
 The garden log files are found in `/var/vcap/sys/log/garden/`.
 
+Run ordnance survey using the following command and attach the resulting tar to the issue: `curl bit.ly/garden-ordnance-survey -sSfL | bash`.
+
 # Docker image (if relevant)
 
 If there is a particular docker image related to this issue, please provide a
