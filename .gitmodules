@@ -69,10 +69,6 @@
 	path = src/github.com/gorilla/context
 	url = https://github.com/gorilla/context
 	branch = master
-[submodule "src/github.com/pivotal-golang/clock"]
-	path = src/github.com/pivotal-golang/clock
-	url = https://github.com/pivotal-golang/clock
-	branch = master
 [submodule "src/github.com/vbatts/tar-split"]
 	path = src/github.com/vbatts/tar-split
 	url = https://github.com/vbatts/tar-split
@@ -211,4 +207,8 @@
 [submodule "src/github.com/containerd/containerd"]
 	path = src/github.com/containerd/containerd
 	url = https://github.com/cloudfoundry-incubator/containerd
+	branch = master
+[submodule "src/code.cloudfoundry.org/clock"]
+	path = src/code.cloudfoundry.org/clock
+	url = https://github.com/cloudfoundry/clock
 	branch = master
