@@ -68,7 +68,6 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/nerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/runrunc/pidgetter/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/signals/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
@@ -121,6 +120,7 @@ files:
   - github.com/containerd/containerd/identifiers/*.go # gosub
   - github.com/containerd/containerd/images/*.go # gosub
   - github.com/containerd/containerd/leases/*.go # gosub
+  - github.com/containerd/containerd/linux/proc/*.go # gosub
   - github.com/containerd/containerd/linux/runctypes/*.go # gosub
   - github.com/containerd/containerd/log/*.go # gosub
   - github.com/containerd/containerd/mount/*.go # gosub
@@ -134,9 +134,11 @@ files:
   - github.com/containerd/containerd/remotes/docker/schema1/*.go # gosub
   - github.com/containerd/containerd/rootfs/*.go # gosub
   - github.com/containerd/containerd/snapshots/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/console/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/continuity/fs/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/continuity/sysx/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/fifo/*.go # gosub
+  - github.com/containerd/containerd/vendor/github.com/containerd/go-runc/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/containerd/typeurl/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/docker/go-events/*.go # gosub
   - github.com/containerd/containerd/vendor/github.com/gogo/googleapis/google/rpc/*.go # gosub
