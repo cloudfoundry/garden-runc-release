@@ -153,9 +153,6 @@
 	path = src/github.com/opencontainers/selinux
 	url = https://github.com/opencontainers/selinux
 	branch = master
-[submodule "src/github.com/pivotal-golang/archiver"]
-	path = src/github.com/pivotal-golang/archiver
-	url = https://github.com/pivotal-golang/archiver
 [submodule "src/code.cloudfoundry.org/garden-integration-tests"]
 	path = src/code.cloudfoundry.org/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
@@ -211,4 +208,8 @@
 [submodule "src/code.cloudfoundry.org/localip"]
 	path = src/code.cloudfoundry.org/localip
 	url = https://github.com/cloudfoundry/localip
+	branch = master
+[submodule "src/code.cloudfoundry.org/archiver"]
+	path = src/code.cloudfoundry.org/archiver
+	url = https://github.com/cloudfoundry/archiver
 	branch = master
