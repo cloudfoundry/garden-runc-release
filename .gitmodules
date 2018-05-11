@@ -77,10 +77,6 @@
 	path = src/github.com/cloudfoundry/gosigar
 	url = https://github.com/cloudfoundry/gosigar
 	branch = master
-[submodule "src/github.com/pivotal-golang/localip"]
-	path = src/github.com/pivotal-golang/localip
-	url = https://github.com/pivotal-golang/localip
-	branch = master
 [submodule "src/github.com/vishvananda/netlink"]
 	path = src/github.com/vishvananda/netlink
 	url = https://github.com/vishvananda/netlink
@@ -211,4 +207,8 @@
 [submodule "src/code.cloudfoundry.org/clock"]
 	path = src/code.cloudfoundry.org/clock
 	url = https://github.com/cloudfoundry/clock
+	branch = master
+[submodule "src/code.cloudfoundry.org/localip"]
+	path = src/code.cloudfoundry.org/localip
+	url = https://github.com/cloudfoundry/localip
 	branch = master

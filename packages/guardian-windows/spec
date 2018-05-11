@@ -52,6 +52,7 @@ files:
   - code.cloudfoundry.org/idmapper/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
   - code.cloudfoundry.org/lager/chug/*.go # gosub
+  - code.cloudfoundry.org/localip/*.go # gosub
   - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry/dropsonde/*.go # gosub
@@ -95,7 +96,6 @@ files:
   - github.com/opencontainers/image-spec/specs-go/*.go # gosub
   - github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
   - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
-  - github.com/pivotal-golang/localip/*.go # gosub
   - github.com/pkg/errors/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
