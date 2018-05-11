@@ -117,7 +117,7 @@ The tests use the [Ginkgo](https://onsi.github.io/ginkgo/) BDD testing
 framework.
 
 Assuming you have configured a Concourse and installed Ginkgo, you can run all
-the tests by executing `./scripts/test` from the top level `garden-runc-release` directory.
+the tests by executing `FLY_TARGET=<your concourse target> ./scripts/test` from the top level `garden-runc-release` directory.
 
 Note: The concourse-lite VM may need to be provisioned with more RAM
 If you start to see tests failing with 'out of disk' errors.
@@ -129,14 +129,17 @@ executing `./scripts/test`.
 To run individual tests, use`./scripts/remote-fly`:
 
 ```bash
+# Set your concourse target
+export GARDEN_REMOTE_ATC_URL=<target>
+
 # Running Guardian tests
-./scripts/remote-fly ci/guardian.yml
+./scripts/remote-fly ci/unit-tests/guardian.yml
 
 # Running Garden tests
-./scripts/remote-fly ci/garden.yml
+./scripts/remote-fly ci/unit-tests/garden.yml
 
-# Running Garden integration tests in Concourse CI
-./scripts/remote-fly ci/gdn-linux.yml
+# Running Garden integration tests
+./scripts/remote-fly ci/integration-tests/gdn-linux.yml
 ```
 
 #### Running the tests locally

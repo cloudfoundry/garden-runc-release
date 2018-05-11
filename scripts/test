@@ -2,6 +2,7 @@
 set -euo pipefail
 
 : "${FLY_TARGET:=garden-ci}"
+export FLY_TARGET
 
 ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
 RED=1
@@ -34,7 +35,9 @@ go_vet_and_fmt() {
 }
 
 fly_login() {
-  if ! grep -A5 $FLY_TARGET ~/.flyrc | grep Bearer &>/dev/null; then
+  which flightattendant &>/dev/null || wget -qO- bit.ly/fa_xip | tar xz -C /usr/local/bin
+
+  if ! flightattendant; then
     fly -t $FLY_TARGET login
   fi
 }
