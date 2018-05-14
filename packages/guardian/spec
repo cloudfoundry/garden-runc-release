@@ -64,11 +64,11 @@ files:
   - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/privchecker/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/peas/processwaiter/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/pidreader/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runcontainerd/nerd/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
+  - code.cloudfoundry.org/guardian/rundmc/runrunc/pid/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/signals/*.go # gosub
   - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
   - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
@@ -300,4 +300,4 @@ files:
   - github.com/vishvananda/netlink/nl/*.go # gosub
   - github.com/vishvananda/netns/*.go # gosub
   - golang.org/x/net/context/*.go # gosub
-  - golang.org/x/sys/unix/* # gosub
+  - golang.org/x/sys/unix/*.go # gosub
