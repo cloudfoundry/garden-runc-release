@@ -300,3 +300,4 @@ files:
   - github.com/vishvananda/netlink/nl/*.go # gosub
   - github.com/vishvananda/netns/*.go # gosub
   - golang.org/x/net/context/*.go # gosub
+  - golang.org/x/sys/unix/*.go # gosub
