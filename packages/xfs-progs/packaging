@@ -1,0 +1,4 @@
+set -e -x
+
+tar zxf xfs-progs/xfs-progs-4.3.0.tar.gz -C $BOSH_INSTALL_TARGET
+

@@ -38,3 +38,7 @@ tar/tar-1.30.tar.xz:
   size: 2108028
   object_id: dc69bac3-828a-4d65-7479-4ef651208d03
   sha: 0d442c4565f8131745a5dff1cd08f7eaa797f679
+xfs-progs/xfs-progs-4.3.0.tar.gz:
+  size: 7312017
+  object_id: 64742261-6c83-448a-4f73-77bfe1c5a5e6
+  sha: bc6476e4a491ad97eb5fdde9a405e553e6cc4b08
