@@ -1,5 +1,0 @@
----
-name: xfs-progs
-
-files:
-  - xfs-progs/xfs-progs-4.3.0.tar.gz
