@@ -12,3 +12,5 @@ export PATH="${GOROOT}/bin:${PATH}"
 cd "${GOPATH}/src/github.com/containerd/containerd"
 BUILDTAGS=no_btrfs make
 cp -R bin "$BOSH_INSTALL_TARGET"
+
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

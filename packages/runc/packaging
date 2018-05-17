@@ -18,3 +18,5 @@ export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib
 make BUILDTAGS='seccomp apparmor' static
 
 cp runc $BOSH_INSTALL_TARGET/bin/
+
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

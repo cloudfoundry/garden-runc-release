@@ -12,3 +12,5 @@ export PATH="${GOROOT}/bin:${PATH}"
 
 go install greenskeeper/cmd/greenskeeper
 cp greenskeeper/scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/"
+
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

@@ -11,3 +11,5 @@ export GOPATH="$BOSH_INSTALL_TARGET"
 export PATH="${GOROOT}/bin:${PATH}"
 
 go install thresholder
+
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

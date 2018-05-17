@@ -25,3 +25,4 @@ pushd code.cloudfoundry.org/guardian/cmd/init
   mv init ${BOSH_INSTALL_TARGET}/bin
 popd
 
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}
