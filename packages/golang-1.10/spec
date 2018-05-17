@@ -1,0 +1,6 @@
+---
+name: golang-1.10
+
+dependencies: []
+
+files: [golang/go1.10.1.linux-amd64.tar.gz]
