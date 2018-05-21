@@ -161,6 +161,12 @@
   debug-bind-port = <%= debug_port %>
 <% end -%>
   log-level = <%= p("garden.log_level") %>
+<% if_p("logging.format.timestamp") do |format| -%>
+  <% if format != "unix-epoch" and format != "rfc3339" -%>
+    <% raise "logging.format.timestamp should be one of: 'unix-epoch' or 'rfc3339'" -%>
+  <% end -%>
+  time-format = <%= format %>
+<% end -%>
   skip-setup = true
   depot = /var/vcap/data/garden/depot
   runtime-plugin=<%= p("garden.runtime_plugin") %>
