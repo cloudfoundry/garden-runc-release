@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-
-# redirect output from -x to the .out.log file
-# -x logs to stderr but we do not want that noise here.
-exec {random_fd}>/var/vcap/sys/log/monit/garden.out.log
-export BASH_XTRACEFD=$random_fd
 set -ex
 
 main() {
@@ -55,8 +50,7 @@ ensure_successful_initialisation() {
   cwd=$(pwd)
   cd "$store"
   mkdir -p "$xfs_quota_test_dir"
-  # ensure tardis logs end up in stdout
-  2>& "$random_fd" /var/vcap/packages/grootfs/bin/tardis limit --disk-limit-bytes 102400 --image-path "$xfs_quota_test_dir"
+  /var/vcap/packages/grootfs/bin/tardis limit --disk-limit-bytes 102400 --image-path "$xfs_quota_test_dir"
   rm -rf "$xfs_quota_test_dir"
   cd "$cwd"
 }
