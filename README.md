@@ -138,8 +138,11 @@ export GARDEN_REMOTE_ATC_URL=<target>
 # Running Garden tests
 ./scripts/remote-fly ci/unit-tests/garden.yml
 
-# Running Garden integration tests
+# Running Garden Integration tests
 ./scripts/remote-fly ci/integration-tests/gdn-linux.yml
+
+# Running Garden Integration Windows Regression tests (aka Gats98)
+WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/integration-tests/gdn-linux.yml
 ```
 
 #### Running the tests locally
