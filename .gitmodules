@@ -42,20 +42,9 @@
 	path = src/code.cloudfoundry.org/garden-shed
 	url = https://github.com/cloudfoundry/garden-shed
 	branch = master
-[submodule "src/github.com/docker/distribution"]
-	path = src/github.com/docker/distribution
-	url = https://github.com/docker/distribution
-[submodule "src/github.com/docker/libtrust"]
-	path = src/github.com/docker/libtrust
-	url = https://github.com/docker/libtrust
-	branch = master
 [submodule "src/github.com/tchap/go-patricia"]
 	path = src/github.com/tchap/go-patricia
 	url = https://github.com/tchap/go-patricia
-	branch = master
-[submodule "src/github.com/Sirupsen/logrus"]
-	path = src/github.com/Sirupsen/logrus
-	url = https://github.com/Sirupsen/logrus
 	branch = master
 [submodule "src/golang.org/x/net"]
 	path = src/golang.org/x/net
@@ -212,4 +201,16 @@
 [submodule "src/code.cloudfoundry.org/archiver"]
 	path = src/code.cloudfoundry.org/archiver
 	url = https://github.com/cloudfoundry/archiver
+	branch = master
+[submodule "src/github.com/docker/docker"]
+	path = src/github.com/docker/docker
+	url = https://github.com/moby/moby
+	branch = master
+[submodule "src/golang.org/x/crypto"]
+	path = src/golang.org/x/crypto
+	url = https://github.com/golang/crypto
+	branch = master
+[submodule "src/github.com/sirupsen/logrus"]
+	path = src/github.com/sirupsen/logrus
+	url = https://github.com/sirupsen/logrus
 	branch = master

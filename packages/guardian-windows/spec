@@ -6,6 +6,7 @@ dependencies:
 
 files:
   - exiter.ps1
+  - github.com/docker/docker/vendor/golang.org/x/sys/windows/*
   - code.cloudfoundry.org/clock/*.go # gosub
   - code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
@@ -53,7 +54,6 @@ files:
   - code.cloudfoundry.org/lager/*.go # gosub
   - code.cloudfoundry.org/lager/chug/*.go # gosub
   - code.cloudfoundry.org/localip/*.go # gosub
-  - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry/dropsonde/*.go # gosub
   - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
@@ -75,12 +75,23 @@ files:
   - github.com/docker/docker/pkg/archive/*.go # gosub
   - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
   - github.com/docker/docker/pkg/fileutils/*.go # gosub
+  - github.com/docker/docker/pkg/idtools/*.go # gosub
   - github.com/docker/docker/pkg/ioutils/*.go # gosub
+  - github.com/docker/docker/pkg/longpath/*.go # gosub
   - github.com/docker/docker/pkg/mount/*.go # gosub
   - github.com/docker/docker/pkg/pools/*.go # gosub
-  - github.com/docker/docker/pkg/promise/*.go # gosub
   - github.com/docker/docker/pkg/reexec/*.go # gosub
   - github.com/docker/docker/pkg/system/*.go # gosub
+  - github.com/docker/docker/vendor/archive/tar/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/Microsoft/go-winio/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/go-digest/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/pkg/errors/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - github.com/docker/docker/vendor/golang.org/x/crypto/ssh/terminal/*.go # gosub
+  - github.com/docker/docker/vendor/golang.org/x/sys/windows/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub

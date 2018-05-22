@@ -34,4 +34,4 @@ function containerd_deps {
     <( grootfs_deps ) \
     <( containerd_deps )
 
-) | xargs gosub sync
+) | grep -v "Sirupsen/logrus" | xargs gosub sync

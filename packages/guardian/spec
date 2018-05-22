@@ -10,6 +10,8 @@ files:
   - github.com/opencontainers/runc/vendor/golang.org/x/sys/unix/*
   - github.com/containerd/containerd/vendor/github.com/containerd/continuity/sysx/*
   - github.com/containerd/containerd/vendor/golang.org/x/sys/unix/*
+  - github.com/docker/docker/vendor/golang.org/x/sys/unix/*
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/sysx/*
   - code.cloudfoundry.org/guardian/cmd/init/init.c
   - golang.org/x/sys/unix/*
   - code.cloudfoundry.org/clock/*.go # gosub
@@ -26,6 +28,68 @@ files:
   - code.cloudfoundry.org/garden-shed/quotaedreader/*.go # gosub
   - code.cloudfoundry.org/garden-shed/repository_fetcher/*.go # gosub
   - code.cloudfoundry.org/garden-shed/rootfs_provider/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/Sirupsen/logrus/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/context/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/digest/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/manifest/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/api/errcode/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/api/v2/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/client/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/client/auth/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/client/transport/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/storage/cache/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/registry/storage/cache/memory/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/distribution/uuid/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/api/types/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/autogen/dockerversion/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/cliconfig/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/daemon/events/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/daemon/graphdriver/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/daemon/network/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/graph/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/graph/tags/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/image/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/opts/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/archive/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/chrootarchive/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/directory/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/fileutils/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/homedir/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/httputils/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/ioutils/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/jsonmessage/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/mflag/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/mount/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/nat/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/parsers/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/parsers/filters/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/parsers/kernel/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/pools/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/progressreader/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/promise/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/pubsub/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/reexec/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/streamformatter/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/stringid/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/symlink/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/system/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/tarsum/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/term/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/timeutils/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/tlsconfig/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/truncindex/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/ulimit/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/units/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/urlutil/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/useragent/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/pkg/version/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/registry/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/runconfig/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/utils/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/docker/volume/*.go # gosub
+  - code.cloudfoundry.org/garden-shed/vendor/github.com/docker/libtrust/*.go # gosub
   - code.cloudfoundry.org/garden/routes/*.go # gosub
   - code.cloudfoundry.org/garden/server/*.go # gosub
   - code.cloudfoundry.org/garden/server/bomberman/*.go # gosub
@@ -79,7 +143,6 @@ files:
   - code.cloudfoundry.org/lager/*.go # gosub
   - code.cloudfoundry.org/lager/chug/*.go # gosub
   - code.cloudfoundry.org/localip/*.go # gosub
-  - github.com/Sirupsen/logrus/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry/dropsonde/*.go # gosub
   - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
@@ -199,67 +262,62 @@ files:
   - github.com/containerd/containerd/vendor/google.golang.org/grpc/status/*.go # gosub
   - github.com/containerd/containerd/vendor/google.golang.org/grpc/tap/*.go # gosub
   - github.com/containerd/containerd/vendor/google.golang.org/grpc/transport/*.go # gosub
-  - github.com/docker/distribution/*.go # gosub
-  - github.com/docker/distribution/context/*.go # gosub
-  - github.com/docker/distribution/digest/*.go # gosub
-  - github.com/docker/distribution/manifest/*.go # gosub
-  - github.com/docker/distribution/registry/api/errcode/*.go # gosub
-  - github.com/docker/distribution/registry/api/v2/*.go # gosub
-  - github.com/docker/distribution/registry/client/*.go # gosub
-  - github.com/docker/distribution/registry/client/auth/*.go # gosub
-  - github.com/docker/distribution/registry/client/transport/*.go # gosub
-  - github.com/docker/distribution/registry/storage/cache/*.go # gosub
-  - github.com/docker/distribution/registry/storage/cache/memory/*.go # gosub
-  - github.com/docker/distribution/uuid/*.go # gosub
   - github.com/docker/docker/api/types/*.go # gosub
-  - github.com/docker/docker/autogen/dockerversion/*.go # gosub
-  - github.com/docker/docker/cliconfig/*.go # gosub
-  - github.com/docker/docker/daemon/events/*.go # gosub
+  - github.com/docker/docker/api/types/blkiodev/*.go # gosub
+  - github.com/docker/docker/api/types/container/*.go # gosub
+  - github.com/docker/docker/api/types/filters/*.go # gosub
+  - github.com/docker/docker/api/types/mount/*.go # gosub
+  - github.com/docker/docker/api/types/network/*.go # gosub
+  - github.com/docker/docker/api/types/registry/*.go # gosub
+  - github.com/docker/docker/api/types/strslice/*.go # gosub
+  - github.com/docker/docker/api/types/swarm/*.go # gosub
+  - github.com/docker/docker/api/types/swarm/runtime/*.go # gosub
+  - github.com/docker/docker/api/types/versions/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/*.go # gosub
   - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
-  - github.com/docker/docker/daemon/network/*.go # gosub
-  - github.com/docker/docker/graph/*.go # gosub
-  - github.com/docker/docker/graph/tags/*.go # gosub
-  - github.com/docker/docker/image/*.go # gosub
-  - github.com/docker/docker/opts/*.go # gosub
+  - github.com/docker/docker/oci/*.go # gosub
   - github.com/docker/docker/pkg/archive/*.go # gosub
   - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
+  - github.com/docker/docker/pkg/containerfs/*.go # gosub
   - github.com/docker/docker/pkg/directory/*.go # gosub
   - github.com/docker/docker/pkg/fileutils/*.go # gosub
-  - github.com/docker/docker/pkg/homedir/*.go # gosub
-  - github.com/docker/docker/pkg/httputils/*.go # gosub
+  - github.com/docker/docker/pkg/idtools/*.go # gosub
   - github.com/docker/docker/pkg/ioutils/*.go # gosub
-  - github.com/docker/docker/pkg/jsonmessage/*.go # gosub
-  - github.com/docker/docker/pkg/mflag/*.go # gosub
+  - github.com/docker/docker/pkg/locker/*.go # gosub
   - github.com/docker/docker/pkg/mount/*.go # gosub
-  - github.com/docker/docker/pkg/nat/*.go # gosub
-  - github.com/docker/docker/pkg/parsers/*.go # gosub
-  - github.com/docker/docker/pkg/parsers/filters/*.go # gosub
-  - github.com/docker/docker/pkg/parsers/kernel/*.go # gosub
+  - github.com/docker/docker/pkg/plugingetter/*.go # gosub
+  - github.com/docker/docker/pkg/plugins/*.go # gosub
+  - github.com/docker/docker/pkg/plugins/transport/*.go # gosub
   - github.com/docker/docker/pkg/pools/*.go # gosub
-  - github.com/docker/docker/pkg/progressreader/*.go # gosub
-  - github.com/docker/docker/pkg/promise/*.go # gosub
-  - github.com/docker/docker/pkg/pubsub/*.go # gosub
   - github.com/docker/docker/pkg/reexec/*.go # gosub
-  - github.com/docker/docker/pkg/streamformatter/*.go # gosub
-  - github.com/docker/docker/pkg/stringid/*.go # gosub
   - github.com/docker/docker/pkg/symlink/*.go # gosub
   - github.com/docker/docker/pkg/system/*.go # gosub
-  - github.com/docker/docker/pkg/tarsum/*.go # gosub
-  - github.com/docker/docker/pkg/term/*.go # gosub
-  - github.com/docker/docker/pkg/timeutils/*.go # gosub
-  - github.com/docker/docker/pkg/tlsconfig/*.go # gosub
-  - github.com/docker/docker/pkg/truncindex/*.go # gosub
-  - github.com/docker/docker/pkg/ulimit/*.go # gosub
-  - github.com/docker/docker/pkg/units/*.go # gosub
-  - github.com/docker/docker/pkg/urlutil/*.go # gosub
-  - github.com/docker/docker/pkg/useragent/*.go # gosub
-  - github.com/docker/docker/pkg/version/*.go # gosub
-  - github.com/docker/docker/registry/*.go # gosub
-  - github.com/docker/docker/runconfig/*.go # gosub
-  - github.com/docker/docker/utils/*.go # gosub
-  - github.com/docker/docker/volume/*.go # gosub
-  - github.com/docker/libtrust/*.go # gosub
+  - github.com/docker/docker/plugin/v2/*.go # gosub
+  - github.com/docker/docker/vendor/archive/tar/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/devices/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/driver/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/containerd/continuity/sysx/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/docker/go-connections/nat/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/docker/go-connections/sockets/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/docker/go-connections/tlsconfig/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/docker/go-units/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/gogo/protobuf/proto/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/go-digest/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/runc/libcontainer/devices/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/runc/libcontainer/system/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/pkg/errors/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - github.com/docker/docker/vendor/github.com/vbatts/tar-split/tar/storage/*.go # gosub
+  - github.com/docker/docker/vendor/golang.org/x/crypto/ssh/terminal/*.go # gosub
+  - github.com/docker/docker/vendor/golang.org/x/net/proxy/*.go # gosub
+  - github.com/docker/docker/vendor/golang.org/x/sys/unix/*.go # gosub
   - github.com/eapache/go-resiliency/retrier/*.go # gosub
   - github.com/gogo/protobuf/gogoproto/*.go # gosub
   - github.com/gogo/protobuf/proto/*.go # gosub

@@ -17,5 +17,6 @@ cd src/code.cloudfoundry.org/garden-shed
 permit_device_control
 create_loop_devices 256
 
-go tool vet -printf=false .
+# make sure we don't run vet on the vendor directory because there's legacy over there
+ls -d */ | grep -v vendor | xargs -n 1 go tool vet -printf=false
 ginkgo --tags daemon -r -p --race --keepGoing --nodes=8 --failOnPending --randomizeSuites "$@"
