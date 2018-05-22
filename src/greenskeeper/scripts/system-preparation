@@ -23,15 +23,15 @@ function permit_device_control() {
   fi
 
   # permit our cgroup to do everything with all devices
-  echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow || true
+  (echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow) 2>&1 || true
 
-  umount /tmp/devices-cgroup || true
+  umount /tmp/devices-cgroup 2>&1 || true
 }
 
 function create_loop_devices() {
   amt=$1
   for i in $(seq 0 $amt); do
-    mknod -m 0660 /dev/loop$i b 7 $i || true
+    mknod -m 0660 /dev/loop$i b 7 $i 2>&1 || true
   done
 }
 
