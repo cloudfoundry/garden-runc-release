@@ -43,7 +43,8 @@ log "done"
 <% end %>
 
 if ! echo madvise > /sys/kernel/mm/transparent_hugepage/enabled ; then
-  echo "Could not disable automatic transparent hugepage allocation. This is normal in bosh lite."
+  # ensure this log line goes to stderr
+  >&2 echo "Could not disable automatic transparent hugepage allocation. This is normal in bosh lite."
 fi
 
 echo 1 > /proc/sys/kernel/dmesg_restrict
