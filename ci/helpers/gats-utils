@@ -2,7 +2,7 @@ build_runc() {
   local grreleasedevelopdir="$1"
 
   pushd "$grreleasedevelopdir"/src/github.com/opencontainers/runc
-    GOPATH=$PWD/Godeps/_workspace:$GOPATH go build -tags "seccomp" -o runc .
+    make
     mv runc "$GOPATH"/bin
   popd
 }
