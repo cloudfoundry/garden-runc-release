@@ -212,5 +212,5 @@
 	branch = master
 [submodule "src/github.com/sirupsen/logrus"]
 	path = src/github.com/sirupsen/logrus
-	url = https://github.com/sirupsen/logrus
+	url = https://github.com/Sirupsen/logrus
 	branch = master
