@@ -10,8 +10,3 @@ templates:
 packages:
 - containerd
 - runc
-
-properties:
-  garden.experimental_containerd_mode:
-    description: (Under development) Use containerd for container lifecycle management
-    default: false
