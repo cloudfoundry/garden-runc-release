@@ -6,109 +6,15 @@ dependencies:
 
 files:
   - exiter.ps1
-  - github.com/docker/docker/vendor/golang.org/x/sys/windows/*
-  - code.cloudfoundry.org/clock/*.go # gosub
-  - code.cloudfoundry.org/commandrunner/*.go # gosub
-  - code.cloudfoundry.org/commandrunner/windows_command_runner/*.go # gosub
-  - code.cloudfoundry.org/debugserver/*.go # gosub
-  - code.cloudfoundry.org/garden/*.go # gosub
-  - code.cloudfoundry.org/garden/routes/*.go # gosub
-  - code.cloudfoundry.org/garden/server/*.go # gosub
-  - code.cloudfoundry.org/garden/server/bomberman/*.go # gosub
-  - code.cloudfoundry.org/garden/server/streamer/*.go # gosub
-  - code.cloudfoundry.org/garden/server/timebomb/*.go # gosub
-  - code.cloudfoundry.org/garden/transport/*.go # gosub
-  - code.cloudfoundry.org/guardian/bindata/*.go # gosub
-  - code.cloudfoundry.org/guardian/cmd/gdn/*.go # gosub
-  - code.cloudfoundry.org/guardian/cmd/winit/*.go # gosub
-  - code.cloudfoundry.org/guardian/gardener/*.go # gosub
-  - code.cloudfoundry.org/guardian/gardener/container-spec/*.go # gosub
-  - code.cloudfoundry.org/guardian/guardiancmd/*.go # gosub
-  - code.cloudfoundry.org/guardian/imageplugin/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/factory/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/iptables/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/mtu/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/ports/*.go # gosub
-  - code.cloudfoundry.org/guardian/kawasaki/subnets/*.go # gosub
-  - code.cloudfoundry.org/guardian/logging/*.go # gosub
-  - code.cloudfoundry.org/guardian/metrics/*.go # gosub
-  - code.cloudfoundry.org/guardian/netplugin/*.go # gosub
-  - code.cloudfoundry.org/guardian/pkg/locksmith/*.go # gosub
-  - code.cloudfoundry.org/guardian/properties/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/bundlerules/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/depot/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/execrunner/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/peas/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/peas/privchecker/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/peas/processwaiter/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/preparerootfs/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/runrunc/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/runrunc/pid/*.go # gosub
-  - code.cloudfoundry.org/guardian/rundmc/stopper/*.go # gosub
-  - code.cloudfoundry.org/guardian/sysinfo/*.go # gosub
-  - code.cloudfoundry.org/idmapper/*.go # gosub
-  - code.cloudfoundry.org/lager/*.go # gosub
-  - code.cloudfoundry.org/lager/chug/*.go # gosub
-  - code.cloudfoundry.org/localip/*.go # gosub
-  - github.com/bmizerany/pat/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/envelope_sender/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/envelopes/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/factories/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/instrumented_handler/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/instrumented_round_tripper/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/log_sender/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/logs/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/metric_sender/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/metricbatcher/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/metrics/*.go # gosub
-  - github.com/cloudfoundry/dropsonde/runtime_stats/*.go # gosub
-  - github.com/cloudfoundry/gosigar/*.go # gosub
-  - github.com/cloudfoundry/gosteno/*.go # gosub
-  - github.com/cloudfoundry/sonde-go/events/*.go # gosub
-  - github.com/docker/docker/daemon/graphdriver/aufs/*.go # gosub
-  - github.com/docker/docker/pkg/archive/*.go # gosub
-  - github.com/docker/docker/pkg/chrootarchive/*.go # gosub
-  - github.com/docker/docker/pkg/fileutils/*.go # gosub
-  - github.com/docker/docker/pkg/idtools/*.go # gosub
-  - github.com/docker/docker/pkg/ioutils/*.go # gosub
-  - github.com/docker/docker/pkg/longpath/*.go # gosub
-  - github.com/docker/docker/pkg/mount/*.go # gosub
-  - github.com/docker/docker/pkg/pools/*.go # gosub
-  - github.com/docker/docker/pkg/reexec/*.go # gosub
-  - github.com/docker/docker/pkg/system/*.go # gosub
-  - github.com/docker/docker/vendor/archive/tar/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/Microsoft/go-winio/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/opencontainers/go-digest/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/pkg/errors/*.go # gosub
-  - github.com/docker/docker/vendor/github.com/sirupsen/logrus/*.go # gosub
-  - github.com/docker/docker/vendor/golang.org/x/crypto/ssh/terminal/*.go # gosub
-  - github.com/docker/docker/vendor/golang.org/x/sys/windows/*.go # gosub
-  - github.com/eapache/go-resiliency/retrier/*.go # gosub
-  - github.com/gogo/protobuf/gogoproto/*.go # gosub
-  - github.com/gogo/protobuf/proto/*.go # gosub
-  - github.com/gogo/protobuf/protoc-gen-gogo/descriptor/*.go # gosub
-  - github.com/hashicorp/go-multierror/*.go # gosub
-  - github.com/hashicorp/go-multierror/vendor/github.com/hashicorp/errwrap/*.go # gosub
-  - github.com/jessevdk/go-flags/*.go # gosub
-  - github.com/mitchellh/copystructure/*.go # gosub
-  - github.com/mitchellh/go-ps/*.go # gosub
-  - github.com/mitchellh/reflectwalk/*.go # gosub
-  - github.com/nu7hatch/gouuid/*.go # gosub
-  - github.com/opencontainers/go-digest/*.go # gosub
-  - github.com/opencontainers/image-spec/specs-go/*.go # gosub
-  - github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
-  - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
-  - github.com/pkg/errors/*.go # gosub
-  - github.com/tedsuo/ifrit/*.go # gosub
-  - github.com/tedsuo/ifrit/http_server/*.go # gosub
-  - github.com/tedsuo/ifrit/sigmon/*.go # gosub
-  - github.com/tedsuo/rata/*.go # gosub
-  - github.com/tscolari/lagregator/*.go # gosub
+  - code.cloudfoundry.org/guardian/**/*
+
+# we are excluding these, because it is problematic to untar symlinks on windows
+# in order to list all symlinks run the following command from guardian root:
+# find . -type l -ls
+excluded_files:
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-cert.pem
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-key.pem
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/ca.pem
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-key.pem
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-cert.pem
+  - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/project/CONTRIBUTING.md

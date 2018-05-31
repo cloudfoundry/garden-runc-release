@@ -6,10 +6,6 @@
 	path = src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
 	branch = master
-[submodule "src/github.com/tedsuo/ifrit"]
-	path = src/github.com/tedsuo/ifrit
-	url = https://github.com/tedsuo/ifrit
-	branch = master
 [submodule "src/github.com/tedsuo/rata"]
 	path = src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
@@ -26,194 +22,43 @@
 	path = src/github.com/bmizerany/pat
 	url = https://github.com/bmizerany/pat
 	branch = master
-[submodule "src/github.com/nu7hatch/gouuid"]
-	path = src/github.com/nu7hatch/gouuid
-	url = https://github.com/nu7hatch/gouuid
-	branch = master
-[submodule "src/github.com/opencontainers/runc"]
-	path = src/github.com/opencontainers/runc
-	url = https://github.com/opencontainers/runc
-	branch = master
-[submodule "src/github.com/vishvananda/netns"]
-	path = src/github.com/vishvananda/netns
-	url = https://github.com/vishvananda/netns
-	branch = master
-[submodule "src/code.cloudfoundry.org/garden-shed"]
-	path = src/code.cloudfoundry.org/garden-shed
-	url = https://github.com/cloudfoundry/garden-shed
-	branch = master
-[submodule "src/github.com/tchap/go-patricia"]
-	path = src/github.com/tchap/go-patricia
-	url = https://github.com/tchap/go-patricia
-	branch = master
-[submodule "src/golang.org/x/net"]
-	path = src/golang.org/x/net
-	url = https://go.googlesource.com/net
-	branch = master
-[submodule "src/github.com/gorilla/mux"]
-	path = src/github.com/gorilla/mux
-	url = https://github.com/gorilla/mux
-	branch = master
-[submodule "src/github.com/gorilla/context"]
-	path = src/github.com/gorilla/context
-	url = https://github.com/gorilla/context
-	branch = master
-[submodule "src/github.com/vbatts/tar-split"]
-	path = src/github.com/vbatts/tar-split
-	url = https://github.com/vbatts/tar-split
-	branch = master
-[submodule "src/github.com/cloudfoundry/gosigar"]
-	path = src/github.com/cloudfoundry/gosigar
-	url = https://github.com/cloudfoundry/gosigar
-	branch = master
-[submodule "src/github.com/vishvananda/netlink"]
-	path = src/github.com/vishvananda/netlink
-	url = https://github.com/vishvananda/netlink
-	branch = master
-[submodule "src/github.com/eapache/go-resiliency"]
-	path = src/github.com/eapache/go-resiliency
-	url = https://github.com/eapache/go-resiliency
-	branch = master
-[submodule "src/github.com/gogo/protobuf"]
-	path = src/github.com/gogo/protobuf
-	url = https://github.com/gogo/protobuf
-	branch = master
-[submodule "src/github.com/cloudfoundry/dropsonde"]
-	path = src/github.com/cloudfoundry/dropsonde
-	url = https://github.com/cloudfoundry/dropsonde
-	branch = master
-[submodule "src/github.com/cloudfoundry/sonde-go"]
-	path = src/github.com/cloudfoundry/sonde-go
-	url = https://github.com/cloudfoundry/sonde-go
-	branch = master
-[submodule "src/github.com/cloudfoundry/gosteno"]
-	path = src/github.com/cloudfoundry/gosteno
-	url = https://github.com/cloudfoundry/gosteno
-	branch = master
-[submodule "src/github.com/jessevdk/go-flags"]
-	path = src/github.com/jessevdk/go-flags
-	url = https://github.com/jessevdk/go-flags
-	branch = master
-[submodule "src/github.com/opencontainers/runtime-spec"]
-	path = src/github.com/opencontainers/runtime-spec
-	url = https://github.com/opencontainers/runtime-spec
-	branch = master
-[submodule "src/github.com/mitchellh/reflectwalk"]
-	path = src/github.com/mitchellh/reflectwalk
-	url = https://github.com/mitchellh/reflectwalk
-	branch = master
 [submodule "src/gopkg.in/yaml.v2"]
 	path = src/gopkg.in/yaml.v2
 	url = https://gopkg.in/yaml.v2
 	branch = v2
-[submodule "src/github.com/mitchellh/copystructure"]
-	path = src/github.com/mitchellh/copystructure
-	url = https://github.com/mitchellh/copystructure
-	branch = master
 [submodule "src/code.cloudfoundry.org/lager"]
 	path = src/code.cloudfoundry.org/lager
 	url = https://github.com/cloudfoundry/lager
-	branch = master
-[submodule "src/code.cloudfoundry.org/debugserver"]
-	path = src/code.cloudfoundry.org/debugserver
-	url = https://github.com/cloudfoundry/debugserver
-	branch = master
-[submodule "src/github.com/tscolari/lagregator"]
-	path = src/github.com/tscolari/lagregator
-	url = https://github.com/tscolari/lagregator
-	branch = master
-[submodule "src/github.com/kardianos/osext"]
-	path = src/github.com/kardianos/osext
-	url = https://github.com/kardianos/osext
-	branch = master
-[submodule "src/github.com/pkg/errors"]
-	path = src/github.com/pkg/errors
-	url = https://github.com/pkg/errors
-	branch = master
-[submodule "src/github.com/urfave/cli"]
-	path = src/github.com/urfave/cli
-	url = https://github.com/urfave/cli
-	branch = master
-[submodule "src/code.cloudfoundry.org/idmapper"]
-	path = src/code.cloudfoundry.org/idmapper
-	url = https://github.com/cloudfoundry/idmapper
-	branch = master
-[submodule "src/github.com/opencontainers/selinux"]
-	path = src/github.com/opencontainers/selinux
-	url = https://github.com/opencontainers/selinux
 	branch = master
 [submodule "src/code.cloudfoundry.org/garden-integration-tests"]
 	path = src/code.cloudfoundry.org/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
-[submodule "src/github.com/st3v/glager"]
-	path = src/github.com/st3v/glager
-	url = https://github.com/st3v/glager
-	branch = master
 [submodule "src/github.com/golang/protobuf"]
 	path = src/github.com/golang/protobuf
 	url = https://github.com/golang/protobuf
-	branch = master
-[submodule "src/code.cloudfoundry.org/commandrunner"]
-	path = src/code.cloudfoundry.org/commandrunner
-	url = https://github.com/cloudfoundry/commandrunner
-	branch = master
-[submodule "src/github.com/opencontainers/image-spec"]
-	path = src/github.com/opencontainers/image-spec
-	url = https://github.com/opencontainers/image-spec
-	branch = master
-[submodule "src/github.com/opencontainers/go-digest"]
-	path = src/github.com/opencontainers/go-digest
-	url = https://github.com/opencontainers/go-digest
 	branch = master
 [submodule "src/code.cloudfoundry.org/grootfs"]
 	path = src/code.cloudfoundry.org/grootfs
 	url = https://github.com/cloudfoundry/grootfs
 	branch = master
-[submodule "src/github.com/hashicorp/go-multierror"]
-	path = src/github.com/hashicorp/go-multierror
-	url = https://github.com/hashicorp/go-multierror
-	branch = master
-[submodule "src/github.com/mitchellh/go-ps"]
-	path = src/github.com/mitchellh/go-ps
-	url = https://github.com/mitchellh/go-ps
-	branch = master
-[submodule "src/golang.org/x/sys"]
-	path = src/golang.org/x/sys
-	url = https://github.com/golang/sys
-	branch = master
-[submodule "src/github.com/burntsushi/toml"]
-	path = src/github.com/burntsushi/toml
-	url = https://github.com/burntsushi/toml
-	branch = master
 [submodule "src/github.com/containerd/containerd"]
 	path = src/github.com/containerd/containerd
-	url = https://github.com/cloudfoundry-incubator/containerd
-	branch = master
-[submodule "src/code.cloudfoundry.org/clock"]
-	path = src/code.cloudfoundry.org/clock
-	url = https://github.com/cloudfoundry/clock
-	branch = master
-[submodule "src/code.cloudfoundry.org/localip"]
-	path = src/code.cloudfoundry.org/localip
-	url = https://github.com/cloudfoundry/localip
+	url = https://github.com/containerd/containerd
 	branch = master
 [submodule "src/code.cloudfoundry.org/archiver"]
 	path = src/code.cloudfoundry.org/archiver
 	url = https://github.com/cloudfoundry/archiver
 	branch = master
-[submodule "src/github.com/docker/docker"]
-	path = src/github.com/docker/docker
-	url = https://github.com/moby/moby
+[submodule "src/github.com/opencontainers/runc"]
+	path = src/github.com/opencontainers/runc
+	url = https://github.com/opencontainers/runc
 	branch = master
-[submodule "src/golang.org/x/crypto"]
-	path = src/golang.org/x/crypto
-	url = https://github.com/golang/crypto
-	branch = master
-[submodule "src/github.com/sirupsen/logrus"]
-	path = src/github.com/sirupsen/logrus
-	url = https://github.com/sirupsen/logrus
+[submodule "src/code.cloudfoundry.org/idmapper"]
+	path = src/code.cloudfoundry.org/idmapper
+	url = https://github.com/cloudfoundry/idmapper
 	branch = master
 [submodule "src/code.cloudfoundry.org/netplugin-shim"]
 	path = src/code.cloudfoundry.org/netplugin-shim
-	url = git@github.com:cloudfoundry/netplugin-shim.git
+	url = https://github.com/cloudfoundry/netplugin-shim
+	branch = master

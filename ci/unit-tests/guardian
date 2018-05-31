@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 set -ex
 
+grr_base=$PWD/gr-release-develop
+
 # shellcheck source=../helpers/device-control
-source "$( dirname "$0" )/../helpers/device-control"
-
-base=$PWD
-
-cd "$(dirname "$0")/../.."
-
+source "$grr_base/ci/helpers/device-control"
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
-export GOPATH=$PWD
+export GOPATH=$grr_base
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
+
+#TODO: Figure out how to get rid of the containerd git-related errors below
+echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
+pushd "$grr_base"/src/github.com/containerd/containerd
+  BUILDTAGS=no_btrfs make && make install
+popd
 
 # Set up AppArmor
 if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
@@ -25,14 +28,10 @@ if ! aa-status | grep garden-default > /dev/null; then
   apparmor_parser -a ci/assets/garden-default
 fi
 
-cd src/code.cloudfoundry.org/guardian
-
 export GARDEN_TEST_ROOTFS=/opt/warden/rootfs.tar
 export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs.tar
-export GARDEN_NESTABLE_TEST_ROOTFS=/opt/warden/nestable-rootfs.tar
 export GARDEN_TAR_PATH=/opt/static-assets/tar/bin/tar
 export GARDEN_TEST_GRAPHPATH=/tmp/aufs_mount
-export GARDEN_DORA_PATH=$PWD/../garden-integration-tests/resources/dora.tgz.tar
 export GARDEN_DOCKER_REGISTRY_V2_TEST_ROOTFS=/opt/warden/docker-registry-v2-rootfs.tar
 
 permit_device_control
@@ -40,10 +39,13 @@ create_loop_devices 256
 
 go version
 
+echo "compiling test process: $(date)"
+
+cd "$grr_base"/src/code.cloudfoundry.org/guardian
+
 if [ -z "${NO_GO_VET:-}" ]; then
   go vet ./...
 fi
-echo "compiling test process: $(date)"
 
 cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
 if [ -n "${RACE_DETECTION:-}" ]; then
@@ -52,7 +54,7 @@ fi
 cmd="$cmd $*"
 
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-  cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
+  cmd="$grr_base/ci/helpers/slowmobius $cmd"
 fi
 
 $cmd

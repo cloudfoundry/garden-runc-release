@@ -5,12 +5,4 @@ dependencies:
   - golang
 
 files:
-  - code.cloudfoundry.org/grootfs/Makefile
-  - code.cloudfoundry.org/grootfs/**/*.go
-  - code.cloudfoundry.org/grootfs/**/*.s
-  - code.cloudfoundry.org/idmapper/*.go # gosub
-  - code.cloudfoundry.org/idmapper/cmd/*.go # gosub
-  - code.cloudfoundry.org/idmapper/cmd/maximus/*.go # gosub
-  - code.cloudfoundry.org/idmapper/cmd/newgidmap/*.go # gosub
-  - code.cloudfoundry.org/idmapper/cmd/newuidmap/*.go # gosub
-  - github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - code.cloudfoundry.org/grootfs/**/*

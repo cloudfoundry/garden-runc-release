@@ -6,32 +6,49 @@ which gosub
 
 function linux_deps {
   GOOS=linux gosub list \
-    -t code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/garden/... \
-    -t code.cloudfoundry.org/garden-shed/... \
     -t code.cloudfoundry.org/garden-integration-tests/...
 }
 
 function windows_deps {
   GOOS=windows gosub list \
-    -t code.cloudfoundry.org/guardian/... \
     -t code.cloudfoundry.org/garden/... \
     -t code.cloudfoundry.org/garden-integration-tests/...
+}
+
+function guardian_deps {
+  echo "code.cloudfoundry.org/guardian"
 }
 
 function grootfs_deps {
   echo "code.cloudfoundry.org/grootfs"
 }
 
+function runc_deps {
+  echo "github.com/opencontainers/runc"
+}
+
 function containerd_deps {
   echo "github.com/containerd/containerd"
+}
+
+function idmapper_deps {
+  echo "code.cloudfoundry.org/idmapper"
+}
+
+function netplugin_shim_deps {
+  echo "code.cloudfoundry.org/netplugin-shim"
 }
 
 (
   sort -u \
     <( linux_deps ) \
     <( windows_deps ) \
+    <( guardian_deps ) \
     <( grootfs_deps ) \
-    <( containerd_deps )
+    <( runc_deps ) \
+    <( containerd_deps ) \
+    <( idmapper_deps ) \
+    <( netplugin_shim_deps )
 
-) | grep -v "Sirupsen/logrus" | xargs gosub sync
+) | xargs gosub sync

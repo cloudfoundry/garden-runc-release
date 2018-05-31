@@ -8,9 +8,6 @@ cd "$ROOT_DIR_PATH"
 
 ./scripts/sync-submodule-config
 
-./scripts/sync-package-specs
-git add packages/*/spec
-
 ./scripts/commit-with-submodule-log "$@"
 
 git duet-commit --amend --reset-author --verbose
