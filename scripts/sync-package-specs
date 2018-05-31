@@ -46,3 +46,14 @@ pushd "$ROOT_DIR_PATH"/packages/garden-idmapper
 
   mv spec.new spec
 popd
+
+pushd "$ROOT_DIR_PATH"/packages/netplugin-shim
+  {
+    cat spec | grep -v '# gosub'
+    GOOS=linux gosub list \
+      -a code.cloudfoundry.org/netplugin-shim \
+      | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+  } > spec.new
+
+  mv spec.new spec
+popd

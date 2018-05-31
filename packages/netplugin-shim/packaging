@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+mkdir -p ${BOSH_INSTALL_TARGET}/src
+
+cp -a . ${BOSH_INSTALL_TARGET}/src/.
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export GOPATH=$BOSH_INSTALL_TARGET
+export PATH=$GOROOT/bin:$PATH
+
+go install code.cloudfoundry.org/netplugin-shim
+
+rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

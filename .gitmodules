@@ -214,3 +214,6 @@
 	path = src/github.com/sirupsen/logrus
 	url = https://github.com/sirupsen/logrus
 	branch = master
+[submodule "src/code.cloudfoundry.org/netplugin-shim"]
+	path = src/code.cloudfoundry.org/netplugin-shim
+	url = git@github.com:cloudfoundry/netplugin-shim.git

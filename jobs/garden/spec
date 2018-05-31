@@ -29,6 +29,7 @@ packages:
   - grootfs
   - xfs-progs
   - thresholder
+  - netplugin-shim
 
 properties:
   garden.listen_network:
