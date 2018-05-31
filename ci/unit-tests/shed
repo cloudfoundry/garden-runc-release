@@ -12,7 +12,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$GOPATH/bin:$PATH
 
-cd src/code.cloudfoundry.org/garden-shed
+cd src/code.cloudfoundry.org/guardian/vendor/code.cloudfoundry.org/garden-shed
 
 permit_device_control
 create_loop_devices 256
