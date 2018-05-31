@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -ex
+
+export GOPATH=$PWD/gr-release-develop
+base=$PWD
+
+cd gr-release-develop/src/code.cloudfoundry.org/netplugin-shim
+
+cmd="ginkgo --race -p --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r"
+cmd="$cmd $*"
+
+if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
+  cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
+fi
+
+$cmd
