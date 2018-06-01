@@ -1,4 +1,4 @@
-root = "/var/vcap/store/containerd"
+root = "/var/vcap/data/containerd/root"
 state = "/var/vcap/data/containerd/state"
 subreaper = true
 oom_score = -999
