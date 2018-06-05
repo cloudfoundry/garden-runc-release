@@ -59,8 +59,9 @@ run_tests_in_parallel() {
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )
   tmux split-window -p 80 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/garden.yml; bash\""
-  tmux split-window -h -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian.yml; bash\""
-  tmux split-window -p 80 "/bin/bash -c \"TAG=xenial ./scripts/remote-fly ci/unit-tests/guardian-xenial.yml; bash\""
+  tmux split-window -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian.yml; bash\""
+  tmux split-window -p 40 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/containerd.yml; bash\""
+  tmux split-window -hf -p 50 "/bin/bash -c \"TAG=xenial ./scripts/remote-fly ci/unit-tests/guardian-xenial.yml; bash\""
   tmux split-window -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian-windows.yml; bash\""
   tmux split-window -p 60 "/bin/bash -c \"./scripts/remote-fly ci/integration-tests/gdn-linux.yml; bash\""
   tmux split-window -p 50 "/bin/bash -c \"./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml; bash\""

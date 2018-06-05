@@ -14,13 +14,11 @@ export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 
-if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
-  #TODO: Figure out how to get rid of the containerd git-related errors below
-  echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
-  pushd "$grr_base"/src/github.com/containerd/containerd
-    BUILDTAGS=no_btrfs make && make install
-  popd
-fi
+#TODO: Figure out how to get rid of the containerd git-related errors below
+echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
+pushd "$grr_base"/src/github.com/containerd/containerd
+  BUILDTAGS=no_btrfs make && make install
+popd
 
 # Set up AppArmor
 if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
@@ -49,7 +47,7 @@ if [ -z "${NO_GO_VET:-}" ]; then
   go vet ./...
 fi
 
-cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
+cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs gqt rundmc/runcontainerd/nerd"
 if [ -n "${RACE_DETECTION:-}" ]; then
   cmd="$cmd --race"
 fi
