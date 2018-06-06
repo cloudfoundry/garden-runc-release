@@ -19,4 +19,5 @@ create_loop_devices 256
 
 # make sure we don't run vet on the vendor directory because there's legacy over there
 ls -d */ | grep -v vendor | xargs -n 1 go tool vet -printf=false
-ginkgo --tags daemon -r -p --race --keepGoing --nodes=8 --failOnPending --randomizeSuites "$@"
+# These tests are intentionally serialised see: [#158065716]
+ginkgo -r --tags daemon --race --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -untilItFails
