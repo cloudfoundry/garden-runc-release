@@ -23,7 +23,17 @@ tarball_path="$base/final-release/garden-runc-${GARDEN_VERSION}.tgz"
 
 if [ -e "$RELEASE_YML" ]; then
   echo "release already created; making tarball..."
-  bosh -n create-release --sha2 --tarball="$tarball_path" "$RELEASE_YML"
+
+  gdn_version=$(cd src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  echo "$gdn_version" > src/versions/guardian
+
+  # We don't want to accidently include some dirty state other than src/versions/guardian in the release
+  if [ "$(git diff --name-only)" != "src/versions/guardian" ] ; then
+    echo "There are unexpected changes in the release repository."
+    exit 1
+  fi
+
+  bosh -n create-release --force --sha2 --tarball="$tarball_path" "$RELEASE_YML"
 else
   echo "finalizing release"
   bosh -n finalize-release --sha2 --version "$GARDEN_VERSION" "${CANDIDATE_DIR}"/garden-runc-*.tgz
