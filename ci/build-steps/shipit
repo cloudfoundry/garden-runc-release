@@ -27,11 +27,11 @@ tarball_path="$base/final-release/garden-runc-${GARDEN_VERSION}.tgz"
 if [ -e "$RELEASE_YML" ]; then
   echo "release already created; making tarball..."
 
-	# If you want to fly execute this, you will have to pass DEV_MODE=true
-	if [ -z "$DEV_MODE" ]; then
-		create_gdn_version_file "$PWD"
-		ensure_release_is_clean "$PWD"
-	fi
+  # If you want to fly execute this, you will have to pass DEV_MODE=true
+  if [ -z "$DEV_MODE" ]; then
+    create_gdn_version_file "$PWD"
+    ensure_release_is_clean "$PWD"
+  fi
 
   bosh -n create-release --force --sha2 --tarball="$tarball_path" "$RELEASE_YML"
 else
