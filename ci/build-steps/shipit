@@ -3,6 +3,9 @@ set -euo pipefail
 
 base=$PWD
 
+# shellcheck source=../helpers/gdn-version
+source "$( dirname "$0" )/../helpers/gdn-version"
+
 GARDEN_VERSION=$(cat "$base"/gr-version/number)
 if [ -z "${GARDEN_VERSION:-}" ]; then
   echo "missing garden version number"
@@ -24,14 +27,11 @@ tarball_path="$base/final-release/garden-runc-${GARDEN_VERSION}.tgz"
 if [ -e "$RELEASE_YML" ]; then
   echo "release already created; making tarball..."
 
-  gdn_version=$(cd src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
-  echo "$gdn_version" > src/versions/guardian
-
-  # We don't want to accidently include some dirty state other than src/versions/guardian in the release
-  if [ "$(git diff --name-only)" != "src/versions/guardian" ] ; then
-    echo "There are unexpected changes in the release repository."
-    exit 1
-  fi
+	# If you want to fly execute this, you will have to pass DEV_MODE=true
+	if [ -z "$DEV_MODE" ]; then
+		create_gdn_version_file "$PWD"
+		ensure_release_is_clean "$PWD"
+	fi
 
   bosh -n create-release --force --sha2 --tarball="$tarball_path" "$RELEASE_YML"
 else

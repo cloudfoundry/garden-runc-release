@@ -19,5 +19,8 @@ outputs:
   - name: github-release
   - name: release
 
+params:
+  DEV_MODE:
+
 run:
   path: gr-release-develop/ci/build-steps/shipit

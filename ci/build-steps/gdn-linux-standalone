@@ -12,7 +12,7 @@ export PATH=$PATH:$GOPATH/bin
 basedir=$PWD
 
 # If you want to fly execute this, you will have to pass SKIP_VERSION=true
-if [ -z "$SKIP_VERSION" ]; then
+if [ -z "$DEV_MODE" ]; then
   gdn_version=$(cd gr-release-develop/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
   gdn_build_ldflags="-X main.version=${gdn_version}"
 fi

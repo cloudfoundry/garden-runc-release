@@ -1,0 +1,15 @@
+create_gdn_version_file() {
+  gdn_version=$(cd "$1"/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  echo "$gdn_version" > "$1"/src/versions/guardian
+}
+
+# We don't want to accidently include some dirty state other than src/versions/guardian in the release
+ensure_release_is_clean() {
+pushd "$1"
+  if [ "$(git diff --name-only)" != "src/versions/guardian" ] ; then
+    echo "There are unexpected changes in the release repository."
+    exit 1
+  fi
+popd
+}
+

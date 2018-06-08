@@ -16,7 +16,7 @@ outputs:
 - name: bosh-release
 
 params:
-  SKIP_VERSION:
+  DEV_MODE:
 
 run:
   path: gr-release-develop/ci/build-steps/create-release
