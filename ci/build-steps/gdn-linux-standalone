@@ -11,6 +11,12 @@ export PATH=$PATH:$GOPATH/bin
 
 basedir=$PWD
 
+# If you want to fly execute this, you will have to pass SKIP_VERSION=true
+if [ -z "$SKIP_VERSION" ]; then
+  gdn_version=$(cd gr-release-develop/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  gdn_build_ldflags="-X main.version=${gdn_version}"
+fi
+
 # shellcheck source=../helpers/device-control
 source "$( dirname "$0" )/../helpers/device-control"
 
@@ -70,6 +76,7 @@ function build() {
   go build \
     -tags daemon \
     -o binary/gdn \
+    -ldflags "$gdn_build_ldflags" \
     code.cloudfoundry.org/guardian/cmd/gdn
 }
 

@@ -12,6 +12,12 @@ fi
 (
 cd gr-release-develop
 
+# If you want to fly execute this, you will have to pass SKIP_VERSION=true
+if [ -z "$SKIP_VERSION" ]; then
+  gdn_version=$(cd src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  echo "$gdn_version" > src/versions/guardian
+fi
+
 tarball_path="$base/bosh-release/garden-runc-${VERSION}.tgz"
 mkdir -p "$(dirname "$tarball_path")"
 bosh -n create-release --sha2 --tarball="$tarball_path" --version="${VERSION}"

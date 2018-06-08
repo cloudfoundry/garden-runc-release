@@ -15,5 +15,8 @@ inputs:
 outputs:
 - name: bosh-release
 
+params:
+  SKIP_VERSION:
+
 run:
   path: gr-release-develop/ci/build-steps/create-release

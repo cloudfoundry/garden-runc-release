@@ -6,11 +6,13 @@ mkdir -p ${BOSH_INSTALL_TARGET}/src
 
 cp -a . ${BOSH_INSTALL_TARGET}/src/.
 
+gdn_version="$( cat versions/guardian )"
+
 export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
+go install -tags daemon -ldflags "-X main.version=$gdn_version" code.cloudfoundry.org/guardian/cmd/gdn
 go install code.cloudfoundry.org/guardian/cmd/dadoo
 go install code.cloudfoundry.org/guardian/cmd/socket2me
 go install code.cloudfoundry.org/guardian/cmd/execas

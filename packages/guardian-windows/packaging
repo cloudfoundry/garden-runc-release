@@ -12,6 +12,7 @@ $pkg_name="gdn"
 $pkg_path="code.cloudfoundry.org/guardian/cmd/gdn"
 $init_bin_name="winit"
 $init_bin_path="code.cloudfoundry.org/guardian/cmd/winit"
+$gdn_version = [IO.File]::ReadAllText("versions\guardian")
 
 # Create GOPATH
 New-Item -ItemType "directory" -Force "${BOSH_INSTALL_TARGET}\src"
@@ -21,7 +22,7 @@ if ($LASTEXITCODE -ge 8) {
     Write-Error "robocopy.exe /E ${PWD} ${BOSH_INSTALL_TARGET}\src"
 }
 
-go.exe build -o "${BOSH_INSTALL_TARGET}\${pkg_name}.exe" "${pkg_path}"
+go.exe build -o "${BOSH_INSTALL_TARGET}\${pkg_name}.exe" -ldflags "-X main.version=${gdn_version}" "${pkg_path}"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: ${pkg_path}"
 }
