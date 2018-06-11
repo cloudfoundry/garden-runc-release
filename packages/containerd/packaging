@@ -5,7 +5,7 @@ mkdir -p "${BOSH_INSTALL_TARGET}/src"
 cp -a . "${BOSH_INSTALL_TARGET}/src/"
 
 export GOROOT
-GOROOT="$( readlink -nf /var/vcap/packages/golang-1.10 )"
+GOROOT="$( readlink -nf /var/vcap/packages/golang )"
 export GOPATH="$BOSH_INSTALL_TARGET"
 export PATH="${GOROOT}/bin:${PATH}"
 

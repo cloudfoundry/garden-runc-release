@@ -2,7 +2,7 @@
 name: containerd
 
 dependencies:
-  - golang-1.10
+  - golang
 
 files:
   - github.com/containerd/containerd/**/*
