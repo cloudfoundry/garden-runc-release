@@ -20,8 +20,8 @@ mkdir -p "$(dirname "$tarball_path")"
 
 # If you want to fly execute this, you will have to pass DEV_MODE=true
 if [ -z "$DEV_MODE" ]; then
-  create_gdn_version_file "$PWD"
   ensure_release_is_clean "$PWD"
+  create_gdn_version_file "$PWD"
 fi
 
 bosh -n create-release --sha2 --force --tarball="$tarball_path" --version="${VERSION}"
