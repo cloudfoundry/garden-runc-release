@@ -4,13 +4,11 @@ import (
 	"os/exec"
 	"os/user"
 	"strconv"
-	"time"
+	"testing"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
-
-	"testing"
 )
 
 const (
@@ -51,7 +49,7 @@ func ensureVcapUserAndGroup(id int) {
 
 func createUser(name string, id int) {
 	cmd := exec.Command("useradd", name, "-u", strconv.Itoa(id))
-	session, err := gexec.Start(cmd, GinkgoWriter, GinkgoWriter)
-	Expect(err).NotTo(HaveOccurred())
-	Eventually(session, time.Second*5).Should(gexec.Exit(0))
+	cmd.Stdout = GinkgoWriter
+	cmd.Stderr = GinkgoWriter
+	Expect(cmd.Run()).To(Succeed())
 }
