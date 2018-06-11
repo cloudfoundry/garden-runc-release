@@ -50,7 +50,7 @@ run_tests_in_serial() {
   TAG=xenial ./scripts/remote-fly ci/unit-tests/guardian-xenial.yml
   ./scripts/remote-fly ci/unit-tests/guardian-windows.yml
   ./scripts/remote-fly ci/integration-tests/gdn-linux.yml
-  ./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml
+  DEV_MODE=true ./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml
 }
 
 run_tests_in_parallel() {
@@ -64,7 +64,7 @@ run_tests_in_parallel() {
   tmux split-window -hf -p 50 "/bin/bash -c \"TAG=xenial ./scripts/remote-fly ci/unit-tests/guardian-xenial.yml; bash\""
   tmux split-window -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian-windows.yml; bash\""
   tmux split-window -p 60 "/bin/bash -c \"./scripts/remote-fly ci/integration-tests/gdn-linux.yml; bash\""
-  tmux split-window -p 50 "/bin/bash -c \"./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml; bash\""
+  tmux split-window -p 50 "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml; bash\""
 }
 
 if [ -z "$*" ]; then
