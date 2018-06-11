@@ -22,6 +22,7 @@ ifconfig > ifconfig.log
 iptables -L > iptables-L.log
 iptables -tnat -L > iptables-tnat.log
 cat /proc/self/mountinfo > mountinfo.log
+/var/vcap/packages/guardian/bin/gdn -v > gdn-version.log
 find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents.log
 
 cp /var/log/kern.log . && tar czf kernlog.tgz kern.log && rm kern.log
