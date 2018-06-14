@@ -1,0 +1,172 @@
+- type: replace
+  path: /releases/-
+  value:
+    name: cf-networking
+    version: 2.4.0
+    sha1: 0359160c1914ede4524f41d9b7cee8c2b2f00ba5
+    url: https://bosh.io/d/github.com/cloudfoundry/cf-networking-release?v=2.4.0
+
+- type: replace
+  path: /releases/-
+  value:
+    name: silk
+    version: 2.4.0
+    sha1: 9c1573ba409667df15c2f90b7a9eb9c6b1505a71
+    url: https://bosh.io/d/github.com/cloudfoundry/silk-release?v=2.4.0
+
+- type: replace
+  path: /releases/-
+  value:
+    name: cf-mysql
+    url: https://bosh.io/d/github.com/cloudfoundry/cf-mysql-release?v=36.14.0
+    version: 36.14.0
+    sha1: 383f70fd4d776bf91d9043d8fd9ad79516cc8478
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: cf_mysql_mysql_galera_healthcheck_endpoint_password
+    type: password
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: cf_mysql_mysql_galera_healthcheck_password
+    type: password
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: cf_mysql_mysql_cluster_health_password
+    type: password
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: cf_mysql_mysql_admin_password
+    type: password
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: network_connectivity_database_password
+    type: password
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: silk_ca
+    type: certificate
+    options:
+      is_ca: true
+      common_name: silk-ca
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: silk_controller
+    type: certificate
+    options:
+      ca: silk_ca
+      common_name: &controller_hostname localhost
+      extended_key_usage:
+      - server_auth
+
+- type: replace
+  path: /variables?/-
+  value:
+    name: silk_daemon
+    type: certificate
+    options:
+      ca: silk_ca
+      common_name: silk-daemon
+      extended_key_usage:
+      - client_auth
+
+- type: replace
+  path: /instance_groups/name=garden/persistent_disk?
+  value: 6000
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: mysql
+    release: cf-mysql
+    properties:
+      cf_mysql:
+        mysql:
+          admin_password: "((cf_mysql_mysql_admin_password))"
+          port: &mysql_port 13306
+          binlog_enabled: false
+          cluster_health:
+            password: "((cf_mysql_mysql_cluster_health_password))"
+          galera_healthcheck:
+            db_password: "((cf_mysql_mysql_galera_healthcheck_password))"
+            endpoint_username: galera_healthcheck
+            endpoint_password: "((cf_mysql_mysql_galera_healthcheck_endpoint_password))"
+          seeded_databases:
+          - name: network_connectivity
+            username: network_connectivity
+            password: "((network_connectivity_database_password))"
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: silk-controller
+    release: silk
+    properties:
+      ca_cert: ((silk_ca.certificate))
+      database:
+        host: localhost
+        name: network_connectivity
+        password: ((network_connectivity_database_password))
+        port: *mysql_port
+        type: mysql
+        username: network_connectivity
+      server_cert: ((silk_controller.certificate))
+      server_key: ((silk_controller.private_key))
+      silk_daemon:
+        ca_cert: ((silk_ca.certificate))
+        client_cert: ((silk_daemon.certificate))
+        client_key: ((silk_daemon.private_key))
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: silk-daemon
+    release: silk
+    properties:
+      ca_cert: ((silk_ca.ca))
+      client_cert: ((silk_daemon.certificate))
+      client_key: ((silk_daemon.private_key))
+      silk_controller:
+        hostname: *controller_hostname
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: netmon
+    release: silk
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: silk-cni
+    release: silk
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: garden-cni
+    release: cf-networking
+    properties:
+      cni_plugin_dir: /var/vcap/packages/silk-cni/bin
+      cni_config_dir: /var/vcap/jobs/silk-cni/config/cni
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/name=garden/properties?/garden?/network_plugin?
+  value: /var/vcap/packages/runc-cni/bin/garden-external-networker
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/name=garden/properties?/garden?/network_plugin_extra_args?
+  value: ["--configFile=/var/vcap/jobs/garden-cni/config/adapter.json"]
