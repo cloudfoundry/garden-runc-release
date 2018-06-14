@@ -177,4 +177,7 @@
 <% if p("garden.experimental_containerd_mode") -%>
 ; containerd
   containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
+  <% if p("garden.experimental_use_containerd_mode_for_processes") -%>
+  use-containerd-for-processes = true
+  <% end -%>
 <% end -%>

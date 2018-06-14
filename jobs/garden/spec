@@ -188,6 +188,10 @@ properties:
     description: (Under development) Use containerd for container lifecycle management
     default: false
 
+  garden.experimental_use_containerd_mode_for_processes:
+    description: (Under development) Use containerd for container process management. (Must be used with experimental_containerd_mode also set to true.)
+    default: false
+
   grootfs.driver:
     description: "To be deprecated: Filesystem driver to use. Only supported option is overlay-xfs."
     default: overlay-xfs
