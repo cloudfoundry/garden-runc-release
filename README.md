@@ -49,6 +49,12 @@ package for Golang.
 
 [Operator's guide.](docs/opsguide.md)
 
+### Security Features
+
+The following doc provides an overview of security features on Garden vs Docker vs Kubernetes.
+
+[Security overview.](docs/security-overview.md)
+
 ### Rootless containers
 
 Garden has experimental support for running containers without requiring root
