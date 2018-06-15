@@ -12,5 +12,5 @@ Table last updated 15/06/18.
 ## Environments
 
 * Cloud Foundry Application Runtime v1.40.0 - Standard deployment on Ubuntu trusty stemcell
-* Docker v18.03.1-ce - Standard install on Ubuntu xenail
+* Docker v18.03.1-ce - Standard install on Ubuntu xenial
 * Kubernetes v1.10.4 - Standard deployment on GCP via [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/v1.10.4/cluster/kube-up.sh)
