@@ -10,4 +10,4 @@ cd "$ROOT_DIR_PATH"
 
 ./scripts/commit-with-submodule-log "$@"
 
-git duet-commit --amend --reset-author --verbose
+git commit --amend --reset-author --verbose
