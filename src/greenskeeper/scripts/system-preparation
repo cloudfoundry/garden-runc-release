@@ -46,6 +46,26 @@ function load_apparmor_profile() {
   apparmor_parser -r "$profile_path"
 }
 
+function disable_transparent_hugepages() {
+  if ! echo madvise > /sys/kernel/mm/transparent_hugepage/enabled ; then
+    # ensure this log line goes to stderr
+    >&2 echo "Could not disable automatic transparent hugepage allocation. This is normal in bosh lite."
+  fi
+}
+
+function restrict_dmesg_access() {
+  echo 1 > /proc/sys/kernel/dmesg_restrict
+}
+
+function increase_max_open_fds() {
+  ulimit -n 65536
+}
+
+function increase_max_procs() {
+  echo 4194304 > /proc/sys/kernel/pid_max
+  ulimit -u unlimited
+}
+
 function log() {
   local msg=$1
   echo "$(date) - $msg"

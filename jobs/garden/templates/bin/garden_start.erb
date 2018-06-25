@@ -26,8 +26,17 @@ rm -f "$RUNTIME_BIN_DIR"/init
 cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 
 log "preparing system"
+
 permit_device_control
 create_loop_devices 256
+disable_transparent_hugepages
+restrict_dmesg_access
+increase_max_open_fds
+increase_max_procs
+
+<% if p("garden.apparmor_profile") == "garden-default" %>
+  load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
+<% end %>
 log "done"
 
 <% if !p("garden.deprecated_use_garden_shed") && p("garden.image_plugin", "") == "" %>
@@ -35,21 +44,6 @@ log "configuring xfs"
 ${BASE_PATH}/overlay-xfs-setup
 log "done"
 <% end %>
-
-<% if p("garden.apparmor_profile") == "garden-default" %>
-  load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
-<% end %>
-
-if ! echo madvise > /sys/kernel/mm/transparent_hugepage/enabled ; then
-  # ensure this log line goes to stderr
-  >&2 echo "Could not disable automatic transparent hugepage allocation. This is normal in bosh lite."
-fi
-
-echo 1 > /proc/sys/kernel/dmesg_restrict
-
-ulimit -n 65536
-echo 4194304 > /proc/sys/kernel/pid_max
-ulimit -u unlimited
 
 exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
      2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
