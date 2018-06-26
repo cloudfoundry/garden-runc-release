@@ -2,6 +2,26 @@ root = "/var/vcap/data/containerd/root"
 state = "/var/vcap/data/containerd/state"
 subreaper = true
 oom_score = -999
+disabled_plugins = [
+  "aufs",
+  "overlayfs",
+  "zfs",
+  "walking",
+  "scheduler",
+  "content-service",
+  "diff-service",
+  "images-service",
+  "namespaces-service",
+  "snapshots-service",
+  "content",
+  "diff",
+  "events",
+  "images",
+  "namespaces",
+  "snapshots",
+  "version",
+  "cri"
+]
 
 [grpc]
 address = "/var/vcap/sys/run/containerd/containerd.sock"
