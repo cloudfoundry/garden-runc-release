@@ -13,6 +13,7 @@ import (
 
 const (
 	vcapID = 5001
+	maxID  = 4294967294
 )
 
 var (

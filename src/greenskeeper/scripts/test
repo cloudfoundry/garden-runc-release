@@ -4,5 +4,5 @@ set -e
 
 ARGS=$@
 
-(cd ../..; ./scripts/remote-fly ci/greenskeeper.yml -- $ARGS)
+(cd ../..; ./scripts/remote-fly ci/unit-tests/greenskeeper.yml -- $ARGS)
 

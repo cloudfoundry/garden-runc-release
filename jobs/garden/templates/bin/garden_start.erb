@@ -20,29 +20,34 @@ source /var/vcap/packages/greenskeeper/bin/system-preparation
   log "done"
 <% end %>
 
-/var/vcap/packages/greenskeeper/bin/greenskeeper
-
-rm -f "$RUNTIME_BIN_DIR"/init
-cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
-
 log "preparing system"
-
 permit_device_control
 create_loop_devices 256
 disable_transparent_hugepages
 restrict_dmesg_access
 increase_max_open_fds
 increase_max_procs
-
 <% if p("garden.apparmor_profile") == "garden-default" %>
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
 <% end %>
-log "done"
+log "preparing system: done"
+
+log "running greenskeeper"
+greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
+<% if p("garden.experimental_rootless_mode") %>
+  greenskeeper_cmd="$greenskeeper_cmd --rootless"
+<% end %>
+$greenskeeper_cmd
+log "running greenskeeper: done"
+
+# cannot over-write an executable mid-execution
+rm -f "$RUNTIME_BIN_DIR"/init
+cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 
 <% if !p("garden.deprecated_use_garden_shed") && p("garden.image_plugin", "") == "" %>
 log "configuring xfs"
 ${BASE_PATH}/overlay-xfs-setup
-log "done"
+log "configuring xfs: done"
 <% end %>
 
 exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \
@@ -51,7 +56,6 @@ exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garde
 setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 exec_command="exec"
 id_map_start=1
-garden_configfile_path="$GARDEN_CONFIG_DIR/config.ini"
 
 <% if p("garden.experimental_rootless_mode") %>
   <% if p("garden.listen_network") == "tcp" %>
@@ -62,28 +66,14 @@ garden_configfile_path="$GARDEN_CONFIG_DIR/config.ini"
   setup_cmd="$setup_cmd --rootless-uid $MAXIMUS --rootless-gid $MAXIMUS"
   id_map_start=65536
 
-  # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
-  # where to place the runc root dir in rootless mode.
-  # Given that this is not set on stemcells we choose to set it explicitely
-  # here.
-  export XDG_RUNTIME_DIR=/var/run/user/$MAXIMUS
-  export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
+  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" "$GARDEN_CONFIG_DIR/config.ini" "$GARDEN_ROOTLESS_CONFIG_DIR"
+  chown "$MAXIMUS:$MAXIMUS" "$GARDEN_ROOTLESS_CONFIG_DIR/grootfs_config.yml" "$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
 
-  mkdir -p $XDG_RUNTIME_DIR $TMPDIR
-  chmod 700 $XDG_RUNTIME_DIR
-  chown "$MAXIMUS:$MAXIMUS" $LOG_DIR $TMPDIR $DEPOT_PATH $XDG_RUNTIME_DIR
-
-  garden_rootless_config_dir="$GARDEN_DIR/config"
-  mkdir -p "$garden_rootless_config_dir"
-  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" "$GARDEN_CONFIG_DIR/config.ini" "$garden_rootless_config_dir"
-  chown "$MAXIMUS:$MAXIMUS" "$garden_rootless_config_dir/grootfs_config.yml" "$garden_rootless_config_dir/config.ini"
-
-  garden_configfile_path="$garden_rootless_config_dir/config.ini"
 <% end %>
 
 log "running setup"
 $setup_cmd
-log "done"
+log "running setup: done"
 
 <% if !p("bpm.enabled") %>
   echo $$ > $PIDFILE
@@ -91,7 +81,7 @@ log "done"
 
 log "running gdn"
 $exec_command /var/vcap/packages/guardian/bin/gdn \
-  --config "$garden_configfile_path" \
+  --config "$GARDEN_CONFIG_PATH" \
   server \
   --uid-map-start="$id_map_start" \
   --uid-map-length=$((MAXIMUS-id_map_start)) \

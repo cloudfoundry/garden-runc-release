@@ -5,12 +5,13 @@ export RUN_DIR=/var/vcap/sys/run/garden
 export LOG_DIR=/var/vcap/sys/log/garden
 export PIDFILE="${RUN_DIR}/garden.pid"
 export DATA_DIR=/var/vcap/data
-export GARDEN_DIR=/var/vcap/data/garden
+export GARDEN_DATA_DIR=/var/vcap/data/garden
 export GARDEN_CONFIG_DIR=/var/vcap/jobs/garden/config
+export GARDEN_CONFIG_PATH="$GARDEN_CONFIG_DIR/config.ini"
 export MONIT_DIR=/var/vcap/sys/log/monit
-export DEPOT_PATH="${GARDEN_DIR}/depot"
-export RUNTIME_BIN_DIR="${GARDEN_DIR}/bin"
-export GRAPH_PATH="${GARDEN_DIR}/graph"
+export DEPOT_PATH="${GARDEN_DATA_DIR}/depot"
+export RUNTIME_BIN_DIR="${GARDEN_DATA_DIR}/bin"
+export GRAPH_PATH="${GARDEN_DATA_DIR}/graph"
 export TMPDIR=/var/vcap/data/tmp
 export PATH="/var/vcap/packages/guardian/bin:${PATH}"
 export PATH="/var/vcap/packages/iptables/sbin:${PATH}"
@@ -18,14 +19,27 @@ export PATH="/var/vcap/packages/garden-idmapper/bin:${PATH}"
 export PATH="/var/vcap/jobs/garden/bin:${PATH}"
 export MAXIMUS=$(maximus)
 
+<% if p("garden.experimental_rootless_mode") %>
+# runc makes use of the XDG_RUNTIME_DIR env var in order to determine
+# where to place the runc root dir in rootless mode.
+# Given that this is not set on stemcells we choose to set it explicitely
+# here.
+export XDG_RUNTIME_DIR=/var/run/user/$MAXIMUS
+export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
+export GARDEN_ROOTLESS_CONFIG_DIR="$GARDEN_DATA_DIR/config"
+export GARDEN_CONFIG_PATH="$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
+<% end %>
+
 <% if_p('garden.http_proxy') do |http_proxy| %>
 export HTTP_PROXY='<%= http_proxy %>'
 export http_proxy='<%= http_proxy %>'
 <% end %>
+
 <% if_p('garden.https_proxy') do |https_proxy| %>
 export HTTPS_PROXY='<%= https_proxy %>'
 export https_proxy='<%= https_proxy %>'
 <% end %>
+
 <% if_p('garden.no_proxy') do |no_proxy| %>
 export NO_PROXY='<%= no_proxy %>'
 export no_proxy='<%= no_proxy %>'

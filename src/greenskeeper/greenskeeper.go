@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const defaultDirectoryMode = os.FileMode(0700)
+const defaultDirectoryMode = os.FileMode(0701)
 
 type Directory struct {
 	Path string

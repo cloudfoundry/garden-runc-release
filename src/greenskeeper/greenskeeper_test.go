@@ -223,12 +223,6 @@ func gexecStart(cmd *exec.Cmd, stdout, stderr io.Writer) *gexec.Session {
 	return session
 }
 
-func atouint32(n string) uint32 {
-	i, err := strconv.Atoi(n)
-	Expect(err).NotTo(HaveOccurred())
-	return uint32(i)
-}
-
 func applyUmask(mode os.FileMode) os.FileMode {
 	oldUmask := syscall.Umask(0)
 	syscall.Umask(oldUmask)

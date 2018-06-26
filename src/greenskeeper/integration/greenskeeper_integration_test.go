@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"strconv"
 	"syscall"
 
 	. "github.com/onsi/ginkgo"
@@ -35,13 +36,15 @@ var _ = Describe("Greenskeeper", func() {
 			envs = []string{
 				"PIDFILE=" + pidFileName,
 				"RUN_DIR=" + path.Join(tmpDir, "run"),
-				"GARDEN_DIR=" + path.Join(tmpDir, "garden"),
+				"GARDEN_DATA_DIR=" + path.Join(tmpDir, "garden"),
 				"LOG_DIR=" + path.Join(tmpDir, "log"),
 				"TMPDIR=" + path.Join(tmpDir, "tmp"),
 				"DEPOT_PATH=" + path.Join(tmpDir, "depot"),
 				"RUNTIME_BIN_DIR=" + path.Join(tmpDir, "bin"),
+				"XDG_RUNTIME_DIR=" + path.Join(tmpDir, "xdg"),
+				"GARDEN_ROOTLESS_CONFIG_DIR=" + path.Join(tmpDir, "rootless-config"),
 				"GRAPH_PATH=" + path.Join(tmpDir, "graph"),
-				"MAXIMUS=4294967294",
+				"MAXIMUS=" + strconv.Itoa(maxID),
 			}
 
 			gkCmd = exec.Command(gkBin)
@@ -62,23 +65,44 @@ var _ = Describe("Greenskeeper", func() {
 
 		DescribeTable("prepares the directories for the gdn",
 			func(dir string, mode, uid, gid int) {
-				Expect(path.Join(tmpDir, dir)).To(BeADirectory())
-				fileInfo, err := os.Stat(path.Join(tmpDir, dir))
-				Expect(err).NotTo(HaveOccurred())
-				Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(mode)))
-				Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(uint32(uid)))
-				Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(uint32(gid)))
+				checkPermissionsAndOwnership(tmpDir, dir, mode, uid, gid)
 			},
 			Entry("RUN_DIR", "run", 0770, 0, 0),
-			Entry("GARDEN_DIR", "garden", 0770, vcapID, 4294967294),
-			Entry("LOG_DIR", "log", 0770, 0, 0),
-			Entry("TMPDIR", "tmp", 0755, 0, 0),
-			Entry("DEPOT_PATH", "depot", 0755, 0, 0),
-			Entry("RUNTIME_BIN_DIR", "bin", 0750, 0, 4294967294),
-			Entry("GRAPH_PATH", "graph", 0700, 4294967294, 4294967294),
+			Entry("GARDEN_DATA_DIR", "garden", 0770, vcapID, maxID),
+			Entry("RUNTIME_BIN_DIR", "bin", 0750, 0, maxID),
+			Entry("GRAPH_PATH", "graph", 0700, maxID, maxID),
 		)
 
+		Context("rootfull directories", func() {
+			DescribeTable("are created with root owner",
+				func(dir string, mode, uid, gid int) {
+					checkPermissionsAndOwnership(tmpDir, dir, mode, uid, gid)
+				},
+				Entry("LOG_DIR", "log", 0770, 0, 0),
+				Entry("TMPDIR", "tmp", 0755, 0, 0),
+				Entry("DEPOT_PATH", "depot", 0755, 0, 0),
+			)
+		})
+
+		Context("rootless directories", func() {
+			BeforeEach(func() {
+				gkCmd = exec.Command(gkBin, "--rootless")
+				gkCmd.Env = envs
+			})
+
+			DescribeTable("are created with max owner",
+				func(dir string, mode, uid, gid int) {
+					checkPermissionsAndOwnership(tmpDir, dir, mode, uid, gid)
+				},
+				Entry("LOG_DIR", "log", 0770, maxID, maxID),
+				Entry("TMPDIR", "tmp", 0755, maxID, maxID),
+				Entry("DEPOT_PATH", "depot", 0755, maxID, maxID),
+				Entry("XDG_RUNTIME_DIR", "xdg", 0700, maxID, maxID),
+				Entry("GARDEN_ROOTLESS_CONFIG_DIR", "rootless-config", 0700, maxID, maxID),
+			)
+		})
 	})
+
 	Context("when an env isn't set", func() {
 		BeforeEach(func() {
 			gkCmd = exec.Command(gkBin)
@@ -91,6 +115,15 @@ var _ = Describe("Greenskeeper", func() {
 		})
 	})
 })
+
+func checkPermissionsAndOwnership(tmpDir, dir string, mode, uid, gid int) {
+	Expect(path.Join(tmpDir, dir)).To(BeADirectory())
+	fileInfo, err := os.Stat(path.Join(tmpDir, dir))
+	Expect(err).NotTo(HaveOccurred())
+	Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(mode)))
+	Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(uint32(uid)))
+	Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(uint32(gid)))
+}
 
 func gexecStartAndWait(cmd *exec.Cmd, stdout, stderr io.Writer) *gexec.Session {
 	session, err := gexec.Start(cmd, stdout, stderr)
