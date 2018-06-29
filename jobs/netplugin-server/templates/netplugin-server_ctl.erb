@@ -29,7 +29,7 @@ case $1 in
 
   stop)
 
-    kill -KILL "$(cat $PIDFILE)"
+    kill -TERM "$(cat $PIDFILE)"
 
     ;;
 

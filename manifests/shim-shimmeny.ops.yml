@@ -15,9 +15,7 @@
     release: garden-runc
     properties:
       netplugin-server:
-        plugin_path: "/path/to/a/plugin"
+        plugin_path: "/var/vcap/packages/runc-cni/bin/garden-external-networker"
         plugin_extra_args:
-          - "/tmp/network-plugin-args"
-          - "/tmp/network-plugin-stdin"
-          - "{}"
-          - "/tmp/network-plugin-extrafilefile"
+          - "--configFile"
+          - "/var/vcap/jobs/garden-cni/config/adapter.json"
