@@ -1,0 +1,41 @@
+#!/bin/bash -eu
+
+export RUN_DIR=/var/vcap/sys/run/netplugin-server
+export LOG_DIR=/var/vcap/sys/log/netplugin-server
+export PIDFILE="${RUN_DIR}"/netplugin-server.pid
+
+mkdir -p "${RUN_DIR}"
+mkdir -p "${LOG_DIR}"
+
+exec 1>> "${LOG_DIR}"/netplugin-server_ctl.out.log
+exec 2>> "${LOG_DIR}"/netplugin-server_ctl.err.log
+
+case $1 in
+
+  start)
+
+    chown -R vcap:vcap "${RUN_DIR}"
+    chown -R vcap:vcap "${LOG_DIR}"
+
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/netplugin-shim/bin/netplugin-server \
+      --socket <%= p('netplugin-server.socket') %> \
+      --plugin-path <%= p('netplugin-server.plugin_path') %> \
+    <% p("netplugin-server.plugin_extra_args").each do |extra_arg| -%>
+      --plugin-arg="<%= extra_arg %>" \
+    <% end -%>
+    ;;
+
+  stop)
+
+    kill -KILL "$(cat $PIDFILE)"
+
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+
+    ;;
+
+esac

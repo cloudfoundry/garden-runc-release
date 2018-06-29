@@ -1,9 +1,23 @@
 - type: replace
   path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin?
-  value: /var/vcap/packages/netplugin-shim/bin/netplugin-shim
+  value: /var/vcap/packages/netplugin-shim/bin/garden-plugin
 
 - type: replace
   path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin_extra_args?
   value:
     - "--socket"
-    - "/var/vcap/data/garden/tmp/netplugin-shim.sock"
+    - "/var/vcap/data/garden/sockets/networker.sock"
+
+- type: replace
+  path: /instance_groups/0/jobs/name=netplugin-server?
+  value:
+    name: netplugin-server
+    release: garden-runc
+    properties:
+      netplugin-server:
+        plugin_path: "/path/to/a/plugin"
+        plugin_extra_args:
+          - "/tmp/network-plugin-args"
+          - "/tmp/network-plugin-stdin"
+          - "{}"
+          - "/tmp/network-plugin-extrafilefile"

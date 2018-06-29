@@ -8,3 +8,5 @@ processes:
       privileged: true
     hooks:
       pre_start: /var/vcap/jobs/garden/bin/bpm-pre-start
+    additional_volumes:
+      - path: /var/vcap/data/garden/sockets

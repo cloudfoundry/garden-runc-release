@@ -10,6 +10,7 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-go install code.cloudfoundry.org/netplugin-shim
+go install code.cloudfoundry.org/netplugin-shim/garden-plugin
+go install code.cloudfoundry.org/netplugin-shim/netplugin-server
 
 rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}

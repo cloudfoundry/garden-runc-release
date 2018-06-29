@@ -1,0 +1,21 @@
+---
+name: netplugin-server
+
+templates:
+  netplugin-server_ctl.erb: bin/netplugin-server_ctl
+
+packages:
+  - netplugin-shim
+
+properties:
+  netplugin-server.socket:
+    description: "Path to the socket the server should listen on"
+    default: /var/vcap/data/garden/sockets/networker.sock
+
+  netplugin-server.plugin_path:
+    description: "Path to the network plugin that the server will call"
+    default: ""
+
+  netplugin-server.plugin_extra_args:
+    description: "An array of extra arguments to pass to the network plugin"
+    default: []
