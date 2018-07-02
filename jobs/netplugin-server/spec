@@ -10,7 +10,7 @@ packages:
 properties:
   netplugin-server.socket:
     description: "Path to the socket the server should listen on"
-    default: /var/vcap/data/garden/sockets/networker.sock
+    default: /var/vcap/data/garden/network-shim.sock
 
   netplugin-server.plugin_path:
     description: "Path to the network plugin that the server will call"
