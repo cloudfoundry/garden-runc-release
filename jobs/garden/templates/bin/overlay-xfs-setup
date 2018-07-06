@@ -49,7 +49,7 @@ ensure_successful_initialisation() {
   local store="${store_mountpoint}/grootfs/store/${1}"
   local xfs_quota_test_dir="${store}/images/xfs_test"
 
-  log "verifing that store initialisation for ${store} succeeded..."
+  log "verifying that store initialisation for ${store} succeeded..."
   cwd=$(pwd)
   cd "$store"
   mkdir -p "$xfs_quota_test_dir"

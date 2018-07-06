@@ -11,3 +11,15 @@ log "running thresholder"
 /var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
 /var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml"
 log "done"
+
+# When running garden in BPM as part of a CF deployment
+# we need to make the /var/vcap/data/rep dir a shared mountpoint.
+#
+# TL;DR - The rep creates a tmpfs at /var/vcap/data/rep/instance_identity.
+# If this happens _after_ the garden bpm container has been created,
+# it does not propagate into the garden bpm container unless the parent is
+# a shared mountpoint.
+if ! grep -q " /var/vcap/data/rep "  /proc/self/mountinfo; then
+  mount --bind /var/vcap/data/rep /var/vcap/data/rep
+  mount --make-shared /var/vcap/data/rep
+fi

@@ -10,3 +10,8 @@ processes:
       pre_start: /var/vcap/jobs/garden/bin/bpm-pre-start
     additional_volumes:
       - path: /var/vcap/data/garden/sockets
+        writable: true
+      - path: /var/vcap/data/grootfs/store
+        writable: true
+      - path: /var/vcap/data/rep
+        allow_executions: true
