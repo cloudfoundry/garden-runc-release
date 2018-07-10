@@ -56,7 +56,7 @@ GrootFS also stores the shas of each underlying volume used by an image in the `
 for every image (container rootfs), remove the duplicates, and then read each volume's metadata file (as we did in the section above). Finally we can sum the bytes of all active volumes on disk.
 
 ```sh
-$ for image in $(ls /var/vcap/data/grootfs/store/unprivileged/meta/dependencies/image\:*.json | awk '/!store/'); \
+$ for image in $(ls /var/vcap/data/grootfs/store/unprivileged/meta/dependencies/image\:*.json); \
     do cat $image | python -c 'import json,sys;obj=json.load(sys.stdin); \
     print "\n".join(obj)' ; done | sort -u | xargs -I{} cat /var/vcap/data/grootfs/store/unprivileged/meta/volume-{} | cut -d : -f 2 | cut -d} -f1 \
     | awk '{sum += $1} END {print sum}'
