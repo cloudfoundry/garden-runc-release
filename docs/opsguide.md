@@ -56,7 +56,7 @@ The graph stores the filesystem layers which make up the root filesystem images 
 
 To determine which path in the graph is being used as the root filesystem of a particular container, you can look for the “rootfs” property inside the `config.json` file in the container’s bundle directory.
 
-Garden's rootfs layer management is now done by a component called [GrootFS](https://github.com/cloudfoundry/grootfs) which stores its graphs at `/var/vcap/data/grootfs/store/{unprivileged,privileged}`. To understand more about graph disk usage with GrootFS, refer to [this doc](docs/understanding_grootfs_store_disk_usage.md).
+Garden's rootfs layer management is now done by a component called [GrootFS](https://github.com/cloudfoundry/grootfs) which stores its graphs at `/var/vcap/data/grootfs/store/{unprivileged,privileged}`. To understand more about graph disk usage with GrootFS, refer to [this doc](understanding_grootfs_store_disk_usage.md).
 
 If your deployment is using the deprecated Garden-Shed graph management tool, the graph will be located at `/var/vcap/data/garden/aufs_graph`.
 
