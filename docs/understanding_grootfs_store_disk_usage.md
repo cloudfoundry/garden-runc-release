@@ -73,13 +73,17 @@ You can use values gathered from commands above to calculate how much space coul
 
 ## Are there categories of grootfs disk usage that should be accounted for, other than the ones above? If so, how much disk usage do they account for?
 The bulk of disk usage will go to the `images` and `volumes` directories (found under `/var/vcap/data/grootfs/store/{unprivileged,privileged}/`).
+
+
 GrootFS also stores information in the following directories:
- - l = link dirs. Short dir-names symlinked to volume dirs to allow groot to union mount more layers/filepaths.
- - locks = filesystem lock dir
- - meta = per image and layer metadata
- - projectids = empty numbered directories used to track image quotas
- - tmp = normal tempdir stuff
-This would usually total less than 2MB.
+ - `l` -> link dirs. Shorter dir-names symlinked to volume dirs to allow groot to union mount more layers/filepaths.
+ - `locks` -> filesystem lock dir to ensure safety during concurrent cleans/creates.
+ - `meta` -> per image and volume metadata.
+ - `projectids` -> empty numbered directories used to track image quotas.
+ - `tmp` -> normal tempdir stuff.
+
+
+These would would usually total less than 2MB.
 
 ## If I force grootfs to prune its cache, would I be able to reduce total disk usage to Z% of local disk or to W GB?
 It would rarely be necessary to force GrootFS to clean its cache, but if more space is needed on disk, then operators should set the `reserved_space_for_other_jobs_in_mb` property to a higher value.
