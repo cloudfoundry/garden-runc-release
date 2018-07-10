@@ -56,7 +56,9 @@ The graph stores the filesystem layers which make up the root filesystem images 
 
 To determine which path in the graph is being used as the root filesystem of a particular container, you can look for the “rootfs” property inside the `config.json` file in the container’s bundle directory.
 
-If you installed garden-runc-release using bosh, the graph is located at `/var/vcap/data/garden/aufs_graph`. 
+Garden's rootfs layer management is now done by a component called [GrootFS](https://github.com/cloudfoundry/grootfs) which stores its graphs at `/var/vcap/data/grootfs/store/{unprivileged,privileged}`. To understand more about graph disk usage with GrootFS, refer to [this doc](docs/understanding_grootfs_store_disk_usage.md).
+
+If your deployment is using the deprecated Garden-Shed graph management tool, the graph will be located at `/var/vcap/data/garden/aufs_graph`.
 
 ## Guardian Components
 
@@ -72,9 +74,13 @@ The [container-to-container networking project](https://github.com/cloudfoundry-
 
 RunDMC is Guardian’s containerizer. It is a super-small wrapper around runc with two jobs. Firstly it manages the ‘depot’ directory (see above), creating, listing and destroying container bundles as requested (in the code this is the `DirDepot` component). Secondly it executes `runc` commands to actually create, run and manage the container lifecycle (in the code this is the `RuncRunner` component).
 
+### GrootFS
+
+GrootFS is the built-in root filesystem management component which is used by default and if `deprecated_use_garden_shed` is not configured. GrootFS uses `overlay` to efficiently combine filesystem layers, along with an `xfs` base filesystem mounted with a loop device to implement disk quotas.
+
 ### Garden-Shed
 
-Garden-Shed is the built-in root filesystem management component which is used by default and if no `image_plugin` is configured. Garden-shed uses `aufs` to efficiently combine filesystem layers, along with dynamically created loop devices to implement disk quotas. 
+Garden-Shed is the **deprecated** root filesystem management component which is optionally configured by setting the `deprecated_use_garden_shed` property. Garden-shed uses `aufs` to combine filesystem layers, along with dynamically created loop devices to implement disk quotas.
 
 ### Kawasaki
 
