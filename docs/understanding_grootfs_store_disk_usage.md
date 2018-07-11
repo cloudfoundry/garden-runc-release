@@ -12,8 +12,10 @@ Eg:
 These commands are designed to be run on a BOSH deployed VM running the garden job.
 
 ## How much disk is used exclusive to container X?
-`grootfs stats` returns 2 values: `total_bytes_used` and `exclusive_bytes_used`. `exclusive` is the disk usage of the container **not** including the rootfs image layers,
-and `total` is inclusive of those layers.
+On disk, the read-write layer for each container can be found at `/var/vcap/data/grootfs/store/unprivileged/images/some-image-id/diff`. When GrootFS calls on the built-in xfs quota tooling
+to get disk usage for a container, it is taking into account data written to that directory and not the data in the read-only base layers (volumes).
+`grootfs stats` returns 2 values: `total_bytes_used` and `exclusive_bytes_used`. `exclusive` is the disk usage of the container **not** including the rootfs image layers/volumes,
+and `total` is inclusive of those layers/volumes.
 
 ```sh
 $ ls /var/vcap/data/garden/depot/ # look up container handles
@@ -31,6 +33,7 @@ $ ls /var/vcap/data/garden/depot/ \
     | xargs -I{} /var/vcap/packages/grootfs/bin/grootfs --config \
     /var/vcap/jobs/garden/config/grootfs_config.yml stats {}  \
     | cut -d: -f4 | cut -d} -f1 | awk '{sum += $1} END {print sum}'
+# returns total in bytes
 ```
 If you believe you are also creating privileged containers, update the config path in the above command to use `privileged_grootfs_config.yml`.
 
@@ -60,19 +63,21 @@ $ for image in $(ls /var/vcap/data/grootfs/store/unprivileged/meta/dependencies/
     do cat $image | python -c 'import json,sys;obj=json.load(sys.stdin); \
     print "\n".join(obj)' ; done | sort -u | xargs -I{} cat /var/vcap/data/grootfs/store/unprivileged/meta/volume-{} | cut -d : -f 2 | cut -d} -f1 \
     | awk '{sum += $1} END {print sum}'
+# returns total in bytes
 ```
 If you believe you are also creating privileged containers, update the store paths in the above command.
 
 ## How much disk does the store use in total?
 ```sh
 $ df | grep -E  "/var/vcap/data/grootfs/store/(privileged|unprivileged)$" \ | awk '{sum += $3} END {print sum}'
+# returns total in bytes
 ```
 
 ## How much disk could be reclaimed through pruning unused layers?
 You can use values gathered from commands above to calculate how much space could be reclaimed by pruning unused layers: total store disk usage - active layers.
 
 ## Are there categories of grootfs disk usage that should be accounted for, other than the ones above? If so, how much disk usage do they account for?
-The bulk of disk usage will go to the `images` and `volumes` directories (found under `/var/vcap/data/grootfs/store/{unprivileged,privileged}/`).
+The bulk of disk usage will go to the `images/<id>/diff` and `volumes` directories (found under `/var/vcap/data/grootfs/store/{unprivileged,privileged}/`).
 
 
 GrootFS also stores information in the following directories:
