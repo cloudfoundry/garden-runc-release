@@ -12,7 +12,12 @@ go install
 popd
 
 cf api "$CF_API" --skip-ssl-validation
-cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -s "$CF_SPACE" -o "$CF_ORG" --skip-ssl-validation
+cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" --skip-ssl-validation
+
+cf create-org "$CF_ORG"
+cf target -o "$CF_ORG"
+cf create-space "$CF_SPACE"
+cf target -s "$CF_SPACE" -o "$CF_ORG"
 
 # Clean up any cruft
 cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
