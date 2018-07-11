@@ -69,7 +69,7 @@ If you believe you are also creating privileged containers, update the store pat
 
 ## How much disk does the store use in total?
 ```sh
-$ df | grep -E  "/var/vcap/data/grootfs/store/(privileged|unprivileged)$" \ | awk '{sum += $3} END {print sum}'
+$ df | grep -E  "/var/vcap/data/grootfs/store/(privileged|unprivileged)$" | awk '{sum += $3} END {print sum}'
 # returns total in bytes
 ```
 
