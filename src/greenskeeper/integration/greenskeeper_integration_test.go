@@ -82,7 +82,7 @@ var _ = Describe("Greenskeeper", func() {
 				Entry("LOG_DIR", "log", 0770, 0, 0),
 				Entry("TMPDIR", "tmp", 0755, 0, 0),
 				Entry("DEPOT_PATH", "depot", 0755, 0, 0),
-				Entry("GROOTFS_STORE_PATH", "store", 0700, 0, 0),
+				Entry("GROOTFS_STORE_PATH", "store", 0755, 0, 0),
 			)
 		})
 
@@ -101,7 +101,7 @@ var _ = Describe("Greenskeeper", func() {
 				Entry("DEPOT_PATH", "depot", 0755, maxID, maxID),
 				Entry("XDG_RUNTIME_DIR", "xdg", 0700, maxID, maxID),
 				Entry("GARDEN_ROOTLESS_CONFIG_DIR", "rootless-config", 0700, maxID, maxID),
-				Entry("GROOTFS_STORE_PATH", "store", 0700, maxID, maxID),
+				Entry("GROOTFS_STORE_PATH", "store", 0755, maxID, maxID),
 			)
 		})
 	})
