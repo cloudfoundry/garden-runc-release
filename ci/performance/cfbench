@@ -12,7 +12,7 @@ go install
 popd
 
 cf api "$CF_API" --skip-ssl-validation
-cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" --skip-ssl-validation
+cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -o system --skip-ssl-validation
 
 cf create-org "$CF_ORG"
 cf target -o "$CF_ORG"
