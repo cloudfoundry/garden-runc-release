@@ -11,6 +11,8 @@ processes:
     additional_volumes:
       - path: /var/vcap/data/garden/sockets
         writable: true
+      - path: /var/vcap/data/netplugin-server/sockets
+        writable: true
       - path: /var/vcap/data/grootfs/store
         writable: true
       - path: /var/vcap/data/rep

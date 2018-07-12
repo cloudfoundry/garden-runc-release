@@ -34,6 +34,7 @@ func main() {
 		greenskeeper.NewDirectoryBuilder(mustGetenv("DEPOT_PATH")).Mode(0755).UID(owner).GID(owner).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("RUNTIME_BIN_DIR")).Mode(0750).GID(mustGetMaximus()).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("GRAPH_PATH")).Mode(0700).UID(mustGetMaximus()).GID(mustGetMaximus()).Build(),
+		greenskeeper.NewDirectoryBuilder(mustGetenv("GROOTFS_STORE_PATH")).Mode(0700).UID(owner).GID(owner).Build(),
 	}
 
 	if rootlessMode {

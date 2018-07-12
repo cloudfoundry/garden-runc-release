@@ -164,9 +164,23 @@
       cni_config_dir: /var/vcap/jobs/silk-cni/config/cni
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties?/garden?/network_plugin?
-  value: /var/vcap/packages/runc-cni/bin/garden-external-networker
+  path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin?
+  value: /var/vcap/packages/netplugin-shim/bin/garden-plugin
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties?/garden?/network_plugin_extra_args?
-  value: ["--configFile=/var/vcap/jobs/garden-cni/config/adapter.json"]
+  path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin_extra_args?
+  value:
+    - "--socket"
+    - "/var/vcap/data/netplugin-server/sockets/network-shim.sock"
+
+- type: replace
+  path: /instance_groups/0/jobs/name=netplugin-server?
+  value:
+    name: netplugin-server
+    release: garden-runc
+    properties:
+      netplugin-server:
+        plugin_path: "/var/vcap/packages/runc-cni/bin/garden-external-networker"
+        plugin_extra_args:
+          - "--configFile"
+          - "/var/vcap/jobs/garden-cni/config/adapter.json"
