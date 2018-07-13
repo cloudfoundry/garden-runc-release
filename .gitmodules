@@ -61,4 +61,4 @@
 [submodule "src/code.cloudfoundry.org/netplugin-shim"]
 	path = src/code.cloudfoundry.org/netplugin-shim
 	url = https://github.com/cloudfoundry/netplugin-shim
-	branch = master
+	branch = wip-bruteless
