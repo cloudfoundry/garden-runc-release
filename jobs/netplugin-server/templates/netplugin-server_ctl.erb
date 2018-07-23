@@ -5,16 +5,6 @@ export LOG_DIR=/var/vcap/sys/log/netplugin-server
 export PIDFILE="${RUN_DIR}"/netplugin-server.pid
 export SOCKET_DIR="$(dirname <%= p('netplugin-server.socket') %>)"
 
-chmod_all_parent_dirs() {
-  local path=$1
-  local mode=$2
-
-  while [[ $path != / ]]; do
-    chmod "$mode" "$path"
-    path=$(dirname "$path");
-  done
-}
-
 mkdir -p "${RUN_DIR}"
 mkdir -p "${LOG_DIR}"
 
@@ -25,7 +15,6 @@ case $1 in
 
   start)
     mkdir -p "${SOCKET_DIR}"
-    chmod_all_parent_dirs "${SOCKET_DIR}" "+x"
 
     chown -R vcap:vcap "${RUN_DIR}"
     chown -R vcap:vcap "${LOG_DIR}"

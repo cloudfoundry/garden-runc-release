@@ -11,9 +11,11 @@ processes:
     additional_volumes:
       - path: /var/vcap/data/garden/sockets
         writable: true
-      - path: /var/vcap/data/netplugin-server/sockets
-        writable: true
       - path: /var/vcap/data/grootfs/store
         writable: true
       - path: /var/vcap/data/rep
         allow_executions: true
+<% args = p("garden.network_plugin_extra_args"); if i = args.find_index("--socket") %>
+      - path: <%= File.dirname(args[i + 1]) %>
+        mount_only: true
+<% end %>
