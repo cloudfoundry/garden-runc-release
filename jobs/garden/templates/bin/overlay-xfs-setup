@@ -11,8 +11,6 @@ main() {
 
   export PATH=/var/vcap/packages/grootfs/bin:/var/vcap/packages/xfs-progs/sbin:$PATH
 
-  mkdir -p "${store_mountpoint}/grootfs/store"
-
   init_unprivileged_store
   init_privileged_store
 
