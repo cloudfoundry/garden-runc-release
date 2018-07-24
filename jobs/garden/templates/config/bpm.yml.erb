@@ -13,9 +13,8 @@ processes:
         writable: true
       - path: /var/vcap/data/grootfs/store
         writable: true
-      - path: /var/vcap/data/rep
-        allow_executions: true
-<% args = p("garden.network_plugin_extra_args"); if i = args.find_index("--socket") %>
-      - path: <%= File.dirname(args[i + 1]) %>
+<%- if_p('garden.additional_bpm_volumes') { |vols| vols.each { |vol| -%>
+      - path: <%= vol %>
         mount_only: true
-<% end %>
+        allow_executions: true
+<%- } } -%>

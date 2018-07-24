@@ -8,6 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   ./scripts/deploy-lite.sh \
     -o manifests/bpm.ops.yml \
     -o manifests/cf-networking.ops.yml \
+    -o manifests/local-cf-networking-release.ops.yml \
     --vars-store creds.yml \
     "$@"
 )

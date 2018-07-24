@@ -19,7 +19,9 @@ log "done"
 # If this happens _after_ the garden bpm container has been created,
 # it does not propagate into the garden bpm container unless the parent is
 # a shared mountpoint.
+<%- if_p('garden.additional_bpm_volumes') { |vols| if vols.include?('/var/vcap/data/rep') -%>
 if ! grep -q " /var/vcap/data/rep "  /proc/self/mountinfo; then
   mount --bind /var/vcap/data/rep /var/vcap/data/rep
   mount --make-shared /var/vcap/data/rep
 fi
+<%- end } -%>

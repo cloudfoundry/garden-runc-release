@@ -139,6 +139,10 @@ properties:
     description: "An array of additional arguments which will be passed to the network plugin binary"
     default: []
 
+  garden.additional_bpm_volumes:
+    description: "An array of additional volumes which will be mounted into the BPM container. Note: Can only be used when deploying with BPM to mount in existing volumes."
+    default: []
+
   garden.max_containers:
     description: "Maximum container capacity to advertise. It is not recommended to set this larger than 250."
     default: 250
