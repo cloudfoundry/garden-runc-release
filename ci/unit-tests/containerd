@@ -47,7 +47,7 @@ if [ -z "${NO_GO_VET:-}" ]; then
   go vet ./...
 fi
 
-cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs gqt rundmc/runcontainerd/nerd"
+cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs --debug gqt rundmc/runcontainerd/nerd"
 if [ -n "${RACE_DETECTION:-}" ]; then
   cmd="$cmd --race"
 fi

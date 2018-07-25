@@ -54,10 +54,6 @@ if [ -n "${RACE_DETECTION:-}" ]; then
   cmd="$cmd --race"
 fi
 
-if [ -n "${CONTAINERD_ENABLED:-}" ]; then
-  cmd="$cmd --debug"
-fi
-
 cmd="$cmd $*"
 
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
