@@ -26,3 +26,5 @@ if ! grep -q " /var/vcap/data/rep/shared_data "  /proc/self/mountinfo; then
   mount --make-shared /var/vcap/data/rep/shared_data
 fi
 <%- end } -%>
+
+mkdir -p /var/vcap/data/grootfs/store

@@ -13,6 +13,7 @@ processes:
         writable: true
       - path: /var/vcap/data/grootfs/store
         writable: true
+        mount_only: true
 <%- if_p('garden.additional_bpm_volumes') { |vols| vols.each { |vol| -%>
       - path: <%= vol %>
         mount_only: true
