@@ -189,11 +189,11 @@ properties:
     default: false
 
   garden.experimental_containerd_mode:
-    description: (Under development) Use containerd for container lifecycle management
+    description: "(Under development) Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
     default: false
 
   garden.experimental_use_containerd_mode_for_processes:
-    description: (Under development) Use containerd for container process management. (Must be used with experimental_containerd_mode also set to true.)
+    description: "(Under development) Use containerd for container process management. Must be used with experimental_containerd_mode also set to true. NOTE: cannot be used in combination with bpm or rootless"
     default: false
 
   grootfs.driver:
