@@ -17,17 +17,17 @@ free -mt > free.log
 uname -a > uname.log
 uptime > uptime.log
 df -h > df.log
-dmesg > dmesg.log
+dmesg -T > dmesg.log
 ifconfig > ifconfig.log
 iptables -L > iptables-L.log
 iptables -tnat -L > iptables-tnat.log
 cat /proc/self/mountinfo > mountinfo.log
-/var/vcap/packages/guardian/bin/gdn -v > gdn-version.log
+/var/vcap/packages/guardian/bin/gdn -v > gdn-version.log || true
 find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents.log
 
 cp /var/log/kern.log . && tar czf kernlog.tgz kern.log && rm kern.log
 cp /var/vcap/monit/monit.log .
-cp /var/vcap/jobs/garden/config/config.ini .
+cp /var/vcap/jobs/garden/config/config.ini . || true
 cp -r /var/vcap/sys/log/garden garden-logs && tar czf garden-logs.tgz garden-logs && rm -rf garden-logs
 cp -r /var/vcap/sys/log/monit garden-monit-logs && tar czf garden-monit-logs.tgz garden-monit-logs && rm -rf garden-monit-logs
 )
