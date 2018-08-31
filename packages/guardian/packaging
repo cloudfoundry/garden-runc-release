@@ -23,7 +23,7 @@ pushd code.cloudfoundry.org/guardian/rundmc/nstar
 popd
 
 pushd code.cloudfoundry.org/guardian/cmd/init
-  gcc -static -o init init.c
+  gcc -static -o init init.c ignore_sigchild.c
   mv init ${BOSH_INSTALL_TARGET}/bin
 popd
 

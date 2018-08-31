@@ -34,7 +34,7 @@ build_gdn() {
     go install code.cloudfoundry.org/guardian/cmd/dadoo
 
     pushd cmd/init
-      gcc -static -o init init.c
+      gcc -static -o init init.c ignore_sigchild.c
       mv init $GOPATH/bin/init
     popd
   popd
