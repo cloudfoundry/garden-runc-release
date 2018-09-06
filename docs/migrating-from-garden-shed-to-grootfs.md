@@ -8,6 +8,9 @@ are using GrootFS as the filesystem management tool.
 Although in most cases operators and app developers will not notice this change,
 there are a few considerations that should be thought about.
 
+This document is intended for operators and application developers on Cloud
+Foundry and is applicable to cf-deployment versions 1.9.0+.
+
 ## Disk quota calculation
 
 ***garden-shed incorrectly enforces disk quotas by not considering the size of
