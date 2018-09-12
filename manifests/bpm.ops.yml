@@ -2,9 +2,9 @@
   path: /releases/-
   value:
     name: "bpm"
-    version: "0.9.0"
-    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.9.0"
-    sha1: "0cb3242063c95271c95b62de3a6d07072aff0b29"
+    version: "0.12.2"
+    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.12.2"
+    sha1: "f2edbf3d1417a253205338c9941ca989cd2f8331"
 
 - type: replace
   path: /instance_groups/name=garden/jobs/-
