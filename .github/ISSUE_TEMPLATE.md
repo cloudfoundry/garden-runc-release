@@ -11,10 +11,10 @@ Provide as much detail about the issue as possible.
 
 ## Environment
 
-* garden-runc-release version: (if upgrading, please note both versions; from and to)
+* garden-runc-release version: <!-- (if upgrading, please note both versions; from and to) -->
 * IaaS:
-* Stemcell version: (if upgrading, please note both versions; from and to)
-* Kernel version: (`uname -r` from within VM running Garden prints this information)
+* Stemcell version: <!-- (if upgrading, please note both versions; from and to) -->
+* Kernel version: <!-- (`uname -r` from within VM running Garden prints this information) -->
 
 ## Steps to reproduce
 <!--
