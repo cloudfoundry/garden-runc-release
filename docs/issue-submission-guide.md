@@ -6,7 +6,7 @@
 - If you are moving to a new version, or turning on a new feature flag, please refer to all relevant release notes. Many new flags require VM recreation.
 - Take a look at our [publicly viewable backlog](https://www.pivotaltracker.com/n/projects/1158420). (If you find that we are already aware of the problem here
   but do not have a Github issue, please still go ahead and open one to help others.)
-- Do as much debugging and research as you can. The more information we have, and the less we have to go back-and-forth with you to get more details
+- Do as much debugging and research as you can. The more information we have, and the less we have to go back-and-forth with you to get more details,
   the faster we can get to the heart of the problem.
 
 
@@ -48,7 +48,7 @@ If you were unable to reproduce the issue, please take even greater care in the 
 Provide any output you think may be useful in understanding/explaining the issue.
 The garden log files are found in `/var/vcap/sys/log/garden/` on the VM in which the Garden job is running.
 
-Garden provides a tool (ordnance-survey) for collecting debug information and we ask issue submitters to run this for every issue submission. There is unlikely to be
+Garden provides a tool (ordnance-survey) for collecting debug information and we ask submitters to run this for every issue. There is unlikely to be
 any sensitive information in there, but if you are not comfortable attaching the resulting tar to the issue, save it locally and the team will suggest ways to share it securely.
 
 Run ordnance-survey (from the home dir of the VM running the Garden job) using the following command: `curl bit.ly/garden-ordnance-survey -sSfL | bash`.

@@ -6,8 +6,13 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]; then
   exit 1
 fi
 
-questions=("Did you check the weather?" "Is Ed a fallen star?" "Do you like the colour blue?" "Is Julz why we have bugs?")
+questions=("Did you check the weather?" "Do you like the colour blue?" "Is Julz why we have bugs?" "Did you look at CI this week?" "Did you run script/test -a?" "Do you want to believe?" "Are you hungry?" "Should we re-write guardian in Rust?" "Are we currently on daylight saving time?")
 question=${questions[$RANDOM % ${#questions[@]} ]}
 
-read -p "$question (yes/no):"
-echo "Thanks! Continuing with bump..."
+responses=("Your answer has been reported to the revelant authorities." "You have been entered into a draw to win an apple watch pre-owned by Julz." "Every response helps us provide a better bumping experience." "Now run." "Don't blink. Don't even blink. Blink and you're dead. Don't turn your back. Don't look away. And don't blink. Good luck." "Help I don't have much time, if you can read this I'm" "You can alter your subscription preferences at any time." "Running rm -rf /")
+response=${responses[$RANDOM % ${#responses[@]} ]}
+
+read -p "$question (yes/no): "
+
+echo "Thank you. $response"
+echo "Continuing with bump..."
