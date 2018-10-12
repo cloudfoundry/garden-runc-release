@@ -196,10 +196,6 @@ properties:
     description: "(Under development) Use containerd for container process management. Must be used with experimental_containerd_mode also set to true. NOTE: cannot be used in combination with bpm or rootless"
     default: false
 
-  grootfs.driver:
-    description: "To be deprecated: Filesystem driver to use. Only supported option is overlay-xfs."
-    default: overlay-xfs
-
   grootfs.log_level:
     description: "Log level for grootfs - can be debug, info, error or fatal."
     default: info
