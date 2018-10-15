@@ -5,7 +5,7 @@ image_resource:
   type: docker-image
   source:
     repository: cfgarden/grootfs-ci
-    tag: v0.35.0
+    tag: v1.0.0
 
 inputs:
 - name: gr-release-develop
