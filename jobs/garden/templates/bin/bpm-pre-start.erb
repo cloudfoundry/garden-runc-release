@@ -14,8 +14,8 @@ log "done"
 
 mkdir -p /var/vcap/data/grootfs/store
 
-<%- if_p('garden.additional_bpm_volumes') { |vols| if vols.include?('/var/vcap/data/rep/shared_data') -%>
-mkdir -p /var/vcap/data/rep/shared_data
-flock /var/vcap/sys/run/garden/mount.lock /bin/bash -c 'if ! grep -q " /var/vcap/data/rep/shared_data " /proc/self/mountinfo; then mount --bind /var/vcap/data/rep/shared_data /var/vcap/data/rep/shared_data; fi'
-mount --make-shared /var/vcap/data/rep/shared_data
+<%- if_p('garden.additional_bpm_volumes') { |vols| if vols.include?('/var/vcap/data/rep/shared/garden') -%>
+mkdir -p /var/vcap/data/rep/shared/garden
+flock /var/vcap/sys/run/garden/mount.lock /bin/bash -c 'if ! grep -q " /var/vcap/data/rep/shared/garden " /proc/self/mountinfo; then mount --bind /var/vcap/data/rep/shared/garden /var/vcap/data/rep/shared/garden; fi'
+mount --make-shared /var/vcap/data/rep/shared/garden
 <%- end } -%>
