@@ -11,6 +11,8 @@ Eg:
 
 These commands are designed to be run on a BOSH deployed VM running the garden job.
 
+**Update**: There is now an [experimental binary](https://github.com/Callisto13/gsa) which will tell you your store usage in a bash-free way! Please let us know if it is useful.
+
 ## How much disk is used exclusive to container X?
 On disk, the read-write layer for each container can be found at `/var/vcap/data/grootfs/store/unprivileged/images/some-image-id/diff`. When GrootFS calls on the built-in xfs quota tooling
 to get disk usage for a container, it is taking into account data written to that directory and not the data in the read-only base layers (volumes).
