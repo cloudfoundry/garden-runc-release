@@ -1,0 +1,22 @@
+---
+image_resource:
+  type: docker-image
+  source:
+    repository: cfgarden/garden-ci-ubuntu
+    tag: '1.0.0'
+
+platform: linux
+
+inputs:
+- name: gr-release-develop
+- name: cf-acceptance-tests
+
+params:
+  CF_DOMAIN:
+  CF_USERNAME:
+  CF_PASSWORD:
+  CF_ORG:
+  CF_SPACE:
+
+run:
+  path: gr-release-develop/ci/integration-tests/cfpush
