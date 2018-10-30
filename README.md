@@ -94,12 +94,14 @@ Some of Garden-runC's important components currently are:
 * [GrootFS](https://github.com/cloudfoundry/grootfs) found under
    `src/code.cloudfoundry.org/grootfs` downloads and manages
    root filesystems.
-* [Garden Shed](https://github.com/cloudfoundry/garden-shed) found under
-   `src/code.cloudfoundry.org/garden-shed` is the legacy rootfs management piece,
-   superseded by GrootFS.
 * [GATS](https://github.com/cloudfoundry/garden-integration-tests)
    found under `src/code.cloudfoundry.org/garden-integration-tests`
    are the cross-backend integration tests of Garden.
+
+Update:
+* [Garden Shed](https://github.com/cloudfoundry/garden-shed), previously found under
+   `src/code.cloudfoundry.org/garden-shed`, has now been removed. GrootFS is now the default container
+   rootfs management tool with no option to revert to Shed from versions above 1.16.8.
 
 Set your `$GOPATH` to the checked out directory, or use Direnv to do this, as
 below:

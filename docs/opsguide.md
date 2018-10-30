@@ -58,11 +58,9 @@ To determine which path in the graph is being used as the root filesystem of a p
 
 Garden's rootfs layer management is now done by a component called [GrootFS](https://github.com/cloudfoundry/grootfs) which stores its graphs at `/var/vcap/data/grootfs/store/{unprivileged,privileged}`. To understand more about graph disk usage with GrootFS, refer to [this doc](understanding_grootfs_store_disk_usage.md).
 
-If your deployment is using the deprecated Garden-Shed graph management tool, the graph will be located at `/var/vcap/data/garden/aufs_graph`.
-
 ## Guardian Components
 
-Guardian consists of three primary “modules”, these are the Networker, The RootFS Manager and the Containerizer. In a default garden-runc installation, these are implemented by the built-in “kawasaki”, “garden-shed” and “rundmc” components, respectively.
+Guardian consists of two primary “modules”, these are the Networker, The RootFS Manager and the Containerizer. In a default garden-runc installation, these are implemented by the built-in “kawasaki”, and “rundmc” components, respectively.
 
 ![](components.png)
 
@@ -76,11 +74,11 @@ RunDMC is Guardian’s containerizer. It is a super-small wrapper around runc wi
 
 ### GrootFS
 
-GrootFS is the built-in root filesystem management component which is used by default and if `deprecated_use_garden_shed` is not configured. GrootFS uses `overlay` to efficiently combine filesystem layers, along with an `xfs` base filesystem mounted with a loop device to implement disk quotas.
+GrootFS is the built-in root filesystem management component which is used by default. GrootFS uses `overlay` to efficiently combine filesystem layers, along with an `xfs` base filesystem mounted with a loop device to implement disk quotas.
 
 ### Garden-Shed
 
-Garden-Shed is the **deprecated** root filesystem management component which is optionally configured by setting the `deprecated_use_garden_shed` property. Garden-shed uses `aufs` to combine filesystem layers, along with dynamically created loop devices to implement disk quotas.
+Garden-Shed is the **deprecated** root filesystem management component, which has now been removed in versions above 1.16.8.
 
 ### Kawasaki
 
