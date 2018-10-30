@@ -1,5 +1,4 @@
 <%
-    graph_path       = "/var/vcap/data/garden/graph"
     runtime_bin_dir  = "/var/vcap/data/garden/bin"
     rootless         = p("garden.experimental_rootless_mode")
     groot_config_dir = rootless ? "/var/vcap/data/garden/config" : "/var/vcap/jobs/garden/config"
@@ -20,12 +19,10 @@
       privileged_image_plugin          = plugin
     end
 
-    use_garden_shed                       = p("garden.deprecated_use_garden_shed") && !image_plugin_provided
     use_provided_image_plugin             = image_plugin_provided
     use_provided_privileged_image_plugin  = privileged_image_plugin_provided
-    use_default_image_plugin              = !image_plugin_provided && !use_garden_shed
-    use_default_privileged_image_plugin   = !privileged_image_plugin_provided && !use_garden_shed && !rootless
-    graph                                 = use_garden_shed ? graph_path : ""
+    use_default_image_plugin              = !image_plugin_provided
+    use_default_privileged_image_plugin   = !privileged_image_plugin_provided && !rootless
 
     apparmor_profile_provided = !p("garden.apparmor_profile").empty?
 -%>
@@ -56,14 +53,7 @@
 <% end -%>
 
 ; image and rootfs
-  graph = <%= graph %>
   default-rootfs = <%= p("garden.default_container_rootfs") %>
-<% if use_garden_shed -%>
-  graph-cleanup-threshold-in-megabytes = <%= p("garden.graph_cleanup_threshold_in_mb") %>
-  <% p("garden.insecure_docker_registry_list").each do |url| -%>
-  insecure-docker-registry = <%= url %>
-  <% end -%>
-<% end -%>
 <% if use_provided_image_plugin -%>
   image-plugin = <%= image_plugin %>
   <% p("garden.image_plugin_extra_args").each do |arg| -%>
