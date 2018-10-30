@@ -43,7 +43,6 @@ var _ = Describe("Greenskeeper", func() {
 				"RUNTIME_BIN_DIR=" + path.Join(tmpDir, "bin"),
 				"XDG_RUNTIME_DIR=" + path.Join(tmpDir, "xdg"),
 				"GARDEN_ROOTLESS_CONFIG_DIR=" + path.Join(tmpDir, "rootless-config"),
-				"GRAPH_PATH=" + path.Join(tmpDir, "graph"),
 				"MAXIMUS=" + strconv.Itoa(maxID),
 			}
 
@@ -70,7 +69,6 @@ var _ = Describe("Greenskeeper", func() {
 			Entry("RUN_DIR", "run", 0770, 0, 0),
 			Entry("GARDEN_DATA_DIR", "garden", 0770, vcapID, maxID),
 			Entry("RUNTIME_BIN_DIR", "bin", 0750, 0, maxID),
-			Entry("GRAPH_PATH", "graph", 0700, maxID, maxID),
 		)
 
 		Context("rootfull directories", func() {
