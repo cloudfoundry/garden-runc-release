@@ -76,9 +76,6 @@
   privileged-image-plugin-extra-arg = "--config"
   privileged-image-plugin-extra-arg = <%= groot_config_dir %>/privileged_grootfs_config.yml
 <% end -%>
-<% p("garden.persistent_image_list").each do |url| -%>
-  persistent-image = <%= url %>
-<% end -%>
 <% if_p("garden.docker_registry_endpoint") do |endpoint| -%>
   docker-registry = <%= endpoint %>
 <% end -%>
