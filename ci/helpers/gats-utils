@@ -58,7 +58,6 @@ setup_dirs() {
 
   mkdir $tmpdir/depot
   mkdir $tmpdir/snapshots
-  mkdir $tmpdir/graph
   mkdir /opt/grootfs
   mkdir -p /var/lib/grootfs/store /var/lib/grootfs-privileged/store
 }
