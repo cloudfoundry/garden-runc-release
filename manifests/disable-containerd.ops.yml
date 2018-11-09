@@ -1,0 +1,6 @@
+- type: remove
+  path: /instance_groups/name=garden/jobs/name=containerd?
+
+- type: replace
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/use_deprecated_runtime?
+  value: true

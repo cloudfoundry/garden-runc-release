@@ -15,3 +15,6 @@
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/bpm?/enabled?
   value: true
+
+- type: remove
+  path: /instance_groups/name=garden/jobs/name=containerd?

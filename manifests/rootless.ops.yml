@@ -5,3 +5,6 @@
 - type: replace
   path: /instance_groups/0/jobs/name=garden/properties/grootfs?/skip_mount?
   value: true
+
+- type: remove
+  path: /instance_groups/name=garden/jobs/name=containerd?
