@@ -1,4 +1,4 @@
-# this ops file can only be used in combination with containerd-experimental.ops.yml
+# this ops file can only be used in combination with containerd.ops.yml
 
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/experimental_use_containerd_mode_for_processes?

@@ -5,5 +5,5 @@
    release: garden-runc
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/experimental_containerd_mode?
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/containerd_mode?
   value: true

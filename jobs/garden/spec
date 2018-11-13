@@ -184,8 +184,12 @@ properties:
     description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
     default: false
 
+  garden.containerd_mode:
+    description: "Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
+    default: false
+
   garden.experimental_containerd_mode:
-    description: "(Under development) Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
+    description: "DEPRECATED. Please use containerd_mode"
     default: false
 
   garden.experimental_use_containerd_mode_for_processes:
