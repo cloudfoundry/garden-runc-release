@@ -24,7 +24,6 @@
     use_default_image_plugin              = !image_plugin_provided
     use_default_privileged_image_plugin   = !privileged_image_plugin_provided && !rootless
 
-    disable_containerd = p("garden.use_deprecated_runtime") || rootless || p("bpm.enabled")
     apparmor_profile_provided = !p("garden.apparmor_profile").empty?
 -%>
 [server]
@@ -162,7 +161,7 @@
   disable-privileged-containers = true
 <% end -%>
 
-<% if !disable_containerd -%>
+<% if p("garden.experimental_containerd_mode") -%>
 ; containerd
   containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
   <% if p("garden.experimental_use_containerd_mode_for_processes") -%>
