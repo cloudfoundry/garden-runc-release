@@ -19,3 +19,4 @@ excluded_files:
   - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-key.pem
   - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-cert.pem
   - code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/project/CONTRIBUTING.md
+  - code.cloudfoundry.org/guardian/vendor/github.com/containerd/cri/test/e2e
