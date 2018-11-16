@@ -8,4 +8,4 @@ fi
 build_yml=$1
 shift
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
+LOCAL_DEV_RUN=true fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"

@@ -18,6 +18,7 @@ params:
   RACE_DETECTION:
   GINKGO_NODES:
   CONTAINERD_ENABLED:
+  LOCAL_DEV_RUN:
 
 run:
   path: gr-release-develop/ci/unit-tests/guardian
