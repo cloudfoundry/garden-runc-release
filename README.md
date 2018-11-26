@@ -49,26 +49,6 @@ package for Golang.
 
 [Operator's guide.](docs/opsguide.md)
 
-#### Contaierd vs Runc
-When operating Guardian it is important to understand that it can run in one
-of two modes - `runc` mode and `containerd` mode. When you set the `containerd_mode` 
-property to `true` Guardian is going to use a colocated 
-[containerd](https://github.com/containerd/containerd) instance. Otherwise 
-it will fall back to using [runc](https://github.com/opencontainers/runc).
-
-#### How do I know what mode I'm using
-It is easy to determine the guardian mode of your deployment. You are using `containerd`
-if any of these conditions are satisfied:
-- The deployment manifest defines a job named `containerd`
-- The job named `garden` has either `garden.containerd_mode` or `garden.experimental_containerd_mode` 
-properties set to `true`
-
-If none of the above conditions hold you are using runc. Based on the configuration of your
-deployment you can find more details in the respective ops guides:
-
-[Containerd mode guide.](docs/opsguide-containerd.md)
-[Runc mode guide.](docs/opsguide-runc.md)
-
 ### Security Features
 
 The following doc provides an overview of security features on Garden vs Docker vs Kubernetes.
