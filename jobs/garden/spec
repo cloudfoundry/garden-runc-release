@@ -143,6 +143,10 @@ properties:
     description: "Maximum number of microseconds each cpu share assigned to a container allows per quota period. When set to zero cpu limit is disabled."
     default: 0
 
+  garden.experimental_cpu_entitlement_per_share_in_percent:
+    description: "CPU percentage entitled to a container for a single CPU share."
+    default: 0
+
   garden.experimental_tcp_mem_limit_in_bytes:
     description: "Hard limit for the tcp buffer memory in bytes. When set to zero tcp memory limit is disabled."
     default: 0

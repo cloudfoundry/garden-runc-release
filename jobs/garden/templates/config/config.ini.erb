@@ -128,6 +128,9 @@
 <% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| -%>
   cpu-quota-per-share = <%= quota_per_share %>
 <% end -%>
+<% if_p("garden.experimental_cpu_entitlement_per_share_in_percent") do |entitlement_per_share| -%>
+  cpu-entitlement-per-share = <%= entitlement_per_share %>
+<% end -%>
 <% if_p("garden.experimental_tcp_mem_limit_in_bytes") do |tcp_memory| -%>
   tcp-memory-limit = <%= tcp_memory %>
 <% end -%>
