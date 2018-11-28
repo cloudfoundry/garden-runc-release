@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+cp dontpanic/* "${BOSH_INSTALL_TARGET}/bin/"
+

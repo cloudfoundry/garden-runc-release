@@ -30,6 +30,7 @@ packages:
   - xfs-progs
   - thresholder
   - netplugin-shim
+  - dontpanic
 
 properties:
   garden.listen_network:
