@@ -69,3 +69,4 @@ Kawasaki is Guardian’s built-in networking component, used by default and if n
 ### External networker
 The [container-to-container networking project](https://github.com/cloudfoundry-incubator/netman-release) implements the `network_plugin` contract.
 
+### [Configuring CPU entitlement](cpu-entitlement.md)
