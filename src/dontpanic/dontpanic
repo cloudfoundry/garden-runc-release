@@ -5,11 +5,11 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 source $script_dir/helpers.sh
 
 if [[ "$(whoami)" != "root" ]]; then
-  echo "ordnance-survey needs to be run as root" 1>&2
+  printRed "Keep Calm and Re-run as Root"
   exit 1
 fi
 
-printSection "Sit Back, Relax and enjoy the fire"
+printSection "Sit Back, Relax and Enjoy The Fire"
 printBanner
 
 tmp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)
@@ -22,20 +22,24 @@ function cleanup {
 trap cleanup EXIT
 
 pushd "$os_report_dir" > /dev/null
-  printAndCollect "Date" date date.log
-  printAndCollect "Hostname" hostname hostname.log
-  printAndCollect "Free Memory" "free -mt" free.log
-  printAndCollect "Kernel Details" "uname -a" uname.log
-  printAndCollect "Uptime" uptime uptime.log
+  printAndCollect "Date" "date" date.log
+  printAndCollect "Uptime" "uptime" uptime.log
+  printAndCollect "Garden Version" "/var/vcap/packages/guardian/bin/gdn -v" gdn-version.log
+  printAndCollect "Hostname" "hostname" hostname.log
+  printAndCollect "Memory Usage" "free -mt" free.log
   printAndCollect "Disk Usage" "df -h" df.log
-  printAndCollect "Process Tree" "ps aux --forest" forest.log
+  printAndCollect "Kernel Details" "uname -a" uname.log
+  printAndCollect "Monit Summary" "monit summary" monit-summary.log
+  printAndCollect "Number of Containers" "ls /var/vcap/data/garden/depot/ | wc -w" num-containers.log
+  printAndCollect "Number of Open Files" "lsof | wc -l" num-open-files.log
+  printAndCollect "Max Number of Open Files" "cat /proc/sys/fs/file-max" file-max.log
 
+  collect "Process Tree" "ps aux --forest" ps-forest.log
   collect "Kernel Messages" "dmesg -T" dmesg.log
-  collect "Network Interfaces" ifconfig ifconfig.log
+  collect "Network Interfaces" "ifconfig" ifconfig.log
   collect "IP Tables" "iptables -L" iptables-L.log
   collect "NAT IP Tables" "iptables -tnat -L" iptables-tnat.log
   collect "Mount Table" "cat /proc/self/mountinfo" mountinfo.log
-  collect "Garden Version" "/var/vcap/packages/guardian/bin/gdn -v" gdn-version.log
   collect "Garden Depot Contents" "find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g'" depot-contents.log
 
   archive "Kernel Log" /var/log kern.log
@@ -46,7 +50,7 @@ popd > /dev/null
 
 printSection "Creating OS Report Archive"
 if tar zcf os-report.tgz -C "$tmp_dir" .; then
-  printSection "OS Report Complete. Archive os-report.tgz created"
+  printGreen "Report Complete. Archive Created: os-report.tgz"
 else
   printFailed
 fi

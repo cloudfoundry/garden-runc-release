@@ -7,18 +7,19 @@ printSection() {
   if hastput; then
     termwidth="$(tput cols)"
   fi
+
   padding="$(printf '%0.1s' -{1..500})"
-  echo -e "${blue}"
   leftmargin=3
   msgwidth="${#1}"
   rightmargin="$(($termwidth-$leftmargin-msgwidth-2))"
+
+  echo -e -n "${blue}"
   printf '%*.*s[%s]%*.*s\n' 0 "$leftmargin" "$padding" "$1" 0 "$rightmargin" "$padding"
-  echo -e "${white}"
+  echo -e -n "${white}"
 }
 
-
 function printAndCollect() {
-  printSection "Collecting $1"
+  printSection "$1"
   /bin/sh -c "$2" > >(tee -a "$3") 2> >(tee -a "$3" >&2)
   if [ $? -ne 0 ]; then
     printFailed
@@ -26,7 +27,7 @@ function printAndCollect() {
 }
 
 function collect() {
-  printSection "Adding $1 to OS Report Archive"
+  printSection "Collecting $1"
   /bin/sh -c "$2" > "$3" 2> "$3"
   if [ $? -ne 0 ]; then
     printFailed
@@ -34,7 +35,7 @@ function collect() {
 }
 
 function archive {
-  printSection "Adding $1 to OS Report Archive"
+  printSection "Archiving $1"
   tar czf "$3.tgz" -C "$2" "$3"
   if [ $? -ne 0 ]; then
     printFailed
@@ -49,12 +50,20 @@ function archiveDir {
   fi
 }
 
+function printRed() {
+  echo -e "${red}$1${white}"
+}
+
+function printGreen() {
+  echo -e "${green}$1${white}"
+}
+
 function printFailed() {
-  echo -e "${red}Failed${white}"
+  printRed "Failed"
 }
 
 function printBanner {
-  echo -e "${yellow}"
+  echo -e -n "${yellow}"
   cat <<-END
 ====+===.,=======+:+777 ...                                        7777.+====~I7
 ....:=+==========.?7 77...               THIS IS                    777,,====~I7
@@ -106,7 +115,7 @@ I.~?IIIIII.++,......,+++++=+IIIIIIIIIII7.77=+IIIIIII?II?IIIIIIIIIII?I??,???=~+77
 ,:++++.==+?.+=+.+=+=+=+==+=======+=.??+++++++++++??..+=+++++++++++++++++++++++I7
 +~++++.+=++:++=+.=+======+=+=+==++.?I?++++++++++++=:+.+=++++++++++++=++++=+=++I7
 END
-  echo -e "${white}"
+  echo -e -n "${white}"
 }
 
 # no colours by default
