@@ -202,11 +202,12 @@ Commit the changes, run the tests, and create a bump commit:
 
 ### Troubleshooting
 
-The garden-ordnance-survey tool can be used to gather information useful for
-debugging issues on garden-runc-release deployments. Run this command on the
-deployment VM as root:
+#### Don't Panic
+If you have a problem with garden-runc, don't panic! There is a tool that you can
+use to gather information useful for debugging issues on garden-runc-release 
+deployments. Run this command on the deployment VM as root:
 
-`curl bit.ly/garden-ordnance-survey -sSfL | bash`
+`/var/vcap/packages/dontpanic/bin/dontpanic`
 
 ### License
 
