@@ -6,6 +6,7 @@ source /var/vcap/jobs/garden/bin/envs
 source /var/vcap/packages/greenskeeper/bin/system-preparation
 
 <% if !p("bpm.enabled") %>
+  mkdir -p "${LOG_DIR}"
   exec 1>> "${LOG_DIR}/garden_start.stdout.log"
   exec 2>> "${LOG_DIR}/garden_start.stderr.log"
 
