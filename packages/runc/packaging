@@ -12,6 +12,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$BOSH_INSTALL_TARGET
 
 cd $GOPATH/src/github.com/opencontainers/runc
+patch -p1 < "${BOSH_INSTALL_TARGET}/src/patches/runc-resilient-exec.patch"
 
 export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
 export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib

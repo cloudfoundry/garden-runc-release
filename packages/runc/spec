@@ -9,3 +9,4 @@ dependencies:
 
 files:
   - github.com/opencontainers/runc/**/*
+  - patches/runc-resilient-exec.patch
