@@ -10,9 +10,12 @@ source "$( dirname "$0" )/../helpers/device-control"
 # shellcheck source=../helpers/gats-utils
 source "$( dirname "$0" )/../helpers/gats-utils"
 
+# shellcheck source=../helpers/install-runc
+source "$( dirname "$0" )/../helpers/install-runc"
+
 function build() {
   mkdir -p "${GOPATH}/bin"
-  build_runc "$grreleasedevelopdir"
+  install_runc "$grreleasedevelopdir"
   build_nstar "$grreleasedevelopdir"
   build_grootfs "$grreleasedevelopdir"
   build_gdn "$grreleasedevelopdir"

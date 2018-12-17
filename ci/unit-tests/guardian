@@ -6,13 +6,16 @@ grr_base=$PWD/gr-release-develop
 # shellcheck source=../helpers/device-control
 source "$grr_base/ci/helpers/device-control"
 
+# shellcheck source=../helpers/install-runc
+source "$grr_base/ci/helpers/install-runc"
+
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
 export GOPATH=$grr_base
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
-go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
+install_runc "$grr_base"
 
 if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
   #TODO: Figure out how to get rid of the containerd git-related errors below

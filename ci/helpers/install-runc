@@ -1,0 +1,4 @@
+function install_runc() {
+  gr_release_develop_dir="$1"
+  go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
+}

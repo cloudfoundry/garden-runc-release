@@ -1,11 +1,3 @@
-build_runc() {
-  local grreleasedevelopdir="$1"
-
-  pushd "$grreleasedevelopdir"/src/github.com/opencontainers/runc
-    make
-    mv runc "$GOPATH"/bin
-  popd
-}
 
 build_nstar() {
   local grreleasedevelopdir="$1"
