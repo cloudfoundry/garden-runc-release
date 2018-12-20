@@ -3,4 +3,4 @@ name: golang
 
 dependencies: []
 
-files: [golang/go1.11.2.linux-amd64.tar.gz]
+files: [golang/go1.11.4.linux-amd64.tar.gz]
