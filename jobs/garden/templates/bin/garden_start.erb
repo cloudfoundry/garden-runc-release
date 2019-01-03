@@ -5,6 +5,14 @@ set -e
 source /var/vcap/jobs/garden/bin/envs
 source /var/vcap/packages/greenskeeper/bin/system-preparation
 
+log "running greenskeeper"
+greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
+<% if p("garden.experimental_rootless_mode") %>
+  greenskeeper_cmd="$greenskeeper_cmd --rootless"
+<% end %>
+$greenskeeper_cmd
+log "running greenskeeper: done"
+
 <% if !p("bpm.enabled") %>
   exec 1>> "${LOG_DIR}/garden_start.stdout.log"
   exec 2>> "${LOG_DIR}/garden_start.stderr.log"
@@ -26,14 +34,6 @@ increase_max_procs
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
 <% end %>
 log "preparing system: done"
-
-log "running greenskeeper"
-greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
-<% if p("garden.experimental_rootless_mode") %>
-  greenskeeper_cmd="$greenskeeper_cmd --rootless"
-<% end %>
-$greenskeeper_cmd
-log "running greenskeeper: done"
 
 # cannot over-write an executable mid-execution
 rm -f "$RUNTIME_BIN_DIR"/init
