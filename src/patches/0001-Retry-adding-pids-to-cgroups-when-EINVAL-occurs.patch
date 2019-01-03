@@ -1,5 +1,24 @@
+From bdf3524b34ffe47b122e56806d7210e2890f1ae3 Mon Sep 17 00:00:00 2001
+From: Tom Godkin <tgodkin@pivotal.io>
+Date: Mon, 17 Dec 2018 15:34:47 +0000
+Subject: [PATCH] Retry adding pids to cgroups when EINVAL occurs
+
+The kernel will sometimes return EINVAL when writing a pid to a
+cgroup.procs file. It does so when the task being added still has the
+state TASK_NEW.
+
+See: https://elixir.bootlin.com/linux/v4.8/source/kernel/sched/core.c#L8286
+
+Co-authored-by: Danail Branekov <danailster@gmail.com>
+
+Signed-off-by: Tom Godkin <tgodkin@pivotal.io>
+Signed-off-by: Danail Branekov <danailster@gmail.com>
+---
+ libcontainer/cgroups/utils.go | 40 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 35 insertions(+), 5 deletions(-)
+
 diff --git a/libcontainer/cgroups/utils.go b/libcontainer/cgroups/utils.go
-index cd32a673..c3162c1c 100644
+index ea571ad9..9717acc7 100644
 --- a/libcontainer/cgroups/utils.go
 +++ b/libcontainer/cgroups/utils.go
 @@ -14,6 +14,7 @@ import (
@@ -10,13 +29,15 @@ index cd32a673..c3162c1c 100644
  )
  
  const (
-@@ -454,10 +455,39 @@ func WriteCgroupProc(dir string, pid int) error {
+@@ -463,11 +464,40 @@ func WriteCgroupProc(dir string, pid int) error {
+ 		return fmt.Errorf("no such directory for %s", CgroupProcesses)
  	}
  
- 	// Dont attach any pid to the cgroup if -1 is specified as a pid
+-	// Don't attach any pid to the cgroup if -1 is specified as a pid
 -	if pid != -1 {
 -		if err := ioutil.WriteFile(filepath.Join(dir, CgroupProcesses), []byte(strconv.Itoa(pid)), 0700); err != nil {
 -			return fmt.Errorf("failed to write %v to %v: %v", pid, CgroupProcesses, err)
++	// Dont attach any pid to the cgroup if -1 is specified as a pid
 +	if pid == -1 {
 +		return nil
 +	}
@@ -54,3 +75,6 @@ index cd32a673..c3162c1c 100644
  	}
 -	return nil
  }
+-- 
+2.20.1
+

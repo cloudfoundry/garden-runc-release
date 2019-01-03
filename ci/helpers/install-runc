@@ -4,7 +4,8 @@ function install_runc() {
   patches_dir="${gr_release_develop_dir}/src/patches"
   (
     cd "$runc_dir"
-    patch -p1 < "${patches_dir}/runc-resilient-exec.patch"
+    patch -p1 < "${patches_dir}/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.compatibility.patch"
+    patch -p1 < "${patches_dir}/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.patch"
   )
   go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 }
