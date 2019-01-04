@@ -7,21 +7,24 @@ source ./patches/patch.bash
 export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
 
-mkdir -p $BOSH_INSTALL_TARGET/{src,bin}
+mkdir -p "$BOSH_INSTALL_TARGET"/{src,bin}
 
-cp -a . $BOSH_INSTALL_TARGET/src/
+cp -a . "${BOSH_INSTALL_TARGET}/src/"
 
-export GOROOT=$(readlink -nf /var/vcap/packages/golang)
-export PATH=$GOROOT/bin:$PATH
-export GOPATH=$BOSH_INSTALL_TARGET
+export GOROOT
+GOROOT="$( readlink -nf /var/vcap/packages/golang )"
+export PATH="${GOROOT}/bin:${PATH}"
+export GOPATH="$BOSH_INSTALL_TARGET"
 
-cd $GOPATH/src/github.com/opencontainers/runc
+cd "${GOPATH}/src/github.com/opencontainers/runc"
 apply_patches "${BOSH_INSTALL_TARGET}/src/patches/runc"
 
-export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
-export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib
+export C_INCLUDE_PATH
+C_INCLUDE_PATH="$( readlink -nf /var/vcap/packages/apparmor )/include"
+export LIBRARY_PATH
+LIBRARY_PATH="$( readlink -nf /var/vcap/packages/apparmor )/lib"
 make BUILDTAGS='seccomp apparmor' static
 
-cp runc $BOSH_INSTALL_TARGET/bin/
+cp runc "${BOSH_INSTALL_TARGET}/bin/"
 
-rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}
+rm -rf "$BOSH_INSTALL_TARGET"/{src,pkg}
