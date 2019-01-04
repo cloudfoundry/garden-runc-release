@@ -4,23 +4,7 @@ function install_runc() {
   patches_dir="${gr_release_develop_dir}/src/patches"
   (
     cd "$runc_dir"
-
-    apply_patch "${patches_dir}/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.compatibility.patch"
-    apply_patch "${patches_dir}/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.patch"
+    apply_patches "${patches_dir}/runc"
   )
   go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
-}
-
-# Attempt a patch. If the patch can be applied in reverse then it is not needed.
-# This is necessary for compatibility of patches formed from PRs where there is a merge conflict between
-# the PR and our version of whatever is being patched.
-function apply_patch() {
-  patch="$1"
-
-  if patch -p1 -N -R --dry-run --silent < "$patch"; then
-    echo "patch not necessary: ${patch}"
-    return
-  fi
-
-  patch -p1 < "$patch"
 }

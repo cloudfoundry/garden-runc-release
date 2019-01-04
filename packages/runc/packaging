@@ -1,4 +1,8 @@
-set -e -x
+#!/usr/bin/env bash
+set -euo pipefail
+
+# shellcheck source=../../src/patches/patch.bash
+source ./patches/patch.bash
 
 export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
@@ -12,8 +16,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$BOSH_INSTALL_TARGET
 
 cd $GOPATH/src/github.com/opencontainers/runc
-patch -p1 < "${BOSH_INSTALL_TARGET}/src/patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.compatibility.patch"
-patch -p1 < "${BOSH_INSTALL_TARGET}/src/patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.patch"
+apply_patches "${BOSH_INSTALL_TARGET}/src/patches/runc"
 
 export C_INCLUDE_PATH=$(readlink -nf /var/vcap/packages/apparmor)/include
 export LIBRARY_PATH=$(readlink -nf /var/vcap/packages/apparmor)/lib

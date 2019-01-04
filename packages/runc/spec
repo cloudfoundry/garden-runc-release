@@ -9,5 +9,5 @@ dependencies:
 
 files:
   - github.com/opencontainers/runc/**/*
-  - patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.compatibility.patch
-  - patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.patch
+  - patches/patch.bash
+  - patches/runc/**/*
