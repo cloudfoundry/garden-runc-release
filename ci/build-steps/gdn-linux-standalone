@@ -6,6 +6,9 @@
 
 set -ex
 
+# shellcheck source=../helpers/install-runc
+source "$( dirname "$0" )/../helpers/install-runc"
+
 export GOPATH=$PWD/gr-release-develop
 export PATH=$PATH:$GOPATH/bin
 
@@ -44,6 +47,9 @@ function build() {
       cp bin/dadoo "${LINUX_ASSETS}/bin"
 
       pushd src/github.com/opencontainers/runc
+        apply_patch ../../../patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.compatibility.patch
+        apply_patch ../../../patches/0001-Retry-adding-pids-to-cgroups-when-EINVAL-occurs.patch
+
         PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
           GOPATH=$PWD/Godeps/_workspace:$GOPATH \
           BUILDTAGS=seccomp \
