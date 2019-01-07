@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-if [ ! -z "$TAG" ]; then
+if [ -n "$TAG" ]; then
   tag="--tag $TAG"
 fi
 
