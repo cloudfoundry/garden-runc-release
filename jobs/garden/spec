@@ -116,6 +116,10 @@ properties:
     description: "Path to a runtime plugin binary"
     default: /var/vcap/packages/runc/bin/runc
 
+  garden.no_image_plugin:
+    description: "If true, disables image plugin usage, thus ignoring other image plugin settings"
+    default: false
+
   garden.image_plugin:
     description: "Path to an optional image plugin binary"
 
