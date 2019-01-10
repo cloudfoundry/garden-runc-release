@@ -6,11 +6,8 @@ grr_base=$PWD/gr-release-develop
 # shellcheck source=../helpers/device-control
 source "$grr_base/ci/helpers/device-control"
 
-# shellcheck source=../../src/patches/patch.bash
-source "$grr_base/src/patches/patch.bash"
-
-# shellcheck source=../helpers/install-runc
-source "$grr_base/ci/helpers/install-runc"
+# shellcheck source=../../src/build/runc.bash
+source "$grr_base/src/build/runc.bash"
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
@@ -18,7 +15,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$grr_base
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
-install_runc "$grr_base"
+build_runc "$grr_base" "${GOPATH}/bin"
 
 if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
   #TODO: Figure out how to get rid of the containerd git-related errors below

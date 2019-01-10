@@ -6,8 +6,8 @@
 
 set -ex
 
-# shellcheck source=../../src/patches/patch.bash
-source "$( dirname "$0" )/../../src/patches/patch.bash"
+# shellcheck source=../../src/build/runc.bash
+source "$( dirname "$0" )/../../src/build/runc.bash"
 
 export GOPATH=$PWD/gr-release-develop
 export PATH=$PATH:$GOPATH/bin
@@ -46,16 +46,7 @@ function build() {
       go install code.cloudfoundry.org/guardian/cmd/dadoo
       cp bin/dadoo "${LINUX_ASSETS}/bin"
 
-      pushd src/github.com/opencontainers/runc
-        apply_patches "${GOPATH}/src/patches/runc"
-
-        PKG_CONFIG_PATH=/opt/static-assets/libseccomp/lib/pkgconfig \
-          GOPATH=$PWD/Godeps/_workspace:$GOPATH \
-          BUILDTAGS=seccomp \
-          make static
-
-        mv runc "${LINUX_ASSETS}/bin"
-      popd
+      build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
       pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
         make
