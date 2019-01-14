@@ -16,5 +16,3 @@ popd
 
 mkdir ${BOSH_INSTALL_TARGET}/bin
 cp apparmor-2.11.1/parser/apparmor_parser ${BOSH_INSTALL_TARGET}/bin
-
-cp apparmor-2.11.1/utils/aa-status ${BOSH_INSTALL_TARGET}/bin
