@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -e
+
+# shellcheck disable=SC1091
+source /var/vcap/jobs/garden/bin/envs
+
+exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
+exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
+
+install_systemd_service() {
+  if [ -n "${IS_RUNNING_SYSTEMD}" ]; then
+    rm -f /lib/systemd/system/garden.service
+    cp /var/vcap/jobs/garden/config/garden.service /lib/systemd/system/
+    /bin/systemctl daemon-reload
+  fi
+}
+
+
+garden() {
+  if [ -n "${IS_RUNNING_SYSTEMD}" ]; then
+    /bin/systemctl "$1" garden.service
+  else
+    /var/vcap/jobs/garden/bin/garden_"${1}"
+  fi
+}
+
+
+case $1 in
+  start)
+    install_systemd_service
+    garden "start"
+  ;;
+  stop)
+    garden "stop"
+  ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+  ;;
+esac

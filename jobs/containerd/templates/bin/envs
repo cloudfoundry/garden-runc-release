@@ -1,6 +1,0 @@
-export RUN_DIR=/var/vcap/sys/run/containerd
-export LOG_DIR=/var/vcap/sys/log/containerd
-export DATA_DIR=/var/vcap/data/containerd
-export ROOT_DIR=/var/vcap/data/containerd/root
-export PID_FILEPATH="${RUN_DIR}/containerd.pid"
-export CONFIG_FILEPATH="/var/vcap/jobs/containerd/config/containerd.toml"

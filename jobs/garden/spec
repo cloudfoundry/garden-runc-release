@@ -3,8 +3,9 @@ name: garden
 
 templates:
   bin/bpm-pre-start.erb:                    bin/bpm-pre-start
+  bin/garden_ctl:                           bin/garden_ctl
   bin/garden_start.erb:                     bin/garden_start
-  bin/garden_stop:                          bin/garden_stop
+  bin/garden_stop.erb:                      bin/garden_stop
   bin/envs.erb:                             bin/envs
   config/garden-default.erb:                config/garden-default
   config/bpm.yml.erb:                       config/bpm.yml
@@ -14,13 +15,17 @@ templates:
   config/grootfs_config.yml.erb:            config/grootfs_config.yml
   config/privileged_grootfs_config.yml.erb: config/privileged_grootfs_config.yml
   config/config.ini.erb:                    config/config.ini
+  config/garden.service:                    config/garden.service
   certs/remote-layer.crt.erb:               certs/remote-layer.crt
   certs/remote-layer.cert.erb:              certs/remote-layer.cert
   certs/remote-layer.key.erb:               certs/remote-layer.key
+  config/containerd.toml:                   config/containerd.toml
+  bin/containerd_utils:                     bin/containerd_utils
 
 packages:
   - guardian
   - iptables
+  - containerd
   - runc
   - busybox
   - tar

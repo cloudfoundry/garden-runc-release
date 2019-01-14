@@ -17,6 +17,11 @@ export PATH="/var/vcap/packages/garden-idmapper/bin:${PATH}"
 export PATH="/var/vcap/jobs/garden/bin:${PATH}"
 export MAXIMUS=$(maximus)
 
+
+if [ -d "/run/systemd/system" ]; then
+  export IS_RUNNING_SYSTEMD=true
+fi
+
 <% if p("garden.experimental_rootless_mode") %>
 # runc makes use of the XDG_RUNTIME_DIR env var in order to determine
 # where to place the runc root dir in rootless mode.

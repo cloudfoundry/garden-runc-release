@@ -1,0 +1,8 @@
+[Unit]
+Description=garden-runc container runtime
+
+[Service]
+ExecStart=/var/vcap/jobs/garden/bin/garden_start
+ExecStop=/var/vcap/jobs/garden/bin/garden_stop
+Delegate=yes
+KillMode=none

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -eu
+
+# shellcheck disable=SC1091
+#source /var/vcap/jobs/garden/bin/envs
+export CONTAINERD_CONFIG_FILEPATH="/var/vcap/jobs/garden/config/containerd.toml"
+export LOG_DIR="/var/vcap/sys/log/garden/"
+
+export PATH="${PATH}:/var/vcap/packages/containerd/bin"
+export PATH="${PATH}:/var/vcap/packages/runc/bin"
+
+log() {
+  local msg
+  local time
+
+  msg=$1
+  time=$(date +"%e/%m/%Y - %T")
+
+  echo "$time $msg" >> "${LOG_DIR}/containerd_ctl.log"
+}
+
+
+start_containerd() {
+  log "starting containerd"
+
+  if pidof containerd; then
+    echo "containerd already running"
+    return
+  fi
+
+  containerd -c "$CONTAINERD_CONFIG_FILEPATH" \
+    1>> "${LOG_DIR}/containerd.stdout.log" \
+    2>> "${LOG_DIR}/containerd.stderr.log" \
+    &
+}
+
+stop_containerd() {
+  log "stopping containerd"
+  killall -s SIGKILL containerd
+}

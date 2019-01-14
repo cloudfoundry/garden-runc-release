@@ -14,8 +14,8 @@ $greenskeeper_cmd
 log "running greenskeeper: done"
 
 <% if !p("bpm.enabled") %>
-  exec 1>> "${LOG_DIR}/garden_start.stdout.log"
-  exec 2>> "${LOG_DIR}/garden_start.stderr.log"
+  exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
+  exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
 
   log "running thresholder"
   /var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
@@ -43,6 +43,14 @@ cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
 log "configuring xfs"
 ${BASE_PATH}/overlay-xfs-setup
 log "configuring xfs: done"
+<% end %>
+
+<% if p("garden.experimental_containerd_mode") || p("garden.containerd_mode") -%>
+source /var/vcap/jobs/garden/bin/containerd_utils
+
+log "containerd starting"
+start_containerd
+log "containerd started"
 <% end %>
 
 exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garden ) \

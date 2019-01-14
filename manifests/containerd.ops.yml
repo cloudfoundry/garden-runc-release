@@ -1,8 +1,5 @@
-- type: replace
-  path: /instance_groups/name=garden/jobs/-
-  value:
-   name: containerd
-   release: garden-runc
+- type: remove
+  path: /instance_groups/name=garden/jobs/name=containerd?
 
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/garden/containerd_mode?

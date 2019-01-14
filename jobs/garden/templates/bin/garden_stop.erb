@@ -4,6 +4,11 @@ set -e
 # shellcheck disable=SC1091
 source /var/vcap/jobs/garden/bin/envs
 
+<% if !p("bpm.enabled") %>
+  exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
+  exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
+<% end %>
+
 function wait_pid() {
   pid=$1
   shift
@@ -30,6 +35,7 @@ function stop_guardian() {
   kill -TERM "$pid"
   if wait_pid "$pid" 100 ; then
     rm "$PIDFILE"
+    echo "stopped guardian"
     return 0
   fi
 
@@ -37,6 +43,7 @@ function stop_guardian() {
   kill -QUIT "$pid" || true
   if wait_pid "$pid" 50 ; then
     rm "$PIDFILE"
+    echo "stopped guardian"
     return 0
   fi
 
@@ -44,6 +51,7 @@ function stop_guardian() {
   kill -KILL "$pid" || true
   if wait_pid "$pid" 50 ; then
     rm "$PIDFILE"
+    echo "stopped guardian"
     return 0
   fi
 
@@ -52,3 +60,11 @@ function stop_guardian() {
 }
 
 stop_guardian
+
+<% if p("garden.experimental_containerd_mode") || p("garden.containerd_mode") -%>
+source /var/vcap/jobs/garden/bin/containerd_utils
+
+log "containerd stopping"
+stop_containerd
+log "containerd stopped"
+<% end %>
