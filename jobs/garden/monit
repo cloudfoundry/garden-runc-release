@@ -20,5 +20,12 @@ check process garden
     with timeout 5 seconds for 12 cycles
     then restart
 <% end %>
+
+<% if p("garden.experimental_containerd_mode") || p("garden.containerd_mode") -%>
+  if failed unixsocket /var/vcap/sys/run/containerd/containerd.sock
+    with timeout 5 seconds for 12 cycles
+    then restart
+<% end %>
+
   group vcap
 <% end %>
