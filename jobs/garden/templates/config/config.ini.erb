@@ -57,28 +57,28 @@
 <% if p("garden.no_image_plugin") -%>
   no-image-plugin = true
 <% else -%>
-<% if use_provided_image_plugin -%>
-  image-plugin = <%= image_plugin %>
-  <% p("garden.image_plugin_extra_args").each do |arg| -%>
-  image-plugin-extra-arg = <%= arg %>
+  <% if use_provided_image_plugin -%>
+    image-plugin = <%= image_plugin %>
+    <% p("garden.image_plugin_extra_args").each do |arg| -%>
+    image-plugin-extra-arg = <%= arg %>
+    <% end -%>
   <% end -%>
-<% end -%>
-<% if use_provided_privileged_image_plugin -%>
-  privileged-image-plugin = <%= privileged_image_plugin %>
-  <% p("garden.privileged_image_plugin_extra_args").each do |arg| -%>
-  privileged-image-plugin-extra-arg = <%= arg %>
+  <% if use_provided_privileged_image_plugin -%>
+    privileged-image-plugin = <%= privileged_image_plugin %>
+    <% p("garden.privileged_image_plugin_extra_args").each do |arg| -%>
+    privileged-image-plugin-extra-arg = <%= arg %>
+    <% end -%>
   <% end -%>
-<% end -%>
-<% if use_default_image_plugin -%>
-  image-plugin = /var/vcap/packages/grootfs/bin/grootfs
-  image-plugin-extra-arg = "--config"
-  image-plugin-extra-arg = <%= groot_config_dir %>/grootfs_config.yml
-<% end -%>
-<% if use_default_privileged_image_plugin -%>
-  privileged-image-plugin = /var/vcap/packages/grootfs/bin/grootfs
-  privileged-image-plugin-extra-arg = "--config"
-  privileged-image-plugin-extra-arg = <%= groot_config_dir %>/privileged_grootfs_config.yml
-<% end -%>
+  <% if use_default_image_plugin -%>
+    image-plugin = /var/vcap/packages/grootfs/bin/grootfs
+    image-plugin-extra-arg = "--config"
+    image-plugin-extra-arg = <%= groot_config_dir %>/grootfs_config.yml
+  <% end -%>
+  <% if use_default_privileged_image_plugin -%>
+    privileged-image-plugin = /var/vcap/packages/grootfs/bin/grootfs
+    privileged-image-plugin-extra-arg = "--config"
+    privileged-image-plugin-extra-arg = <%= groot_config_dir %>/privileged_grootfs_config.yml
+  <% end -%>
 <% end -%>
 <% if_p("garden.docker_registry_endpoint") do |endpoint| -%>
   docker-registry = <%= endpoint %>
