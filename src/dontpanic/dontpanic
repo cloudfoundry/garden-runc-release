@@ -30,7 +30,7 @@ pushd "$os_report_dir" > /dev/null
   printAndCollect "Memory Usage" "free -mt" free.log
   printAndCollect "Disk Usage" "df -h" df.log
   printAndCollect "Kernel Details" "uname -a" uname.log
-  printAndCollect "Monit Summary" "monit summary" monit-summary.log
+  printAndCollect "Monit Summary" "/var/vcap/bosh/bin/monit summary" monit-summary.log
   printAndCollect "Number of Containers" "ls /var/vcap/data/garden/depot/ | wc -w" num-containers.log
   printAndCollect "Number of Open Files" "lsof | wc -l" num-open-files.log
   printAndCollect "Max Number of Open Files" "cat /proc/sys/fs/file-max" file-max.log
