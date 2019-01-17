@@ -9,6 +9,8 @@ if [[ "$(whoami)" != "root" ]]; then
   exit 1
 fi
 
+export TMPDIR=/var/vcap/data/tmp
+
 printNewLines 1
 
 printBanner
