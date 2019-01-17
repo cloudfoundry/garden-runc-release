@@ -1,7 +1,10 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 hastput() {
-  command -v tput > /dev/null
+  if command -v tput > /dev/null; then
+    # Also check whether tput supports the terminal. The command below would fail if TERM is set to an unsupported value
+    tput colors > /dev/null 2>&1
+  fi
 }
 
 printNewLines() {
