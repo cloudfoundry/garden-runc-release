@@ -7,12 +7,6 @@ hastput() {
   fi
 }
 
-printNewLines() {
-  for _ in $(seq 1 "$1"); do
-    printf '\n'
-  done
-}
-
 printSection() {
   echo -e -n "${blue}"
   printf '## %s\n' "$1"

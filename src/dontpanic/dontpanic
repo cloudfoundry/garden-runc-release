@@ -11,8 +11,6 @@ fi
 
 export TMPDIR=/var/vcap/data/tmp
 
-printNewLines 1
-
 printBanner
 
 tmp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)
@@ -25,9 +23,7 @@ function cleanup {
 trap cleanup EXIT
 
 pushd "$os_report_dir" > /dev/null
-  printNewLines 2
   printGreen "<Useful information below, please copy-paste from here>"
-  printNewLines 1
 
   printAndCollect "Date" "date" date.log
   printAndCollect "Uptime" "uptime" uptime.log
