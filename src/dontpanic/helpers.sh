@@ -1,6 +1,6 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-function hastput {
+hastput() {
   command -v tput > /dev/null
 }
 
@@ -20,52 +20,40 @@ printSection() {
   echo -e -n "${white}"
 }
 
-function printAndCollect() {
+printAndCollect() {
   printSection "$1"
-  /bin/sh -c "$2" > >(tee -a "$3") 2> >(tee -a "$3" >&2)
-  if [ $? -ne 0 ]; then
-    printFailed
-  fi
+  /bin/sh -c "$2" > >(tee -a "$3") 2> >(tee -a "$3" >&2) || printFailed
 }
 
-function collect() {
+collect() {
   printSection "Collecting $1"
-  /bin/sh -c "$2" > "$3" 2> "$3"
-  if [ $? -ne 0 ]; then
-    printFailed
-  fi
+  /bin/sh -c "$2" > "$3" 2> "$3" || printFailed
 }
 
-function archive {
+archive() {
   printSection "Archiving $1"
-  tar czf "$3.tgz" -C "$2" "$3"
-  if [ $? -ne 0 ]; then
-    printFailed
-  fi
+  tar czf "$3.tgz" -C "$2" "$3" || printFailed
 }
 
-function archiveDir {
+archiveDir() {
   printSection "Archiving $1"
-  tar czf "$3" -C "$2" .
-  if [ $? -ne 0 ]; then
-    printFailed
-  fi
+  tar czf "$3" -C "$2" . || printFailed
 }
 
-function printRed() {
+printRed() {
   echo -e "${red}$1${white}"
 }
 
-function printGreen() {
+printGreen() {
   echo -e "${green}$1${white}"
 }
 
-function printFailed() {
+printFailed() {
   printRed "Failed"
 }
 
-function printBanner {
-  cat $logo
+printBanner() {
+  cat "$logo"
 }
 
 # no colours by default
