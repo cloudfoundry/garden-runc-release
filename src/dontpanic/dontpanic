@@ -9,7 +9,8 @@ if [[ "$(whoami)" != "root" ]]; then
   exit 1
 fi
 
-printSection "Sit Back, Relax and Enjoy The Fire"
+printNewLines 1
+
 printBanner
 
 tmp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)

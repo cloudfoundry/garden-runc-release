@@ -4,6 +4,12 @@ hastput() {
   command -v tput > /dev/null
 }
 
+printNewLines() {
+  for _ in $(seq 1 "$1"); do
+    printf '\n'
+  done
+}
+
 printSection() {
   termwidth=80
   if hastput; then
