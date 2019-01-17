@@ -14,18 +14,8 @@ printNewLines() {
 }
 
 printSection() {
-  termwidth=80
-  if hastput; then
-    termwidth="$(tput cols)"
-  fi
-
-  padding="$(printf '%0.1s' -{1..500})"
-  leftmargin=3
-  msgwidth="${#1}"
-  rightmargin="$(($termwidth-$leftmargin-msgwidth-2))"
-
   echo -e -n "${blue}"
-  printf '%*.*s[%s]%*.*s\n' 0 "$leftmargin" "$padding" "$1" 0 "$rightmargin" "$padding"
+  printf '## %s\n' "$1"
   echo -e -n "${white}"
 }
 
