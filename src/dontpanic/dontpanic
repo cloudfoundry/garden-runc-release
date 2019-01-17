@@ -57,7 +57,7 @@ popd > /dev/null
 
 printSection "Creating OS Report Archive"
 if tar zcf os-report.tgz -C "$tmp_dir" .; then
-  printGreen "Report Complete. Archive Created: os-report.tgz"
+  printGreen "Report Complete. Archive Created: ${PWD}/os-report.tgz"
 else
   printFailed
 fi
