@@ -12,6 +12,7 @@ Provide as much detail about the issue as possible.
 ## Environment
 
 * garden-runc-release version: <!-- (if upgrading, please note both versions; from and to) -->
+* Enabled configuration: <!-- containerd, bpm, oci etc -->
 * IaaS:
 * Stemcell version: <!-- (if upgrading, please note both versions; from and to) -->
 * Kernel version: <!-- (`uname -r` from within VM running Garden prints this information) -->
@@ -27,7 +28,9 @@ If you do not have a set of steps to reproduce the issue, please explain in deta
 Provide any output you think may be useful in understanding/explaining the issue.
 The garden log files are found in `/var/vcap/sys/log/garden/` on the VM in which the Garden job is running.
 
-Run ordnance survey (from within the VM running the Garden job) using the following command and attach the resulting tar to the issue: `curl bit.ly/garden-ordnance-survey -sSfL | bash`.
+Version >= 1.17.2: Run `/var/vcap/packages/dontpanic/bin/dontpanic` (from within the VM running the Garden job) and attach the resulting tar to the issue.
+
+Version <= 1.17.1: Run ordnance survey (from within the VM running the Garden job) using the following command and attach the resulting tar to the issue: `curl bit.ly/garden-ordnance-survey -sSfL | bash`.
 -->
 
 ## Docker image (if relevant)
