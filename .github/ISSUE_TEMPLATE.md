@@ -2,6 +2,7 @@
 Hi there! Thanks for taking time to open an Issue.
 Please read through our issue submission checklist to help you fill out as much of the following information as possible.
 https://github.com/cloudfoundry/garden-runc-release/blob/develop/docs/issue-submission-guide.md
+Please note that we may be unable to invesigate issues if insufficient information is provided.
 -->
 
 ## Description
