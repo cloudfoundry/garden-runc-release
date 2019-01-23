@@ -11,6 +11,9 @@ processes:
     additional_volumes:
       - path: /var/vcap/data/garden/sockets
         writable: true
+      - path: /var/vcap/data/garden/depot
+        writable: true
+        mount_only: true
       - path: /var/vcap/data/grootfs/store
         writable: true
         mount_only: true
