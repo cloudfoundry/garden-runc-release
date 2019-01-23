@@ -15,3 +15,7 @@
 - type: replace
   path: /instance_groups/name=garden/jobs/name=garden/properties/bpm?/enabled?
   value: true
+
+- type: replace
+  path: /instance_groups/0/jobs/name=garden/properties/garden/destroy_containers_on_start?
+  value: true
