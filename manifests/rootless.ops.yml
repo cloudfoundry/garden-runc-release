@@ -3,5 +3,9 @@
   value: true
 
 - type: replace
+  path: /instance_groups/0/jobs/name=garden/properties/garden/destroy_containers_on_start?
+  value: true
+
+- type: replace
   path: /instance_groups/0/jobs/name=garden/properties/grootfs?/skip_mount?
   value: true
