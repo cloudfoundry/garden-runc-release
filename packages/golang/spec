@@ -1,6 +1,3 @@
 ---
 name: golang
-
-dependencies: []
-
-files: [golang/go1.11.4.linux-amd64.tar.gz]
+files: [golang/go1.11.5.linux-amd64.tar.gz]

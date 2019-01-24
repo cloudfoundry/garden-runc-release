@@ -14,14 +14,14 @@ busybox/busybox-1.27.2.tar.gz:
   size: 692898
   object_id: ed3e7c60-5c94-4359-6c7a-a56eeeffb1de
   sha: 728ef13c40e4a091b22a657a22396b3d985af346
-golang/go1.11.4.linux-amd64.tar.gz:
-  size: 126643341
-  object_id: 6c60b565-3031-47a4-7e4b-aeb7db7a5185
-  sha: 52bd8eb353a39138a2ddf053857a0fd13f1f176c
 golang/go1.11.4.windows-amd64.zip:
   size: 134576874
   object_id: 6134f144-6cc0-4e30-5e37-09ec7e8a4679
   sha: 55b782fe0b162c1a21db9795fd3a6ec6f0d330c8
+golang/go1.11.5.linux-amd64.tar.gz:
+  size: 140132627
+  object_id: 1ffb9ce5-6f6a-4e15-7eb3-36c3fb4fc2a8
+  sha: b951c39500c4c85f57b7549ebc87281816d28f59
 iptables/iptables-1.6.2.tar.bz2:
   size: 639785
   object_id: cafb6233-5827-4b55-4f1d-0da60ca30345
