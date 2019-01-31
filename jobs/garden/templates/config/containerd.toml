@@ -15,7 +15,6 @@ disabled_plugins = [
   "snapshots-service",
   "content",
   "diff",
-  "events",
   "images",
   "namespaces",
   "snapshots",
