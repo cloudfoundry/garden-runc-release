@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+PIDFILE=/var/vcap/sys/run/containerd/dummycontainerd.pid
+
+case $1 in
+  start)
+    echo $$ > $PIDFILE
+    while true; do
+      sleep 10000
+    done
+  ;;
+  stop)
+    pid=$(cat "$PIDFILE")
+    kill -KILL "$pid"
+  ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+  ;;
+esac

@@ -1,0 +1,5 @@
+check process containerd
+  with pidfile /var/vcap/sys/run/containerd/dummycontainerd.pid
+  start program "/var/vcap/jobs/containerd/bin/ctl start" with timeout 120 seconds
+  stop program "/var/vcap/jobs/containerd/bin/ctl stop" with timeout 120 seconds
+  group vcap

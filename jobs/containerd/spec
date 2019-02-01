@@ -1,0 +1,9 @@
+---
+# This is a placeholder job needed for backward compatibility
+# Containerd is currently running as a part of the garden job
+# See https://github.com/cloudfoundry/garden-runc-release/commit/1f695c9f543fd446e0a94b02c40001936e4a000d
+name: containerd
+
+templates:
+  bin/ctl: bin/ctl
+
