@@ -61,7 +61,7 @@ function stop_guardian() {
 
 stop_guardian
 
-<% if p("garden.experimental_containerd_mode") || p("garden.containerd_mode") -%>
+<% if p("garden.containerd_mode") -%>
 source /var/vcap/jobs/garden/bin/containerd_utils
 
 log "containerd stopping"

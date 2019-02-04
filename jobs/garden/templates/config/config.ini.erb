@@ -168,7 +168,7 @@
   disable-privileged-containers = true
 <% end -%>
 
-<% if p("garden.experimental_containerd_mode") || p("garden.containerd_mode") -%>
+<% if p("garden.containerd_mode") -%>
 ; containerd
   containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
   <% if p("garden.experimental_use_containerd_mode_for_processes") -%>

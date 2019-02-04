@@ -23,8 +23,7 @@ runc mode by using the [cf-deployment/use-native-garden-runc-runner.yml](https:/
 It is easy to determine the Garden mode of your deployment. You are using `containerd`
 if any of these conditions are satisfied:
 - The deployment manifest defines a job named `containerd`
-- The job named `garden` has either `garden.containerd_mode` or `garden.experimental_containerd_mode`
-properties set to `true`
+- The job named `garden` has the `containerd_mode` property set to `true`
 
 If none of the above conditions hold you are using runc.
 
