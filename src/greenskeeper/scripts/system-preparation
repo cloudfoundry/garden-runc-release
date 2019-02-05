@@ -23,7 +23,10 @@ function permit_device_control() {
   fi
 
   # permit our cgroup to do everything with all devices
-  (echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow) 2>&1 || true
+  if ! echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow && [ ! -d "/run/systemd/system" ]; then
+    # ensure this log line goes to stderr
+      >&2 echo "Could not permit all devices. This is normal in non systemd mode."
+  fi
 
   if mountpoint /tmp/devices-cgroup &> /dev/null; then
     umount /tmp/devices-cgroup 2>&1 || true
