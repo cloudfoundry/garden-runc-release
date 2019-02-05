@@ -16,22 +16,26 @@ function permit_device_control() {
     return
   fi
 
-  if [ ! -e /tmp/devices-cgroup ]; then
+  if ! mountpoint /tmp/devices-cgroup &> /dev/null; then
     # mount our container's devices subsystem somewhere
-    mkdir /tmp/devices-cgroup
+    mkdir -p /tmp/devices-cgroup
     mount -t cgroup -o $devices_subsytems none /tmp/devices-cgroup
   fi
 
   # permit our cgroup to do everything with all devices
   (echo a > /tmp/devices-cgroup${devices_subdir}/devices.allow) 2>&1 || true
 
-  umount /tmp/devices-cgroup 2>&1 || true
+  if mountpoint /tmp/devices-cgroup &> /dev/null; then
+    umount /tmp/devices-cgroup 2>&1 || true
+  fi
 }
 
 function create_loop_devices() {
   amt=$1
   for i in $(seq 0 $amt); do
-    mknod -m 0660 /dev/loop$i b 7 $i 2>&1 || true
+    if [ ! -e /dev/loop$i ]; then
+      mknod -m 0660 /dev/loop$i b 7 $i 2>&1 || true
+    fi
   done
 }
 
