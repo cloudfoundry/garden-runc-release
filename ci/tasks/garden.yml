@@ -1,21 +1,17 @@
 ---
-platform: linux
-
 image_resource:
   type: docker-image
   source:
     repository: cfgarden/garden-ci
     tag: '2.0.3'
 
+platform: linux
+
 inputs:
 - name: gr-release-develop
 
-outputs:
-- name: binary
-
 params:
-  LOG_LEVEL: error
-  SLOW_MOBIUS_TIME_LIMIT_SECONDS:
+  GINKGO_NODES:
 
 run:
-  path: gr-release-develop/ci/integration-tests/gdn-linux
+  path: gr-release-develop/ci/scripts/garden

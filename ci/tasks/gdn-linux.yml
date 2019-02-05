@@ -16,7 +16,6 @@ outputs:
 params:
   LOG_LEVEL: error
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
-  DEV_MODE:
 
 run:
-  path: gr-release-develop/ci/build-steps/gdn-linux-standalone
+  path: gr-release-develop/ci/scripts/gdn-linux

@@ -8,13 +8,15 @@ image_resource:
     tag: '2.0.3'
 
 inputs:
-  - name: gr-release-develop
+- name: gr-release-develop
+
+outputs:
+- name: binary
 
 params:
+  LOG_LEVEL: error
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
-  SLOW_MOBIUS_SLACK_URL:
-  SLOW_MOBIUS_ICON_URL:
-  BUILD_JOB_NAME:
+  DEV_MODE:
 
 run:
-  path: gr-release-develop/ci/unit-tests/netplugin-shim
+  path: gr-release-develop/ci/scripts/gdn-linux-standalone

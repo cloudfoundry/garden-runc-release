@@ -28,4 +28,4 @@ params:
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
 
 run:
-  path: gr-release-develop/ci/integration-tests/non-nested-gats
+  path: gr-release-develop/ci/scripts/non-nested-gats

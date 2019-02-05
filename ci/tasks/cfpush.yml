@@ -9,9 +9,14 @@ platform: linux
 
 inputs:
 - name: gr-release-develop
+- name: cf-acceptance-tests
 
 params:
-  GINKGO_NODES:
+  CF_DOMAIN:
+  CF_USERNAME:
+  CF_PASSWORD:
+  CF_ORG:
+  CF_SPACE:
 
 run:
-  path: gr-release-develop/ci/unit-tests/garden
+  path: gr-release-develop/ci/scripts/cfpush

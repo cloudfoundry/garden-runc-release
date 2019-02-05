@@ -10,6 +10,11 @@ image_resource:
 inputs:
   - name: gr-release-develop
 
+params:
+  SLOW_MOBIUS_TIME_LIMIT_SECONDS:
+  SLOW_MOBIUS_SLACK_URL:
+  SLOW_MOBIUS_ICON_URL:
+  BUILD_JOB_NAME:
+
 run:
-  path: gr-release-develop/ci/unit-tests/idmapper
-  user: root
+  path: gr-release-develop/ci/scripts/netplugin-shim

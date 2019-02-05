@@ -45,12 +45,12 @@ fly_login() {
 run_tests_in_serial() {
   fly_login
   go_vet_and_fmt
-  ./scripts/remote-fly ci/unit-tests/garden.yml
-  ./scripts/remote-fly ci/unit-tests/guardian.yml
-  ./scripts/remote-fly ci/unit-tests/containerd.yml
-  ./scripts/remote-fly ci/unit-tests/guardian-windows.yml
-  ./scripts/remote-fly ci/integration-tests/gdn-linux.yml
-  DEV_MODE=true ./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml
+  ./scripts/remote-fly ci/tasks/garden.yml
+  ./scripts/remote-fly ci/tasks/guardian.yml
+  ./scripts/remote-fly ci/tasks/containerd.yml
+  ./scripts/remote-fly ci/tasks/guardian-windows.yml
+  ./scripts/remote-fly ci/tasks/gdn-linux.yml
+  DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml
 }
 
 run_tests_in_parallel() {
@@ -58,13 +58,13 @@ run_tests_in_parallel() {
   print_message "about to run tests in parallel, it will be awesome" $GREEN
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )
-  tmux split-window -v -p 70 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/garden.yml; bash\""
-  tmux split-window -h "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian.yml; bash\""
-  tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/containerd.yml; bash\""
-  tmux split-window -v  "/bin/bash -c \"./scripts/remote-fly ci/unit-tests/guardian-windows.yml; bash\""
+  tmux split-window -v -p 70 "/bin/bash -c \"./scripts/remote-fly ci/tasks/garden.yml; bash\""
+  tmux split-window -h "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash\""
+  tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/containerd.yml; bash\""
+  tmux split-window -v  "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian-windows.yml; bash\""
   tmux select-pane -L
-  tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/integration-tests/gdn-linux.yml; bash\""
-  tmux split-window -v  "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/build-steps/gdn-linux-standalone.yml; bash\""
+  tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux.yml; bash\""
+  tmux split-window -v  "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml; bash\""
   tmux select-pane -t 0
 }
 

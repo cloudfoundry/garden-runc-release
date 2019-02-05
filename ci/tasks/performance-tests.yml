@@ -20,4 +20,4 @@ params:
   ENVIRONMENT: ""
 
 run:
-  path: gr-release-develop/ci/performance/performance-tests
+  path: gr-release-develop/ci/scripts/performance-tests

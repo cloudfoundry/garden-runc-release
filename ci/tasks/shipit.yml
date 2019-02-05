@@ -1,5 +1,4 @@
 ---
-# may want to replace this with your own image
 image_resource:
   type: docker-image
   source:
@@ -11,12 +10,17 @@ platform: linux
 inputs:
   - name: gr-release-develop
   - name: gr-version
+  - name: garden-ci
+  - name: gr-candidate-tarball
+  - name: gdn-linux-release
 
 outputs:
-- name: bosh-release
+  - name: final-release
+  - name: github-release
+  - name: release
 
 params:
   DEV_MODE:
 
 run:
-  path: gr-release-develop/ci/build-steps/create-release
+  path: gr-release-develop/ci/scripts/shipit

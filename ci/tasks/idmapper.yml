@@ -11,4 +11,5 @@ inputs:
   - name: gr-release-develop
 
 run:
-  path: gr-release-develop/ci/unit-tests/thresholder
+  path: gr-release-develop/ci/scripts/idmapper
+  user: root

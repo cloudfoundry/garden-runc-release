@@ -17,7 +17,8 @@ caches:
 params:
   RACE_DETECTION:
   GINKGO_NODES:
-  CONTAINERD_ENABLED: true
+  CONTAINERD_ENABLED:
+  LOCAL_DEV_RUN:
 
 run:
-  path: gr-release-develop/ci/unit-tests/containerd
+  path: gr-release-develop/ci/scripts/guardian

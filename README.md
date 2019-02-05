@@ -141,16 +141,16 @@ To run individual tests, use`./scripts/remote-fly`:
 export GARDEN_REMOTE_ATC_URL=<target>
 
 # Running Guardian tests
-./scripts/remote-fly ci/unit-tests/guardian.yml
+./scripts/remote-fly ci/tasks/guardian.yml
 
 # Running Garden tests
-./scripts/remote-fly ci/unit-tests/garden.yml
+./scripts/remote-fly ci/tasks/garden.yml
 
 # Running Garden Integration tests
-./scripts/remote-fly ci/integration-tests/gdn-linux.yml
+./scripts/remote-fly ci/tasks/gdn-linux.yml
 
 # Running Garden Integration Windows Regression tests (aka Gats98)
-WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/integration-tests/gdn-linux.yml
+WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/tasks/gdn-linux.yml
 ```
 
 #### Running the tests locally
