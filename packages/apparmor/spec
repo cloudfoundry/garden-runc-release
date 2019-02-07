@@ -1,5 +1,4 @@
 ---
 name: apparmor
 
-files:
-  - apparmor/apparmor-2.11.1.tar.gz
+files: [apparmor/apparmor-2.13.2.tar.gz]

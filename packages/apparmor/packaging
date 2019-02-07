@@ -1,18 +1,21 @@
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-tar xzf apparmor/apparmor-2.11.1.tar.gz
+version="2.13.2"
 
-pushd apparmor-2.11.1/libraries/libapparmor/
+tar xzf "apparmor/apparmor-${version}.tar.gz"
+
+pushd "apparmor-${version}/libraries/libapparmor/"
   ./configure
   make
 popd
 
-cp -R apparmor-2.11.1/libraries/libapparmor/src/.libs ${BOSH_INSTALL_TARGET}/lib
-cp -R apparmor-2.11.1/libraries/libapparmor/include ${BOSH_INSTALL_TARGET}/include
+cp -R "apparmor-${version}/libraries/libapparmor/src/.libs" "${BOSH_INSTALL_TARGET}/lib"
+cp -R "apparmor-${version}/libraries/libapparmor/include" "${BOSH_INSTALL_TARGET}/include"
 
-pushd apparmor-2.11.1/parser
+pushd "apparmor-${version}/parser"
   make arch
 popd
 
-mkdir ${BOSH_INSTALL_TARGET}/bin
-cp apparmor-2.11.1/parser/apparmor_parser ${BOSH_INSTALL_TARGET}/bin
+mkdir "${BOSH_INSTALL_TARGET}/bin"
+cp "apparmor-${version}/parser/apparmor_parser" "${BOSH_INSTALL_TARGET}/bin"
