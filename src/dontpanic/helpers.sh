@@ -23,6 +23,19 @@ collect() {
   /bin/sh -c "$2" > "$3" 2> "$3" || printFailed
 }
 
+collectFile() {
+  printSection "Collecting File $1"
+  cp "$2" "$3" || printFailed
+}
+
+collectFiles() {
+  printSection "Collecting Files $1"
+  mkdir "$3"
+  trap 'rm -rf $3' RETURN
+  cp "$2" "$3" || printFailed
+  archiveDir "$1" "$3" "$3.tgz"
+}
+
 archive() {
   printSection "Archiving $1"
   tar czf "$3.tgz" -C "$2" "$3" || printFailed

@@ -13,6 +13,7 @@ cd os-report
 hostname > hostname.log
 date > date.log
 ps aux --forest > forest.log
+ps -eLo pid,tid,ppid,user:11,comm,state,wchan:20,lstart > ps-info.log
 free -mt > free.log
 uname -a > uname.log
 uptime > uptime.log
