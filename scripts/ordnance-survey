@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
+
+if grep -q garden_start /proc/1/cmdline; then
+  echo "ordnance-survey needs to be run outside the BPM Container "
+  exit 1
+fi
 
 if [[ "$(whoami)" != "root" ]]; then
   echo "ordnance-survey needs to be run as root" 1>&2
   exit 1
 fi
 
-mkdir os-report
+export TMPDIR=/tmp
+tmp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)
+os_report_dir="${tmp_dir}/os-report"
+mkdir -p "$os_report_dir"
 
 (
-cd os-report
+cd $os_report_dir
 hostname > hostname.log
 date > date.log
 ps aux --forest > forest.log
@@ -22,17 +30,25 @@ dmesg -T > dmesg.log
 ifconfig > ifconfig.log
 iptables -L > iptables-L.log
 iptables -tnat -L > iptables-tnat.log
-cat /proc/self/mountinfo > mountinfo.log
+cat /proc/$(pidof gdn)/mountinfo > mountinfo.log
 /var/vcap/packages/guardian/bin/gdn -v > gdn-version.log || true
 find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents.log
+ls /var/vcap/data/garden/depot/ | wc -w > num-containers.log
+lsof 2> /dev/null | wc -l > num-open-files.log
+cat /proc/sys/fs/file-max > file-max.log
+monit summary > monit-summary.log
 
-cp /var/log/kern.log . && tar czf kernlog.tgz kern.log && rm kern.log
-cp /var/vcap/monit/monit.log .
+mkdir kernlogs && cp /var/log/kern.log* kernlogs && tar czf kernlog.tgz kernlogs && rm -rf kernlogs
+mkdir monitlogs && cp /var/vcap/monit/monit.log* monitlogs && tar czf monitlogs.tgz monitlogs && rm -rf monitlogs
+mkdir syslogs && cp /var/log/syslog* syslogs && tar czf syslogs.tgz syslogs && rm -rf syslogs
 cp /var/vcap/jobs/garden/config/config.ini . || true
 cp -r /var/vcap/sys/log/garden garden-logs && tar czf garden-logs.tgz garden-logs && rm -rf garden-logs
-cp -r /var/vcap/sys/log/monit garden-monit-logs && tar czf garden-monit-logs.tgz garden-monit-logs && rm -rf garden-monit-logs
 )
 
-tar zcf os-report.tgz os-report
-rm -rf os-report
-echo "file created: os-report.tgz"
+filename="$(hostname)_$(date '+%F-%H-%M-%S')"
+if tar zcf "$TMPDIR/os-report-$filename.tgz" -C $tmp_dir .; then
+  rm -rf $tmp_dir
+  echo "archive created: $TMPDIR/os-report-$filename.tgz"
+else
+  echo "failed to create os-report tar, collected information can still be found at $tmp_dir/os-report"
+fi

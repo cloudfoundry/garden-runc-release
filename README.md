@@ -202,12 +202,24 @@ Commit the changes, run the tests, and create a bump commit:
 
 ### Troubleshooting
 
-#### Don't Panic
+#### >= v1.17.2: Don't Panic
 If you have a problem with garden-runc, don't panic! There is a tool that you can
 use to gather information useful for debugging issues on garden-runc-release 
 deployments. Run this command on the deployment VM as root:
 
 `/var/vcap/packages/dontpanic/bin/dontpanic`
+
+_N.B. From v1.18.3, if your BOSH environment has BPM enabled for Garden, `dontpanic` should still be run from
+the host, not from within the BPM container._
+
+#### <= v1.17.1: ordnance-survey
+If running an earlier version of Garden, you can get the same information by running the following
+as root on the VM:
+
+`curl bit.ly/garden-ordnance-survey -sSfL | bash`
+
+_N.B. If your BOSH environment has BPM enabled for Garden, `ordnance-survey` should still be run from
+the host, not from within the BPM container._
 
 ### License
 
