@@ -15,7 +15,7 @@ printSection() {
 
 printAndCollect() {
   printSection "$1"
-  /bin/sh -c "$2" > >(tee -a "$3") 2> >(tee -a "$3" >&2) || printFailed
+  /bin/sh -c "$2" 2>&1 | tee -a "$3" || printFailed
 }
 
 collect() {
