@@ -16,3 +16,4 @@ read -p "$question (yes/no): "
 
 echo "Thank you. $response"
 echo "Continuing with bump..."
+sleep 2
