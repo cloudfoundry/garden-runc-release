@@ -1,7 +1,7 @@
 # Security Overview
 
 The following table provides an overview of container security mechanisms across various container systems.
-Table last updated 15/06/18.
+Table last updated 18/02/19.
 
 ![security overview](security-overview.png)
 
@@ -26,6 +26,6 @@ Table last updated 15/06/18.
 
 ## Environments
 
-* Cloud Foundry Application Runtime v1.40.0 - Standard deployment on Ubuntu trusty stemcell
-* Docker v18.03.1-ce - Standard install on Ubuntu xenial
-* Kubernetes v1.10.4 - Standard deployment on GCP via [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/v1.10.4/cluster/kube-up.sh)
+* Cloud Foundry Application Runtime v7.4.0 - Standard deployment on Xenial trusty stemcell
+* Docker v18.09.2 - Standard install on Ubuntu xenial
+* Kubernetes v1.13.3 - Standard deployment on GCP via [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/v1.13.3/cluster/kube-up.sh)
