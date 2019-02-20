@@ -11,4 +11,8 @@ create:
   without_mount: <%= p("grootfs.skip_mount") %>
   insecure_registries: <%= p("garden.insecure_docker_registry_list").any? ? p("garden.insecure_docker_registry_list") : p("grootfs.insecure_docker_registry_list") %>
   skip_layer_validation: true
+<% if p("garden.experimental_rootless_mode") -%>
+  remote_layer_client_certificates_path: /var/vcap/data/garden/certs
+<% else -%>
   remote_layer_client_certificates_path: /var/vcap/jobs/garden/certs
+<% end -%>

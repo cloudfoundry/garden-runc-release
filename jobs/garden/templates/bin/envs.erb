@@ -7,6 +7,7 @@ export PIDFILE="${RUN_DIR}/garden.pid"
 export DATA_DIR=/var/vcap/data
 export GARDEN_DATA_DIR=/var/vcap/data/garden
 export GARDEN_CONFIG_DIR=/var/vcap/jobs/garden/config
+export GARDEN_CERTS_DIR=/var/vcap/jobs/garden/certs
 export GARDEN_CONFIG_PATH="$GARDEN_CONFIG_DIR/config.ini"
 export DEPOT_PATH="${GARDEN_DATA_DIR}/depot"
 export RUNTIME_BIN_DIR="${GARDEN_DATA_DIR}/bin"
@@ -31,6 +32,7 @@ export XDG_RUNTIME_DIR=/var/run/user/$MAXIMUS
 export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
 export GARDEN_ROOTLESS_CONFIG_DIR="$GARDEN_DATA_DIR/config"
 export GARDEN_CONFIG_PATH="$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
+export GARDEN_ROOTLESS_CERTS_DIR="$GARDEN_DATA_DIR/certs"
 <% end %>
 
 <% if_p('garden.http_proxy') do |http_proxy| %>

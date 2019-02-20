@@ -72,6 +72,10 @@ id_map_start=1
   cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" "$GARDEN_CONFIG_DIR/config.ini" "$GARDEN_ROOTLESS_CONFIG_DIR"
   chown "$MAXIMUS:$MAXIMUS" "$GARDEN_ROOTLESS_CONFIG_DIR/grootfs_config.yml" "$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
 
+  mkdir $GARDEN_ROOTLESS_CERTS_DIR
+  cp "$GARDEN_CERTS_DIR/remote-layer.cert" "$GARDEN_CERTS_DIR/remote-layer.crt" "$GARDEN_CERTS_DIR/remote-layer.key" "$GARDEN_ROOTLESS_CERTS_DIR"
+  chown "$MAXIMUS:$MAXIMUS" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.cert" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.crt" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.key"
+
 <% end %>
 
 log "running setup"
