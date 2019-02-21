@@ -1,30 +1,31 @@
 # CPU Entitlement
 
-In order for operators and application developers to understand whether their applications are using the CPU resource optimally they need a reliable metric that does not depend on the current state of the Diego cell. For example, the metric should not be influenced by the number of containers running on the cell. 
+CPU entitlement describes the percentage of host CPU a particular application instance is ‘entitled’ to use. A user will see CPU performance less than 100% when their usage is within their entitlement, and greater than 100% when above their entitlement.
 
-That is why we introduced a new approach to determine the CPU usage of applications based on CPU entitlement. The CPU entitlement is being controlled through the `experimental_cpu_entitlement_per_share_in_percent` bosh property. For example, if `experimental_cpu_entitlement_per_share_in_percent` is set to `0.3` and the application has 500 CPU shares assigned, than the application would be entitled to 500 * 0.3% = 500 * (0.3/100) = 1.5% CPU time, i.e. each second the application would be entitled to 150 nanoseconds CPU time. Note that this entitlement is agnostic to the number of available CPU cores. However, it is up to the operator to factor available cores in when choosing the value of `experimental_cpu_entitlement_per_share_in_percent`, see below.
+The amount of CPU an application is entitled to is proportional to how much memory that application has available to it. For example, an application with access to 256MB of memory on a 512MB machine has access to half of the memory on the machine and so is also entitled to half of the CPU of that machine.
 
+## Configuring CPU entitlement
 
-## How do I map CPU shares to CPU entitlement
-When choosing the value of `experimental_cpu_entitlement_per_share_in_percent` it is important to reason about whether and how you want to overcommit the CPU usage. The general formula to determine an optimal value<sup>[1](#optimal-value-footnote)</sup> is
+CPU entitlement, like all other CPU-related limits in garden, is set relative to shares. In Cloud Foundry, by default, shares are set equal to application memory, and (therefore) the maximum number of shares is the total memory on the host. For example a 128MB application instance has 128 shares, and a host with 8096MB of memory has a maximum of 8096 shares.
 
-```
-experimental_cpu_entitlement_per_share_in_percent = 100 * number_of_CPU_cores/total_amount_of_CPU_shares
-```
+By configuring the property `experimental_cpu_entitlement_per_share_in_percent`, operators are able to change the amount of CPU an application with a certain number of shares is entitled to. A value of 0.3 would mean that each application has access to 0.3% of the total CPU per share; our 256MB application would have access to 78.6% of the total CPU - in this case an operator has overcommitted on the amount of CPU available (assuming a single core machine).
 
-We recommend setting the `containers.set_cpu_weight` Diego property to `true` in order to simplify the formula above. When that property is set each container would receive one share per megabyte and thus `total_amount_of_CPU_shares` would equal available memory in megabytes:
+## Choosing an appropriate value
 
-```
-experimental_cpu_entitlement_per_share_in_percent = 100 * number_of_CPU_cores/total_memory_in_megabytes
-```
+There are three possible states that emerge from how operators configure `experimental_cpu_entitlement_per_share_in_percent`:
 
-The table below provides several example configurations and what the optimal `experimental_cpu_entitlement_per_share_in_percent` :
+1. undercommitted - applications’ CPU entitlements are guaranteed minimums, but some host CPU might not be used
+1. optimal - applications’ CPU entitlements are guaranteed minimums
+1. overcommitted - applications are not guaranteed to have access to their entitlement
 
-|               | 256M  | 1024M | 8192M |
-| ------------- |:-----:|:-----:|:-----:|
-| 1 CPU core    | 0.39  | 0.098 | 0.012 |
-| 4 CPU cores   | 1.563 | 0.39  | 0.049 |
-| 8 CPU cores   | 3.125 | 0.781 | 0.098 |
+Since by default the total shares available on a host is equal to the amount of memory on the host, an optimal value for `experimental_cpu_entitlement_per_share_in_percent` is 100% divided by the amount of total memory on the host. For example, a host with 1024MB of memory would have an optimal value of `100 / 1024`, which is 0.098% per share.
 
+Let’s assume our machine actually has 4 cores and not 1 - how might this change the value we choose? Since the machine now has access to 4 times the amount of CPU as its single core counterpart, we can state that each application may now be entitled to 4 times its previous amount; more formally our new value can be found with `400 / 512` which is roughly 0.781% per share.
 
-<a name="optimal-value-footnote">[1]</a> Optimal value means that if the whole cell memory is allocated to containers and the containers are using maximum CPU then the host CPU would be completely utilized. Choosing a higher value would overcommit the CPU, a lower value would undercommit it.
+Below are a few examples of this value being configured optimally for machines with different total memory and number of CPU cores.
+
+|         | 256M  | 1024M | 8192M |
+| ------- |:-----:|:-----:|:-----:|
+| 1 core  | 0.39  | 0.098 | 0.012 |
+| 4 cores | 1.563 | 0.39  | 0.049 |
+| 8 cores | 3.125 | 0.781 | 0.098 |
