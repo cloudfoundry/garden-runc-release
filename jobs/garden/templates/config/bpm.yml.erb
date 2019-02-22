@@ -1,8 +1,8 @@
 processes:
   - name: garden
-    executable: /bin/sh
+    executable: /var/vcap/packages/tini/bin/tini
     args:
-      - -c
+      - --
       - /var/vcap/jobs/garden/bin/garden_start
     unsafe:
       privileged: true

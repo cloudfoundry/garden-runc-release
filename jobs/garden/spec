@@ -36,6 +36,7 @@ packages:
   - thresholder
   - netplugin-shim
   - dontpanic
+  - tini
 
 properties:
   garden.listen_network:
