@@ -11,6 +11,7 @@ mkdir -p "$BOSH_INSTALL_TARGET"/{src,bin}
 
 cp -a . "${BOSH_INSTALL_TARGET}/src/"
 
+export GOCACHE=/tmp/gocache
 export GOROOT
 GOROOT="$( readlink -nf /var/vcap/packages/golang )"
 export PATH="${GOROOT}/bin:${PATH}"
