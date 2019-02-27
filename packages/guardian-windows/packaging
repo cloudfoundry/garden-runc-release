@@ -10,6 +10,7 @@ if ((Get-Item $BOSH_INSTALL_TARGET).LinkType -ne "") {
 
 $env:GOROOT="C:\var\vcap\packages\golang-windows\go"
 $env:GOPATH="${BOSH_INSTALL_TARGET}"
+$env:GOCACHE="C:\Windows\Temp\gocache"
 $env:PATH="${env:GOROOT}\bin;${env:PATH}"
 $pkg_name="gdn"
 $pkg_path="code.cloudfoundry.org/guardian/cmd/gdn"
