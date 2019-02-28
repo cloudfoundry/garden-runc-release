@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# shellcheck disable=SC1091
+source /var/vcap/jobs/garden/bin/post-start-env
+curl_args=("${curl_args[@]}")  # ensure curl_args is defined
+
+start="$( date +%s )"
+timeout=120
+
+echo "$(date): Pinging garden server..."
+i=1
+
+while [ $(( $(date +%s) - timeout )) -lt "$start" ]; do
+  echo "$(date): Attempt $i..."
+  if curl -s "${curl_args[@]}"; then
+    echo "$(date): Success!"
+    exit 0
+  fi
+  i=$((i + 1))
+  sleep 1
+done
+
+echo "$( date ): Timed out pinging garden server."
+exit 1

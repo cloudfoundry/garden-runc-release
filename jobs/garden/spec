@@ -21,6 +21,8 @@ templates:
   certs/remote-layer.key.erb:               certs/remote-layer.key
   config/containerd.toml:                   config/containerd.toml
   bin/containerd_utils:                     bin/containerd_utils
+  bin/post-start:                           bin/post-start
+  bin/post-start-env.erb:                   bin/post-start-env
 
 packages:
   - guardian
