@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e
-
-mkdir -p "${BOSH_INSTALL_TARGET}/src"
-
-cp -a . "${BOSH_INSTALL_TARGET}/src/."
-
+# These need to be defined since bosh compilation VMs don't set $HOME
 export GOCACHE=/tmp/gocache
+export GOPATH=/tmp/gopath
 
-export GOROOT
-GOROOT="$( readlink -nf /var/vcap/packages/golang )"
-export GOPATH="$BOSH_INSTALL_TARGET"
+export GOROOT; GOROOT="$( readlink -nf /var/vcap/packages/golang )"
 export PATH="${GOROOT}/bin:${PATH}"
 
-go install greenskeeper/cmd/greenskeeper
-cp greenskeeper/scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/"
+cd ./greenskeeper
 
-rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/greenskeeper" ./cmd/greenskeeper
+cp ./scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/system-preparation"
+

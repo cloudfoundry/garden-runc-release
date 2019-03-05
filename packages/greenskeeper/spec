@@ -1,9 +1,6 @@
 ---
 name: greenskeeper
 
-dependencies:
-  - golang
+dependencies: [golang]
 
-files:
-  - greenskeeper/**/*.go
-  - greenskeeper/scripts/system-preparation
+files: ['greenskeeper/**/*']
