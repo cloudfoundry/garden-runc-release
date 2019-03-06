@@ -1,11 +1,6 @@
 ---
 name: thresholder
 
-dependencies:
-  - golang
-  - grootfs
+dependencies: [golang]
 
-files:
-  - code.cloudfoundry.org/grootfs/**/*.go
-  - gopkg.in/yaml.v2/**/*.go
-  - thresholder/main.go
+files: ['thresholder/**/*']

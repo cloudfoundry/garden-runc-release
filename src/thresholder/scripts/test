@@ -4,5 +4,5 @@ set -e
 
 ARGS=$@
 
-(cd ../..; ./scripts/remote-fly ci/thresholder.yml -- $ARGS)
+(cd ../..; ./scripts/remote-fly ci/tasks/thresholder.yml -- $ARGS)
 
