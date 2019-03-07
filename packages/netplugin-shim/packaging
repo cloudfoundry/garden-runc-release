@@ -4,7 +4,7 @@ set -euo pipefail
 # shellcheck source=../../src/build/bosh-compilation-golang
 source build/bosh-compilation-golang
 
-cd ./code.cloudfoundry.org/netplugin-shim
+cd ./netplugin-shim
 
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/garden-plugin" ./garden-plugin
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/netplugin-server" ./netplugin-server

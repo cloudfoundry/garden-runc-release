@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -ex
 
-export GOPATH=$PWD/gr-release-develop
 base=$PWD
 
-cd gr-release-develop/src/code.cloudfoundry.org/netplugin-shim
+export GOFLAGS="-mod=vendor"
+
+cd gr-release-develop/src/netplugin-shim
 
 cmd="ginkgo --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r"
 cmd="$cmd $*"

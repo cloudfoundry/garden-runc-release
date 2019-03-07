@@ -4,5 +4,5 @@ name: netplugin-shim
 dependencies: [golang]
 
 files:
-- 'code.cloudfoundry.org/netplugin-shim/**/*'
+- 'netplugin-shim/**/*'
 - 'build/bosh-compilation-golang'
