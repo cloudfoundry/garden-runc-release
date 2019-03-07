@@ -3,4 +3,6 @@ name: thresholder
 
 dependencies: [golang]
 
-files: ['thresholder/**/*']
+files:
+- 'thresholder/**/*'
+- 'build/bosh-compilation-golang'

@@ -3,4 +3,6 @@ name: greenskeeper
 
 dependencies: [golang]
 
-files: ['greenskeeper/**/*']
+files:
+- 'greenskeeper/**/*'
+- 'build/bosh-compilation-golang'
