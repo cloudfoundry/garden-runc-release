@@ -1,20 +1,13 @@
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export GOCACHE=/tmp/gocache
-export GOROOT=$(readlink -nf /var/vcap/packages/golang)
-export GOPATH=${BOSH_INSTALL_TARGET}
-export PATH=$GOROOT/bin:$PATH
+# shellcheck source=../../src/build/bosh-compilation-golang
+source build/bosh-compilation-golang
 
-mkdir -p ${BOSH_INSTALL_TARGET}/src
-cp -ra * ${BOSH_INSTALL_TARGET}/src
+cd ./code.cloudfoundry.org/idmapper
 
-mkdir ${BOSH_INSTALL_TARGET}/bin
-pushd ${BOSH_INSTALL_TARGET}/src/code.cloudfoundry.org/idmapper
-  make
-  mv {newuidmap,newgidmap,maximus} ${BOSH_INSTALL_TARGET}/bin
-popd
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newuidmap" ./cmd/newuidmap
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newgidmap" ./cmd/newgidmap
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/maximus" ./cmd/maximus
 
 chmod u+s ${BOSH_INSTALL_TARGET}/bin/*
-
-rm -rf ${BOSH_INSTALL_TARGET}/src
-

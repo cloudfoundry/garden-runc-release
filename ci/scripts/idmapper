@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-export GOPATH=$PWD/gr-release-develop
+export GOFLAGS="-mod=vendor"
 
 cd gr-release-develop/src/code.cloudfoundry.org/idmapper
 

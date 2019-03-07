@@ -1,8 +1,8 @@
 ---
 name: garden-idmapper
 
-dependencies:
-  - golang
+dependencies: [golang]
 
 files:
-  - code.cloudfoundry.org/idmapper/**/*
+- 'code.cloudfoundry.org/idmapper/**/*'
+- 'build/bosh-compilation-golang'
