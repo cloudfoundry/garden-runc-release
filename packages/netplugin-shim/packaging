@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e
-
-mkdir -p "${BOSH_INSTALL_TARGET}/src"
-
-cp -a . "${BOSH_INSTALL_TARGET}/src/."
-
+# These need to be defined since bosh compilation VMs don't set $HOME
 export GOCACHE=/tmp/gocache
-export GOROOT
-GOROOT=$(readlink -nf /var/vcap/packages/golang)
-export GOPATH=$BOSH_INSTALL_TARGET
-export PATH=$GOROOT/bin:$PATH
+export GOPATH=/tmp/gopath
 
-go install code.cloudfoundry.org/netplugin-shim/garden-plugin
-go install code.cloudfoundry.org/netplugin-shim/netplugin-server
+export GOROOT; GOROOT="$( readlink -nf /var/vcap/packages/golang )"
+export PATH="${GOROOT}/bin:${PATH}"
 
-rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}
+cd ./code.cloudfoundry.org/netplugin-shim
+
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/garden-plugin" ./garden-plugin
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/netplugin-server" ./netplugin-server

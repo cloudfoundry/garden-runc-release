@@ -1,8 +1,6 @@
 ---
 name: netplugin-shim
 
-dependencies:
-  - golang
+dependencies: [golang]
 
-files:
-  - code.cloudfoundry.org/netplugin-shim/**/*
+files: ['code.cloudfoundry.org/netplugin-shim/**/*']
