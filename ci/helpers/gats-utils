@@ -35,12 +35,15 @@ build_gdn() {
 build_idmapper_binaries() {
   local grreleasedevelopdir="$1"
 
-  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/idmapper
-    make
-    mv newuidmap $GOPATH/bin/
-    mv newgidmap $GOPATH/bin/
-    mv maximus $GOPATH/bin/
-  popd
+  (
+    cd "${grreleasedevelopdir}/src/idmapper"
+    export install_target="$GOPATH/bin"
+    unset GOPATH
+
+    go build -mod vendor -o "${install_target}/newuidmap" ./cmd/newuidmap
+    go build -mod vendor -o "${install_target}/newgidmap" ./cmd/newgidmap
+    go build -mod vendor -o "${install_target}/maximus" ./cmd/maximus
+  )
 }
 
 setup_dirs() {

@@ -4,7 +4,7 @@ set -euo pipefail
 # shellcheck source=../../src/build/bosh-compilation-golang
 source build/bosh-compilation-golang
 
-cd ./code.cloudfoundry.org/idmapper
+cd ./idmapper
 
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newuidmap" ./cmd/newuidmap
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newgidmap" ./cmd/newgidmap

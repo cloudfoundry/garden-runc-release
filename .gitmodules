@@ -55,7 +55,7 @@
 	url = https://github.com/opencontainers/runc
 	branch = master
 [submodule "src/code.cloudfoundry.org/idmapper"]
-	path = src/code.cloudfoundry.org/idmapper
+	path = src/idmapper
 	url = https://github.com/cloudfoundry/idmapper
 	branch = master
 [submodule "src/code.cloudfoundry.org/netplugin-shim"]

@@ -3,6 +3,6 @@ set -ex
 
 export GOFLAGS="-mod=vendor"
 
-cd gr-release-develop/src/code.cloudfoundry.org/idmapper
+cd gr-release-develop/src/idmapper
 
 ginkgo -p --race -r "$@"
