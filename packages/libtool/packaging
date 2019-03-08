@@ -1,15 +1,15 @@
-# abort script on any command that exits with a non zero value
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export PREFIX=${BOSH_INSTALL_TARGET}
-export PATH=${PREFIX}/bin:$PATH
+version="2.4.6"
+export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
 
-# libtool
-tar xzf libtool/libtool-2.4.6.tar.gz
+tar xzf "libtool/libtool-${version}.tar.gz"
+
 (
-  set -e
-  cd libtool-2.4.6
-  ./configure --prefix=$PREFIX
+  cd "libtool-${version}"
+
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
-  make install prefix=$PREFIX
+  make install "prefix=${BOSH_INSTALL_TARGET}"
 )

@@ -1,13 +1,15 @@
-# abort script on any command that exits with a non zero value
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export PACKAGES=/var/vcap/packages
-export PATH=$PACKAGES/lzo/bin:$PATH
+version="2.09"
+export PATH="/var/vcap/packages/lzo/bin:${PATH}"
 
-tar xvzf lzo/lzo-2.09.tar.gz
+tar xvzf "lzo/lzo-${version}.tar.gz"
+
 (
-  cd lzo-2.09
-  ./configure --prefix=$BOSH_INSTALL_TARGET
+  cd "lzo-${version}"
+
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
-  make install prefix=$BOSH_INSTALL_TARGET
+  make install "prefix=${BOSH_INSTALL_TARGET}"
 )
