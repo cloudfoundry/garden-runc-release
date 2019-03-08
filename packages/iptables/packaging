@@ -1,29 +1,41 @@
-set -e -x
+#!/usr/bin/env bash
+set -euo pipefail
 
 export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
-export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
+export PATH="/var/vcap/packages/pkg-config/bin:${PATH}"
 
-tar jxf iptables/iptables-1.6.2.tar.bz2
-tar jxf iptables/libnftnl-1.0.9.tar.bz2
-tar jxf iptables/libmnl-1.0.4.tar.bz2
+iptables_version="1.6.2"
+libnftnl_version="1.0.9"
+libmnl_version="1.0.4"
 
-pushd libmnl-1.0.4/
-  ./configure --prefix=${BOSH_INSTALL_TARGET}
+tar jxf "iptables/iptables-${iptables_version}.tar.bz2"
+tar jxf "iptables/libnftnl-${libnftnl_version}.tar.bz2"
+tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
+
+(
+  cd "libmnl-${libmnl_version}"
+
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
   make install
-popd
+)
 
-pushd libnftnl-1.0.9/
-  ./configure --prefix=${BOSH_INSTALL_TARGET}
+(
+  cd "libnftnl-${libnftnl_version}"
+
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
   make install
-popd
+)
 
-pushd iptables-1.6.2/
-  if [ "`uname -m`" == "ppc64le" ]; then
-    cp ${BOSH_COMPILE_TARGET}/config/config.{guess,sub} ./build-aux
+(
+  cd "iptables-${iptables_version}"
+
+  if [ "$( uname -m )" == "ppc64le" ]; then
+    cp "${BOSH_COMPILE_TARGET}/config/config.guess" ./build-aux/config.guess
+    cp "${BOSH_COMPILE_TARGET}/config/config.sub" ./build-aux/config.sub
   fi
-  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
   make install
-popd
+)
