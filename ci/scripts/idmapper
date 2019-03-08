@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 
-export GOFLAGS="-mod=vendor"
-
 cd gr-release-develop/src/idmapper
 
-ginkgo -p --race -r "$@"
+ginkgo -mod vendor -p --race -r "$@"

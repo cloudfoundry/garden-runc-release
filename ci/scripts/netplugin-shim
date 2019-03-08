@@ -3,11 +3,9 @@ set -ex
 
 base=$PWD
 
-export GOFLAGS="-mod=vendor"
-
 cd gr-release-develop/src/netplugin-shim
 
-cmd="ginkgo --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r"
+cmd="ginkgo -mod vendor --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r"
 cmd="$cmd $*"
 
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
