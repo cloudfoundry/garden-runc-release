@@ -10,10 +10,6 @@ image_resource:
 inputs:
 - name: gr-release-develop
 
-caches:
-- path: gr-release-develop/bin
-- path: gr-release-develop/pkg
-
 params:
   DOCKER_REGISTRY_USERNAME:
   DOCKER_REGISTRY_PASSWORD:
@@ -22,6 +18,6 @@ params:
   GROOTFS_USER: whoever
 
 run:
-  dir: gr-release-develop
-  path: src/code.cloudfoundry.org/grootfs/ci/scripts/integration-tests.sh
+  dir: gr-release-develop/src/code.cloudfoundry.org/grootfs
+  path: ci/scripts/integration-tests.sh
   user: root
