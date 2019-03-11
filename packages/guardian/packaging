@@ -1,32 +1,24 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e
-
-mkdir -p "${BOSH_INSTALL_TARGET}/src"
-
-cp -a . "${BOSH_INSTALL_TARGET}/src/."
+# shellcheck source=../../src/build/bosh-compilation-golang
+source build/bosh-compilation-golang
 
 gdn_version="$( cat versions/guardian )"
 
-export GOCACHE=/tmp/gocache
-export GOROOT
-GOROOT=$(readlink -nf /var/vcap/packages/golang)
-export GOPATH=$BOSH_INSTALL_TARGET
-export PATH=$GOROOT/bin:$PATH
+cd code.cloudfoundry.org/guardian
 
-go install -tags daemon -ldflags "-X main.version=$gdn_version" code.cloudfoundry.org/guardian/cmd/gdn
-go install code.cloudfoundry.org/guardian/cmd/dadoo
-go install code.cloudfoundry.org/guardian/cmd/socket2me
-go install code.cloudfoundry.org/guardian/cmd/execas
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/gdn" -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dadoo" ./cmd/dadoo
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/socket2me" ./cmd/socket2me
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/execas" ./cmd/execas
 
-pushd code.cloudfoundry.org/guardian/rundmc/nstar
-  make
-  mv nstar ${BOSH_INSTALL_TARGET}/bin
-popd
+cd rundmc/nstar
 
-pushd code.cloudfoundry.org/guardian/cmd/init
-  gcc -static -o init init.c ignore_sigchild.c
-  mv init ${BOSH_INSTALL_TARGET}/bin
-popd
+make
+mv nstar "${BOSH_INSTALL_TARGET}/bin/nstar"
 
-rm -rf ${BOSH_INSTALL_TARGET}/{src,pkg}
+cd ../../cmd/init
+
+gcc -static -o init init.c ignore_sigchild.c
+mv init "${BOSH_INSTALL_TARGET}/bin/init"

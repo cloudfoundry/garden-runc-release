@@ -19,17 +19,22 @@ build_grootfs() {
 }
 
 build_gdn() {
-  local grreleasedevelopdir="$1"
+  local grreleasedevelop="$1"
+  local target="${GOPATH}/bin"
 
-  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/guardian
-    go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
-    go install code.cloudfoundry.org/guardian/cmd/dadoo
+  (
+    cd "${grreleasedevelop}/src/code.cloudfoundry.org/guardian"
 
-    pushd cmd/init
-      gcc -static -o init init.c ignore_sigchild.c
-      mv init $GOPATH/bin/init
-    popd
-  popd
+    unset GOPATH
+
+    go build -mod vendor -o "${target}/gdn" -tags daemon ./cmd/gdn
+    go build -mod vendor -o "${target}/dadoo" ./cmd/dadoo
+
+    cd ./cmd/init
+
+    gcc -static -o init init.c ignore_sigchild.c
+    mv init "${target}/init"
+  )
 }
 
 build_idmapper_binaries() {

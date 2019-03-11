@@ -9,13 +9,9 @@ if ((Get-Item $BOSH_INSTALL_TARGET).LinkType -ne "") {
 }
 
 $env:GOROOT="C:\var\vcap\packages\golang-windows\go"
-$env:GOPATH="${BOSH_INSTALL_TARGET}"
+$env:GOPATH="C:\Windows\Temp\gopath"
 $env:GOCACHE="C:\Windows\Temp\gocache"
 $env:PATH="${env:GOROOT}\bin;${env:PATH}"
-$pkg_name="gdn"
-$pkg_path="code.cloudfoundry.org/guardian/cmd/gdn"
-$init_bin_name="winit"
-$init_bin_path="code.cloudfoundry.org/guardian/cmd/winit"
 $gdn_version = [IO.File]::ReadAllText("versions\guardian")
 
 # Create GOPATH
@@ -26,14 +22,16 @@ if ($LASTEXITCODE -ge 8) {
     Write-Error "robocopy.exe /E ${PWD} ${BOSH_INSTALL_TARGET}\src"
 }
 
-go.exe build -o "${BOSH_INSTALL_TARGET}\${pkg_name}.exe" -ldflags "-X main.version=${gdn_version}" "${pkg_path}"
+cd .\code.cloudfoundry.org\guardian
+
+go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\gdn.exe" -ldflags "-X main.version=${gdn_version}" ".\cmd\gdn"
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "Error compiling: ${pkg_path}"
+    Write-Error "Error compiling: cmd\gdn"
 }
 
-go.exe build -o "${BOSH_INSTALL_TARGET}\${init_bin_name}.exe" "${init_bin_path}"
+go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\winit.exe" ".\cmd\winit"
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "Error compiling: ${pkg_path}"
+    Write-Error "Error compiling: cmd\winit"
 }
 
 # Cleanup build artifacts

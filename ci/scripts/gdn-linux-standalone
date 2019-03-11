@@ -43,8 +43,11 @@ function build() {
     HOME=$PWD bosh sync-blobs
 
     (
-      go install code.cloudfoundry.org/guardian/cmd/dadoo
-      cp bin/dadoo "${LINUX_ASSETS}/bin"
+      (
+        unset GOPATH
+        cd src/code.cloudfoundry.org/guardian
+        go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
+      )
 
       build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
@@ -68,12 +71,19 @@ function build() {
 
   go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
 
-  # must be built with 'daemon' flag because of docker packages :|
-  go build \
-    -tags daemon \
-    -o binary/gdn \
-    -ldflags "$gdn_build_ldflags" \
-    code.cloudfoundry.org/guardian/cmd/gdn
+  (
+    cd gr-release-develop/src/code.cloudfoundry.org/guardian
+
+    unset GOPATH
+
+    # must be built with 'daemon' flag because of docker packages :|
+    go build \
+      -mod vendor \
+      -tags daemon \
+      -o "${basedir}/binary/gdn" \
+      -ldflags "$gdn_build_ldflags" \
+      ./cmd/gdn
+  )
 }
 
 function prepare() {
