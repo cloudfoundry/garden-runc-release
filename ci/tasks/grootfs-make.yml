@@ -14,14 +14,8 @@ caches:
 - path: gr-release-develop/bin
 - path: gr-release-develop/pkg
 
-params:
-  DOCKER_REGISTRY_USERNAME:
-  DOCKER_REGISTRY_PASSWORD:
-  GROOTFS_TEST_UID: 0
-  GROOTFS_TEST_GID: 0
-  GROOTFS_USER: whoever
-
 run:
   dir: gr-release-develop
-  path: src/code.cloudfoundry.org/grootfs/ci/scripts/integration-tests.sh
+  path: src/code.cloudfoundry.org/grootfs/ci/scripts/make.sh
   user: root
+
