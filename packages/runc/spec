@@ -10,4 +10,5 @@ dependencies:
 files:
   - github.com/opencontainers/runc/**/*
   - patches/patch.bash
+  - patches/runc/*
   - build/runc.bash
