@@ -1,0 +1,6 @@
+builds:
+  cd19db4c74ad08902ca63bea2a78ff60fdf1007abcd6bf2bf34b895282a45ac9:
+    version: cd19db4c74ad08902ca63bea2a78ff60fdf1007abcd6bf2bf34b895282a45ac9
+    blobstore_id: 0c59e71a-b261-467a-5ddf-d87cf8b19b34
+    sha1: sha256:632cf61d39583fbb62cc7c45886cff8c58deea8ec8c223973d7cd8442d4a1316
+format-version: "2"
