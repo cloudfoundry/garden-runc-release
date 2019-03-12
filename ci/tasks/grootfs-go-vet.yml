@@ -15,5 +15,6 @@ caches:
 - path: gr-release-develop/pkg
 
 run:
-  dir: gr-release-develop
-  path: src/code.cloudfoundry.org/grootfs/ci/scripts/go-vet.sh
+  dir: gr-release-develop/src/code.cloudfoundry.org/grootfs
+  path: make
+  args: [go-vet]
