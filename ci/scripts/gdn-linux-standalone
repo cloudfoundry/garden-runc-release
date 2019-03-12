@@ -61,11 +61,15 @@ function build() {
         mv init "${LINUX_ASSETS}/bin"
       popd
 
-      pushd src/code.cloudfoundry.org/grootfs
+
+      (
+        cd src/code.cloudfoundry.org/grootfs
+
+        unset GOPATH
+
         make
-        mv grootfs "${LINUX_ASSETS}/bin"
-        mv tardis "${LINUX_ASSETS}/bin"
-      popd
+        make prefix="${LINUX_ASSETS}/bin" install
+      )
     )
   popd
 

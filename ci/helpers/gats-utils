@@ -10,12 +10,16 @@ build_nstar() {
 
 build_grootfs() {
   local grreleasedevelopdir="$1"
+  local target="${GOPATH}/bin"
 
-  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/grootfs
+  (
+    cd "$grreleasedevelopdir"/src/code.cloudfoundry.org/grootfs
+
+    unset GOPATH
+
     make
-    mv grootfs $GOPATH/bin/
-    mv tardis $GOPATH/bin/
-  popd
+    make prefix="${target}" install
+  )
 }
 
 build_gdn() {
