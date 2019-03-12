@@ -15,7 +15,7 @@ caches:
 - path: gr-release-develop/pkg
 
 run:
-  dir: gr-release-develop
-  path: src/code.cloudfoundry.org/grootfs/ci/scripts/make.sh
+  dir: gr-release-develop/src/code.cloudfoundry.org/grootfs
+  path: make
   user: root
 
