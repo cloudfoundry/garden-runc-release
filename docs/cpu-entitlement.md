@@ -2,7 +2,7 @@
 
 CPU entitlement describes the percentage of host CPU a particular application instance is ‘entitled’ to use. A user will see CPU performance less than 100% when their usage is within their entitlement, and greater than 100% when above their entitlement.
 
-The amount of CPU an application is entitled to is proportional to how much memory that application has available to it. For example, an application with access to 256MB of memory on a 512MB machine has access to half of the memory on the machine and so is also entitled to half of the CPU of that machine.
+The amount of CPU an application is entitled to (in Cloud Foundry) is set proportionally to how much memory that application has available to it. For example, an application with access to 256MB of memory on a 512MB machine has access to half of the memory on the machine and so is also entitled to half of the CPU of that machine.
 
 ## Configuring CPU entitlement
 
