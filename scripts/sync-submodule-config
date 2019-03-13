@@ -33,11 +33,11 @@ function containerd_deps {
 }
 
 function idmapper_deps {
-  echo "code.cloudfoundry.org/idmapper"
+  echo "idmapper"
 }
 
 function netplugin_shim_deps {
-  echo "code.cloudfoundry.org/netplugin-shim"
+  echo "netplugin-shim"
 }
 
 (
