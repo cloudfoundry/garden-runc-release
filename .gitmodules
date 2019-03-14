@@ -57,6 +57,8 @@
 [submodule "src/idmapper"]
 	path = src/idmapper
 	url = https://github.com/cloudfoundry/idmapper
+	branch = master
 [submodule "src/netplugin-shim"]
 	path = src/netplugin-shim
 	url = https://github.com/cloudfoundry/netplugin-shim
+	branch = master
