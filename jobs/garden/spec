@@ -7,7 +7,7 @@ templates:
   bin/garden_start.erb:                     bin/garden_start
   bin/garden_stop.erb:                      bin/garden_stop
   bin/envs.erb:                             bin/envs
-  config/garden-default.erb:                config/garden-default
+  config/garden-default:                    config/garden-default
   config/bpm.yml.erb:                       config/bpm.yml
   bin/auplink:                              bin/auplink
   bin/overlay-xfs-setup:                    bin/overlay-xfs-setup

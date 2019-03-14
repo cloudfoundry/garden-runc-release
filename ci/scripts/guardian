@@ -29,9 +29,7 @@ fi
 if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
   mount -t securityfs securityfs /sys/kernel/security
 fi
-if ! aa-status | grep garden-default > /dev/null; then
-  apparmor_parser -a ci/assets/garden-default
-fi
+apparmor_parser -r /opt/static-assets/garden-default
 
 export GARDEN_TEST_ROOTFS=/opt/warden/rootfs.tar
 export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs.tar
