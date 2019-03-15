@@ -8,7 +8,7 @@ cd "$( dirname "$0" )/../.."
 export GOPATH=$PWD/src/gopath
 export PATH=$PWD/bin:$PATH
 
-cd src/code.cloudfoundry.org/garden-integration-tests
+cd $GOPATH/src/code.cloudfoundry.org/garden-integration-tests
 
 cmd="ginkgo --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -stream"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then

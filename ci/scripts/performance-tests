@@ -6,5 +6,5 @@ cd "$( dirname "$0" )/../.."
 export GOPATH=$PWD/src/gopath
 export PATH=$PWD/bin:$PATH
 
-cd src/code.cloudfoundry.org/garden-integration-tests
+cd $GOPATH/src/code.cloudfoundry.org/garden-integration-tests
 ginkgo -p --nodes=4 --failOnPending performance
