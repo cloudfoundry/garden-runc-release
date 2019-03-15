@@ -5,5 +5,5 @@ dependencies:
   - golang
 
 files:
-  - code.cloudfoundry.org/grootfs/**/*
+  - gopath/src/code.cloudfoundry.org/grootfs/**/*
   - build/bosh-compilation-golang

@@ -8,7 +8,7 @@ dependencies:
   - pkg-config
 
 files:
-  - github.com/opencontainers/runc/**/*
+  - gopath/src/github.com/opencontainers/runc/**/*
   - patches/patch.bash
   - patches/runc/*
   - build/runc.bash

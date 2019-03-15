@@ -7,7 +7,7 @@ mkdir -p ${BOSH_INSTALL_TARGET}/src
 cp -ra * ${BOSH_INSTALL_TARGET}/src
 
 mkdir ${BOSH_INSTALL_TARGET}/bin
-pushd ${BOSH_INSTALL_TARGET}/src/code.cloudfoundry.org/grootfs
+pushd ${BOSH_INSTALL_TARGET}/src/gopath/src/code.cloudfoundry.org/grootfs
   make cf
   make prefix="${BOSH_INSTALL_TARGET}/bin" install
 popd

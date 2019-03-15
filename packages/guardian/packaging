@@ -6,7 +6,7 @@ source build/bosh-compilation-golang
 
 gdn_version="$( cat versions/guardian )"
 
-cd code.cloudfoundry.org/guardian
+cd gopath/src/code.cloudfoundry.org/guardian
 
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/gdn" -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dadoo" ./cmd/dadoo

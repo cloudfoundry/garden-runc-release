@@ -7,7 +7,7 @@ cp -a . "${BOSH_INSTALL_TARGET}/src/"
 export GOCACHE=/tmp/gocache
 export GOROOT
 GOROOT="$( readlink -nf /var/vcap/packages/golang )"
-export GOPATH="$BOSH_INSTALL_TARGET"
+export GOPATH="${BOSH_INSTALL_TARGET}/src/gopath"
 export PATH="${GOROOT}/bin:${PATH}"
 
 cd "${GOPATH}/src/github.com/containerd/containerd"

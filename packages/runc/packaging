@@ -15,7 +15,7 @@ export GOCACHE=/tmp/gocache
 export GOROOT
 GOROOT="$( readlink -nf /var/vcap/packages/golang )"
 export PATH="${GOROOT}/bin:${PATH}"
-export GOPATH="$BOSH_INSTALL_TARGET"
+export GOPATH="${BOSH_INSTALL_TARGET}/src/gopath"
 
 build_runc "$BOSH_INSTALL_TARGET" "${BOSH_INSTALL_TARGET}/bin/"
 

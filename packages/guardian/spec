@@ -4,6 +4,6 @@ name: guardian
 dependencies: [golang]
 
 files:
-- code.cloudfoundry.org/guardian/**/*
+- gopath/src/code.cloudfoundry.org/guardian/**/*
 - versions/guardian
 - build/bosh-compilation-golang
