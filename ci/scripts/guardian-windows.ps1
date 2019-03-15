@@ -3,16 +3,18 @@ trap { $host.SetShouldExit(1) }
 
 cd gr-release-develop
 
-$env:GOPATH = $PWD
+$env:PWD = (Get-Location)
+$env:GOPATH = ${env:PWD} + "\src\gopath"
 $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
 
 Write-Host "Installing Ginkgo"
-go.exe install ./src/github.com/onsi/ginkgo/ginkgo
+go.exe install ./src/gopath/src/github.com/onsi/ginkgo/ginkgo
 if ($LastExitCode -ne 0) {
     throw "Ginkgo installation process returned error code: $LastExitCode"
 }
 
-cd src/code.cloudfoundry.org/guardian
+$guardian_path = ${env:GOPATH} + "/src/code.cloudfoundry.org/guardian"
+cd ${guardian_path}
 
 go version
 go vet ./...

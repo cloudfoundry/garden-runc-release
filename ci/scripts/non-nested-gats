@@ -5,7 +5,7 @@ base=$PWD
 
 cd "$( dirname "$0" )/../.."
 
-export GOPATH=$PWD
+export GOPATH=$PWD/src/gopath
 export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-integration-tests

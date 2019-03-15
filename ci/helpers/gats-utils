@@ -2,7 +2,7 @@
 build_nstar() {
   local grreleasedevelopdir="$1"
 
-  pushd "$grreleasedevelopdir"/src/code.cloudfoundry.org/guardian/rundmc/nstar
+  pushd "$grreleasedevelopdir"/src/gopath/src/code.cloudfoundry.org/guardian/rundmc/nstar
     make
     mv nstar $GOPATH/bin/
   popd
@@ -13,7 +13,7 @@ build_grootfs() {
   local target="${GOPATH}/bin"
 
   (
-    cd "$grreleasedevelopdir"/src/code.cloudfoundry.org/grootfs
+    cd "$grreleasedevelopdir"/src/gopath/src/code.cloudfoundry.org/grootfs
 
     unset GOPATH
 
@@ -27,7 +27,7 @@ build_gdn() {
   local target="${GOPATH}/bin"
 
   (
-    cd "${grreleasedevelop}/src/code.cloudfoundry.org/guardian"
+    cd "${grreleasedevelop}/src/gopath/src/code.cloudfoundry.org/guardian"
 
     unset GOPATH
 

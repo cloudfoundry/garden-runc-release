@@ -30,3 +30,4 @@ blobs
 .vagrant/
 /pkg
 /bin
+src/gopath/bin

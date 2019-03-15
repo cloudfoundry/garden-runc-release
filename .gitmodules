@@ -1,57 +1,57 @@
-[submodule "src/code.cloudfoundry.org/guardian"]
-	path = src/code.cloudfoundry.org/guardian
+[submodule "src/gopath/src/code.cloudfoundry.org/guardian"]
+	path = src/gopath/src/code.cloudfoundry.org/guardian
 	url = https://github.com/cloudfoundry/guardian
 	branch = master
-[submodule "src/github.com/onsi/gomega"]
-	path = src/github.com/onsi/gomega
+[submodule "src/gopath/src/github.com/onsi/gomega"]
+	path = src/gopath/src/github.com/onsi/gomega
 	url = https://github.com/onsi/gomega
 	branch = master
-[submodule "src/github.com/tedsuo/rata"]
-	path = src/github.com/tedsuo/rata
+[submodule "src/gopath/src/github.com/tedsuo/rata"]
+	path = src/gopath/src/github.com/tedsuo/rata
 	url = https://github.com/tedsuo/rata
 	branch = master
-[submodule "src/code.cloudfoundry.org/garden"]
-	path = src/code.cloudfoundry.org/garden
+[submodule "src/gopath/src/code.cloudfoundry.org/garden"]
+	path = src/gopath/src/code.cloudfoundry.org/garden
 	url = https://github.com/cloudfoundry/garden
 	branch = master
-[submodule "src/github.com/onsi/ginkgo"]
-	path = src/github.com/onsi/ginkgo
+[submodule "src/gopath/src/github.com/onsi/ginkgo"]
+	path = src/gopath/src/github.com/onsi/ginkgo
 	url = https://github.com/onsi/ginkgo
 	branch = master
-[submodule "src/github.com/bmizerany/pat"]
-	path = src/github.com/bmizerany/pat
+[submodule "src/gopath/src/github.com/bmizerany/pat"]
+	path = src/gopath/src/github.com/bmizerany/pat
 	url = https://github.com/bmizerany/pat
 	branch = master
-[submodule "src/gopkg.in/yaml.v2"]
-	path = src/gopkg.in/yaml.v2
+[submodule "src/gopath/src/gopkg.in/yaml.v2"]
+	path = src/gopath/src/gopkg.in/yaml.v2
 	url = https://gopkg.in/yaml.v2
 	branch = v2
-[submodule "src/code.cloudfoundry.org/lager"]
-	path = src/code.cloudfoundry.org/lager
+[submodule "src/gopath/src/code.cloudfoundry.org/lager"]
+	path = src/gopath/src/code.cloudfoundry.org/lager
 	url = https://github.com/cloudfoundry/lager
 	branch = master
-[submodule "src/code.cloudfoundry.org/garden-integration-tests"]
-	path = src/code.cloudfoundry.org/garden-integration-tests
+[submodule "src/gopath/src/code.cloudfoundry.org/garden-integration-tests"]
+	path = src/gopath/src/code.cloudfoundry.org/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
-[submodule "src/github.com/golang/protobuf"]
-	path = src/github.com/golang/protobuf
+[submodule "src/gopath/src/github.com/golang/protobuf"]
+	path = src/gopath/src/github.com/golang/protobuf
 	url = https://github.com/golang/protobuf
 	branch = master
-[submodule "src/code.cloudfoundry.org/grootfs"]
-	path = src/code.cloudfoundry.org/grootfs
+[submodule "src/gopath/src/code.cloudfoundry.org/grootfs"]
+	path = src/gopath/src/code.cloudfoundry.org/grootfs
 	url = https://github.com/cloudfoundry/grootfs
 	branch = master
-[submodule "src/github.com/containerd/containerd"]
-	path = src/github.com/containerd/containerd
+[submodule "src/gopath/src/github.com/containerd/containerd"]
+	path = src/gopath/src/github.com/containerd/containerd
 	url = https://github.com/containerd/containerd
 	branch = master
-[submodule "src/code.cloudfoundry.org/archiver"]
-	path = src/code.cloudfoundry.org/archiver
+[submodule "src/gopath/src/code.cloudfoundry.org/archiver"]
+	path = src/gopath/src/code.cloudfoundry.org/archiver
 	url = https://github.com/cloudfoundry/archiver
 	branch = master
-[submodule "src/github.com/opencontainers/runc"]
-	path = src/github.com/opencontainers/runc
+[submodule "src/gopath/src/github.com/opencontainers/runc"]
+	path = src/gopath/src/github.com/opencontainers/runc
 	url = https://github.com/opencontainers/runc
 	branch = master
 [submodule "src/idmapper"]

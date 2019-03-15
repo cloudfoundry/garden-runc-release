@@ -23,12 +23,12 @@ usage() {
 go_vet_and_fmt() {
   cd "$ROOT_DIR_PATH"
 
-  pushd src/code.cloudfoundry.org/guardian
+  pushd src/gopath/src/code.cloudfoundry.org/guardian
     GOOS=linux go vet ./...
     go fmt ./...
   popd
 
-  pushd src/code.cloudfoundry.org/garden
+  pushd src/gopath/src/code.cloudfoundry.org/garden
     GOOS=linux go vet ./...
     go fmt ./...
   popd

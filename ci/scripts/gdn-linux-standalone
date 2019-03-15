@@ -9,14 +9,14 @@ set -ex
 # shellcheck source=../../src/build/runc.bash
 source "$( dirname "$0" )/../../src/build/runc.bash"
 
-export GOPATH=$PWD/gr-release-develop
+export GOPATH=$PWD/gr-release-develop/src/gopath
 export PATH=$PATH:$GOPATH/bin
 
 basedir=$PWD
 
 # If you want to fly execute this, you will have to pass DEV_MODE=true
 if [ -z "$DEV_MODE" ]; then
-  gdn_version=$(cd gr-release-develop/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  gdn_version=$(cd gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
   gdn_build_ldflags="-X main.version=${gdn_version}"
 fi
 
@@ -45,25 +45,25 @@ function build() {
     (
       (
         unset GOPATH
-        cd src/code.cloudfoundry.org/guardian
+        cd src/gopath/src/code.cloudfoundry.org/guardian
         go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
       )
 
       build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
-      pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
+      pushd src/gopath/src/code.cloudfoundry.org/guardian/rundmc/nstar
         make
         mv nstar "${LINUX_ASSETS}/bin"
       popd
 
-      pushd src/code.cloudfoundry.org/guardian/cmd/init
+      pushd src/gopath/src/code.cloudfoundry.org/guardian/cmd/init
         gcc -static -o init init.c ignore_sigchild.c
         mv init "${LINUX_ASSETS}/bin"
       popd
 
 
       (
-        cd src/code.cloudfoundry.org/grootfs
+        cd src/gopath/src/code.cloudfoundry.org/grootfs
 
         unset GOPATH
 
@@ -73,10 +73,10 @@ function build() {
     )
   popd
 
-  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
+  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
 
   (
-    cd gr-release-develop/src/code.cloudfoundry.org/guardian
+    cd gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian
 
     unset GOPATH
 

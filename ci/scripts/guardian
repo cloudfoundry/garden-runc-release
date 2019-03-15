@@ -8,14 +8,18 @@ source "$grr_base/ci/helpers/device-control"
 
 # shellcheck source=../../src/build/runc.bash
 source "$grr_base/src/build/runc.bash"
+# shellcheck source=../../src/build/grootfs.bash
+source "$grr_base/src/build/grootfs.bash"
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
-export GOPATH=$grr_base
+export GOPATH="${grr_base}/src/gopath"
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
+mkdir -p "${GOPATH}/bin"
 build_runc "$grr_base" "${GOPATH}/bin"
+build_grootfs "$grr_base" "${GOPATH}/bin"
 
 if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
   #TODO: Figure out how to get rid of the containerd git-related errors below
@@ -44,7 +48,7 @@ go version
 
 echo "compiling test process: $(date)"
 
-cd "$grr_base"/src/code.cloudfoundry.org/guardian
+cd "$grr_base"/src/gopath/src/code.cloudfoundry.org/guardian
 
 if [ -z "${NO_GO_VET:-}" ]; then
   go vet ./...
