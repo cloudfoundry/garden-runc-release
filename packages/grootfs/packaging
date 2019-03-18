@@ -1,17 +1,14 @@
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
 # shellcheck source=../../src/build/bosh-compilation-golang
 source build/bosh-compilation-golang
 
-mkdir -p ${BOSH_INSTALL_TARGET}/src
-cp -ra * ${BOSH_INSTALL_TARGET}/src
+mkdir "${BOSH_INSTALL_TARGET}/bin"
 
-mkdir ${BOSH_INSTALL_TARGET}/bin
-pushd ${BOSH_INSTALL_TARGET}/src/gopath/src/code.cloudfoundry.org/grootfs
-  make cf
-  make prefix="${BOSH_INSTALL_TARGET}/bin" install
-popd
+cd ./gopath/src/code.cloudfoundry.org/grootfs
 
-chmod u+s ${BOSH_INSTALL_TARGET}/bin/tardis
+make cf
+make prefix="${BOSH_INSTALL_TARGET}/bin" install
 
-rm -rf ${BOSH_INSTALL_TARGET}/src
+chmod u+s "${BOSH_INSTALL_TARGET}/bin/tardis"
