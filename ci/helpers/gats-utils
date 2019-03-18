@@ -13,7 +13,7 @@ build_grootfs() {
   local target="${GOPATH}/bin"
 
   (
-    cd "$grreleasedevelopdir"/src/gopath/src/code.cloudfoundry.org/grootfs
+    cd "$grreleasedevelopdir"/src/grootfs
 
     unset GOPATH
 

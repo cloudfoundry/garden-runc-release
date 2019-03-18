@@ -63,7 +63,7 @@ function build() {
 
 
       (
-        cd src/gopath/src/code.cloudfoundry.org/grootfs
+        cd src/grootfs
 
         unset GOPATH
 

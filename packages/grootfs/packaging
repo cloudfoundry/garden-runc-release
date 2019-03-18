@@ -6,7 +6,7 @@ source build/bosh-compilation-golang
 
 mkdir "${BOSH_INSTALL_TARGET}/bin"
 
-cd ./gopath/src/code.cloudfoundry.org/grootfs
+cd ./grootfs
 
 make cf
 make prefix="${BOSH_INSTALL_TARGET}/bin" install

@@ -4,7 +4,7 @@ function build_grootfs() {
 
   (
     unset GOPATH
-    cd "$garden_runc_release_dir/src/gopath/src/code.cloudfoundry.org/grootfs" || exit
+    cd "$garden_runc_release_dir/src/grootfs" || exit
     make all
 
     chmod 04755 build/tardis

@@ -15,7 +15,7 @@ caches:
 - path: gr-release-develop/pkg
 
 run:
-  dir: gr-release-develop/src/gopath/src/code.cloudfoundry.org/grootfs
+  dir: gr-release-develop/src/grootfs
   path: make
   user: root
 
