@@ -16,7 +16,7 @@ basedir=$PWD
 
 # If you want to fly execute this, you will have to pass DEV_MODE=true
 if [ -z "$DEV_MODE" ]; then
-  gdn_version=$(cd gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian && git rev-parse HEAD)
+  gdn_version=$(cd gr-release-develop/src/guardian && git rev-parse HEAD)
   gdn_build_ldflags="-X main.version=${gdn_version}"
 fi
 
@@ -45,18 +45,18 @@ function build() {
     (
       (
         unset GOPATH
-        cd src/gopath/src/code.cloudfoundry.org/guardian
+        cd src/guardian
         go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
       )
 
       build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
-      pushd src/gopath/src/code.cloudfoundry.org/guardian/rundmc/nstar
+      pushd src/guardian/rundmc/nstar
         make
         mv nstar "${LINUX_ASSETS}/bin"
       popd
 
-      pushd src/gopath/src/code.cloudfoundry.org/guardian/cmd/init
+      pushd src/guardian/cmd/init
         gcc -static -o init init.c ignore_sigchild.c
         mv init "${LINUX_ASSETS}/bin"
       popd
@@ -73,10 +73,10 @@ function build() {
     )
   popd
 
-  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian/bindata/bindata.go linux/...
+  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/guardian/bindata/bindata.go linux/...
 
   (
-    cd gr-release-develop/src/gopath/src/code.cloudfoundry.org/guardian
+    cd gr-release-develop/src/guardian
 
     unset GOPATH
 

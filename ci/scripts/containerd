@@ -46,7 +46,7 @@ go version
 
 echo "compiling test process: $(date)"
 
-cd "$grr_base"/src/gopath/src/code.cloudfoundry.org/guardian
+cd "$grr_base"/src/guardian
 
 if [ -z "${NO_GO_VET:-}" ]; then
   go vet ./...

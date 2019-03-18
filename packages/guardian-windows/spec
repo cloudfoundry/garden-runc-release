@@ -6,17 +6,17 @@ dependencies:
 
 files:
   - exiter.ps1
-  - gopath/src/code.cloudfoundry.org/guardian/**/*
+  - guardian/**/*
   - versions/guardian
 
 # we are excluding these, because it is problematic to untar symlinks on windows
 # in order to list all symlinks run the following command from guardian root:
 # find . -type l -ls
 excluded_files:
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-cert.pem
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-key.pem
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/ca.pem
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-key.pem
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-cert.pem
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/docker/docker/project/CONTRIBUTING.md
-  - gopath/src/code.cloudfoundry.org/guardian/vendor/github.com/containerd/cri/test/e2e
+  - guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-cert.pem
+  - guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-key.pem
+  - guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/ca.pem
+  - guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/client-key.pem
+  - guardian/vendor/github.com/docker/docker/integration-cli/fixtures/https/server-cert.pem
+  - guardian/vendor/github.com/docker/docker/project/CONTRIBUTING.md
+  - guardian/vendor/github.com/containerd/cri/test/e2e

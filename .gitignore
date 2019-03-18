@@ -31,3 +31,4 @@ blobs
 /pkg
 /bin
 src/gopath/bin
+src/gopath/pkg

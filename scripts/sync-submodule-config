@@ -17,7 +17,7 @@ function windows_deps {
 }
 
 function guardian_deps {
-  echo "code.cloudfoundry.org/guardian"
+  echo "guardian"
 }
 
 function grootfs_deps {

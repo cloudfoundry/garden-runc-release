@@ -13,8 +13,7 @@ if ($LastExitCode -ne 0) {
     throw "Ginkgo installation process returned error code: $LastExitCode"
 }
 
-$guardian_path = ${env:GOPATH} + "/src/code.cloudfoundry.org/guardian"
-cd ${guardian_path}
+cd ./src/guardian
 
 go version
 go vet ./...

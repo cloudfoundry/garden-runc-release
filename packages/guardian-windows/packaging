@@ -22,7 +22,7 @@ if ($LASTEXITCODE -ge 8) {
     Write-Error "robocopy.exe /E ${PWD} ${BOSH_INSTALL_TARGET}\src"
 }
 
-cd .\gopath\src\code.cloudfoundry.org\guardian
+cd .\guardian
 
 go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\gdn.exe" -ldflags "-X main.version=${gdn_version}" ".\cmd\gdn"
 if ($LASTEXITCODE -ne 0) {
