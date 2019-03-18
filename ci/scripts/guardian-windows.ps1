@@ -16,7 +16,7 @@ if ($LastExitCode -ne 0) {
 cd ./src/guardian
 
 go version
-go vet ./...
+go vet -mod vendor ./...
 Write-Host "compiling test process: $(date)"
 
 $env:GARDEN_TEST_ROOTFS = "N/A"
