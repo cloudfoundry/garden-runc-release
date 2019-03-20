@@ -1,13 +1,13 @@
-# abort script on any command that exits with a non zero value
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export PACKAGES=/var/vcap/packages
-export PATH=$PACKAGES/zlib/bin:$PATH
+export PATH="/var/vcap/packages/zlib/bin:${PATH}"
+version="1.2.11"
 
-tar xvzf zlib/zlib-1.2.11.tar.gz
-(
-  cd zlib-1.2.11
-  ./configure --prefix=$BOSH_INSTALL_TARGET
-  make
-  make install prefix=$BOSH_INSTALL_TARGET
-)
+tar xvzf "zlib/zlib-${version}.tar.gz"
+
+cd "zlib-${version}"
+
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"
