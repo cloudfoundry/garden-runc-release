@@ -4,8 +4,8 @@ A [BOSH](http://docs.cloudfoundry.org/bosh/) release for deploying
 [Guardian](https://github.com/cloudfoundry/guardian).
 
 Guardian is a simple single-host [OCI](https://opencontainers.org/) container
-manager. It implements the [Garden](https://github.com/cloudfoundry/garden/)
-API which is used in [Cloud Foundry](https://www.cloudfoundry.org/).
+manager implementing the [Garden](https://github.com/cloudfoundry/garden/)
+API used in [Cloud Foundry](https://www.cloudfoundry.org/).
 
 ## Getting started
 
@@ -21,7 +21,7 @@ git submodule update --init --recursive
 
 The easiest way to run Garden-runC is to deploy it with [BOSH
 Lite](https://bosh.io/docs/bosh-lite.html), a VirtualBox development
-environment for [BOSH](https://bosh.io). Once you have  set up bosh-lite
+environment for [BOSH](https://bosh.io). Once you have set up bosh-lite
 (follow the instructions in the bosh-lite docs), just deploy like any bosh
 release, e.g:
 
@@ -41,7 +41,7 @@ The easiest way to start creating containers is to use the
 
 e.g. `gaol -t 10.244.0.2:7777 create -n my-container`
 
-For more advanced use cases, you'll need to use the [Garden
+For more advanced use cases, use the [Garden
 client](https://godoc.org/code.cloudfoundry.org/garden#Client)
 package for Golang.
 
@@ -51,9 +51,7 @@ package for Golang.
 
 ### Security Features
 
-The following doc provides an overview of security features on Garden vs Docker vs Kubernetes.
-
-[Security overview.](docs/security-overview.md)
+[This document](docs/security-overview.md) provides an overview of security features on Garden vs Docker vs Kubernetes.
 
 ### Rootless containers
 
@@ -69,8 +67,8 @@ document](docs/enabling-rootless-containers.md).
 In order to help us extend Garden-runC, we recommend opening a Github issue to
 describe the proposed features or changes. We also welcome pull requests.
 
-You can use other distributions or OS X for development since a good chunk of
-the unit tests work across alternative platforms, and you can run platform
+You can use other distributions or OS X for development as many of
+the unit tests work across alternative platforms, or you can run platform
 specific tests in a VM using [Concourse CI](https://concourse.ci/).
 
 In order to contribute to the project you may want some of the following installed:
@@ -127,8 +125,8 @@ framework.
 Assuming you have configured a Concourse and installed Ginkgo, you can run all
 the tests by executing `FLY_TARGET=<your concourse target> ./scripts/test` from the top level `garden-runc-release` directory.
 
-Note: The concourse-lite VM may need to be provisioned with more RAM
-If you start to see tests failing with 'out of disk' errors.
+Note: The concourse-lite VM may need to be provisioned with more RAM 
+if you start to see tests failing with 'out of disk' errors.
 
 #### Integration tests
 
@@ -156,7 +154,7 @@ WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/
 #### Running the tests locally
 
 It is possible to run the integration tests locally on a Linux based OS like Ubuntu, but we don't recommend it
-due to the dependencies required, and the need for parts of the testing suite to run as a privileged user. 
+due to both the dependencies required and the need for parts of the testing suite to run as a privileged user. 
 If you'd like to run them locally, you will need at least:
 * A recent version of Go (1.8+)
 * Kernel version 4.4+
