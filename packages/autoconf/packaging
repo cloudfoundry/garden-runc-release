@@ -1,15 +1,13 @@
-# abort script on any command that exits with a non zero value
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export PREFIX=${BOSH_INSTALL_TARGET}
-export PATH=${PREFIX}/bin:$PATH
+export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
+version="2.69"
 
-# autoconf
-tar xzf autoconf/autoconf-2.69.tar.gz
-(
-  set -e
-  cd autoconf-2.69
-  autoconf_dir=$PREFIX/share/autoconf ./configure --prefix=$PREFIX
-  make
-  make install prefix=$PREFIX
-)
+tar xzf "autoconf/autoconf-${version}.tar.gz"
+
+cd "autoconf-${version}"
+
+autoconf_dir="${BOSH_INSTALL_TARGET}/share/autoconf" ./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"
