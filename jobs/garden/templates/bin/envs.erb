@@ -33,6 +33,7 @@ export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
 export GARDEN_ROOTLESS_CONFIG_DIR="$GARDEN_DATA_DIR/config"
 export GARDEN_CONFIG_PATH="$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
 export GARDEN_ROOTLESS_CERTS_DIR="$GARDEN_DATA_DIR/certs"
+export CONTAINERD_DATA_DIR=/var/vcap/data/containerd
 <% end %>
 
 <% if_p('garden.http_proxy') do |http_proxy| %>

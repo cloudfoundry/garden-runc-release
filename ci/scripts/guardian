@@ -24,7 +24,7 @@ build_grootfs "$grr_base" "${GOPATH}/bin"
 if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
   #TODO: Figure out how to get rid of the containerd git-related errors below
   echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
-  pushd "$grr_base"/src/github.com/containerd/containerd
+  pushd "$grr_base"/src/gopath/src/github.com/containerd/containerd
     BUILDTAGS=no_btrfs make && make install
   popd
 fi
