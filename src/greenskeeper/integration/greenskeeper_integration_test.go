@@ -37,6 +37,7 @@ var _ = Describe("Greenskeeper", func() {
 				"PIDFILE=" + pidFileName,
 				"RUN_DIR=" + path.Join(tmpDir, "run"),
 				"GARDEN_DATA_DIR=" + path.Join(tmpDir, "garden"),
+				"CONTAINERD_DATA_DIR=" + path.Join(tmpDir, "containerd"),
 				"LOG_DIR=" + path.Join(tmpDir, "log"),
 				"TMPDIR=" + path.Join(tmpDir, "tmp"),
 				"DEPOT_PATH=" + path.Join(tmpDir, "depot"),
@@ -96,6 +97,7 @@ var _ = Describe("Greenskeeper", func() {
 				Entry("TMPDIR", "tmp", 0755, maxID, maxID),
 				Entry("DEPOT_PATH", "depot", 0755, maxID, maxID),
 				Entry("XDG_RUNTIME_DIR", "xdg", 0700, maxID, maxID),
+				Entry("CONTAINERD_DATA_DIR", "containerd", 0700, maxID, maxID),
 				Entry("GARDEN_ROOTLESS_CONFIG_DIR", "rootless-config", 0700, maxID, maxID),
 			)
 		})
