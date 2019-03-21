@@ -2,14 +2,11 @@
 set -euo pipefail
 
 version="2.4.6"
-export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
 
 tar xzf "libtool/libtool-${version}.tar.gz"
 
-(
-  cd "libtool-${version}"
+cd "libtool-${version}"
 
-  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
-  make
-  make install "prefix=${BOSH_INSTALL_TARGET}"
-)
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"

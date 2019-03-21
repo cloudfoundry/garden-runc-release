@@ -2,14 +2,11 @@
 set -euo pipefail
 
 version="2.09"
-export PATH="/var/vcap/packages/lzo/bin:${PATH}"
 
 tar xvzf "lzo/lzo-${version}.tar.gz"
 
-(
-  cd "lzo-${version}"
+cd "lzo-${version}"
 
-  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
-  make
-  make install "prefix=${BOSH_INSTALL_TARGET}"
-)
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"

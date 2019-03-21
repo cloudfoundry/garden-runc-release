@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
 version="2.69"
 
 tar xzf "autoconf/autoconf-${version}.tar.gz"

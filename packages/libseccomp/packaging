@@ -5,10 +5,8 @@ version="2.3.3"
 
 tar zxf "libseccomp/libseccomp-${version}.tar.gz"
 
-(
-  cd "libseccomp-${version}"
+cd "libseccomp-${version}"
 
-  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
-  make
-  make install
-)
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install
