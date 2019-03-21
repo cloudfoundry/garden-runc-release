@@ -1,14 +1,13 @@
-# abort script on any command that exits with a non zero value
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-export PREFIX=${BOSH_INSTALL_TARGET}
-export PATH=${PREFIX}/bin:/var/vcap/packages/autoconf/bin:$PATH
-# automake
-tar xzf automake/automake-1.15.tar.gz
-(
-  set -e
-  cd automake-1.15
-  ./configure --prefix=$PREFIX
-  make
-  make install prefix=$PREFIX
-)
+version="1.15"
+export PATH="/var/vcap/packages/autoconf/bin:${PATH}"
+
+tar xzf "automake/automake-${version}.tar.gz"
+
+cd "automake-${version}"
+
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"
