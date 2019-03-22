@@ -15,8 +15,6 @@ build_grootfs() {
   (
     cd "$grreleasedevelopdir"/src/grootfs
 
-    unset GOPATH
-
     make
     make prefix="${target}" install
   )
@@ -28,8 +26,6 @@ build_gdn() {
 
   (
     cd "${grreleasedevelop}/src/guardian"
-
-    unset GOPATH
 
     go build -mod vendor -o "${target}/gdn" -tags daemon ./cmd/gdn
     go build -mod vendor -o "${target}/dadoo" ./cmd/dadoo
@@ -46,12 +42,12 @@ build_idmapper_binaries() {
 
   (
     cd "${grreleasedevelopdir}/src/idmapper"
-    export install_target="$GOPATH/bin"
-    unset GOPATH
 
-    go build -mod vendor -o "${install_target}/newuidmap" ./cmd/newuidmap
-    go build -mod vendor -o "${install_target}/newgidmap" ./cmd/newgidmap
-    go build -mod vendor -o "${install_target}/maximus" ./cmd/maximus
+    target="$GOPATH/bin"
+
+    go build -mod vendor -o "${target}/newuidmap" ./cmd/newuidmap
+    go build -mod vendor -o "${target}/newgidmap" ./cmd/newgidmap
+    go build -mod vendor -o "${target}/maximus" ./cmd/maximus
   )
 }
 

@@ -44,7 +44,6 @@ function build() {
 
     (
       (
-        unset GOPATH
         cd src/guardian
         go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
       )
@@ -65,8 +64,6 @@ function build() {
       (
         cd src/grootfs
 
-        unset GOPATH
-
         make
         make prefix="${LINUX_ASSETS}/bin" install
       )
@@ -77,8 +74,6 @@ function build() {
 
   (
     cd gr-release-develop/src/guardian
-
-    unset GOPATH
 
     # must be built with 'daemon' flag because of docker packages :|
     go build \

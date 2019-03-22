@@ -3,7 +3,6 @@ function build_grootfs() {
   local target="$2"
 
   (
-    unset GOPATH
     cd "$garden_runc_release_dir/src/grootfs" || exit
     make all
 
