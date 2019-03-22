@@ -49,10 +49,10 @@ echo "compiling test process: $(date)"
 cd "$grr_base"/src/guardian
 
 if [ -z "${NO_GO_VET:-}" ]; then
-  go vet ./...
+  go vet -mod vendor ./...
 fi
 
-cmd="ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs --debug gqt rundmc/runcontainerd/nerd"
+cmd="ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs --debug gqt rundmc/runcontainerd/nerd"
 if [ -n "${RACE_DETECTION:-}" ]; then
   cmd="$cmd --race"
 fi
