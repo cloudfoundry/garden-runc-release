@@ -1,10 +1,13 @@
-set -e -x
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Busybox tarball created with:
 # <garden-runc-release>/scripts/create-busybox-tar.sh busybox:1.27.2 busybox
 
-name=busybox-1.27.2
-mkdir -p $BOSH_INSTALL_TARGET/$name
-mv busybox/$name.tar.gz ${BOSH_INSTALL_TARGET}/
-gunzip $BOSH_INSTALL_TARGET/$name.tar.gz # We need the uncompressed tar for Groot
-tar -xf ${BOSH_INSTALL_TARGET}/$name.tar -C ${BOSH_INSTALL_TARGET}/$name
+name="busybox-1.27.2"
+
+mkdir -p "${BOSH_INSTALL_TARGET}/${name}"
+mv "busybox/${name}.tar.gz" "${BOSH_INSTALL_TARGET}/"
+
+gunzip "${BOSH_INSTALL_TARGET}/${name}.tar.gz" # We need the uncompressed tar for Groot
+tar -xf "${BOSH_INSTALL_TARGET}/${name}.tar" -C "${BOSH_INSTALL_TARGET}/${name}"
