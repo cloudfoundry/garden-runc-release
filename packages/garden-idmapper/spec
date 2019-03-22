@@ -5,4 +5,4 @@ dependencies: [golang]
 
 files:
 - 'idmapper/**/*'
-- 'build/bosh-compilation-golang'
+- 'build/bosh-go.bash'

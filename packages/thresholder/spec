@@ -5,4 +5,4 @@ dependencies: [golang]
 
 files:
 - 'thresholder/**/*'
-- 'build/bosh-compilation-golang'
+- 'build/bosh-go.bash'

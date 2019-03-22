@@ -5,4 +5,4 @@ dependencies: [golang]
 
 files:
 - 'greenskeeper/**/*'
-- 'build/bosh-compilation-golang'
+- 'build/bosh-go.bash'

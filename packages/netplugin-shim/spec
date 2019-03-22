@@ -5,4 +5,4 @@ dependencies: [golang]
 
 files:
 - 'netplugin-shim/**/*'
-- 'build/bosh-compilation-golang'
+- 'build/bosh-go.bash'

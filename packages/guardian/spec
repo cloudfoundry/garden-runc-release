@@ -6,4 +6,4 @@ dependencies: [golang]
 files:
 - guardian/**/*
 - versions/guardian
-- build/bosh-compilation-golang
+- build/bosh-go.bash

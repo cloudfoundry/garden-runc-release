@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=../../src/build/bosh-compilation-golang
-source build/bosh-compilation-golang
+# shellcheck source=../../src/build/bosh-go.bash
+source build/bosh-go.bash
 
 gdn_version="$( cat versions/guardian )"
 
