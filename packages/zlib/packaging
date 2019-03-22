@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="/var/vcap/packages/zlib/bin:${PATH}"
 version="1.2.11"
 
 tar xvzf "zlib/zlib-${version}.tar.gz"
