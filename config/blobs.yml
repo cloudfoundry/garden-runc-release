@@ -14,10 +14,10 @@ busybox/busybox-1.27.2.tar.gz:
   size: 692898
   object_id: ed3e7c60-5c94-4359-6c7a-a56eeeffb1de
   sha: 728ef13c40e4a091b22a657a22396b3d985af346
-golang/go1.12.linux-amd64.tar.gz:
-  size: 127228112
-  object_id: 8d6b74bd-0e48-4f1f-6c8b-4cf881dd9b85
-  sha: 8715ddcd08e9d5ddf3e09c1af7c69bf4f23847ae
+golang/go1.12.1.linux-amd64.tar.gz:
+  size: 127906702
+  object_id: 200ac351-d257-4e94-662f-33a988dcd0de
+  sha: 502e00384c70aa6dad333b06fba903367150f2cd
 golang/go1.12.windows-amd64.zip:
   size: 140510218
   object_id: 75b71ab3-9e2a-4ada-65ae-d2fc31442bf5
