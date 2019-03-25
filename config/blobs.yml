@@ -18,10 +18,10 @@ golang/go1.12.1.linux-amd64.tar.gz:
   size: 127906702
   object_id: 200ac351-d257-4e94-662f-33a988dcd0de
   sha: 502e00384c70aa6dad333b06fba903367150f2cd
-golang/go1.12.windows-amd64.zip:
-  size: 140510218
-  object_id: 75b71ab3-9e2a-4ada-65ae-d2fc31442bf5
-  sha: 13e3caaeab014658489de7db1ad98d2e34369b32
+golang/go1.12.1.windows-amd64.zip:
+  size: 141212127
+  object_id: 8e0f7b53-a568-4a37-4c7a-3b5ea992dc7e
+  sha: f7148c1d2ecdbfe645cf0a824bfa1811d0950319
 iptables/iptables-1.6.2.tar.bz2:
   size: 639785
   object_id: cafb6233-5827-4b55-4f1d-0da60ca30345
