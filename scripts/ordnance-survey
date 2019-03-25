@@ -46,9 +46,9 @@ cp -r /var/vcap/sys/log/garden garden-logs && tar czf garden-logs.tgz garden-log
 )
 
 filename="$(hostname)_$(date '+%F-%H-%M-%S')"
-if tar zcf "$TMPDIR/os-report-$filename.tgz" -C $tmp_dir .; then
+if tar zcf "$TMPDIR/os-report-$filename.tar.gz" -C $tmp_dir .; then
   rm -rf $tmp_dir
-  echo "archive created: $TMPDIR/os-report-$filename.tgz"
+  echo "archive created: $TMPDIR/os-report-$filename.tar.gz"
 else
   echo "failed to create os-report tar, collected information can still be found at $tmp_dir/os-report"
 fi

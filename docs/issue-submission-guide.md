@@ -50,7 +50,8 @@ Provide any output you think may be useful in understanding/explaining the issue
 The garden log files are found in `/var/vcap/sys/log/garden/` on the VM in which the Garden job is running.
 
 Garden provides a tool (<= v1.17.1 `ordnance-survey`, => v1.17.2 `dontpanic`) for collecting debug information and we ask submitters to run this for every issue. There is unlikely to be
-any sensitive information in there, but if you are not comfortable attaching the resulting tar to the issue, save it locally and the team will suggest ways to share it securely.
+any sensitive information in there, but if you are not comfortable attaching the resulting tar to the issue, save it locally and the team will suggest ways to share it securely. NOTE:
+GitHub does not support attaching files larger than 10M, so in that case you should find a different way to provide us with the compressed tar.
 
 Version => v1.17.2: Run `dontpanic` (found at `/var/vcap/packages/dontpanic/bin/dontpanic` of the VM running the Garden job).
 

@@ -61,8 +61,8 @@ popd > /dev/null
 printSection "Creating OS Report Archive"
 
 filename="$(hostname)_$(date '+%F-%H-%M-%S')"
-if tar zcf "$TMPDIR/os-report-$filename.tgz" -C "$tmp_dir" .; then
-  printGreen "Report Complete. Archive Created: ${TMPDIR}/os-report-$filename.tgz"
+if tar zcf "$TMPDIR/os-report-$filename.tar.gz" -C "$tmp_dir" .; then
+  printGreen "Report Complete. Archive Created: ${TMPDIR}/os-report-$filename.tar.gz"
 else
   printFailed
 fi
