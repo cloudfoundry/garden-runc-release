@@ -11,7 +11,7 @@
 	url = https://github.com/tedsuo/rata
 	branch = master
 [submodule "src/gopath/src/code.cloudfoundry.org/garden"]
-	path = src/gopath/src/code.cloudfoundry.org/garden
+	path = src/garden
 	url = https://github.com/cloudfoundry/garden
 	branch = master
 [submodule "src/gopath/src/github.com/onsi/ginkgo"]
@@ -31,7 +31,7 @@
 	url = https://github.com/cloudfoundry/lager
 	branch = master
 [submodule "src/gopath/src/code.cloudfoundry.org/garden-integration-tests"]
-	path = src/gopath/src/code.cloudfoundry.org/garden-integration-tests
+	path = src/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
 [submodule "src/gopath/src/github.com/golang/protobuf"]

@@ -3,8 +3,5 @@ set -ex
 
 cd "$( dirname "$0" )/../.."
 
-export GOPATH=$PWD/src/gopath
-export PATH=$PWD/bin:$PATH
-
-cd $GOPATH/src/code.cloudfoundry.org/garden-integration-tests
+cd src/garden-integration-tests
 ginkgo -p --nodes=4 --failOnPending performance

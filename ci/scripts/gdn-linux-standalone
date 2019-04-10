@@ -107,7 +107,7 @@ function prepare() {
 }
 
 function test() {
-  cd "${GOPATH}"/src/code.cloudfoundry.org/garden-integration-tests
+  cd gr-release-develop/src/garden-integration-tests
 
   cmd="ginkgo -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
   if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then

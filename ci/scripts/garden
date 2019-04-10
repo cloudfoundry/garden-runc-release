@@ -3,13 +3,7 @@ set -ex
 
 cd "$( dirname "$0" )/../.."
 
-export GOROOT=/usr/local/go
-export PATH=$GOROOT/bin:$PATH
-
-export GOPATH=$PWD/src/gopath
-export PATH=$GOPATH/bin:$PATH
-
-cd src/gopath/src/code.cloudfoundry.org/garden
+cd src/garden
 
 go vet ./...
 ginkgo -r -p --race --keepGoing --nodes="${GINKGO_NODES:-8}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
