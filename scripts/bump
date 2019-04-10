@@ -6,8 +6,6 @@ cd "$ROOT_DIR_PATH"
 
 ./scripts/check
 
-./scripts/sync-submodule-config
-
 ./scripts/commit-with-submodule-log "$@"
 
 git commit --amend --reset-author --verbose
