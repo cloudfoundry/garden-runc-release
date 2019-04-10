@@ -79,7 +79,6 @@ In order to contribute to the project you may want some of the following install
 - [Go](https://golang.org/doc/install#install) - The Go programming
    language
 - [Direnv](https://github.com/direnv/direnv) - Environment management
-- [Gosub](https://github.com/vito/gosub) - Gosub is a submodule based dependency manager for Go
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
@@ -88,14 +87,14 @@ Garden-runC uses git submodules to maintain its dependencies and components.
 Some of Garden-runC's important components currently are:
 
 * [Garden](https://github.com/cloudfoundry/garden) found under
-   `src/code.cloudfoundry.org/garden` is the API server and client.
+   `src/garden` is the API server and client.
 * [Guardian](https://github.com/cloudfoundry/guardian) found under
-   `src/code.cloudfoundry.org/guardian` is the Garden backend.
+   `src/guardian` is the Garden backend.
 * [GrootFS](https://github.com/cloudfoundry/grootfs) found under
-   `src/code.cloudfoundry.org/grootfs` downloads and manages
+   `src/grootfs` downloads and manages
    root filesystems.
 * [GATS](https://github.com/cloudfoundry/garden-integration-tests)
-   found under `src/code.cloudfoundry.org/garden-integration-tests`
+   found under `src/garden-integration-tests`
    are the cross-backend integration tests of Garden.
 
 Update:
@@ -103,7 +102,7 @@ Update:
    `src/code.cloudfoundry.org/garden-shed`, has now been removed. GrootFS is now the default container
    rootfs management tool with no option to revert to Shed from versions above 1.16.8.
 
-Set your `$GOPATH` to the checked out directory, or use Direnv to do this, as
+Set your `$GOPATH` to `<garden-runc-release-dir>/src/gopath`, or use Direnv to do this, as
 below:
 
 ```bash
@@ -112,13 +111,13 @@ direnv allow
 
 ### Running the tests
 
-[Concourse CI](https://concourse.ci/) is used for running Garden-runC tests
+[Concourse CI](https://concourse-ci.org/) is used for running Garden-runC tests
 in a VM. It provides the [Fly CLI](https://github.com/concourse/fly) for
 Linux and MacOSX. Instructions for deploying a single VM Concourse using BOSH
 can be found in the [concourse-deployment repo](https://github.com/concourse/concourse-deployment)
 
 Once running, navigate to [https://192.168.100.4:8080](https://192.168.100.4:8080) in a web browser
-and download the [Fly CLI](https://concourse.ci/fly-cli.html) using the links found in
+and download the [Fly CLI](https://concourse-ci.org/download.html) using the links found in
 the bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
 
 The tests use the [Ginkgo](https://onsi.github.io/ginkgo/) BDD testing
@@ -161,7 +160,6 @@ If you'd like to run them locally, you will need at least:
 * A recent version of Go (1.8+)
 * Kernel version 4.4+
 * Running as a privileged user
-* [AUFS](https://aufs.sourceforge.net)
 * [Overlayfs](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt)
 * [xfs](http://xfs.org)
 
@@ -170,11 +168,11 @@ command for any of the components:
 
 ```bash
 # Running Garden unit tests
-cd src/code.cloudfoundry.org/garden
+cd src/garden
 ginkgo -r
 
 # Running Guardian unit tests
-cd src/code.cloudfoundry.org/guardian
+cd src/guardian
 ginkgo -r
 ```
 
@@ -185,7 +183,7 @@ It should be possible to run the unit tests on any system that satisfies golang 
 Write code in a submodule:
 
 ```bash
-cd src/code.cloudfoundry.org/guardian # for example
+cd src/guardian # for example
 git checkout master
 git pull
 # test, code, test..
