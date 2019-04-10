@@ -109,7 +109,7 @@ function prepare() {
 function test() {
   cd gr-release-develop/src/garden-integration-tests
 
-  cmd="ginkgo -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
+  cmd="ginkgo -mod vendor -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
   if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
     cmd="$basedir/gr-release-develop/ci/helpers/slowmobius $cmd"
   fi

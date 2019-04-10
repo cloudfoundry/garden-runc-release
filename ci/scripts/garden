@@ -5,5 +5,5 @@ cd "$( dirname "$0" )/../.."
 
 cd src/garden
 
-go vet ./...
-ginkgo -r -p --race --keepGoing --nodes="${GINKGO_NODES:-8}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
+go vet -mod vendor ./...
+ginkgo -mod vendor -r -p --race --keepGoing --nodes="${GINKGO_NODES:-8}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"

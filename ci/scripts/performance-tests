@@ -4,4 +4,4 @@ set -ex
 cd "$( dirname "$0" )/../.."
 
 cd src/garden-integration-tests
-ginkgo -p --nodes=4 --failOnPending performance
+ginkgo -mod vendor -p --nodes=4 --failOnPending performance
