@@ -6,6 +6,8 @@ cd "$ROOT_DIR_PATH"
 
 ./scripts/check
 
+git submodule foreach --quiet 'echo $path' | xargs git add
+
 ./scripts/commit-with-submodule-log "$@"
 
 git commit --amend --reset-author --verbose
