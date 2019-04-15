@@ -238,6 +238,10 @@ properties:
     description: "Amount of space the GC algorithm should attempt to keep free for other jobs. GC will delete  unneeded layers as needed to keep this space free (but it cannot guarantee this space remains free if more containers are created than disk space allows). -1 disables GC."
     default: 15360
 
+  grootfs.disk_reserved_space_bytes:
+    description: "Amount of disk space (in bytes) that should not be consumed by GrootFS."
+    default: 16106127360
+
   bpm.enabled:
     description: "Use bpm. NOTE: this requires a recreate when enabling for the first time, otherwise old containers may be left running. NOTE: When this property is enabled, containers won't survive a restart of the garden job. This is why garden.destroy_containers_on_start should be set to avoid leaking container state."
     default: false
