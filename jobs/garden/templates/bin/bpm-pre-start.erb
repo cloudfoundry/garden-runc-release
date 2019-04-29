@@ -8,8 +8,8 @@ source /var/vcap/packages/greenskeeper/bin/system-preparation
 permit_device_control
 
 log "running thresholder"
-/var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
-/var/vcap/packages/thresholder/bin/thresholder "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml"
+/var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
+/var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml"
 log "done"
 
 mkdir -p /var/vcap/data/garden/depot
