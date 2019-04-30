@@ -27,7 +27,7 @@ func TestGreenskeeper(t *testing.T) {
 
 var _ = BeforeSuite(func() {
 	var err error
-	gkBin, err = gexec.Build("greenskeeper/cmd/greenskeeper")
+	gkBin, err = gexec.Build("greenskeeper/cmd/greenskeeper", "-mod=vendor")
 	Expect(err).ToNot(HaveOccurred())
 	ensureVcapUserAndGroup(vcapID)
 })

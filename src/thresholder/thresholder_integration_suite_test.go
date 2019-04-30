@@ -29,7 +29,7 @@ func TestThresholder(t *testing.T) {
 
 var _ = BeforeSuite(func() {
 	var err error
-	thresholderBin, err = gexec.Build("thresholder")
+	thresholderBin, err = gexec.Build("thresholder", "-mod=vendor")
 	Expect(err).ToNot(HaveOccurred())
 
 	diskFile, err := ioutil.TempFile("", "disk-file")
