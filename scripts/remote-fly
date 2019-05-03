@@ -10,4 +10,6 @@ export LOCAL_DEV_RUN=${LOCAL_DEV_RUN:-true}
 build_yml=$1
 shift
 
+echo "Running task ${build_yml}"
+
 fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
