@@ -227,7 +227,7 @@ properties:
     description: "PEM-encoded tls client CA certificate for asset upload/download"
 
   grootfs.reserved_space_for_other_jobs_in_mb:
-    description: "Amount of space the GC algorithm should attempt to keep free for other jobs. GC will delete  unneeded layers as needed to keep this space free (but it cannot guarantee this space remains free if more containers are created than disk space allows). -1 disables GC."
+    description: "Amount of space that will be kept free for other jobs. The GrootFS store will be able to grow up to a maximum size of its disk minus this reserved space. Where the reserved space does not allow sufficient size for GrootFS to store container images and root filesystems (currently 15GB), the limit will be a soft limit, and garbage collection will attempt to keep disk space available for other jobs. -1 disables GC and allows GrootFS to potentially use the whole disk."
     default: 15360
 
   bpm.enabled:

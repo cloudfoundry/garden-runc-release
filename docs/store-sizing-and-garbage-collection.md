@@ -1,10 +1,19 @@
-# Garbage Collection
+# GrootFS Store Sizing and Garbage Collection
 
-## About
+This document details how GrootFS manages its dedicated space and how it uses garbage collection of unused container image layers to optimise its space usage.
 
-This document details how garbage collection of unused container image layers occurs inside Garden and GrootFS.
-When using the default configuration, when a container is created in garden, GrootFS is invoked to fetch all required image layers and to combine them into a single container rootfs.
-If creating a buildpack-based application, there is currently on a single layer - the Cloud Foundry stack (typically cflinuxfs2). The droplet (your application code + deps) is later copied into the rootfs.
+## Store Sizing
+
+GrootFS disk space is used to store container images and runtime data. Given it usually shares the disk with other jobs, GrootFS provides a property called `grootfs.reserved_space_for_other_jobs_in_mb` which it will use to calculate how much disk space is at its disposal.  
+
+Normally, GrootFS will limit its disk usage to the size of the disk minus the value of `grootfs.reserved_space_for_other_jobs_in_mb`, and this is a hard limit.
+
+In cases where the space left for GrootFS is very low (i.e. < 15GB), a best-effort space reservation strategy is adopted, sharing the whole disk between GrootFS and other jobs, and relying on garbage collection to minimise the store size. In other words, GrootFS will use as much of the disk as possible, but will try to preserve at least `grootfs.reserved_space_for_other_jobs_in_mb` MB for other jobs to use.
+
+## Garbage Collection
+
+When using the default configuration, when a container is created in Garden, GrootFS is invoked to fetch all required image layers and to combine them into a single container rootfs.
+If creating a buildpack-based application, there is currently on a single layer - the Cloud Foundry stack (typically cflinuxfs3). The droplet (your application code + deps) is later copied into the rootfs.
 There is work undergoing to also provide the droplet as a layer, resulting in the rootfs consisting of a 2 layer (the stack and the droplet) OCI image, but this can be ignored for now.
 If creating a docker-based application, there are potentially many more layers!
 
@@ -48,18 +57,14 @@ If the sum of these two things is >= the configured threshold, an attempt is mad
 
 ## How do I configure the garbage collection threshold?
 
-To set the GC threshold, use the `grootfs.reserved_space_for_other_jobs_in_mb` BOSH property.
+The `grootfs.reserved_space_for_other_jobs_in_mb` BOSH property is also used to set the GC threshold.
 When this property is set, the threshold is calculated as follows:
 
 ```
-threshold = sizeof(/var/vcap/data disk) in MB - (grootfs.reserved_space_for_other_jobs_in_mb)
+threshold = max(sizeof(/var/vcap/data disk) in MB - (grootfs.reserved_space_for_other_jobs_in_mb), 0)
 ```
 
-In other words, GrootFS will use as much of the disk as possible, but will try to preserve at least `grootfs.reserved_space_for_other_jobs_in_mb` MB for other jobs to use. The hope is that this makes it easier for operators to configure the threshold to a value that actually makes sense! I.e. Rather than having to correctly guess a value to explicitly set the threshold value to.
-
-**Note** If the value of `grootfs.reserved_space_for_other_jobs_in_mb` is > the size of the disk, then the threshold is set to 0, meaning that garbage collection will run on every container create.
-
-**Note** Container creates will not fail if the new container would cause GrootFS to encroach into the reserved disk space, but garbage collection will be performed after creation.
+When there is sufficient disk space for the given reserved space and the minimum GrootFS store size (15GB), the store will be limited to `disk size` - `reserved space`, and garbage collection will occur as soon as the used store space approaches this limit. For small disks, or large reserved space, where the whole disk is shared between GrootFS and other jobs, garbage collection might run on each container creation.
 
 ## What value do you recommend I set grootfs.reserved_space_for_other_jobs_in_mb to?
 
@@ -68,4 +73,4 @@ If you are not using cf-deployment, then you need to ensure you leave enough spa
 
 ## How do I disable garbage collection entirely?
 
-Garbage collection can be disabled by setting `grootfs.reserved_space_for_other_jobs_in_mb` to a value of `-1` (and ensuring that the deprecated properties are not set). 
+Garbage collection can be disabled by setting `grootfs.reserved_space_for_other_jobs_in_mb` to a value of `-1`. This also implies that the whole disk will be shared between GrootFS and the other jobs.
