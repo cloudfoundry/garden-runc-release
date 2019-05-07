@@ -1,10 +1,9 @@
 package main_test
 
 import (
-	"strconv"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gbytes"
 
 	"bytes"
 	"io"
@@ -37,11 +36,6 @@ var _ = Describe("Thresholder", func() {
 		})
 	}
 
-	resultingConfig := func() *config.Config {
-		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
-		return configFromFile(pathToGrootfsConfig)
-	}
-
 	BeforeEach(func() {
 		reservedSpace = "3000"
 		pathToDisk = diskMountPath
@@ -58,19 +52,38 @@ var _ = Describe("Thresholder", func() {
 	})
 
 	It("sets clean.threshold_bytes", func() {
-		reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
-		Expect(err).NotTo(HaveOccurred())
-		Expect(resultingConfig().Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(reservedSpaceInt)))
+		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+		config := configFromFile(pathToGrootfsConfig)
+
+		Expect(config.Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(3000)))
 	})
 
 	It("sets init.store_size_bytes", func() {
-		reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
-		Expect(err).NotTo(HaveOccurred())
-		Expect(resultingConfig().Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(reservedSpaceInt)))
+		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+		config := configFromFile(pathToGrootfsConfig)
+
+		Expect(config.Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(3000)))
 	})
 
 	It("sets create.with_clean", func() {
-		Expect(resultingConfig().Create.WithClean).To(BeTrue())
+		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+		config := configFromFile(pathToGrootfsConfig)
+
+		Expect(config.Create.WithClean).To(BeTrue())
+	})
+
+	When("the thresholder overrides reserved space to use the whole disk", func() {
+		BeforeEach(func() {
+			reservedSpace = "1000000000"
+		})
+
+		It("uses the whole disk and logs a warning", func() {
+			session := gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
+
+			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize))
+			Expect(session).To(gbytes.Say("Warning.*15GB"))
+		})
 	})
 
 	When("the store path doesn't exist", func() {

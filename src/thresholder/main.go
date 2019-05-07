@@ -31,6 +31,10 @@ func main() {
 	config.Init.StoreSizeBytes = calculator.CalculateStoreSize(reservedSpace, diskSize, MIN_STORE_SIZE)
 
 	writeConfig(config, configPath)
+
+	if config.Init.StoreSizeBytes == diskSize {
+		fmt.Printf("Warning: The GrootFS was unable to reserve space for other jobs and won't be able to enforce the requested reserved space. To avoid this, make sure GrootFS has %dGB available for its store by reducing the `grootfs.reserved_space_for_other_jobs_in_mb` or using a bigger disk.", bytesToGigabytes(MIN_STORE_SIZE))
+	}
 }
 
 func getTotalSpace(diskPath string) int64 {
@@ -81,6 +85,10 @@ func failWithMessage(failureMessage string) {
 	os.Exit(1)
 }
 
-func megabytesToBytes(bytes int64) int64 {
-	return bytes * 1024 * 1024
+func megabytesToBytes(megabytes int64) int64 {
+	return megabytes * 1024 * 1024
+}
+
+func bytesToGigabytes(bytes int64) int64 {
+	return bytes / (1024 * 1024 * 1024)
 }
