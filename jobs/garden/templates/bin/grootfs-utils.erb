@@ -21,14 +21,6 @@ unprivileged_range_mapping() {
   echo -n $range
 }
 
-volume_size() {
-  if [[ $(vcap_data_filesystem) == "xfs" ]]; then
-    echo "0"
-    return
-  fi
-  echo "$(( $(df --output=size  $store_mountpoint | sed 1d) * 1024 ))"
-}
-
 function log() {
   local msg=$1
   echo "$(date) - $msg"

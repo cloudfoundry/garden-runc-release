@@ -23,7 +23,7 @@ init_privileged_store() {
 
   log "Initialising privileged store using config at ${config_path}"
 
-  grootfs --config ${config_path} init-store --store-size-bytes "$(volume_size)"
+  grootfs --config ${config_path} init-store
 
   grootfs --config ${config_path} generate-volume-size-metadata
 }
@@ -34,7 +34,6 @@ init_unprivileged_store() {
   log "Initialising unprivileged store using config at ${config_path}"
 
   grootfs --config ${config_path} init-store \
-    --store-size-bytes "$(volume_size)" \
     --uid-mapping "$(unprivileged_root_mapping)" \
     --uid-mapping "$(unprivileged_range_mapping)" \
     --gid-mapping "$(unprivileged_root_mapping)" \

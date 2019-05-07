@@ -6,10 +6,13 @@ import (
 	"os"
 	"strconv"
 	"syscall"
+	"thresholder/calculator"
 
 	"code.cloudfoundry.org/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
 )
+
+const MIN_STORE_SIZE = 15 * 1024 * 1024 * 1024
 
 func main() {
 	if len(os.Args) != 4 {
@@ -21,27 +24,13 @@ func main() {
 	configPath := os.Args[3]
 	config := parseFileParameter(configPath, "Grootfs config parameter must be path to valid grootfs config file")
 
-	threshold := calculateThreshold(reservedSpace, getTotalSpace(diskPath))
-	if threshold >= 0 {
-		config.Create.WithClean = true
-		config.Clean.ThresholdBytes = threshold
-	}
+	diskSize := getTotalSpace(diskPath)
+
+	config.Create.WithClean = calculator.ShouldCollectGarbageOnCreate(reservedSpace)
+	config.Clean.ThresholdBytes = calculator.CalculateGCThreshold(reservedSpace, diskSize, MIN_STORE_SIZE)
+	config.Init.StoreSizeBytes = calculator.CalculateStoreSize(reservedSpace, diskSize, MIN_STORE_SIZE)
 
 	writeConfig(config, configPath)
-
-	fmt.Println(threshold)
-}
-
-func calculateThreshold(reservedSpaceInMb, diskSize int64) int64 {
-	if reservedSpaceInMb < 0 {
-		return reservedSpaceInMb
-	}
-
-	if diskSize < reservedSpaceInMb {
-		return 0
-	}
-
-	return diskSize - reservedSpaceInMb
 }
 
 func getTotalSpace(diskPath string) int64 {
@@ -78,6 +67,7 @@ func parseFileParameter(parameterValue, failureMessage string) *config.Config {
 
 func writeConfig(config *config.Config, configPath string) {
 	configBytes, err := yaml.Marshal(config)
+
 	if err != nil {
 		failWithMessage(err.Error())
 	}

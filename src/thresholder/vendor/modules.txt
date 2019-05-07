@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/grootfs v0.30.1-0.20190226170032-150d15e7dbff
+# code.cloudfoundry.org/grootfs v0.30.1-0.20190507095224-3b64dc72ba3d
 code.cloudfoundry.org/grootfs/commands/config
 # github.com/hpcloud/tail v1.0.0
 github.com/hpcloud/tail
@@ -42,11 +42,11 @@ github.com/onsi/gomega/matchers/support/goraph/node
 github.com/onsi/gomega/matchers/support/goraph/util
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
-# golang.org/x/net v0.0.0-20180906233101-161cd47e91fd
+# golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
 golang.org/x/net/html/charset
 golang.org/x/net/html
 golang.org/x/net/html/atom
-# golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e
+# golang.org/x/sys v0.0.0-20190415145633-3fd5a3612ccd
 golang.org/x/sys/unix
 # golang.org/x/text v0.3.0
 golang.org/x/text/encoding

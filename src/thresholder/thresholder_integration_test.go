@@ -43,7 +43,7 @@ var _ = Describe("Thresholder", func() {
 	}
 
 	BeforeEach(func() {
-		reservedSpace = "5000"
+		reservedSpace = "3000"
 		pathToDisk = diskMountPath
 		pathToGrootfsConfigAsset := filepath.Join("testassets", "grootfs.yml")
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
@@ -57,44 +57,20 @@ var _ = Describe("Thresholder", func() {
 		os.Remove(pathToGrootfsConfig)
 	})
 
-	When("the reserved space is less than the disk space", func() {
-		It("sets the clean.threshold_bytes value to total disk space minus reserved space", func() {
-			reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(resultingConfig().Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(reservedSpaceInt)))
-		})
-
-		It("sets the create.with_clean value to true", func() {
-			Expect(resultingConfig().Create.WithClean).To(BeTrue())
-		})
+	It("sets clean.threshold_bytes", func() {
+		reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(resultingConfig().Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(reservedSpaceInt)))
 	})
 
-	When("the reserved space is greater than the total disk space", func() {
-		BeforeEach(func() {
-			reservedSpace = strconv.Itoa(1 + int(diskSize/1024/1024))
-		})
-
-		It("sets the clean.threshold_bytes value to 0", func() {
-			Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
-		})
-
-		It("sets the clean.threshold_bytes value to 0", func() {
-			Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
-		})
+	It("sets init.store_size_bytes", func() {
+		reservedSpaceInt, err := strconv.ParseInt(reservedSpace, 10, 64)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(resultingConfig().Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(reservedSpaceInt)))
 	})
 
-	When("the reserved space property is -1", func() {
-		BeforeEach(func() {
-			reservedSpace = "-1"
-		})
-
-		It("sets the create.with_clean to false", func() {
-			Expect(resultingConfig().Create.WithClean).To(BeFalse())
-		})
-
-		It("the clean.threshold_bytes property is not set", func() {
-			Expect(resultingConfig().Clean.ThresholdBytes).To(BeZero())
-		})
+	It("sets create.with_clean", func() {
+		Expect(resultingConfig().Create.WithClean).To(BeTrue())
 	})
 
 	When("the store path doesn't exist", func() {
