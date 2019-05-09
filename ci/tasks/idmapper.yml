@@ -11,5 +11,6 @@ inputs:
   - name: gr-release-develop
 
 run:
-  path: gr-release-develop/ci/scripts/idmapper
+  path: ci/scripts/root-tests.sh
+  dir: gr-release-develop/src/idmapper
   user: root

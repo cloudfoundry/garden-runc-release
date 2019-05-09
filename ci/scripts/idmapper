@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -ex
-
-cd gr-release-develop/src/idmapper
-
-ginkgo -mod vendor -p --race -r "$@"
