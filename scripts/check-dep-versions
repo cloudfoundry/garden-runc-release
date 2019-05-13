@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [[ "$BASH_VERSINFO" -lt "4" ]]; then
+  echo "Requires bash-4.2+. Make sure you've updated from garden-dotfiles."
+  exit 1
+fi
+
+declare -A deps
+deps[guardian]="idmapper grootfs garden"
+deps[grootfs]="idmapper"
+
+ok=0
+
+for proj in "${!deps[@]}"; do
+
+  for dep in ${deps[$proj]}; do
+    pushd "src/$dep" &> /dev/null
+
+    git fetch
+    long_sha=$(git rev-parse origin/master)
+    short_sha="${long_sha:0:12}"
+
+    popd &> /dev/null
+
+    if ! grep -q "$short_sha" "src/$proj/go.mod"; then
+      echo "$dep not up to date in $proj - latest version is $long_sha"
+      ok=1
+    fi
+  done
+
+done
+
+exit $ok
