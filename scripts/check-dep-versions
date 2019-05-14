@@ -30,4 +30,24 @@ for proj in "${!deps[@]}"; do
 
 done
 
+if [[ "$ok" -eq "0" ]]; then
+
+  for proj in "${!deps[@]}"; do
+    pushd "src/$proj" &> /dev/null
+      if [ -n "$(git status --porcelain vendor)" ]; then
+        echo "$proj/vendor has local modifications"
+        ok=1
+      else
+        go mod vendor
+        if [ -n "$(git status --porcelain vendor)" ]; then
+          echo "$proj/vendor is out of sync with go.mod"
+          echo "run 'git checkout -- vendor' in src/$proj to undo changes from this script!"
+          ok=1
+        fi
+      fi
+    popd &> /dev/null
+  done
+
+fi
+
 exit $ok
