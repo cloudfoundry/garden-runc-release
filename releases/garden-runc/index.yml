@@ -127,6 +127,8 @@ builds:
     version: 0.9.0
   f5d71554-96cc-4173-5eb7-0a720a2d5f8c:
     version: 1.9.4
+  f72e9b19-6fa5-4a7b-72c6-993870f66d0b:
+    version: 1.19.2
   f904e609-ac1e-41a6-9a30-f42f33c2adf4:
     version: 1.1.1
 format-version: "2"
