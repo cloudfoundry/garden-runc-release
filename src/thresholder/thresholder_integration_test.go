@@ -22,6 +22,8 @@ var _ = Describe("Thresholder", func() {
 		thresholderCmd      *exec.Cmd
 		pathToDisk          string
 		pathToGrootfsConfig string
+		gardenGcThreshold   string
+		grootfsGcThreshold  string
 	)
 
 	exitsNonZeroWithMessage := func(message string) {
@@ -41,35 +43,64 @@ var _ = Describe("Thresholder", func() {
 		pathToDisk = diskMountPath
 		pathToGrootfsConfigAsset := filepath.Join("testassets", "grootfs.yml")
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
+		gardenGcThreshold = "-1"
+		grootfsGcThreshold = "-1"
 	})
 
 	JustBeforeEach(func() {
-		thresholderCmd = exec.Command(thresholderBin, reservedSpace, pathToDisk, pathToGrootfsConfig)
+		thresholderCmd = exec.Command(thresholderBin, reservedSpace, pathToDisk, pathToGrootfsConfig, gardenGcThreshold, grootfsGcThreshold)
 	})
 
 	AfterEach(func() {
 		os.Remove(pathToGrootfsConfig)
 	})
 
-	It("sets clean.threshold_bytes", func() {
-		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
-		config := configFromFile(pathToGrootfsConfig)
+	Context("when GC threshold is not set (i.e. is a negative value)", func() {
+		It("sets clean.threshold_bytes", func() {
+			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
 
-		Expect(config.Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(3000)))
+			Expect(config.Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(3000)))
+		})
+
+		It("sets init.store_size_bytes", func() {
+			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
+
+			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(3000)))
+		})
+
+		It("sets create.with_clean", func() {
+			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
+
+			Expect(config.Create.WithClean).To(BeTrue())
+		})
 	})
 
-	It("sets init.store_size_bytes", func() {
-		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
-		config := configFromFile(pathToGrootfsConfig)
+	Context("when GC threshold is a positive value", func() {
+		var config *config.Config
 
-		Expect(config.Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(3000)))
-	})
+		BeforeEach(func() {
+			gardenGcThreshold = "1000"
+		})
 
-	It("sets create.with_clean", func() {
-		gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
-		config := configFromFile(pathToGrootfsConfig)
+		JustBeforeEach(func() {
+			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config = configFromFile(pathToGrootfsConfig)
+		})
 
-		Expect(config.Create.WithClean).To(BeTrue())
+		It("sets clean.threshold_bytes", func() {
+			Expect(config.Clean.ThresholdBytes).To(Equal(megabytesToBytes(1000)))
+		})
+
+		It("sets init.store_size_bytes", func() {
+			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize))
+		})
+
+		It("sets create.with_clean", func() {
+			Expect(config.Create.WithClean).To(BeTrue())
+		})
 	})
 
 	When("the thresholder overrides reserved space to use the whole disk", func() {
@@ -98,10 +129,10 @@ var _ = Describe("Thresholder", func() {
 	Describe("Parameters validation", func() {
 		Context("when not all input args are provided", func() {
 			JustBeforeEach(func() {
-				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4")
+				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6")
 			})
 
-			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 3)")
+			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 5)")
 		})
 
 		Context("when reserved space parameter cannot be parsed", func() {
@@ -126,6 +157,22 @@ var _ = Describe("Thresholder", func() {
 			})
 
 			exitsNonZeroWithMessage("Grootfs config parameter must be path to valid grootfs config file")
+		})
+
+		Context("when garden gc threshold parameter cannot be parsed", func() {
+			BeforeEach(func() {
+				gardenGcThreshold = "abc"
+			})
+
+			exitsNonZeroWithMessage("Garden GC threshold parameter must be a number")
+		})
+
+		Context("when grootfs gc threshold parameter cannot be parsed", func() {
+			BeforeEach(func() {
+				grootfsGcThreshold = "abc"
+			})
+
+			exitsNonZeroWithMessage("GrootFS GC threshold parameter must be a number")
 		})
 	})
 })

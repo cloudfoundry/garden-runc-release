@@ -2,9 +2,11 @@
 
 export store_mountpoint="/var/vcap/data"
 
-vcap_data_filesystem() {
-  store="$(echo $store_mountpoint | sed 's|/|\\/|g')"
-  echo $(df --print-type | awk '/'"$store"\$'/ {print $2}')
+invoke_thresholder() {
+  log "running thresholder"
+  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
+  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
+  log "done"
 }
 
 unprivileged_root_mapping() {
@@ -21,7 +23,7 @@ unprivileged_range_mapping() {
   echo -n $range
 }
 
-function log() {
+log() {
   local msg=$1
   echo "$(date) - $msg"
 }

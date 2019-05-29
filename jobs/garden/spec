@@ -83,6 +83,10 @@ properties:
     description: "path to the rootfs to use when a container specifies no rootfs"
     default: /var/vcap/packages/busybox/busybox-1.27.2.tar
 
+  garden.graph_cleanup_threshold_in_mb:
+    description: "DEPRECATED in favour of grootfs.reserved_space_for_other_jobs_in_mb."
+    default: -1
+
   garden.port_pool.start:
     description: "An integer port number used to denote where ports should start being allocated for Net In calls. Uses the Garden default if not set."
 
@@ -216,6 +220,10 @@ properties:
   grootfs.skip_mount:
     description: "Do not mount image root filesystem automatically, just return the mount information."
     default: false
+
+  grootfs.graph_cleanup_threshold_in_mb:
+    description: "DEPRECATED in favour of grootfs.reserved_space_for_other_jobs_in_mb."
+    default: -1
 
   grootfs.tls.cert:
     description: "PEM-encoded tls certificate that can be used for client or server auth"

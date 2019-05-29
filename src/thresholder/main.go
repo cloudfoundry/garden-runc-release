@@ -15,8 +15,8 @@ import (
 const MIN_STORE_SIZE = 15 * 1024 * 1024 * 1024
 
 func main() {
-	if len(os.Args) != 4 {
-		failWithMessage("Not all input arguments provided (Expected: 3)")
+	if len(os.Args) != 6 {
+		failWithMessage("Not all input arguments provided (Expected: 5)")
 	}
 
 	reservedSpace := megabytesToBytes(parseIntParameter(os.Args[1], "Reserved space parameter must be a number"))
@@ -26,9 +26,16 @@ func main() {
 
 	diskSize := getTotalSpace(diskPath)
 
-	config.Create.WithClean = calculator.ShouldCollectGarbageOnCreate(reservedSpace)
-	config.Clean.ThresholdBytes = calculator.CalculateGCThreshold(reservedSpace, diskSize, MIN_STORE_SIZE)
-	config.Init.StoreSizeBytes = calculator.CalculateStoreSize(reservedSpace, diskSize, MIN_STORE_SIZE)
+	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[4], "Garden GC threshold parameter must be a number"))
+	grootfsGcThreshold := megabytesToBytes(parseIntParameter(os.Args[5], "GrootFS GC threshold parameter must be a number"))
+	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE)
+	if gardenGcThreshold > 0 || grootfsGcThreshold > 0 {
+		calc = calculator.NewOldFashionedCalculator(diskSize, gardenGcThreshold, grootfsGcThreshold)
+	}
+
+	config.Create.WithClean = calc.ShouldCollectGarbageOnCreate()
+	config.Clean.ThresholdBytes = calc.CalculateGCThreshold()
+	config.Init.StoreSizeBytes = calc.CalculateStoreSize()
 
 	writeConfig(config, configPath)
 

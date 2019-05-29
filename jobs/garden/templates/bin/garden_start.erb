@@ -3,6 +3,7 @@
 set -e
 
 source /var/vcap/jobs/garden/bin/envs
+source /var/vcap/jobs/garden/bin/grootfs-utils
 source /var/vcap/packages/greenskeeper/bin/system-preparation
 
 log "running greenskeeper"
@@ -16,11 +17,7 @@ log "running greenskeeper: done"
 <% if !p("bpm.enabled") %>
   exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
   exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
-
-  log "running thresholder"
-  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml"
-  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml"
-  log "done"
+  invoke_thresholder
 <% end %>
 
 log "preparing system"
