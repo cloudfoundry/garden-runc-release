@@ -23,4 +23,6 @@ processes:
       - path: <%= vol %>
         mount_only: true
         allow_executions: true
+        shared: true
+        writable: true
 <%- } } -%>

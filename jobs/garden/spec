@@ -145,7 +145,7 @@ properties:
     default: []
 
   garden.additional_bpm_volumes:
-    description: "An array of additional volumes which will be mounted into the BPM container. Note: Can only be used when deploying with BPM to mount in existing volumes."
+    description: "An array of shared writable volumes which will be mounted into the BPM container. Submounts from all mount namespaces in a volume are visible in all containers that have the volume mounted in. Note: Can only be used when deploying with BPM to mount in existing volumes."
     default: []
 
   garden.max_containers:
