@@ -1,7 +1,7 @@
 ---
 # may want to replace this with your own image
 image_resource:
-  type: docker-image
+  type: registry-image
   source:
     repository: cfgarden/garden-ci
     tag: '2.0.14'
