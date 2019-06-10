@@ -38,13 +38,14 @@ pushd "$os_report_dir" > /dev/null
   printAndCollect "Kernel Details" "uname -a" uname.log
   printAndCollect "Monit Summary" "/var/vcap/bosh/bin/monit summary" monit-summary.log
   printAndCollect "Number of Containers" "ls /var/vcap/data/garden/depot/ | wc -w" num-containers.log
-  printAndCollect "Number of Open Files" "lsof 2> /dev/null | wc -l" num-open-files.log
+  printAndCollect "Number of Open Files" "timeout -s SIGSTOP 5 lsof 2>/dev/null | wc -l" num-open-files.log
   printAndCollect "Max Number of Open Files" "cat /proc/sys/fs/file-max" file-max.log
 
   collect "Disk Usage" "df -h" df.log
-  collect "Number of Open Files" "lsof" lsof.log
+  collect "Number of Open Files" "timeout -s SIGSTOP 5 lsof" lsof.log
   collect "Process Information" "ps -eLo pid,tid,ppid,user:11,comm,state,wchan:35,lstart" ps-info.log
   collect "Process Tree" "ps aux --forest" ps-forest.log
+  massCollect "Process Data"
   collect "Kernel Messages" "dmesg -T" dmesg.log
   collect "Network Interfaces" "ifconfig" ifconfig.log
   collect "IP Tables" "iptables -L" iptables-L.log

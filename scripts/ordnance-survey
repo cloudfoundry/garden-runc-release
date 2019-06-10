@@ -22,7 +22,7 @@ hostname > hostname.log
 date > date.log
 ps aux --forest > forest.log
 ps -eLo pid,tid,ppid,user:11,comm,state,wchan:35,lstart > ps-info.log
-free -mt > free.log
+free -mth > free.log
 uname -a > uname.log
 uptime > uptime.log
 df -h > df.log
@@ -34,11 +34,23 @@ cat /proc/$(pidof gdn)/mountinfo > mountinfo.log
 /var/vcap/packages/guardian/bin/gdn -v > gdn-version.log || true
 find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g' > depot-contents.log
 ls /var/vcap/data/garden/depot/ | wc -w > num-containers.log
-lsof 2> /dev/null | wc -l > num-open-files.log
-lsof > lsof.log
+timeout -s SIGSTOP 5 lsof 2>/dev/null | wc -l > num-open-files.log
+timeout -s SIGSTOP 5 lsof > lsof.log
 xfs_db -r -c "frag -f" /var/vcap/data/grootfs/store/unprivileged.backing-store > xfs-frag.log
 cat /proc/sys/fs/file-max > file-max.log
 monit summary > monit-summary.log
+ss -amp > sockets.log
+
+for p in $(ps -eLo pid | awk 'NR>1'); do
+  mkdir -p "process-data/$p"
+  ls -lah "/proc/$p/fd" > "process-data/$p/fd" 2>/dev/null
+  ls -lah "/proc/$p/ns" > "process-data/$p/ns" 2>/dev/null
+  cat "/proc/$p/cgroup" > "process-data/$p/cgroup" 2>/dev/null
+  cat "/proc/$p/status" > "process-data/$p/status" 2>/dev/null
+  timeout -s SIGSTOP 5 cat "/proc/$p/stack" > "process-data/$p/stack" 2>/dev/null
+done
+tar czf process-data.tgz process-data && rm -rf process-data
+
 
 mkdir kernlogs && cp /var/log/kern.log* kernlogs && tar czf kernlog.tgz kernlogs && rm -rf kernlogs
 mkdir monitlogs && cp /var/vcap/monit/monit.log* monitlogs && tar czf monitlogs.tgz monitlogs && rm -rf monitlogs

@@ -23,6 +23,19 @@ collect() {
   /bin/sh -c "$2" > "$3" 2> "$3" || printFailed
 }
 
+massCollect() {
+  printSection "Collecting and Archiving $1"
+  for p in $(ps -eLo pid | awk 'NR>1'); do
+    mkdir -p "process-data/$p"
+    ls -lah "/proc/$p/fd" > "process-data/$p/fd" 2>/dev/null
+    ls -lah "/proc/$p/ns" > "process-data/$p/ns" 2>/dev/null
+    cat "/proc/$p/cgroup" > "process-data/$p/cgroup" 2>/dev/null
+    cat "/proc/$p/status" > "process-data/$p/status" 2>/dev/null
+    timeout -s SIGSTOP 5 cat "/proc/$p/stack" > "process-data/$p/stack" 2>/dev/null
+  done
+  (tar czf process-data.tgz process-data && rm -rf process-data) || printFailed
+}
+
 archive() {
   printSection "Archiving $1"
   tar czf "$3.tgz" -C "$2" "$3" || printFailed
