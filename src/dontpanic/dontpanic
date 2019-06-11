@@ -38,11 +38,11 @@ pushd "$os_report_dir" > /dev/null
   printAndCollect "Kernel Details" "uname -a" uname.log
   printAndCollect "Monit Summary" "/var/vcap/bosh/bin/monit summary" monit-summary.log
   printAndCollect "Number of Containers" "ls /var/vcap/data/garden/depot/ | wc -w" num-containers.log
-  printAndCollect "Number of Open Files" "timeout -s SIGSTOP 5 lsof 2>/dev/null | wc -l" num-open-files.log
+  printAndCollect "Number of Open Files" "lsof 2>/dev/null | wc -l" num-open-files.log
   printAndCollect "Max Number of Open Files" "cat /proc/sys/fs/file-max" file-max.log
 
   collect "Disk Usage" "df -h" df.log
-  collect "Number of Open Files" "timeout -s SIGSTOP 5 lsof" lsof.log
+  collect "Number of Open Files" "lsof" lsof.log
   collect "Process Information" "ps -eLo pid,tid,ppid,user:11,comm,state,wchan:35,lstart" ps-info.log
   collect "Process Tree" "ps aux --forest" ps-forest.log
   massCollect "Process Data"
@@ -56,10 +56,10 @@ pushd "$os_report_dir" > /dev/null
   collect "XFS Info" "xfs_info /var/vcap/data/grootfs/store/unprivileged" xfs-info.log
   collect "Slabinfo" "cat /proc/slabinfo" slabinfo.log
   collect "Meminfo" "cat /proc/meminfo" meminfo.log
-  collect "IOSTAT -xdm (slow)" "timeout -s SIGSTOP 17 iostat -x -d -m 5 3" iostat.log
-  collect "VMSTAT -s (slow)" "timeout -s SIGSTOP 2 vmstat -s" vmstat-s.log
-  collect "VMSTAT -d (slow)" "timeout -s SIGSTOP 17 vmstat -d 5 3" vmstat-d.log
-  collect "VMSTAT -a (slow)" "timeout -s SIGSTOP 17 vmstat -a 5 3" vmstat-a.log
+  collect "IOSTAT -xdm (slow)" "iostat -x -d -m 5 3" iostat.log
+  collect "VMSTAT -s (slow)" "vmstat -s" vmstat-s.log
+  collect "VMSTAT -d (slow)" "vmstat -d 5 3" vmstat-d.log
+  collect "VMSTAT -a (slow)" "vmstat -a 5 3" vmstat-a.log
 
   archive "Kernel Log" /var/log kern.log
   archive "Monit Log" /var/vcap/monit monit.log
