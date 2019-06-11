@@ -53,6 +53,13 @@ pushd "$os_report_dir" > /dev/null
   collect "Mount Table" "cat /proc/$(pidof gdn)/mountinfo" mountinfo.log
   collect "Garden Depot Contents" "find /var/vcap/data/garden/depot | sed 's|[^/]*/|- |g'" depot-contents.log
   collect "XFS Fragmentation" "xfs_db -r -c \"frag -f\" /var/vcap/data/grootfs/store/unprivileged.backing-store" xfs-frag.log
+  collect "XFS Info" "xfs_info /var/vcap/data/grootfs/store/unprivileged" xfs-info.log
+  collect "Slabinfo" "cat /proc/slabinfo" slabinfo.log
+  collect "Meminfo" "cat /proc/meminfo" meminfo.log
+  collect "IOSTAT -xdm (slow)" "timeout -s SIGSTOP 17 iostat -x -d -m 5 3" iostat.log
+  collect "VMSTAT -s (slow)" "timeout -s SIGSTOP 2 vmstat -s" vmstat-s.log
+  collect "VMSTAT -d (slow)" "timeout -s SIGSTOP 17 vmstat -d 5 3" vmstat-d.log
+  collect "VMSTAT -a (slow)" "timeout -s SIGSTOP 17 vmstat -a 5 3" vmstat-a.log
 
   archive "Kernel Log" /var/log kern.log
   archive "Monit Log" /var/vcap/monit monit.log

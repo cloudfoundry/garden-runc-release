@@ -16,6 +16,7 @@ tmp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)
 os_report_dir="${tmp_dir}/os-report"
 mkdir -p "$os_report_dir"
 
+echo "Running ordnance-survey. This may take up to 2 minutes do not interrupt."
 (
 cd $os_report_dir
 hostname > hostname.log
@@ -37,9 +38,16 @@ ls /var/vcap/data/garden/depot/ | wc -w > num-containers.log
 timeout -s SIGSTOP 5 lsof 2>/dev/null | wc -l > num-open-files.log
 timeout -s SIGSTOP 5 lsof > lsof.log
 xfs_db -r -c "frag -f" /var/vcap/data/grootfs/store/unprivileged.backing-store > xfs-frag.log
+xfs_info /var/vcap/data/grootfs/store/unprivileged > xfs-info.log
 cat /proc/sys/fs/file-max > file-max.log
 monit summary > monit-summary.log
 ss -amp > sockets.log
+timeout -s SIGSTOP 17 iostat -x -d -m 5 3 > iostat.log
+cat /proc/slabinfo > slabinfo.log
+cat /proc/meminfo > meminfo.log
+timeout -s SIGSTOP 2 vmstat -s > vmstat-s.log
+timeout -s SIGSTOP 17 vmstat -d 5 3 > vmstat-d.log
+timeout -s SIGSTOP 17 vmstat -a 5 3 > vmstat-a.log
 
 for p in $(ps -eLo pid | awk 'NR>1'); do
   mkdir -p "process-data/$p"
