@@ -5,6 +5,7 @@ ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
 cd "$ROOT_DIR_PATH"
 
 ./scripts/check
+./scripts/check-vendor-is-up-to-date
 
 git submodule foreach --quiet 'echo $path' | xargs git add
 

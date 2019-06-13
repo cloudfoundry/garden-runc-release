@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+require 'logger'
+
+PROJECTS = [
+  "garden",
+  "guardian",
+  "grootfs",
+  "idmapper",
+  "netplugin-shim",
+]
+
+LOGGER = Logger.new(STDERR)
+LOGGER.level = ARGV[0] == "-v" ? Logger::DEBUG : Logger::WARN
+
+def with_git_mod_vendor(&block)
+  begin
+    in_each_project("go mod vendor")
+    block.call
+  rescue => e
+    LOGGER.error "mod vendor failed: #{e}"
+  ensure
+    in_each_project("git checkout vendor")
+  end
+end
+
+def with_stashed_projects(&block)
+  begin
+    in_each_project("git stash --include-untracked")
+    block.call
+  rescue => e
+    LOGGER.error "git stash failed: #{e}"
+  ensure
+    in_each_project("git stash pop || true")
+  end
+end
+
+def in_each_project(cmd)
+  PROJECTS.each do |project|
+    exec("cd src/#{project}; #{cmd}")
+  end
+end
+
+def check_vendor_is_unchanged
+  projects_with_changed_vendor = []
+  PROJECTS.each do |project|
+    projects_with_changed_vendor << project unless has_changes_in_vendor?(project)
+  end
+  projects_with_changed_vendor
+end
+
+def has_changes_in_vendor?(project)
+  exec("cd src/#{project}; git status --porcelain vendor").empty?
+end
+
+def exec(cmd)
+  stdout, stderr, status = Open3.capture3(cmd)
+  LOGGER.debug "command: '#{cmd}', exitcode: #{status}, stdout: '#{stdout}', stderr: '#{stderr}'"
+  raise "command failed: #{stderr}" unless status.success?
+  return stdout
+end
+
+with_stashed_projects do
+  with_git_mod_vendor do
+    projects_with_changed_vendor = check_vendor_is_unchanged
+    unless projects_with_changed_vendor.empty?
+      puts "The following projects have an out of date vendor folder. Considering running 'go mod vendor' and re-running your tests"
+      projects_with_changed_vendor.each { |p| puts "* #{p}" }
+      exit(1)
+    end
+  end
+end
