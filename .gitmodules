@@ -62,3 +62,6 @@
 	path = src/netplugin-shim
 	url = https://github.com/cloudfoundry/netplugin-shim
 	branch = master
+[submodule "src/dontpanic"]
+	path = src/dontpanic
+	url = https://github.com/cloudfoundry/dontpanic

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+# shellcheck source=../../src/build/bosh-go.bash
+source build/bosh-go.bash
+
+cd ./dontpanic
+
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dontpanic"
+

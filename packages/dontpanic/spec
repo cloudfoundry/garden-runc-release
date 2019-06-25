@@ -1,0 +1,8 @@
+---
+name: dontpanic
+
+dependencies: [golang]
+
+files:
+  - dontpanic/**/*
+  - 'build/bosh-go.bash'
