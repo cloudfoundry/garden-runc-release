@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+args=$@
+[ "$args" == "" ] && args="-r"
+
+grr_base=$PWD/gr-release-develop
+cd "$grr_base"/src/dontpanic
+ginkgo -mod vendor -p -nodes 5 -race -skipPackage integration $args
