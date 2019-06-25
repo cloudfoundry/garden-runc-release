@@ -31,6 +31,7 @@ CF_ENV=${CF_ENV:-local}
 dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=9
 
 cfbench \
+  -stack "cflinuxfs3" \
   -action "$CF_ACTION" \
   -instances "$INSTANCES" \
   -tag "$CF_ENV" \
