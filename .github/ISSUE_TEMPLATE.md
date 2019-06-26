@@ -31,7 +31,9 @@ The garden log files are found in `/var/vcap/sys/log/garden/` on the VM in which
 
 Version >= 1.17.2: Run `/var/vcap/packages/dontpanic/bin/dontpanic` (from within the VM running the Garden job).
 
-Version <= 1.17.1: Run ordnance survey (from within the VM running the Garden job) using the following command: `curl bit.ly/garden-ordnance-survey -sSfL | bash`.
+Version <= 1.17.1: You can get the latest version of `dontpanic` from [its repo](https://github.com/cloudfoundry/dontpanic)  eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/v1.0/dontpanic && chmod +x ./dontpanic && ./dontpanic`.
+
+`dontpanic` must be run as root from outside any BPM container.
 
 Please provide us with the resulting compressed tar (NOTE: GitHub does not support attaching files larger than 10M).
 -->
