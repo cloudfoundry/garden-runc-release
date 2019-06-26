@@ -216,7 +216,7 @@ the host, not from within the BPM container._
 If running an earlier version of Garden, you can download the latest release of `dontpanic` from [its repo here](https://github.com/cloudfoundry/dontpanic/releases) and run it as root
 from the VM running the Garden job.
 
-eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/1.0/dontpanic && chmod +x ./dontpanic && ./dontpanic`.
+eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/v1.0/dontpanic && chmod +x ./dontpanic && ./dontpanic`.
 
 _N.B. If your BOSH environment has BPM enabled for Garden, `dontpanic` should still be run from
 the host, not from within the BPM container._

@@ -56,7 +56,7 @@ GitHub does not support attaching files larger than 10M, so in that case you sho
 Version => v1.17.2: Run `dontpanic` as root (found at `/var/vcap/packages/dontpanic/bin/dontpanic` of the VM running the Garden job).
 
 Version <= v1.17.1: You can download the latest release of `dontpanic` from [its repo here](https://github.com/cloudfoundry/dontpanic/releases) and run it as root
-from the VM running the Garden job eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/1.0/dontpanic && chmod +x ./dontpanic && ./dontpanic`.
+from the VM running the Garden job eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/v1.0/dontpanic && chmod +x ./dontpanic && ./dontpanic`.
 
 _N.B. If your BOSH environment has BPM enabled for Garden, `dontpanic` should still be run as root from the host, not from within the BPM container._
 
