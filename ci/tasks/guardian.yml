@@ -19,6 +19,7 @@ params:
   GINKGO_NODES:
   CONTAINERD_ENABLED:
   LOCAL_DEV_RUN:
+  PATCH_RUNC:
 
 run:
   path: gr-release-develop/ci/scripts/guardian

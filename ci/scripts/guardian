@@ -17,6 +17,15 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH="${grr_base}/src/gopath"
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
+if [ -n "${PATCH_RUNC:-}" ]; then
+  (
+  # Using patch instead of `git apply` to keep this path working with `fly
+  # execute`, which does not preserve the `.git` dir.
+  cd "${grr_base}/src/gopath/src/github.com/opencontainers/runc"
+  patch < "${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
+  )
+fi
+
 mkdir -p "${GOPATH}/bin"
 build_runc "$grr_base" "${GOPATH}/bin"
 build_grootfs "$grr_base" "${GOPATH}/bin"
