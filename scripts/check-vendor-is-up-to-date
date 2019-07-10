@@ -9,7 +9,6 @@ PROJECTS = [
   "grootfs",
   "idmapper",
   "netplugin-shim",
-  "thresholder",
 ]
 
 LOGGER = Logger.new(STDERR)
