@@ -4,5 +4,5 @@ name: pkg-config
 dependencies: []
 
 files:
-- pkg-config/pkg-config-0.29.tar.gz
+- pkg-config/pkg-config-0.29.2.tar.gz
 
