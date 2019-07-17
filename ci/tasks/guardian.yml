@@ -20,6 +20,7 @@ params:
   CONTAINERD_ENABLED:
   LOCAL_DEV_RUN:
   PATCH_RUNC:
+  CONTAINERD_FOR_PROCESSES_ENABLED:
 
 run:
   path: gr-release-develop/ci/scripts/guardian

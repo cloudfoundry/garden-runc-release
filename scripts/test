@@ -48,6 +48,7 @@ run_tests_in_serial() {
   ./scripts/remote-fly ci/tasks/garden.yml
   ./scripts/remote-fly ci/tasks/guardian.yml
   CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
+  CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
   ./scripts/remote-fly ci/tasks/guardian-windows.yml
   ./scripts/remote-fly ci/tasks/gdn-linux.yml
   DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml
@@ -63,6 +64,7 @@ run_tests_in_parallel() {
   tmux split-window -v -p 66 "CONTAINERD_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
   tmux split-window -v  "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian-windows.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian-windows.yml')\""
   tmux select-pane -L
+  tmux split-window -h -p 66 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
   tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/gdn-linux.yml')\""
   tmux split-window -v  "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml; bash --init-file <(echo 'history -s DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml')\""
   tmux select-pane -t 0
