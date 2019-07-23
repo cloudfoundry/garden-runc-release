@@ -9,7 +9,8 @@ set -ex
 # shellcheck source=../../src/build/runc.bash
 source "$( dirname "$0" )/../../src/build/runc.bash"
 
-export GOPATH=$PWD/gr-release-develop/src/gopath
+grr_base=$PWD/gr-release-develop
+export GOPATH=$grr_base/src/gopath
 export PATH=$PATH:$GOPATH/bin
 
 basedir=$PWD
@@ -48,6 +49,14 @@ function build() {
         go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
       )
 
+      if [ -n "${PATCH_RUNC:-}" ]; then
+        (
+        # Using patch instead of `git apply` to keep this path working with `fly
+        # execute`, which does not preserve the `.git` dir.
+        cd "${grr_base}/src/gopath/src/github.com/opencontainers/runc"
+        patch < "${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
+        )
+      fi
       build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
       pushd src/guardian/rundmc/nstar
