@@ -74,6 +74,9 @@ log_level: $LOG_LEVEL
 create:
   with_clean: false
   without_mount: false
+
+init:
+  store_size_bytes: 51398832128
 EOF
 
   cat <<EOF > /opt/grootfs/grootfs-privileged.yml
@@ -87,6 +90,9 @@ log_level: $LOG_LEVEL
 create:
   with_clean: false
   without_mount: false
+
+init:
+  store_size_bytes: 51398832128
 EOF
 }
 

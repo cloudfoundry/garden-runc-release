@@ -9,6 +9,9 @@ set -ex
 # shellcheck source=../../src/build/runc.bash
 source "$( dirname "$0" )/../../src/build/runc.bash"
 
+# shellcheck source=../helpers/gats-utils
+source "$( dirname "$0" )/../helpers/gats-utils"
+
 grr_base=$PWD/gr-release-develop
 export GOPATH=$grr_base/src/gopath
 export PATH=$PATH:$GOPATH/bin
@@ -98,6 +101,9 @@ function prepare() {
   permit_device_control
   create_loop_devices 256
 
+  mkdir -p /opt/grootfs
+  write_groot_config_file
+
   mkdir -p /var/lib/grootfs
 
   binary/gdn \
@@ -109,6 +115,10 @@ function prepare() {
     --debug-bind-port=17013 \
     --network-pool=10.254.1.0/24 \
     --log-level="${LOG_LEVEL}" \
+    --image-plugin-extra-arg=--config \
+    --image-plugin-extra-arg=/opt/grootfs/grootfs.yml \
+    --privileged-image-plugin-extra-arg=--config \
+    --privileged-image-plugin-extra-arg=/opt/grootfs/grootfs-privileged.yml \
     --default-rootfs=/opt/warden/rootfs.tar &
 
   sleep 5
