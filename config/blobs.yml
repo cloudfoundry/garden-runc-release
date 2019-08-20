@@ -14,22 +14,14 @@ busybox/busybox-1.27.2.tar.gz:
   size: 692898
   object_id: ed3e7c60-5c94-4359-6c7a-a56eeeffb1de
   sha: 728ef13c40e4a091b22a657a22396b3d985af346
-golang/go1.12.5.linux-amd64.tar.gz:
-  size: 127938445
-  object_id: 0c98b1e5-b557-419e-4c9c-7d41f0fbdf63
-  sha: sha256:aea86e3c73495f205929cfebba0d63f1382c8ac59be081b6351681415f4063cf
-golang/go1.12.5.windows-amd64.zip:
-  size: 141300257
-  object_id: 8013d93a-39ac-4522-5eee-5e2f1ad01ec3
-  sha: sha256:ccb694279aab39fe0e70629261f13b0307ee40d2d5e1138ed94738023ab04baa
-golang/go1.12.6.linux-amd64.tar.gz:
-  size: 127957980
-  object_id: ae8f7b49-0964-4219-4bf2-aafd9acb544a
-  sha: sha256:dbcf71a3c1ea53b8d54ef1b48c85a39a6c9a935d01fc8291ff2b92028e59913c
-golang/go1.12.6.windows-amd64.zip:
-  size: 141328471
-  object_id: dd3342e8-4251-4b15-42c5-49d81b663e0b
-  sha: sha256:9badf7bbc0ed55f2db967434b033a2cddf2e46dbdc5bb8560d8fde019e8e19d3
+golang/go1.12.9.linux-amd64.tar.gz:
+  size: 127961523
+  object_id: 3b6888be-0e61-4561-70b4-422873b18563
+  sha: sha256:ac2a6efcc1f5ec8bdc0db0a988bb1d301d64b6d61b7e8d9e42f662fbb75a2b9b
+golang/go1.12.9.windows-amd64.zip:
+  size: 141342263
+  object_id: b509b9c9-5af2-4034-7d4d-4bd3ed94a796
+  sha: sha256:ec7550b32ff080b17060b9d4fde7bee94d9cf3c42e846e3a62fe4a3047ec79e3
 iptables/iptables-1.6.2.tar.bz2:
   size: 639785
   object_id: cafb6233-5827-4b55-4f1d-0da60ca30345
