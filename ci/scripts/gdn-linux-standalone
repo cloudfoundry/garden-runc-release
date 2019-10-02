@@ -121,8 +121,7 @@ function prepare() {
     --privileged-image-plugin-extra-arg=/opt/grootfs/grootfs-privileged.yml \
     --default-rootfs=/opt/warden/rootfs.tar &
 
-  sleep 5
-  curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
+  wait_for_gdn_server
 }
 
 function test() {

@@ -36,7 +36,7 @@ function prepare() {
   setup_groot_stores
   start_gdn_server
 
-  curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping"
+  wait_for_gdn_server
 }
 
 function test() {

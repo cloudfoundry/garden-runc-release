@@ -142,6 +142,10 @@ start_gdn_server() {
     --network-pool=10.254.1.0/24 \
     --log-level=$LOG_LEVEL \
     --default-rootfs=/opt/warden/rootfs.tar &
+}
 
-  sleep 5
+wait_for_gdn_server() {
+  for i in {1..5}; do
+    curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping" && break || sleep 5
+  done
 }
