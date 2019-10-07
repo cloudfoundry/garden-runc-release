@@ -1,11 +1,9 @@
 #!/bin/bash
 
-for mod in $(git status -s | grep ? |tr -d '?'); do
-  pushd $mod
-    git clean -ffd
-    git checkout .
+for mod in garden guardian grootfs idmapper netplugin-shim; do
+  pushd "src/$mod"
     git checkout master
-    git pull --rebase
+    go mod tidy
     go mod vendor
     git add .
     git commit -m "go mod vendor"
