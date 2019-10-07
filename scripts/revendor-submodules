@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for mod in $(git status -s | grep ? |tr -d '?'); do
+  pushd $mod
+    git clean -ffd
+    git checkout .
+    git checkout master
+    git pull --rebase
+    go mod vendor
+    git add .
+    git commit -m "go mod vendor"
+  popd
+done
