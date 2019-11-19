@@ -27,6 +27,9 @@ function build() {
   build_nstar "$grreleasedevelopdir"
   build_grootfs "$grreleasedevelopdir"
   build_gdn "$grreleasedevelopdir"
+  if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
+    build_containerd "$grreleasedevelopdir"
+  fi
   build_idmapper_binaries "$grreleasedevelopdir"
 }
 
@@ -34,6 +37,10 @@ function prepare() {
   setup_dirs
   write_groot_config_file
   setup_groot_stores
+  if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
+    write_containerd_config_file
+    start_containerd
+  fi
   start_gdn_server
 
   wait_for_gdn_server

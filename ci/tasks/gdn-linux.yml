@@ -17,6 +17,7 @@ params:
   LOG_LEVEL: error
   SLOW_MOBIUS_TIME_LIMIT_SECONDS:
   PATCH_RUNC:
+  CONTAINERD_ENABLED:
 
 run:
   path: gr-release-develop/ci/scripts/gdn-linux

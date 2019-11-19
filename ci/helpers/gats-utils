@@ -37,6 +37,18 @@ build_gdn() {
   )
 }
 
+build_containerd() {
+  local grreleasedevelopdir="$1"
+  local target="${GOPATH}/bin"
+
+  (
+    cd "$grreleasedevelopdir"/src/gopath/src/github.com/containerd/containerd
+
+    BUILDTAGS=no_btrfs make
+    mv bin/* "${target}"
+  )
+}
+
 build_idmapper_binaries() {
   local grreleasedevelopdir="$1"
 
@@ -60,6 +72,7 @@ setup_dirs() {
   mkdir $tmpdir/snapshots
   mkdir /opt/grootfs
   mkdir -p /var/lib/grootfs/store /var/lib/grootfs-privileged/store
+  mkdir /opt/containerd
 }
 
 write_groot_config_file() {
@@ -115,7 +128,52 @@ setup_groot_stores() {
     --store-size-bytes 2147483648
 }
 
+
+write_containerd_config_file() {
+  cat <<EOF > /opt/containerd/containerd.yml
+root = "/opt/containerd/root"
+state = "/opt/containerd/state"
+subreaper = true
+oom_score = -999
+disabled_plugins = [
+  "aufs",
+  "devmapper",
+  "overlayfs",
+  "zfs",
+  "walking",
+  "scheduler",
+  "diff-service",
+  "images-service",
+  "namespaces-service",
+  "snapshots-service",
+  "diff",
+  "healthcheck",
+  "images",
+  "namespaces",
+  "snapshots",
+  "version",
+  "cri",
+  "leases",
+  "leases-service",
+  "restart",
+]
+
+[grpc]
+address = "/opt/containerd/containerd.sock"
+
+EOF
+}
+
+start_containerd() {
+  "${GOPATH}/bin/containerd" -c /opt/containerd/containerd.yml > /opt/containerd/containerd.log 2>&1 &
+}
+
 start_gdn_server() {
+  local containerdsocket=""
+	if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
+			containerdsocket=/opt/containerd/containerd.sock
+	fi
+
   "${GOPATH}/bin/gdn" \
     server \
     --init-bin=$GOPATH/bin/init \
@@ -130,6 +188,7 @@ start_gdn_server() {
     --privileged-image-plugin=$GOPATH/bin/grootfs \
     --privileged-image-plugin-extra-arg=--config \
     --privileged-image-plugin-extra-arg=/opt/grootfs/grootfs-privileged.yml \
+    --containerd-socket="${containerdsocket}" \
     --uid-map-start=1 \
     --uid-map-length=4294967293 \
     --gid-map-start=1 \
