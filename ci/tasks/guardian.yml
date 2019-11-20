@@ -21,6 +21,7 @@ params:
   LOCAL_DEV_RUN:
   PATCH_RUNC:
   CONTAINERD_FOR_PROCESSES_ENABLED:
+  CPU_THROTTLING_ENABLED:
 
 run:
   path: gr-release-develop/ci/scripts/guardian
