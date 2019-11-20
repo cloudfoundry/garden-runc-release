@@ -1,0 +1,190 @@
+name: garden-runc
+version: 1.19.9
+commit_hash: 88256db
+uncommitted_changes: true
+jobs:
+- name: containerd
+  version: f5f11dfe7cdaef7a93c43d1927b716f99e118f58b86973e72f2f3d752a24cd5f
+  fingerprint: f5f11dfe7cdaef7a93c43d1927b716f99e118f58b86973e72f2f3d752a24cd5f
+  sha1: sha256:7e9e64be2e3199ededa8e229b7c638fd545cb4a5619ab950e5e8dd343ca31110
+- name: garden
+  version: 5f2f61446b9ebb797846df6ea08fead8bfe174cd90aacdab27dbc156d18ad0e4
+  fingerprint: 5f2f61446b9ebb797846df6ea08fead8bfe174cd90aacdab27dbc156d18ad0e4
+  sha1: sha256:e059757716397b06bcc77158f5cacfdd279d199d3c74de5e7ffac6d3cfc8e9a9
+- name: garden-windows
+  version: 95c331801e24ab5bc3ea23096e2ad859a92f3dc2997595984ea30d059cb727d3
+  fingerprint: 95c331801e24ab5bc3ea23096e2ad859a92f3dc2997595984ea30d059cb727d3
+  sha1: sha256:c60dad3cbb1feb01f200fd75d17931fd6c6fa2a1b406c492213f5ec9ee4b895a
+- name: netplugin-server
+  version: 984c4150dbf15dc0ad48df1f7401ae17323f943a908e7f1c2f61e83809990ae4
+  fingerprint: 984c4150dbf15dc0ad48df1f7401ae17323f943a908e7f1c2f61e83809990ae4
+  sha1: sha256:8c5e3b67229b523767d301c686cb1a5061ceee95402f48e7879f66cbf2a6804f
+packages:
+- name: apparmor
+  version: 01e813bbfdad58b49d011653221fd4e308d5f6d97883e309171e042f060c75b8
+  fingerprint: 01e813bbfdad58b49d011653221fd4e308d5f6d97883e309171e042f060c75b8
+  sha1: sha256:cd58841306416013ab51b4a4ee0ae0fe2136a32fa84f4627d1dc063b95c85030
+  dependencies: []
+- name: autoconf
+  version: 72f6018683a42677273491968274851f48195dd88c45dd854da29ebc7bcf3c80
+  fingerprint: 72f6018683a42677273491968274851f48195dd88c45dd854da29ebc7bcf3c80
+  sha1: sha256:e1857d7e2b2c9681fd1e87670d7b9849e1b92bf08cd2aff3c65786b26b355cea
+  dependencies: []
+- name: automake
+  version: 459ee85a92f06b697aa729c05bfff2085dbd39556eb1e144d6d2c96ac4e182a1
+  fingerprint: 459ee85a92f06b697aa729c05bfff2085dbd39556eb1e144d6d2c96ac4e182a1
+  sha1: sha256:6b91a450dae4978b3a0fa7f2de754b6420069fdefdd34065c1fcd53890aa7a1f
+  dependencies:
+  - autoconf
+- name: busybox
+  version: 549ea5ccc88f92f8df15e4d46e40495627ed42c54ffd04ea5ad509611320651c
+  fingerprint: 549ea5ccc88f92f8df15e4d46e40495627ed42c54ffd04ea5ad509611320651c
+  sha1: sha256:37486da4435980f433695795c043b0df3dd917322cf8d371e1faa933f93c708b
+  dependencies: []
+- name: containerd
+  version: 79388dec8721e0ee786b6108635dddec422f55bc8ef43629216d03d018ce5ae7
+  fingerprint: 79388dec8721e0ee786b6108635dddec422f55bc8ef43629216d03d018ce5ae7
+  sha1: sha256:21f5bb0cea041bd20a408f4cddcf383938cbab872882378dfe69e71f7676e1ac
+  dependencies:
+  - golang
+- name: dontpanic
+  version: f5a531645cdb06b9b76bcd72084cd5b6b5f8fa2f3ef1145086baf36fc12b7ef8
+  fingerprint: f5a531645cdb06b9b76bcd72084cd5b6b5f8fa2f3ef1145086baf36fc12b7ef8
+  sha1: sha256:0ea6fc54acd0eff4ed53013cc481c3cfc6b62c2ce5c629c0c190852ef977c48a
+  dependencies:
+  - golang
+- name: garden-idmapper
+  version: 8a01714f4a69de89210ba89814ed79d1d8120f2bf8205484f5009f7332c5c8ef
+  fingerprint: 8a01714f4a69de89210ba89814ed79d1d8120f2bf8205484f5009f7332c5c8ef
+  sha1: sha256:4b7dbd3e2e9f83ed4aede5cf56c84ca49d286d3f025eda73577297a5a6837408
+  dependencies:
+  - golang
+- name: golang
+  version: 4fa395823a5ff6991faacf15ff2d96f9df26649b3d3df0eb3cb1689b3d77c17d
+  fingerprint: 4fa395823a5ff6991faacf15ff2d96f9df26649b3d3df0eb3cb1689b3d77c17d
+  sha1: sha256:5f666386f1fe6d45017013aa307ad3907927beb411a3f8557de2cd48617be73d
+  dependencies: []
+- name: golang-windows
+  version: 0bff1fdefdb7d74649fde2feb11f73c5c8939380863ac797f217e278e71b77c7
+  fingerprint: 0bff1fdefdb7d74649fde2feb11f73c5c8939380863ac797f217e278e71b77c7
+  sha1: sha256:ac4a563c84a475326cf59257f254c18cf230ebdac4e21569910ded83862ec5c3
+  dependencies: []
+- name: greenskeeper
+  version: c3bacbd2942d88780e0d7ddaf680f183086095d7730d6394145f1732312eeb1e
+  fingerprint: c3bacbd2942d88780e0d7ddaf680f183086095d7730d6394145f1732312eeb1e
+  sha1: sha256:f6341fd16ab593733b1830cee4d7917db525648ba643a9467faa2ca21259a287
+  dependencies:
+  - golang
+- name: grootfs
+  version: bcd18cdbb243e5c32d535b6921f97afabace761327c54603d15af36a1da63187
+  fingerprint: bcd18cdbb243e5c32d535b6921f97afabace761327c54603d15af36a1da63187
+  sha1: sha256:58266d92e852433011ab15b1d4a063a12041731f5c6d6dbb72939263931775f4
+  dependencies:
+  - golang
+- name: guardian
+  version: 66a9594456202772eff075cc0f6d5606abd98d8bc2fb6a3c87a0cccc3a0c80ba
+  fingerprint: 66a9594456202772eff075cc0f6d5606abd98d8bc2fb6a3c87a0cccc3a0c80ba
+  sha1: sha256:4d1d500ce1d4627db41d3e52fec222deda14a87560c636418b138011f066e204
+  dependencies:
+  - golang
+- name: guardian-windows
+  version: 021dccf2b2226201ce429dd7c35bb82a7a0ad14d96ed808ea0c8a1a5ff2a305e
+  fingerprint: 021dccf2b2226201ce429dd7c35bb82a7a0ad14d96ed808ea0c8a1a5ff2a305e
+  sha1: sha256:b318ed14e6275cd6424f81ce8a9ee149212c1cf95b1314ece5962da50195d772
+  dependencies:
+  - golang-windows
+- name: iptables
+  version: a18e112e3c62ec193e03f328626908ad61a2cf86a032380b4305a67956be941c
+  fingerprint: a18e112e3c62ec193e03f328626908ad61a2cf86a032380b4305a67956be941c
+  sha1: sha256:436d2dd39f5a743e3db01b0b73e42bd62707c36c6800e5e7df6601a13bc33b9a
+  dependencies:
+  - pkg-config
+- name: libseccomp
+  version: 5761014f014d57ba48ccff9e88185f8afa4152676d7936d5d8e8d9efc1e2adc7
+  fingerprint: 5761014f014d57ba48ccff9e88185f8afa4152676d7936d5d8e8d9efc1e2adc7
+  sha1: sha256:49ecb8bb5319ff2047b8668566aa4c710e6c4af0757cfda2d435835983412d97
+  dependencies: []
+- name: libtool
+  version: eb05d480577a53500bac5d5a54fed6a29cbcc2b6aed65f8a6cd5351cd1e1900a
+  fingerprint: eb05d480577a53500bac5d5a54fed6a29cbcc2b6aed65f8a6cd5351cd1e1900a
+  sha1: sha256:783f8951af9002b97e5a5351fae24f117b7c8f01cbd34d41345df867d1c14a17
+  dependencies: []
+- name: lzo
+  version: 7e1e471f81c73a7aeb4f0b56d02d6b0a554d05baf6e02107b435b12d9f88f450
+  fingerprint: 7e1e471f81c73a7aeb4f0b56d02d6b0a554d05baf6e02107b435b12d9f88f450
+  sha1: sha256:46cc9d2ba7bf2731d857ac95c931697ac61ef63f3c8a6c83f647cd5e4131429f
+  dependencies:
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+- name: netplugin-shim
+  version: 9aa9b256f84342dd2f63ec417f1766cce0a11bf00894e1b005fdf58977482cb2
+  fingerprint: 9aa9b256f84342dd2f63ec417f1766cce0a11bf00894e1b005fdf58977482cb2
+  sha1: sha256:bccf6e677c27fac9ef3c213c667bade8514b664b6a0a4813a57ab5e080920dab
+  dependencies:
+  - golang
+- name: pkg-config
+  version: d22b498c31e81a330284962fa5a9a439961d2d4698856ac24da64e62992c3b18
+  fingerprint: d22b498c31e81a330284962fa5a9a439961d2d4698856ac24da64e62992c3b18
+  sha1: sha256:1d283ebed584a9eda1a951f7bbff7d1b6cd20fb0d813381c6b9481c96035685d
+  dependencies: []
+- name: runc
+  version: 9bd8ed081b479bf7a64353e6022a31ade4634a07a7005624b0f33cf4dd6893f5
+  fingerprint: 9bd8ed081b479bf7a64353e6022a31ade4634a07a7005624b0f33cf4dd6893f5
+  sha1: sha256:b950a6cc16d6395a6806bca6d96e3e86a49ba36caf1aa38d05d38fd561330fe7
+  dependencies:
+  - libseccomp
+  - golang
+  - apparmor
+  - pkg-config
+- name: tar
+  version: 49f95c03d4d9ccb283d8e9473c941d654a51660ae9cc40a7f4f2c98d3a0652da
+  fingerprint: 49f95c03d4d9ccb283d8e9473c941d654a51660ae9cc40a7f4f2c98d3a0652da
+  sha1: sha256:3a40e11406af879d45fb4ff5ce681fcdbaef5f7a92e2c3b3ddb9211e10f5fda9
+  dependencies: []
+- name: thresholder
+  version: 7c735962be81e0280f3c96f406db356362b68035a33123f3c7717e3301a21d8a
+  fingerprint: 7c735962be81e0280f3c96f406db356362b68035a33123f3c7717e3301a21d8a
+  sha1: sha256:45554a81b4d7cb213470f64c8191ddd4c5f823f51c2501d5605a010e19f2b5ff
+  dependencies:
+  - golang
+- name: tini
+  version: cd19db4c74ad08902ca63bea2a78ff60fdf1007abcd6bf2bf34b895282a45ac9
+  fingerprint: cd19db4c74ad08902ca63bea2a78ff60fdf1007abcd6bf2bf34b895282a45ac9
+  sha1: sha256:632cf61d39583fbb62cc7c45886cff8c58deea8ec8c223973d7cd8442d4a1316
+  dependencies: []
+- name: util-linux
+  version: 6310f68e8294c980de62481bced2fc915f449e3a2cc2d13a7a2a49c4a612d825
+  fingerprint: 6310f68e8294c980de62481bced2fc915f449e3a2cc2d13a7a2a49c4a612d825
+  sha1: sha256:6f22b3ddfd4dd07f2f532ea8b2e055e07009e452378d897594f2c26eed7aeeed
+  dependencies:
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+- name: xfs-progs
+  version: b8baad87ddfdd32b428001fbdf4b2fd4e1bb9a28a4aa196782d3e5f92650d546
+  fingerprint: b8baad87ddfdd32b428001fbdf4b2fd4e1bb9a28a4aa196782d3e5f92650d546
+  sha1: sha256:66e15d92c150fb7f97f3ebe82953e0cbf0eb2af759a947c13b2df37e3c4a5a14
+  dependencies:
+  - autoconf
+  - automake
+  - libtool
+  - lzo
+  - pkg-config
+  - util-linux
+  - zlib
+- name: zlib
+  version: 2c4ee9fde36d42651fdd4b22edcb81e71dfaf6f4e646bca32764cbe24fb8617d
+  fingerprint: 2c4ee9fde36d42651fdd4b22edcb81e71dfaf6f4e646bca32764cbe24fb8617d
+  sha1: sha256:a6fc652fa662e70766b365825d6fc9a3a1e11f0d4c60a8c3e5532158c91e9714
+  dependencies:
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+license:
+  version: ca76177d01572910ce19dd141c0276487b76a523a75e334964881e1348af646e
+  fingerprint: ca76177d01572910ce19dd141c0276487b76a523a75e334964881e1348af646e
+  sha1: sha256:1e90c9e8ae52c65cc00309d5788582ad562d0d21e965d3d3daa4cc176560c9e4
