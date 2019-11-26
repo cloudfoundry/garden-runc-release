@@ -54,6 +54,9 @@ exec 1> >( tee -a $LOG_DIR/garden.stdout.log | logger -p user.info -t vcap.garde
      2> >( tee -a $LOG_DIR/garden.stderr.log | logger -p user.error -t vcap.garden )
 
 setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
+<% if p("garden.experimental_cpu_throttling") %>
+  setup_cmd="$setup_cmd --enable-cpu-throttling"
+<% end %>
 exec_command="exec"
 id_map_start=1
 
