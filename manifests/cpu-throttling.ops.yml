@@ -1,0 +1,3 @@
+- type: replace
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/experimental_cpu_throttling?
+  value: true
