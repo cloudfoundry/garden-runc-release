@@ -5,4 +5,4 @@ dependencies:
 - autoconf
 
 files:
-- automake/automake-1.16.tar.gz
+- automake/automake-1.16.1.tar.gz

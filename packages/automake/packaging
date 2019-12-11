@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="1.16"
+version="1.16.1"
 export PATH="/var/vcap/packages/autoconf/bin:${PATH}"
 
 tar xzf "automake/automake-${version}.tar.gz"
