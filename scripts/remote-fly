@@ -11,5 +11,9 @@ build_yml=$1
 shift
 
 echo "Running task ${build_yml}"
+image_args=("--inputs-from" "main/garden" "--image" "garden-ci-image")
+if [[ "$build_yml" == *"windows"* ]]; then
+  image_args=()
+fi
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
+fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p ${image_args[@]} -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
