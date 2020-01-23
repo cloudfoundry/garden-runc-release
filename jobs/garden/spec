@@ -209,6 +209,10 @@ properties:
     description: "(Under development) Use containerd for container process management. Must be used with containerd_mode also set to true. NOTE: cannot be used in combination with bpm or rootless"
     default: false
 
+  garden.experimental_cpu_throttling_check_interval:
+    description: "(Under development) Number of seconds between each CPU throttling check"
+    default: 15
+
   grootfs.log_level:
     description: "Log level for grootfs - can be debug, info, error or fatal."
     default: info
