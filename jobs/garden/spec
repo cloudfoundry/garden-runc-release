@@ -246,6 +246,10 @@ properties:
     description: "Amount of space that will be kept free for other jobs. The GrootFS store will be able to grow up to a maximum size of its disk minus this reserved space. Where the reserved space does not allow sufficient size for GrootFS to store container images and root filesystems (currently 15GB), the limit will be a soft limit, and garbage collection will attempt to keep disk space available for other jobs. -1 disables GC and allows GrootFS to potentially use the whole disk."
     default: 15360
 
+  grootfs.experimental_direct_io:
+    description: "Enable the DIRECT_IO flag on the loop device associated with the GrootFS store. This should reduce memory and processing overheads by eliminating double caching of the store filesystem"
+    default: false
+
   bpm.enabled:
     description: "Use bpm. NOTE: this requires a recreate when enabling for the first time, otherwise old containers may be left running. NOTE: When this property is enabled, containers won't survive a restart of the garden job. This is why garden.destroy_containers_on_start should be set to avoid leaking container state."
     default: false

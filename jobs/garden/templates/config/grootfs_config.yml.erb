@@ -17,3 +17,8 @@ create:
 <% else -%>
   remote_layer_client_certificates_path: /var/vcap/jobs/garden/certs
 <% end -%>
+
+<% if p("grootfs.experimental_direct_io") -%>
+init:
+  with_direct_io: true
+<% end -%>
