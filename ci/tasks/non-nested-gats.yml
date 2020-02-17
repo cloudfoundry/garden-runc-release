@@ -9,6 +9,7 @@ caches:
 - path: gr-release-develop/pkg
 
 params:
+  CPU_THROTTLING_ENABLED:
   GARDEN_ADDRESS: ""
   GARDEN_PORT: ""
   GARDEN_DEBUG_PORT: ""
