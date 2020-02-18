@@ -5,6 +5,7 @@ require 'logger'
 
 PROJECTS = [
   "garden",
+  "garden-integration-tests",
   "guardian",
   "grootfs",
   "idmapper",
