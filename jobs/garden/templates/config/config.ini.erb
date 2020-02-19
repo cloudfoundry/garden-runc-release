@@ -51,6 +51,24 @@
 <% if p("garden.cleanup_process_dirs_on_wait") -%>
   cleanup-process-dirs-on-wait = true
 <% end -%>
+<% if_p("garden.tcp_keepalive_time") do |time| -%>
+  <% if time <= 0 -%>
+    <% raise "tcp_keepalive_time should be a positive integer" -%>
+  <% end -%>
+  tcp-keepalive-time = <%= time %>
+<% end -%>
+<% if_p("garden.tcp_keepalive_intvl") do |intvl| -%>
+  <% if intvl <= 0 -%>
+    <% raise "tcp_keepalive_intvl should be a positive integer" -%>
+  <% end -%>
+  tcp-keepalive-interval = <%= intvl %>
+<% end -%>
+<% if_p("garden.tcp_keepalive_probes") do |probes| -%>
+  <% if probes <= 0 -%>
+    <% raise "tcp_keepalive_probes should be a positive integer" -%>
+  <% end -%>
+  tcp-keepalive-probes = <%= probes %>
+<% end -%>
 
 ; image and rootfs
   default-rootfs = <%= p("garden.default_container_rootfs") %>

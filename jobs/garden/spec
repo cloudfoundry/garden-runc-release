@@ -201,6 +201,15 @@ properties:
     description: "Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
     default: false
 
+  garden.tcp_keepalive_time:
+    description: Sets the `net.ipv4.tcp_keepalive_time` kernel parameter in containers. If not specified, the host value is used.
+
+  garden.tcp_keepalive_intvl:
+    description: Sets the `net.ipv4.tcp_keepalive_intvl` kernel parameter in containers. If not specified, the host value is used.
+
+  garden.tcp_keepalive_probes:
+    description: Sets the `net.ipv4.tcp_keepalive_probes` kernel parameter in containers. If not specified, the host value is used.
+
   garden.experimental_cpu_throttling:
     description: "Throttle cpu of badly behaving apps"
     default: false
