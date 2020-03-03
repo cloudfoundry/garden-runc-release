@@ -11,6 +11,7 @@ cd guardian
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/gdn" -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dadoo" ./cmd/dadoo
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/socket2me" ./cmd/socket2me
+CGO_ENABLED=0 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/mkdirer" ./cmd/mkdir
 go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/execas" ./cmd/execas
 
 cd rundmc/nstar

@@ -67,6 +67,10 @@ function build() {
         mv nstar "${LINUX_ASSETS}/bin"
       popd
 
+      pushd src/guardian
+        CGO_ENABLED=0 go build -mod vendor -o "${LINUX_ASSETS}/bin/mkdirer" ./cmd/mkdir
+      popd
+
       pushd src/guardian/cmd/init
         gcc -static -o init init.c ignore_sigchild.c
         mv init "${LINUX_ASSETS}/bin"
@@ -119,6 +123,7 @@ function prepare() {
     --image-plugin-extra-arg=/opt/grootfs/grootfs.yml \
     --privileged-image-plugin-extra-arg=--config \
     --privileged-image-plugin-extra-arg=/opt/grootfs/grootfs-privileged.yml \
+    --mkdirer-bin="${LINUX_ASSETS}/bin/mkdirer" \
     --default-rootfs=/opt/warden/rootfs.tar &
 
   wait_for_gdn_server

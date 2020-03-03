@@ -8,6 +8,17 @@ build_nstar() {
   popd
 }
 
+build_mkdirer() {
+  local grreleasedevelopdir="$1"
+  local target="${GOPATH}/bin"
+
+	(
+		cd "$grreleasedevelopdir/src/guardian"
+		CGO_ENABLED=0 go build -mod vendor -o "${target}/mkdirer" ./cmd/mkdir
+	)
+}
+
+
 build_grootfs() {
   local grreleasedevelopdir="$1"
   local target="${GOPATH}/bin"
@@ -200,6 +211,7 @@ start_gdn_server() {
     --debug-bind-port=17013 \
     --network-pool=10.254.1.0/24 \
     --log-level=$LOG_LEVEL \
+    --mkdirer-bin=$GOPATH/bin/mkdirer \
     --default-rootfs=/opt/warden/rootfs.tar &
 }
 

@@ -26,6 +26,7 @@ function build() {
   build_runc "$grreleasedevelopdir" "${GOPATH}/bin"
   build_nstar "$grreleasedevelopdir"
   build_grootfs "$grreleasedevelopdir"
+  build_mkdirer "$grreleasedevelopdir"
   build_gdn "$grreleasedevelopdir"
   if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
     build_containerd "$grreleasedevelopdir"

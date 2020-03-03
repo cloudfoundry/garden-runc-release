@@ -34,7 +34,9 @@ log "preparing system: done"
 
 # cannot over-write an executable mid-execution
 rm -f "$RUNTIME_BIN_DIR"/init
+rm -f "$RUNTIME_BIN_DIR"/mkdirer
 cp /var/vcap/packages/guardian/bin/init "$RUNTIME_BIN_DIR"/init
+cp /var/vcap/packages/guardian/bin/mkdirer "$RUNTIME_BIN_DIR"/mkdirer
 
 <% if p("garden.image_plugin", "") == "" %>
 log "configuring xfs"
