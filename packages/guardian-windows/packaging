@@ -34,6 +34,12 @@ if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: cmd\winit"
 }
 
+$env:CGO_ENABLED=0
+go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\mkdirer.exe" ".\cmd\mkdir"
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Error compiling: cmd\mkdir"
+}
+
 # Cleanup build artifacts
 New-Item -ItemType directory -Path ".\emptydirectory" -Force
 
