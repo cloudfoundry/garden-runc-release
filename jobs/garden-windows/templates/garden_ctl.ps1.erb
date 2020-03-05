@@ -6,15 +6,11 @@ $depotDir=(Join-Path $gardenDir "depot")
 $imageStore=(Join-Path $gardenDir "image-store")
 $runtimeBinDir=(Join-Path $gardenDir "bin" | Join-Path -ChildPath "winit")
 $initBinPath=(Join-Path $runtimeBinDir "garden-init.exe")
-$mkdirerBinDir=(Join-Path $gardenDir "bin" | Join-Path -ChildPath "mkdirer")
-$mkdirerBinPath=(Join-Path $mkdirerBinDir "mkdirer.exe")
 
 New-Item $depotDir -ItemType Directory -Force
 New-Item $imageStore -ItemType Directory -Force
 New-Item $runtimeBinDir -ItemType Directory -Force
-New-Item $mkdirerBinDir -ItemType Directory -Force
 Copy-Item "C:\var\vcap\packages\guardian-windows\winit.exe" -Destination $initBinPath
-Copy-Item "C:\var\vcap\packages\guardian-windows\mkdirer.exe" -Destination $mkdirerBinPath
 
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
@@ -43,7 +39,6 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   --nstar-bin=<%= p("garden.nstar_bin") %> `
   --tar-bin=<%= p("garden.tar_bin") %> `
   --init-bin=$initBinPath `
-  --mkdirer-bin=$mkdirerBinPath `
   <% if !p("garden.dropsonde.origin").empty? %> `
     --dropsonde-origin=<%= p("garden.dropsonde.origin") %> `
   <% end %> `
