@@ -24,5 +24,5 @@ ginkgo -mod vendor -r -nodes 8 -race -keepGoing -failOnPending -skipPackage "dad
 if ($LastExitCode -ne 0) {
     throw "Ginkgo run returned error code: $LastExitCode"
 }
-ginkgo -mod vendor -r -nodes 8 -race -keepGoing -failOnPending -randomizeSuites -randomizeAllSpecs -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
+ginkgo -mod vendor -r -nodes 8 -timeout 15m -race -keepGoing -failOnPending -randomizeSuites -randomizeAllSpecs -skipPackage "dadoo,kawasaki,locksmith" -focus "Runtime Plugin" gqt
 Exit $LastExitCode
