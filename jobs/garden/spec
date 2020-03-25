@@ -157,7 +157,7 @@ properties:
     default: 0
 
   garden.experimental_cpu_entitlement_per_share_in_percent:
-    description: "CPU percentage entitled to a container for a single CPU share."
+    description: "CPU percentage entitled to a container for a single CPU share. 0 means that the entitlement will be automatically calculated so that the CPU resources get optimally distributed."
     default: 0
 
   garden.experimental_tcp_mem_limit_in_bytes:

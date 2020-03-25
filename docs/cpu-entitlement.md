@@ -18,6 +18,8 @@ There are three possible states that emerge from how operators configure `experi
 1. optimal - applications’ CPU entitlements are guaranteed minimums
 1. overcommitted - applications are not guaranteed to have access to their entitlement
 
+If you don't set a value to this property it will default to an optimal system.
+
 Since by default the total shares available on a host is equal to the amount of memory on the host, an optimal value for `experimental_cpu_entitlement_per_share_in_percent` is 100% divided by the amount of total memory on the host. For example, a host with 1024MB of memory would have an optimal value of `100 / 1024`, which is 0.0977% per share.
 
 Let’s assume our machine actually has 4 cores and not 1 - how might this change the value we choose? Since the machine now has access to 4 times the amount of CPU as its single core counterpart, we can state that each application may now be entitled to 4 times its previous amount; more formally our new value can be found with `400 / 1024` which is roughly 0.390% per share.
