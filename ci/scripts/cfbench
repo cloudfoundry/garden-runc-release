@@ -38,5 +38,5 @@ cfbench \
   -app-dir cf-acceptance-tests/assets/dora \
   -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
 
-curl -X POST -H 'Content-Type: application/json' -d @metrics.json \
-   "https://app.datadoghq.com/api/v1/series?api_key=$DATADOG_API_KEY&application_key=$DATADOG_APPLICATION_KEY"
+# curl -X POST -H 'Content-Type: application/json' -d @metrics.json \
+#    "https://app.datadoghq.com/api/v1/series?api_key=$DATADOG_API_KEY&application_key=$DATADOG_APPLICATION_KEY"
