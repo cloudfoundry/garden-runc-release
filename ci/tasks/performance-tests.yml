@@ -10,8 +10,10 @@ caches:
 
 params:
   GARDEN_ADDRESS: ""
-  DATADOG_API_KEY: ""
   ENVIRONMENT: ""
+  WAVEFRONT_TOKEN: ""
+  WAVEFRONT_URL: https://longboard.wavefront.com/
+  WAVEFRONT_METRIC_PREFIX: ""
 
 run:
   path: gr-release-develop/ci/scripts/performance-tests
