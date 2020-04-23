@@ -12,7 +12,7 @@ params:
   GARDEN_ADDRESS: ""
   ENVIRONMENT: ""
   WAVEFRONT_TOKEN: ""
-  WAVEFRONT_URL: https://longboard.wavefront.com/
+  WAVEFRONT_URL: https://longboard.wavefront.com
   WAVEFRONT_METRIC_PREFIX: ""
 
 run:
