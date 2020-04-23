@@ -7,8 +7,8 @@ PATH="$( pwd )/bin:${PATH}"
 export GOPATH
 GOPATH="$( pwd )"
 
-pushd src/github.com/teddyking/cfbench
-go install
+pushd cfbench-master
+go build -mod vendor -o cfbench
 popd
 
 cf api "$CF_API" --skip-ssl-validation
@@ -30,13 +30,13 @@ CF_ENV=${CF_ENV:-local}
 
 dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=9
 
-cfbench \
+./cfbench-master/cfbench \
   -stack "cflinuxfs3" \
   -action "$CF_ACTION" \
   -instances "$INSTANCES" \
-  -tag "$CF_ENV" \
+  -host-name "$CF_ENV" \
   -app-dir cf-acceptance-tests/assets/dora \
-  -doppler-address "$DOPPLER_ADDRESS" -json > metrics.json
+  -output-format wavefront \
+  -doppler-address "$DOPPLER_ADDRESS" > wavefront-metrics.txt
 
-# curl -X POST -H 'Content-Type: application/json' -d @metrics.json \
-#    "https://app.datadoghq.com/api/v1/series?api_key=$DATADOG_API_KEY&application_key=$DATADOG_APPLICATION_KEY"
+curl -H "Authorization: Bearer $WAVEFRONT_TOKEN" -F file=@- https://longboard.wavefront.com/report < wavefront-metrics.txt
