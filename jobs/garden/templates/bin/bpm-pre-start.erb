@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Clear playground
+find /var/vcap/data/grootfs/ -iname * -delete
+
 set -e
 
 source /var/vcap/jobs/garden/bin/envs
@@ -18,3 +21,6 @@ mkdir -p /var/vcap/data/rep/shared/garden
 flock /var/vcap/sys/run/garden/mount.lock /bin/bash -c 'if ! grep -q " /var/vcap/data/rep/shared/garden " /proc/self/mountinfo; then mount --bind /var/vcap/data/rep/shared/garden /var/vcap/data/rep/shared/garden; fi'
 mount --make-shared /var/vcap/data/rep/shared/garden
 <%- end } -%>
+
+# Ensure that runc and container processes can stat everything in the playground
+chmod ugo+rx /var/vcap/data/grootfs
