@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
-# Clear playground
+# Under `kubecf` the grootfs data is stored on non-ephemeral storage,
+# on PVCs (__Persistent__ volume claims). This means that on restart
+# kubecf will see a non-empty disk containing old data. The changes at
+# both top and bottom of the script are to ensure that the grootfs
+# data directory is restored to a known good state, i.e. the old data
+# removed, and any possible permission changes squashed.
+
+# For BOSH these should be no-ops because it should see only an empty
+# disk even on restart.
+
+# Clear grootfs data directory
 find /var/vcap/data/grootfs/ -iname * -delete
 
 set -e
@@ -22,5 +32,6 @@ flock /var/vcap/sys/run/garden/mount.lock /bin/bash -c 'if ! grep -q " /var/vcap
 mount --make-shared /var/vcap/data/rep/shared/garden
 <%- end } -%>
 
-# Ensure that runc and container processes can stat everything in the playground
+# Ensure that runc and container processes can stat everything in the
+# grootfs data directory
 chmod ugo+rx /var/vcap/data/grootfs
