@@ -1,17 +1,17 @@
-From b4b28b4e6db5ca4659552436f7d65e6faf41dd5e Mon Sep 17 00:00:00 2001
-From: Yulia Nedyalkova <julianedialkova@hotmail.com>
-Date: Fri, 15 May 2020 16:58:58 +0300
+From bbaf77880470fc3a619dcd6820e29b0226e9d679 Mon Sep 17 00:00:00 2001
+From: Giuseppe Capizzi <gcapizzi@pivotal.io>
+Date: Mon, 11 Mar 2019 15:41:34 +0000
 Subject: [PATCH] Time out writing to freezer
 
 ---
- libcontainer/cgroups/fs/freezer.go | 4 ++++
- 1 file changed, 4 insertions(+)
+ libcontainer/cgroups/fs/freezer.go | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/libcontainer/cgroups/fs/freezer.go b/libcontainer/cgroups/fs/freezer.go
-index b5b77da9..820f9988 100644
+index 4b19f8a9..bd66658d 100644
 --- a/libcontainer/cgroups/fs/freezer.go
 +++ b/libcontainer/cgroups/fs/freezer.go
-@@ -33,7 +33,11 @@ func (s *FreezerGroup) Apply(d *cgroupData) error {
+@@ -29,7 +29,12 @@ func (s *FreezerGroup) Apply(d *cgroupData) error {
  func (s *FreezerGroup) Set(path string, cgroup *configs.Cgroup) error {
  	switch cgroup.Resources.Freezer {
  	case configs.Frozen, configs.Thawed:
@@ -20,9 +20,10 @@ index b5b77da9..820f9988 100644
 +			if time.Since(start) > time.Minute {
 +				break
 +			}
++
  			// In case this loop does not exit because it doesn't get the expected
  			// state, let's write again this state, hoping it's going to be properly
  			// set this time. Otherwise, this loop could run infinitely, waiting for
 -- 
-2.26.0
+2.21.0
 
