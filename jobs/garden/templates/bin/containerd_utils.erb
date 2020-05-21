@@ -14,11 +14,14 @@ log() {
   local time
 
   msg=$1
-  time=$(date +"%e/%m/%Y - %T")
+  <% if p("logging.format.timestamp") == "unix-epoch" -%>
+  time=$(date -u +"%s.%N")
+  <% else -%>
+  time=$(date -u +"%Y-%m-%dT%H:%M:%S.%NZ")
+  <% end -%>
 
   echo "$time $msg" >> "${LOG_DIR}/containerd_ctl.log"
 }
-
 
 start_containerd() {
   log "starting containerd"

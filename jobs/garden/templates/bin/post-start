@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+log() {
+  local msg
+  local time
+
+  msg=$1
+  <% if p("logging.format.timestamp") == "unix-epoch" -%>
+  time=$(date -u +"%s.%N")
+  <% else -%>
+  time=$(date -u +"%Y-%m-%dT%H:%M:%S.%NZ")
+  <% end -%>
+
+  echo "$time: $msg"
+}
+
 start="$( date +%s )"
 timeout=120
 
-echo "$(date): Pinging garden server..."
+log "Pinging garden server..."
 i=1
 
 <% if p("garden.listen_network") == "tcp" -%>
@@ -14,14 +28,14 @@ cmd='echo -e "GET /ping HTTP/1.1\r\n\r\n" | nc -U <%= p("garden.listen_address")
 <% end -%>
 
 while [ $(( $(date +%s) - timeout )) -lt "$start" ]; do
-  echo "$(date): Attempt $i..."
+  log "Attempt $i..."
   if sh -c "${cmd}"; then
-    echo "$(date): Success!"
+    log "Success!"
     exit 0
   fi
   i=$((i + 1))
   sleep 1
 done
 
-echo "$( date ): Timed out pinging garden server."
+log "Timed out pinging garden server."
 exit 1

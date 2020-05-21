@@ -24,6 +24,15 @@ unprivileged_range_mapping() {
 }
 
 log() {
-  local msg=$1
-  echo "$(date) - $msg"
+  local msg
+  local time
+
+  msg=$1
+  <% if p("logging.format.timestamp") == "unix-epoch" -%>
+  time=$(date -u +"%s.%N")
+  <% else -%>
+  time=$(date -u +"%Y-%m-%dT%H:%M:%S.%NZ")
+  <% end -%>
+
+  echo "$time - $msg"
 }
