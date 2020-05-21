@@ -1,5 +1,0 @@
-<% if p("garden.listen_network") == "tcp" -%>
-  export curl_args=("<%= p("garden.listen_address") %>/ping")
-<% else -%>
-  export curl_args=("--unix-socket" "<%= p("garden.listen_address") %>" "http:/ping")
-<% end -%>

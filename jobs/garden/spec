@@ -22,7 +22,6 @@ templates:
   config/containerd.toml.erb:               config/containerd.toml
   bin/containerd_utils.erb:                 bin/containerd_utils
   bin/post-start:                           bin/post-start
-  bin/post-start-env.erb:                   bin/post-start-env
 
 packages:
   - guardian
