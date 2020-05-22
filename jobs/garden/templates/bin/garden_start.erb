@@ -57,6 +57,9 @@ setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 <% if p("garden.experimental_cpu_throttling") %>
   setup_cmd="$setup_cmd --enable-cpu-throttling"
 <% end %>
+<% if p("logging.format.timestamp") == "rfc3339" -%>
+  setup_cmd="$setup_cmd --time-format=rfc3339"
+<% end -%>
 exec_command="exec"
 id_map_start=1
 

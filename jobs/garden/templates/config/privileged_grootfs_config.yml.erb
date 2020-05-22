@@ -6,6 +6,9 @@ log_level: <%= p('grootfs.log_level') %>
 <% if_p("grootfs.dropsonde_port") do |dropsonde_port| %>
 metron_endpoint: 127.0.0.1:<%= dropsonde_port %>
 <% end %>
+<% if p("logging.format.timestamp") -%>
+log_timestamp_format: <%= p("logging.format.timestamp") %>
+<% end -%>
 
 create:
   without_mount: <%= p("grootfs.skip_mount") %>
