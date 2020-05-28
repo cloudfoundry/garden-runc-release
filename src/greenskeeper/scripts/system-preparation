@@ -72,8 +72,3 @@ function increase_max_procs() {
   echo 4194304 > /proc/sys/kernel/pid_max
   ulimit -u unlimited
 }
-
-function log() {
-  local msg=$1
-  echo "$(date) - $msg"
-}
