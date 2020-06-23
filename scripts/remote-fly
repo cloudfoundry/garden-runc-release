@@ -6,6 +6,7 @@ if [ -n "$TAG" ]; then
 fi
 
 export LOCAL_DEV_RUN=${LOCAL_DEV_RUN:-true}
+export GARDEN_REMOTE_ATC_URL=${GARDEN_REMOTE_ATC_URL:-garden-ci}
 
 build_yml=$1
 shift
