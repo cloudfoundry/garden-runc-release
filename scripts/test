@@ -35,7 +35,7 @@ go_vet_and_fmt() {
 }
 
 fly_login() {
-  which flightattendant &>/dev/null || wget -qO- bit.ly/fa_xip | tar xz -C /usr/local/bin
+  which flightattendant &>/dev/null || wget -qO- bit.ly/fa_xip | sudo tar xJ -C /usr/local/bin
 
   if ! flightattendant; then
     fly -t $FLY_TARGET login
