@@ -1,18 +1,17 @@
-From d7db31432695711a21c94eb6ece4b40eae63cbe3 Mon Sep 17 00:00:00 2001
-From: Yulia Nedyalkova <julianedialkova@hotmail.com>
-Date: Fri, 15 May 2020 17:15:35 +0300
-Subject: [PATCH] Remove timeout for runc delete
-
----
- delete.go | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
 diff --git a/delete.go b/delete.go
-index de8cd7ea..f2ab6959 100644
+index 84f5b62a..f2ab6959 100644
 --- a/delete.go
 +++ b/delete.go
-@@ -16,14 +16,13 @@ import (
- 
+@@ -3,7 +3,6 @@
+ package main
+
+ import (
+-	"errors"
+ 	"fmt"
+ 	"os"
+ 	"path/filepath"
+@@ -17,14 +16,13 @@ import (
+
  func killContainer(container libcontainer.Container) error {
  	_ = container.Signal(unix.SIGKILL, false)
 -	for i := 0; i < 100; i++ {
@@ -23,10 +22,7 @@ index de8cd7ea..f2ab6959 100644
  			return nil
  		}
  	}
--	return fmt.Errorf("container init still running")
+-	return errors.New("container init still running")
  }
- 
- var deleteCommand = cli.Command{
--- 
-2.26.0
 
+ var deleteCommand = cli.Command{
