@@ -21,6 +21,7 @@ templates:
   certs/remote-layer.key.erb:               certs/remote-layer.key
   config/containerd.toml.erb:               config/containerd.toml
   bin/containerd_utils.erb:                 bin/containerd_utils
+  bin/pre-start:                            bin/pre-start
   bin/post-start:                           bin/post-start
 
 packages:

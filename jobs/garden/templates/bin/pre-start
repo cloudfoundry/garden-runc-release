@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+source /var/vcap/packages/greenskeeper/bin/system-preparation
+
+permit_device_control

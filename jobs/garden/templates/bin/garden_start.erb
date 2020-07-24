@@ -21,7 +21,6 @@ log "running greenskeeper: done"
 <% end %>
 
 log "preparing system"
-permit_device_control
 create_loop_devices 256
 disable_transparent_hugepages
 restrict_dmesg_access
