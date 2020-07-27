@@ -48,6 +48,12 @@ start_containerd() {
     1>> "${LOG_DIR}/containerd.stdout.log" \
     2>> "${LOG_DIR}/containerd.stderr.log" \
     &
+
+  address=$(grep containerd.sock $containerd_config_filepath | awk '{print $3}' | tr -d '"')
+  while ! /var/vcap/packages/containerd/bin/ctr -a $address --connect-timeout 100ms c ls; do
+    log "waiting for containerd to become available"
+    sleep 0.1
+  done
 }
 
 stop_containerd() {
