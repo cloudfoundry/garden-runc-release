@@ -3,11 +3,11 @@ set -ex
 
 base=$PWD
 
-cd "$( dirname "$0" )/../.."
+cd "$(dirname "$0")/../.."
 
 cd src/garden-integration-tests
 
-cmd="ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -stream"
+cmd="ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
 fi
