@@ -31,7 +31,7 @@ cd garden-runc-release # if you're not already there
 ```
 
 You can retrieve the address of the Garden-runC server by running `bosh vms`.
-It will be `10.244.0.2` if using the provided deploy-lite script. 
+It will be `10.244.0.2` if using the provided deploy-lite script.
 The server port defaults to `7777`.
 
 ### Usage
@@ -155,7 +155,7 @@ WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/
 #### Running the tests locally
 
 It is possible to run the integration tests locally on a Linux based OS like Ubuntu, but we don't recommend it
-due to the dependencies required, and the need for parts of the testing suite to run as a privileged user. 
+due to the dependencies required, and the need for parts of the testing suite to run as a privileged user.
 If you'd like to run them locally, you will need at least:
 * A recent version of Go (1.8+)
 * Kernel version 4.4+
@@ -204,7 +204,7 @@ Commit the changes, run the tests, and create a bump commit:
 
 #### >= v1.17.2:
 If you have a problem with garden-runc, don't panic! There is a tool that you can
-use to gather information useful for debugging issues on garden-runc-release 
+use to gather information useful for debugging issues on garden-runc-release
 deployments. Run this command on the deployment VM as root:
 
 `/var/vcap/packages/dontpanic/bin/dontpanic`
