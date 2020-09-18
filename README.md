@@ -221,6 +221,10 @@ eg: `wget https://github.com/cloudfoundry/dontpanic/releases/download/v1.0/dontp
 _N.B. If your BOSH environment has BPM enabled for Garden, `dontpanic` should still be run from
 the host, not from within the BPM container._
 
+### Maintainers
+
+See the list of [MAINTAINERS](docs/maintainers.md) and their contact info.
+
 ### License
 
 Apache License 2.0
