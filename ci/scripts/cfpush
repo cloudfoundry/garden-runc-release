@@ -2,13 +2,13 @@
 set -e
 
 export PATH
-PATH="$( pwd )/bin:${PATH}"
+PATH="$(pwd)/bin:${PATH}"
 
 export GOPATH
-GOPATH="$( pwd )"
+GOPATH="$(pwd)"
 
 cf api https://api."$CF_DOMAIN" --skip-ssl-validation
-cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -o system --skip-ssl-validation
+cf auth
 
 cf create-org "$CF_ORG"
 cf target -o "$CF_ORG"
@@ -19,10 +19,10 @@ cf target -s "$CF_SPACE" -o "$CF_ORG"
 cf apps | grep dora | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
 
 export CF_AUTH_TOKEN
-CF_AUTH_TOKEN="$( cf oauth-token )"
+CF_AUTH_TOKEN="$(cf oauth-token)"
 
 pushd cf-acceptance-tests/assets/dora
-  cf push dora
+cf push dora
 popd
 
 app_response=$(curl http://dora."$CF_DOMAIN")
