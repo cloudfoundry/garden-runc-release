@@ -2,17 +2,17 @@
 set -e
 
 export PATH
-PATH="$( pwd )/bin:${PATH}"
+PATH="$(pwd)/bin:${PATH}"
 
 export GOPATH
-GOPATH="$( pwd )"
+GOPATH="$(pwd)"
 
 pushd cfbench-master
 go build -mod vendor -o cfbench
 popd
 
 cf api "$CF_API" --skip-ssl-validation
-cf login -u "$CF_USERNAME" -p "$CF_PASSWORD" -o system --skip-ssl-validation
+cf auth
 
 cf create-org "$CF_ORG"
 cf target -o "$CF_ORG"
@@ -23,7 +23,7 @@ cf target -s "$CF_SPACE" -o "$CF_ORG"
 cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
 
 export CF_AUTH_TOKEN
-CF_AUTH_TOKEN="$( cf oauth-token )"
+CF_AUTH_TOKEN="$(cf oauth-token)"
 
 DOPPLER_ADDRESS=$(cf curl /v2/info | jq '.doppler_logging_endpoint' -r)
 CF_ENV=${CF_ENV:-local}
@@ -37,6 +37,6 @@ dd if=/dev/urandom of=cf-acceptance-tests/assets/dora/big-file bs=10M count=9
   -host-name "$CF_ENV" \
   -app-dir cf-acceptance-tests/assets/dora \
   -output-format wavefront \
-  -doppler-address "$DOPPLER_ADDRESS" > wavefront-metrics.txt
+  -doppler-address "$DOPPLER_ADDRESS" >wavefront-metrics.txt
 
-curl -H "Authorization: Bearer $WAVEFRONT_TOKEN" -F file=@- https://longboard.wavefront.com/report < wavefront-metrics.txt
+curl -H "Authorization: Bearer $WAVEFRONT_TOKEN" -F file=@- https://longboard.wavefront.com/report <wavefront-metrics.txt
