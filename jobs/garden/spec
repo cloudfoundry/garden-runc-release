@@ -217,7 +217,7 @@ properties:
     description: Sets the `net.ipv4.tcp_retries2` kernel parameter in containers. If not specified, the kernel default value is used.
 
   garden.experimental_cpu_throttling:
-    description: "Throttle cpu of badly behaving apps"
+    description: "Throttle cpu of badly behaving apps. Note this changes the cpu cgroup structure, and existing containers should be destroyed when changing this value (e.g. set destroy_containers_on_start to true)."
     default: false
 
   garden.experimental_use_containerd_mode_for_processes:
