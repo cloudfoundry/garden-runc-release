@@ -69,6 +69,18 @@
   <% end -%>
   tcp-keepalive-probes = <%= probes %>
 <% end -%>
+<% if_p("garden.tcp_retries1") do |retries1| -%>
+  <% if retries1 <= 0 -%>
+    <% raise "tcp_retries1 should be a positive integer" -%>
+  <% end -%>
+  tcp-retries1 = <%= retries1 %>
+<% end -%>
+<% if_p("garden.tcp_retries2") do |retries2| -%>
+  <% if retries2 <= 0 -%>
+    <% raise "tcp_retries2 should be a positive integer" -%>
+  <% end -%>
+  tcp-retries2 = <%= retries2 %>
+<% end -%>
 
 ; image and rootfs
   default-rootfs = <%= p("garden.default_container_rootfs") %>
