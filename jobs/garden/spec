@@ -202,13 +202,19 @@ properties:
     default: false
 
   garden.tcp_keepalive_time:
-    description: Sets the `net.ipv4.tcp_keepalive_time` kernel parameter in containers. If not specified, the host value is used.
+    description: Sets the `net.ipv4.tcp_keepalive_time` kernel parameter in containers. If not specified, the kernel default value is used.
 
   garden.tcp_keepalive_intvl:
-    description: Sets the `net.ipv4.tcp_keepalive_intvl` kernel parameter in containers. If not specified, the host value is used.
+    description: Sets the `net.ipv4.tcp_keepalive_intvl` kernel parameter in containers. If not specified, the kernel default value is used.
 
   garden.tcp_keepalive_probes:
-    description: Sets the `net.ipv4.tcp_keepalive_probes` kernel parameter in containers. If not specified, the host value is used.
+    description: Sets the `net.ipv4.tcp_keepalive_probes` kernel parameter in containers. If not specified, the kernel default value is used.
+
+  garden.tcp_retries1:
+    description: Sets the `net.ipv4.tcp_retries1` kernel parameter in containers. If not specified, the kernel default value is used.
+
+  garden.tcp_retries2:
+    description: Sets the `net.ipv4.tcp_retries2` kernel parameter in containers. If not specified, the kernel default value is used.
 
   garden.experimental_cpu_throttling:
     description: "Throttle cpu of badly behaving apps"
