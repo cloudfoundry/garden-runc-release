@@ -6,6 +6,9 @@ source /var/vcap/jobs/garden/bin/envs
 source /var/vcap/jobs/garden/bin/grootfs-utils
 source /var/vcap/packages/greenskeeper/bin/system-preparation
 
+exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
+exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
+
 log "running greenskeeper"
 greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
 <% if p("garden.experimental_rootless_mode") %>
@@ -13,12 +16,6 @@ greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
 <% end %>
 $greenskeeper_cmd
 log "running greenskeeper: done"
-
-<% if !p("bpm.enabled") %>
-  exec 1>> "${LOG_DIR}/garden_ctl.stdout.log"
-  exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
-  invoke_thresholder
-<% end %>
 
 log "preparing system"
 create_loop_devices 256

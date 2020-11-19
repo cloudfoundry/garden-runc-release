@@ -2,6 +2,9 @@
 
 set -e
 
+source /var/vcap/jobs/garden/bin/envs
+source /var/vcap/jobs/garden/bin/grootfs-utils
 source /var/vcap/packages/greenskeeper/bin/system-preparation
 
 permit_device_control
+invoke_thresholder
