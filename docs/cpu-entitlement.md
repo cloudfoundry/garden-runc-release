@@ -8,7 +8,7 @@ The amount of CPU an application is entitled to (in Cloud Foundry) is set propor
 
 CPU entitlement, like all other CPU-related limits in garden, is set relative to shares. In Cloud Foundry, by default, shares are set equal to application memory, and (therefore) the maximum number of shares is the total memory on the host. For example a 128MB application instance has 128 shares, and a host with 8096MB of memory has a maximum of 8096 shares.
 
-By configuring the property `experimental_cpu_entitlement_per_share_in_percent`, operators are able to change the amount of CPU an application with a certain number of shares is entitled to. A value of 0.3 would mean that each application has access to 0.3% of the total CPU per share; our 256MB application would have access to 78.6% of the total CPU - in this case an operator has overcommitted on the amount of CPU available (assuming a single core machine).
+By configuring the property `experimental_cpu_entitlement_per_share_in_percent`, operators are able to change the amount of CPU an application with a certain number of shares is entitled to. A value of 0.3 would mean that each application has access to 0.3% of the total CPU per share; our 256MB application would have access to 76.8% of the total CPU - in this case an operator has overcommitted on the amount of CPU available (assuming a single core machine).
 
 ## Choosing an appropriate value
 
