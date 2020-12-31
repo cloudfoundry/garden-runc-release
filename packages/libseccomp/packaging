@@ -1,12 +1,25 @@
-#!/usr/bin/env bash
-set -euo pipefail
+# abort script on any command that exits with a non zero value
 
-version="2.4.1"
+set -e
 
-tar zxf "libseccomp/libseccomp-${version}.tar.gz"
+export PACKAGES=/var/vcap/packages
+
+addLib() {
+  export PATH=$PACKAGES/$1/bin:$PATH
+}
+
+setDeps() {
+  addLib gperf
+}
+
+version="2.5.1"
+
+tar xzf "libseccomp/libseccomp-${version}.tar.gz"
 
 cd "libseccomp-${version}"
 
+setDeps
+
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make
-make install
+make install "prefix=${BOSH_INSTALL_TARGET}"
