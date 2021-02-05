@@ -14,14 +14,14 @@ busybox/busybox-1.27.2.tar.gz:
   size: 692898
   object_id: ed3e7c60-5c94-4359-6c7a-a56eeeffb1de
   sha: 728ef13c40e4a091b22a657a22396b3d985af346
-golang/go1.14.linux-amd64.tar.gz:
-  size: 123550266
-  object_id: e091b351-18e3-4248-712e-3b563fdee3a0
-  sha: sha256:08df79b46b0adf498ea9f320a0f23d6ec59e9003660b4c9c1ce8e5e2c6f823ca
-golang/go1.14.windows-amd64.zip:
-  size: 137604433
-  object_id: 9e10f687-44ef-4ce6-65e6-c2747d9cbae5
-  sha: sha256:cc2f1e8d19744fe0b2e979bf9a4f9d224e416f4f54cb6cf3aa8b5e9c0865de37
+golang/go1.15.8.linux-amd64.tar.gz:
+  size: 121066822
+  object_id: 07c8f9a8-0ede-4e05-79b2-c439e422076d
+  sha: sha256:d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b
+golang/go1.15.8.windows-amd64.zip:
+  size: 139005264
+  object_id: c3d4428e-45ee-4373-5caf-08301f32fb79
+  sha: sha256:ef05b7141d3c217fb076f0e27249e144296234df96ead8751c0b76784079df97
 gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
