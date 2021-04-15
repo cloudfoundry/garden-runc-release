@@ -161,7 +161,7 @@ properties:
     default: 0
 
   garden.experimental_tcp_mem_limit_in_bytes:
-    description: "Hard limit for the tcp buffer memory in bytes. When set to zero tcp memory limit is disabled."
+    description: "No longer supported! Previously set a hard limit for the tcp buffer memory in bytes but now not supported in runc."
     default: 0
 
   garden.disable_swap_limit:
