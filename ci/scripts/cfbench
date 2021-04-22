@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eo pipefail
 
 export PATH
 PATH="$(pwd)/bin:${PATH}"
@@ -20,7 +20,7 @@ cf create-space "$CF_SPACE"
 cf target -s "$CF_SPACE" -o "$CF_ORG"
 
 # Clean up any cruft
-cf apps | grep benchme | cut -d " " -f1 | xargs -n1 cf delete -r -f || true
+cf a | awk '/benchme/ { print $1 }' | xargs -IN cf delete -r -f N
 
 export CF_AUTH_TOKEN
 CF_AUTH_TOKEN="$(cf oauth-token)"
