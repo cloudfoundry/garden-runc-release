@@ -175,4 +175,6 @@ builds:
     version: 1.19.2
   f904e609-ac1e-41a6-9a30-f42f33c2adf4:
     version: 1.1.1
+  f97ad5b5-baac-43b2-4186-f608fd0eb074:
+    version: 1.19.25
 format-version: "2"
