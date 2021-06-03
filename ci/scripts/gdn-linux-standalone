@@ -7,10 +7,10 @@
 set -ex
 
 # shellcheck source=../../src/build/runc.bash
-source "$( dirname "$0" )/../../src/build/runc.bash"
+source "$(dirname "$0")/../../src/build/runc.bash"
 
 # shellcheck source=../helpers/gats-utils
-source "$( dirname "$0" )/../helpers/gats-utils"
+source "$(dirname "$0")/../helpers/gats-utils"
 
 grr_base=$PWD/gr-release-develop
 export GOPATH=$grr_base/src/gopath
@@ -25,10 +25,10 @@ if [ -z "$DEV_MODE" ]; then
 fi
 
 # shellcheck source=../helpers/device-control
-source "$( dirname "$0" )/../helpers/device-control"
+source "$(dirname "$0")/../helpers/device-control"
 
 function build() {
-  go get github.com/masters-of-cats/go-bindata/go-bindata
+  go get github.com/go-bindata/go-bindata/go-bindata
 
   LINUX_ASSETS=$PWD/linux
 
@@ -43,43 +43,42 @@ function build() {
   cp -aL /opt/static-assets/iptables/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
 
   pushd gr-release-develop
-    # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
-    HOME=$PWD bosh sync-blobs
+  # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
+  HOME=$PWD bosh sync-blobs
 
+  ( 
     (
-      (
-        cd src/guardian
-        go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
-      )
+      cd src/guardian
+      go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
+    )
 
-      if [ -n "${PATCH_RUNC:-}" ]; then
-        (
+    if [ -n "${PATCH_RUNC:-}" ]; then
+      (
         # Using patch instead of `git apply` to keep this path working with `fly
         # execute`, which does not preserve the `.git` dir.
         cd "${grr_base}/src/gopath/src/github.com/opencontainers/runc"
-        patch < "${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
-        )
-      fi
-      build_runc "$PWD" "${LINUX_ASSETS}/bin"
-
-      pushd src/guardian/rundmc/nstar
-        make
-        mv nstar "${LINUX_ASSETS}/bin"
-      popd
-
-      pushd src/guardian/cmd/init
-        gcc -static -o init init.c ignore_sigchild.c
-        mv init "${LINUX_ASSETS}/bin"
-      popd
-
-
-      (
-        cd src/grootfs
-
-        make
-        make prefix="${LINUX_ASSETS}/bin" install
+        patch <"${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
       )
+    fi
+    build_runc "$PWD" "${LINUX_ASSETS}/bin"
+
+    pushd src/guardian/rundmc/nstar
+    make
+    mv nstar "${LINUX_ASSETS}/bin"
+    popd
+
+    pushd src/guardian/cmd/init
+    gcc -static -o init init.c ignore_sigchild.c
+    mv init "${LINUX_ASSETS}/bin"
+    popd
+
+    (
+      cd src/grootfs
+
+      make
+      make prefix="${LINUX_ASSETS}/bin" install
     )
+  )
   popd
 
   go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/guardian/bindata/bindata.go linux/...
@@ -137,7 +136,7 @@ function test() {
 
 export tmpdir=/tmp/dir
 export GARDEN_ADDRESS
-GARDEN_ADDRESS="$( hostname )"
+GARDEN_ADDRESS="$(hostname)"
 export GARDEN_PORT=7777
 export GARDEN_DEBUG_PORT=17013
 export NESTED=true

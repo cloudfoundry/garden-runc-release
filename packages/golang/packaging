@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tar xzf golang/go1.15.8.linux-amd64.tar.gz
+tar xzf golang/go1.16.4.linux-amd64.tar.gz
 cp -R go/* "$BOSH_INSTALL_TARGET"

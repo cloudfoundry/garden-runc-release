@@ -2,5 +2,5 @@
 name: golang-windows
 
 files:
-- golang/go1.15.8.windows-amd64.zip
+- golang/go1.16.4.windows-amd64.zip
 - exiter.ps1
