@@ -6,14 +6,17 @@ cd gr-release-develop
 $env:PWD = (Get-Location)
 $env:GOPATH = ${env:PWD} + "\src\gopath"
 $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
+$env:GO111MODULE = "off"
 
 Write-Host "Installing Ginkgo"
-go.exe install ./src/gopath/src/github.com/onsi/ginkgo/ginkgo
+go.exe get ./src/gopath/src/github.com/onsi/ginkgo/ginkgo
 if ($LastExitCode -ne 0) {
     throw "Ginkgo installation process returned error code: $LastExitCode"
 }
 
 cd ./src/guardian
+
+$env:GO111MODULE = "on"
 
 go version
 go vet -mod vendor ./...
