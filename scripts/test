@@ -24,13 +24,13 @@ go_vet_and_fmt() {
   cd "$ROOT_DIR_PATH"
 
   pushd src/guardian
-  GOOS=linux go vet -mod vendor ./...
-  go fmt ./...
+    GOOS=linux go vet -mod vendor ./...
+    go fmt ./...
   popd
 
   pushd src/garden
-  GOOS=linux go vet -mod vendor ./...
-  go fmt ./...
+    GOOS=linux go vet -mod vendor ./...
+    go fmt ./...
   popd
 }
 
@@ -49,7 +49,7 @@ run_tests_in_serial() {
   ./scripts/remote-fly ci/tasks/guardian.yml
   CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
   CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
-  ./scripts/remote-fly ci/tasks/guardian-windows-local.yml
+  ./scripts/remote-fly ci/tasks/guardian-windows.yml
   ./scripts/remote-fly ci/tasks/gdn-linux.yml
   CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/gdn-linux.yml
   DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml
@@ -59,12 +59,12 @@ run_tests_in_parallel() {
   fly_login
   print_message "about to run tests in parallel, it will be awesome" $GREEN
   print_message "ctrl-d panes when they are done" $RED
-  (go_vet_and_fmt)
+  ( go_vet_and_fmt )
   tmux new-window -n garden-runc-tests "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml; bash --init-file <(echo 'history -s DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml')\""
   tmux split-window -h -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/garden.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/garden.yml')\""
   tmux split-window -h -p 50 "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian.yml')\""
   tmux split-window -v -p 66 "CONTAINERD_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
-  tmux split-window -v -p 50 "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian-windows-local.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian-windows-local.yml')\""
+  tmux split-window -v -p 50 "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian-windows.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian-windows.yml')\""
   tmux select-pane -L
   tmux split-window -v -p 66 "CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
   tmux split-window -v -p 50 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
@@ -76,26 +76,26 @@ run_tests_in_parallel() {
 if [ -z "$*" ]; then
   print_message "you are about to run tests in serial, are you sure you don't want to try the new exciting test option?" $RED
   print_message "ctrl-c this garbage and run './scripts/test -h' to find out more" $GREEN
-  (run_tests_in_serial)
+  ( run_tests_in_serial )
 fi
 
 while getopts "ash" OPTION; do
   case $OPTION in
     a)
       run_tests_in_parallel
-      exit
-      ;;
+     exit
+     ;;
     s)
-      (run_tests_in_serial)
-      exit
-      ;;
+      ( run_tests_in_serial )
+    exit
+    ;;
     h)
       usage $GREEN
-      exit
-      ;;
+    exit
+    ;;
     *)
       usage $RED
-      exit
-      ;;
-  esac
+    exit
+    ;;
+ esac
 done
