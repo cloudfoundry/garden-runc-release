@@ -31,6 +31,13 @@ start_containerd() {
     return
   fi
 
+  # migrate the containerd state folder to /var/vcap/sys/run
+  new_state_dir=/var/vcap/sys/run/containerd/state
+  old_state_dir=/var/vcap/data/containerd/state
+  if [ -d "$old_state_dir" ] && [ ! -d "$new_state_dir" ]; then
+    mkdir -p $(dirname "$new_state_dir")
+    mv "$old_state_dir" "$new_state_dir"
+  fi
 
   containerd_config_filepath="$GARDEN_CONFIG_DIR/containerd.toml"
   exec_command="exec"
