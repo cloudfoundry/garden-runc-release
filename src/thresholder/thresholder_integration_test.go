@@ -1,16 +1,16 @@
 package main_test
 
 import (
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-	"github.com/onsi/gomega/gbytes"
-
 	"bytes"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gbytes"
 
 	"code.cloudfoundry.org/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
@@ -40,7 +40,7 @@ var _ = Describe("Thresholder", func() {
 
 	BeforeEach(func() {
 		reservedSpace = "3000"
-		pathToDisk = diskMountPath
+		pathToDisk = "/"
 		pathToGrootfsConfigAsset := filepath.Join("testassets", "grootfs.yml")
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
 		gardenGcThreshold = "-1"

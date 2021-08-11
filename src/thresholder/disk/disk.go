@@ -2,34 +2,17 @@ package disk
 
 import (
 	"fmt"
-	"syscall"
 )
 
 type Stat struct {
-	Blocks    int64
-	BlockSize int64
+	AvailableBlocks int64
+	BlockSize       int64
 }
+
+//go:generate counterfeiter . FS
 
 type FS interface {
 	Stat(path string) (Stat, error)
-}
-
-type SysFS struct{}
-
-func NewSysFS() SysFS {
-	return SysFS{}
-}
-
-func (fs SysFS) Stat(path string) (Stat, error) {
-	var fsStat syscall.Statfs_t
-	if err := syscall.Statfs(path, &fsStat); err != nil {
-		return Stat{}, fmt.Errorf("cannot stat %s: %w", path, err)
-	}
-
-	return Stat{
-		Blocks:    int64(fsStat.Blocks),
-		BlockSize: fsStat.Bsize,
-	}, nil
 }
 
 type Meter struct {
@@ -37,14 +20,18 @@ type Meter struct {
 }
 
 func NewMeter() Meter {
-	return Meter{fs: NewSysFS()}
+	return NewMeterWithFS(NewSysFS())
+}
+
+func NewMeterWithFS(fs FS) Meter {
+	return Meter{fs: fs}
 }
 
 func (d Meter) GetAvailableSpace(path string) (int64, error) {
 	stat, err := d.fs.Stat(path)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("cannot stat %s: %w", path, err)
 	}
 
-	return stat.BlockSize * stat.Blocks, nil
+	return stat.BlockSize * stat.AvailableBlocks, nil
 }
