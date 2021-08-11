@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
-	"syscall"
 	"thresholder/calculator"
+	"thresholder/disk"
 
 	"code.cloudfoundry.org/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
@@ -22,10 +22,14 @@ func main() {
 	reservedSpace := megabytesToBytes(parseIntParameter(os.Args[1], "Reserved space parameter must be a number"))
 	diskPath := os.Args[2]
 	configPath := os.Args[3]
-	diskSize := getTotalSpace(diskPath)
-
 	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[4], "Garden GC threshold parameter must be a number"))
 	grootfsGcThreshold := megabytesToBytes(parseIntParameter(os.Args[5], "GrootFS GC threshold parameter must be a number"))
+
+	diskSize, err := disk.NewMeter().GetAvailableSpace(diskPath)
+	if err != nil {
+		failWithMessage(err.Error())
+	}
+
 	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE)
 	if gardenGcThreshold > 0 || grootfsGcThreshold > 0 {
 		calc = calculator.NewOldFashionedCalculator(diskSize, gardenGcThreshold, grootfsGcThreshold)
@@ -41,15 +45,6 @@ func main() {
 	if config.Init.StoreSizeBytes == diskSize {
 		fmt.Printf("Warning: The GrootFS was unable to reserve space for other jobs and won't be able to enforce the requested reserved space. To avoid this, make sure GrootFS has %dGB available for its store by reducing the `grootfs.reserved_space_for_other_jobs_in_mb` or using a bigger disk.", bytesToGigabytes(MIN_STORE_SIZE))
 	}
-}
-
-func getTotalSpace(diskPath string) int64 {
-	var fsStat syscall.Statfs_t
-	if err := syscall.Statfs(diskPath, &fsStat); err != nil {
-		failWithMessage(fmt.Sprintf("Cannot stat %s: %s\n", diskPath, err))
-	}
-
-	return fsStat.Bsize * int64(fsStat.Blocks)
 }
 
 func parseIntParameter(parameterValue, failureMessage string) int64 {
