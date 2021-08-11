@@ -22,8 +22,6 @@ func main() {
 	reservedSpace := megabytesToBytes(parseIntParameter(os.Args[1], "Reserved space parameter must be a number"))
 	diskPath := os.Args[2]
 	configPath := os.Args[3]
-	config := parseFileParameter(configPath, "Grootfs config parameter must be path to valid grootfs config file")
-
 	diskSize := getTotalSpace(diskPath)
 
 	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[4], "Garden GC threshold parameter must be a number"))
@@ -33,6 +31,7 @@ func main() {
 		calc = calculator.NewOldFashionedCalculator(diskSize, gardenGcThreshold, grootfsGcThreshold)
 	}
 
+	config := parseFileParameter(configPath, "Grootfs config parameter must be path to valid grootfs config file")
 	config.Create.WithClean = calc.ShouldCollectGarbageOnCreate()
 	config.Clean.ThresholdBytes = calc.CalculateGCThreshold()
 	config.Init.StoreSizeBytes = calc.CalculateStoreSize()
@@ -78,7 +77,6 @@ func parseFileParameter(parameterValue, failureMessage string) *config.Config {
 
 func writeConfig(config *config.Config, configPath string) {
 	configBytes, err := yaml.Marshal(config)
-
 	if err != nil {
 		failWithMessage(err.Error())
 	}
