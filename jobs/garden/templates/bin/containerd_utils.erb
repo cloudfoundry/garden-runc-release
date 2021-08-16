@@ -65,5 +65,5 @@ start_containerd() {
 
 stop_containerd() {
   log "stopping containerd"
-  killall -s SIGKILL containerd
+  killall -s SIGKILL -e /var/vcap/packages/containerd/bin/containerd
 }
