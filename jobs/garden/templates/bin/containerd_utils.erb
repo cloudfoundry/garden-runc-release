@@ -9,6 +9,8 @@ export LOG_DIR="/var/vcap/sys/log/garden"
 export PATH="${PATH}:/var/vcap/packages/containerd/bin"
 export PATH="${PATH}:/var/vcap/packages/runc/bin"
 
+CONTAINERD_PIDFILE=/var/vcap/sys/run/garden/containerd.pid
+
 log() {
   local msg
   local time
@@ -56,6 +58,8 @@ start_containerd() {
     2>> "${LOG_DIR}/containerd.stderr.log" \
     &
 
+  echo "$!" > "$CONTAINERD_PIDFILE"
+
   address=$(grep containerd.sock $containerd_config_filepath | awk '{print $3}' | tr -d '"')
   while ! /var/vcap/packages/containerd/bin/ctr -a $address --connect-timeout 100ms c ls; do
     log "waiting for containerd to become available"
@@ -65,5 +69,7 @@ start_containerd() {
 
 stop_containerd() {
   log "stopping containerd"
-  killall -s SIGKILL -e /var/vcap/packages/containerd/bin/containerd
+
+  pid=$(cat "$CONTAINERD_PIDFILE")
+  kill -s SIGKILL "$pid"
 }
