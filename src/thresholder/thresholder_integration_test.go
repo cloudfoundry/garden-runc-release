@@ -40,7 +40,7 @@ var _ = Describe("Thresholder", func() {
 
 	BeforeEach(func() {
 		reservedSpace = "3000"
-		pathToDisk = "/"
+		pathToDisk = fsMountPoint
 		pathToGrootfsConfigAsset := filepath.Join("testassets", "grootfs.yml")
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
 		gardenGcThreshold = "-1"
