@@ -17,7 +17,7 @@ var _ = Describe("SysFS", func() {
 		stat, err := fs.Stat("/")
 
 		Expect(err).NotTo(HaveOccurred())
-		Expect(stat.AvailableBlocks).To(Equal(dfAvailBlocks("/", stat.BlockSize)))
+		Expect(stat.AvailableBlocks).To(BeNumerically("~", dfAvailBlocks("/", stat.BlockSize), 10))
 	})
 })
 

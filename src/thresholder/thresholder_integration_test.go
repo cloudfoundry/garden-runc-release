@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
+	"github.com/onsi/gomega/types"
 
 	"code.cloudfoundry.org/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
@@ -60,14 +61,14 @@ var _ = Describe("Thresholder", func() {
 			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
 			config := configFromFile(pathToGrootfsConfig)
 
-			Expect(config.Clean.ThresholdBytes).To(Equal(diskSize - megabytesToBytes(3000)))
+			Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(diskSize - megabytesToBytes(3000)))
 		})
 
 		It("sets init.store_size_bytes", func() {
 			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
 			config := configFromFile(pathToGrootfsConfig)
 
-			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize - megabytesToBytes(3000)))
+			Expect(config.Init.StoreSizeBytes).To(BeMoreOrLess(diskSize - megabytesToBytes(3000)))
 		})
 
 		It("sets create.with_clean", func() {
@@ -91,11 +92,11 @@ var _ = Describe("Thresholder", func() {
 		})
 
 		It("sets clean.threshold_bytes", func() {
-			Expect(config.Clean.ThresholdBytes).To(Equal(megabytesToBytes(1000)))
+			Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(megabytesToBytes(1000)))
 		})
 
 		It("sets init.store_size_bytes", func() {
-			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize))
+			Expect(config.Init.StoreSizeBytes).To(BeMoreOrLess(diskSize))
 		})
 
 		It("sets create.with_clean", func() {
@@ -112,7 +113,7 @@ var _ = Describe("Thresholder", func() {
 			session := gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
 			config := configFromFile(pathToGrootfsConfig)
 
-			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize))
+			Expect(config.Init.StoreSizeBytes).To(BeMoreOrLess(diskSize))
 			Expect(session).To(gbytes.Say("Warning.*15GB"))
 		})
 	})
@@ -153,7 +154,7 @@ var _ = Describe("Thresholder", func() {
 
 		Context("when grootfs configfile does not contain valid grootfs config", func() {
 			BeforeEach(func() {
-				Expect(ioutil.WriteFile(pathToGrootfsConfig, []byte("not yaml"), 0600)).To(Succeed())
+				Expect(ioutil.WriteFile(pathToGrootfsConfig, []byte("not yaml"), 0o600)).To(Succeed())
 			})
 
 			exitsNonZeroWithMessage("Grootfs config parameter must be path to valid grootfs config file")
@@ -203,4 +204,8 @@ func configFromFile(path string) *config.Config {
 
 func megabytesToBytes(megabytes int64) int64 {
 	return int64(megabytes * 1024 * 1024)
+}
+
+func BeMoreOrLess(n int64) types.GomegaMatcher {
+	return BeNumerically("~", n, float64(n)*0.001)
 }
