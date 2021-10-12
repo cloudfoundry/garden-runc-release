@@ -9,6 +9,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/types"
 )
 
 var _ = Describe("SysFS", func() {
@@ -17,7 +18,7 @@ var _ = Describe("SysFS", func() {
 		stat, err := fs.Stat("/")
 
 		Expect(err).NotTo(HaveOccurred())
-		Expect(stat.AvailableBlocks).To(BeNumerically("~", dfAvailBlocks("/", stat.BlockSize), 10))
+		Expect(stat.AvailableBlocks).To(BeMoreOrLess(dfAvailBlocks("/", stat.BlockSize)))
 	})
 })
 
@@ -31,4 +32,8 @@ func dfAvailBlocks(path string, blockSize int64) int64 {
 	Expect(err).NotTo(HaveOccurred())
 
 	return blocks
+}
+
+func BeMoreOrLess(n int64) types.GomegaMatcher {
+	return BeNumerically("~", n, float64(n)*0.001)
 }
