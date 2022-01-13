@@ -1,4 +1,30 @@
 <%
+def parse_ip (ip, var_name)
+  unless ip.empty?
+    ip = ip.split(":")[0]
+      begin
+        parsed = IPAddr.new ip
+      rescue  => e
+        raise "Invalid #{var_name} '#{ip}': #{e}"
+      end
+  end
+end
+
+def parse_ips (ips, var_name)
+  ips.each do |ip|
+    parse_ip(ip, var_name)
+  end
+end
+
+if p("garden.listen_network") == "tcp"
+  parse_ip(p('garden.listen_address'), 'garden.listen_address')
+end
+parse_ips(p('garden.deny_networks'), 'garden.deny_networks')
+parse_ip(p('garden.debug_listen_address'), 'garden.debug_listen_address')
+parse_ip(p('garden.network_pool'), 'garden.network_pool')
+-%>
+
+<%
     runtime_bin_dir  = "/var/vcap/data/garden/bin"
     rootless         = p("garden.experimental_rootless_mode")
     groot_config_dir = rootless ? "/var/vcap/data/garden/config" : "/var/vcap/jobs/garden/config"

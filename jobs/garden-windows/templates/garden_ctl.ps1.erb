@@ -12,6 +12,22 @@ New-Item $imageStore -ItemType Directory -Force
 New-Item $runtimeBinDir -ItemType Directory -Force
 Copy-Item "C:\var\vcap\packages\guardian-windows\winit.exe" -Destination $initBinPath
 
+<%
+def parse_ip (ip, var_name)
+  unless ip.empty?
+    ip = ip.split(":")[0]
+      begin 
+        parsed = IPAddr.new ip
+      rescue  => e
+        raise "Invalid #{var_name} '#{ip}': #{e}"
+      end
+  end
+end
+
+parse_ip(p('garden.listen_address'), 'garden.listen_address')
+
+%>
+
 C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
   --skip-setup `
