@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -n "$TAG" ]; then
+  tag="--tag $TAG"
+fi
+
+export LOCAL_DEV_RUN=${LOCAL_DEV_RUN:-true}
+export GARDEN_REMOTE_ATC_URL=${GARDEN_REMOTE_ATC_URL:-garden-ci}
+
+build_yml=$1
+shift
+
+echo "Running task ${build_yml}"
+image_args=("--inputs-from" "main/garden" "--image" "garden-ci-image")
+if [[ "$build_yml" == *"windows"* ]]; then
+  image_args=()
+fi
+
+fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p ${image_args[@]}  -c "$build_yml" "$@"

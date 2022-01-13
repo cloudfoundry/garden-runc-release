@@ -1,0 +1,12 @@
+---
+platform: windows
+
+params:
+  WORKAROUND_BRANCH:
+run:
+  path: powershell
+  args:
+  - "-ExecutionPolicy"
+  - "Bypass"
+  - "-File"
+  - gr-release-develop/ci/scripts/guardian-windows-workaround.ps1
