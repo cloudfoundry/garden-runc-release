@@ -17,4 +17,4 @@ if [[ "$build_yml" == *"windows"* ]]; then
   image_args=()
 fi
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p ${image_args[@]}  -c "$build_yml" "$@"
+WORKAROUND_BRANCH=windows-tests-workaround fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p ${image_args[@]} -c "$build_yml" "$@"

@@ -1,16 +1,14 @@
 ---
 platform: windows
 
-resources:
-- name: gr-release-develop
-  type: git
-  source: {uri: "https://github.com/cloudfoundry/garden-runc-release/"}
-
 params:
   WORKAROUND_BRANCH:
 run:
   path: powershell
   args:
+  - "-Command"
+  - "&{git clone -b windows-tests-workaround https://github.com/cloudfoundry/garden-runc-release.git gr-release-develop}"
+  - "; powershell"
   - "-ExecutionPolicy"
   - "Bypass"
   - "-File"

@@ -1,11 +1,7 @@
 $ErrorActionPreference = "Stop";
 trap { $host.SetShouldExit(1) }
 
-git clone https://github.com/cloudfoundry/garden-runc-release.git gr-release-develop
-
 cd gr-release-develop
-git checkout $WORKAROUND_BRANCH
-git submodule update --recursive
 
 $env:PWD = (Get-Location)
 $env:GOPATH = ${env:PWD} + "\src\gopath"
