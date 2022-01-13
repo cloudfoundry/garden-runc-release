@@ -1,6 +1,11 @@
 ---
 platform: windows
 
+resources:
+- name: gr-release-develop
+  type: git
+  source: {uri: "https://github.com/cloudfoundry/garden-runc-release/"}
+
 params:
   WORKAROUND_BRANCH:
 run:
