@@ -2,14 +2,14 @@
 platform: windows
 
 params:
-  WORKAROUND_BRANCH:
+  WORKAROUND_BRANCH: windows-tests-workaround
 run:
   path: powershell
   args:
   - "-Command"
-  - "&{git clone -b windows-tests-workaround https://github.com/cloudfoundry/garden-runc-release.git gr-release-develop}"
+  - "&{git clone -b $env:WORKAROUND_BRANCH https://github.com/cloudfoundry/garden-runc-release.git gr-release-develop}"
   - "; powershell"
   - "-ExecutionPolicy"
   - "Bypass"
   - "-File"
-  - gr-release-develop/ci/scripts/guardian-windows-workaround.ps1
+  - gr-release-develop/ci/scripts/guardian-windows.ps1

@@ -3,6 +3,9 @@ trap { $host.SetShouldExit(1) }
 
 cd gr-release-develop
 
+git submodule update --init --recursive
+
+
 $env:PWD = (Get-Location)
 $env:GOPATH = ${env:PWD} + "\src\gopath"
 $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
