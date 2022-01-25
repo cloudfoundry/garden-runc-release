@@ -1,8 +1,8 @@
 ---
 name: thresholder
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- 'thresholder/**/*'
-- 'build/bosh-go.bash'
+  - thresholder/**/*

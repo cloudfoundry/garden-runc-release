@@ -8,22 +8,17 @@ if ((Get-Item $BOSH_INSTALL_TARGET).LinkType -ne "") {
   $BOSH_INSTALL_TARGET = (Get-Item $BOSH_INSTALL_TARGET).Target
 }
 
-$env:GOROOT="C:\var\vcap\packages\golang-windows\go"
-$env:GOPATH="C:\Windows\Temp\gopath"
-$env:GOCACHE="C:\Windows\Temp\gocache"
-$env:PATH="${env:GOROOT}\bin;${env:PATH}"
-$gdn_version = [IO.File]::ReadAllText("versions\guardian")
-
 # Create GOPATH
-New-Item -ItemType "directory" -Force "${BOSH_INSTALL_TARGET}\src"
+New-Item -ItemType "directory" -Force src
 
-robocopy.exe /E "${PWD}" "${BOSH_INSTALL_TARGET}\src"
+robocopy.exe /E "${PWD}" src /xd src
 if ($LASTEXITCODE -ge 8) {
-    Write-Error "robocopy.exe /E ${PWD} ${BOSH_INSTALL_TARGET}\src"
+    Write-Error "robocopy.exe /E ${PWD} src /xd src"
 }
 
-cd .\guardian
+. C:\var\vcap\packages\golang-1.17-windows\bosh\compile.ps1
 
+Push-Location guardian
 go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\gdn.exe" -ldflags "-X main.version=${gdn_version}" ".\cmd\gdn"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: cmd\gdn"
@@ -33,16 +28,6 @@ go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\winit.exe" ".\cmd\winit"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: cmd\winit"
 }
-
-# Cleanup build artifacts
-New-Item -ItemType directory -Path ".\emptydirectory" -Force
-
-robocopy.exe ".\emptydirectory" "${BOSH_INSTALL_TARGET}\src" /PURGE
-if ($LASTEXITCODE -ge 8) {
-    Write-Error "robocopy.exe .\emptydirectory ${BOSH_INSTALL_TARGET}\src /PURGE"
-}
-
-Remove-Item -Recurse -Path "${BOSH_INSTALL_TARGET}\src" -Force
-Remove-Item -Recurse -Path ".\emptydirectory" -Force
+Pop-Location
 
 Exit 0

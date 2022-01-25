@@ -1,8 +1,8 @@
 ---
 name: dontpanic
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
   - dontpanic/**/*
-  - 'build/bosh-go.bash'

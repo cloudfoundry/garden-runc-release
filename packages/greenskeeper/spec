@@ -1,8 +1,8 @@
 ---
 name: greenskeeper
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- 'greenskeeper/**/*'
-- 'build/bosh-go.bash'
+  - greenskeeper/**/*
