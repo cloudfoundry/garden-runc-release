@@ -3,11 +3,10 @@ name: runc
 
 dependencies:
   - libseccomp
-  - golang
+  - golang-1.17-linux
   - apparmor
   - pkg-config
 
 files:
   - gopath/src/github.com/opencontainers/runc/**/*
-  - patches/patch.bash
-  - build/runc.bash
+  - patches/**/*
