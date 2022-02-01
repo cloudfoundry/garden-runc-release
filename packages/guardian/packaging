@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=../../src/build/bosh-go.bash
-source build/bosh-go.bash
+mkdir -p "${BOSH_INSTALL_TARGET}/src"
+mv * "${BOSH_INSTALL_TARGET}/src"
+mv "${BOSH_INSTALL_TARGET}/src" .
 
-gdn_version="$( cat versions/guardian )"
+source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
-cd guardian
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/gdn" -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dadoo" ./cmd/dadoo
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/socket2me" ./cmd/socket2me
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/execas" ./cmd/execas
+gdn_version="$( cat src/versions/guardian )"
+guardian_dir="src/guardian"
 
-cd rundmc/nstar
+pushd "${guardian_dir}"
+  go install -mod vendor -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
+  go install -mod vendor ./cmd/dadoo
+  go install -mod vendor ./cmd/socket2me
+  go install -mod vendor ./cmd/execas
+popd
 
-make
-mv nstar "${BOSH_INSTALL_TARGET}/bin/nstar"
+pushd "${guardian_dir}/rundmc/nstar"
+  make
+  mv nstar "${BOSH_INSTALL_TARGET}/bin/nstar"
+popd
 
-cd ../../cmd/init
-
-gcc -static -o init init.c ignore_sigchild.c
-mv init "${BOSH_INSTALL_TARGET}/bin/init"
+pushd "${guardian_dir}/cmd/init"
+  gcc -static -o init init.c ignore_sigchild.c
+  mv init "${BOSH_INSTALL_TARGET}/bin/init"
+popd

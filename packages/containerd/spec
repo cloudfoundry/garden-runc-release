@@ -1,8 +1,8 @@
 ---
 name: containerd
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- gopath/src/github.com/containerd/containerd/**/*
-- build/bosh-go.bash
+  - gopath/src/github.com/containerd/containerd/**/*

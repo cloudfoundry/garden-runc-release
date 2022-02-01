@@ -1,8 +1,8 @@
 ---
 name: grootfs
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- grootfs/**/*
-- build/bosh-go.bash
+  - grootfs/**/*

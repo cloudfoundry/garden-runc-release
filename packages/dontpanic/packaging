@@ -2,11 +2,15 @@
 
 set -e
 
-# shellcheck source=../../src/build/bosh-go.bash
-source build/bosh-go.bash
+mkdir -p "${BOSH_INSTALL_TARGET}/src"
+mv * "${BOSH_INSTALL_TARGET}/src"
+mv "${BOSH_INSTALL_TARGET}/src" .
 
-cd ./dontpanic
+source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/dontpanic"
+export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
+pushd src/dontpanic
+  go install -mod vendor
+popd

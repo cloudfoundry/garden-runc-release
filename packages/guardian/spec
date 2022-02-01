@@ -1,9 +1,9 @@
 ---
 name: guardian
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- guardian/**/*
-- versions/guardian
-- build/bosh-go.bash
+  - guardian/**/*
+  - versions/guardian

@@ -1,8 +1,8 @@
 ---
 name: netplugin-shim
 
-dependencies: [golang]
+dependencies:
+  - golang-1.17-linux
 
 files:
-- 'netplugin-shim/**/*'
-- 'build/bosh-go.bash'
+  - netplugin-shim/**/*

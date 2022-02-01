@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=../../src/build/bosh-go.bash
-source build/bosh-go.bash
+mkdir -p "${BOSH_INSTALL_TARGET}/src"
+mv * "${BOSH_INSTALL_TARGET}/src"
+mv "${BOSH_INSTALL_TARGET}/src" .
 
-cd ./greenskeeper
+source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/greenskeeper" ./cmd/greenskeeper
-cp ./scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/system-preparation"
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
+pushd src/greenskeeper
+  go install -mod vendor ./cmd/greenskeeper
+  cp ./scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/system-preparation"
+popd

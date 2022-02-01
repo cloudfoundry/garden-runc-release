@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=../../src/build/bosh-go.bash
-source build/bosh-go.bash
+mkdir -p "${BOSH_INSTALL_TARGET}/src"
+mv * "${BOSH_INSTALL_TARGET}/src"
+mv "${BOSH_INSTALL_TARGET}/src" .
 
-cd ./idmapper
+source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newuidmap" ./cmd/newuidmap
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/newgidmap" ./cmd/newgidmap
-go build -mod vendor -o "${BOSH_INSTALL_TARGET}/bin/maximus" ./cmd/maximus
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-chmod u+s ${BOSH_INSTALL_TARGET}/bin/*
+pushd src/idmapper
+  for binary in newuidmap newgidmap maximus; do
+    go install -mod vendor "./cmd/${binary}"
+    chmod u+s "${BOSH_INSTALL_TARGET}/bin/${binary}"
+  done
+popd
