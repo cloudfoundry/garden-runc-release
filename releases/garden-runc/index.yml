@@ -179,6 +179,8 @@ builds:
     version: 1.16.4
   f1d19cf1-02e3-4140-9001-b10bbfdcc12f:
     version: 0.7.0
+  f24b1d29-8f39-4a71-4f20-42effa9a14d2:
+    version: 1.19.32
   f55b2700-5a23-42ed-b791-e1c2dd276e89:
     version: 0.9.0
   f5d71554-96cc-4173-5eb7-0a720a2d5f8c:
