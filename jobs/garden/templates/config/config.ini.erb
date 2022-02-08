@@ -20,7 +20,11 @@ if p("garden.listen_network") == "tcp"
   parse_ip(p('garden.listen_address'), 'garden.listen_address')
 end
 parse_ips(p('garden.deny_networks'), 'garden.deny_networks')
-parse_ip(p('garden.debug_listen_address'), 'garden.debug_listen_address')
+
+if_p("garden.debug_listen_address") do |addr|
+  parse_ip(addr, 'garden.debug_listen_address')
+end 
+
 parse_ip(p('garden.network_pool'), 'garden.network_pool')
 -%>
 
