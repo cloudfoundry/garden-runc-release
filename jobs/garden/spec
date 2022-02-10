@@ -40,6 +40,12 @@ packages:
   - dontpanic
   - tini
 
+provides:
+- name: iptables
+  type: iptables
+  properties:
+  - garden.iptables_bin_dir
+
 properties:
   garden.listen_network:
     description: "Garden server connection mode (tcp or unix)."
@@ -227,6 +233,10 @@ properties:
   garden.experimental_cpu_throttling_check_interval:
     description: "(Under development) Number of seconds between each CPU throttling check"
     default: 15
+
+  garden.iptables_bin_dir:
+    description: "Path to directory that contains iptables binary"
+    default: /var/vcap/packages/iptables/sbin
 
   grootfs.log_level:
     description: "Log level for grootfs - can be debug, info, error or fatal."

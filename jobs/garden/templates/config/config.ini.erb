@@ -63,8 +63,8 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% end -%>
 
 ; binaries
-  iptables-bin = /var/vcap/packages/iptables/sbin/iptables
-  iptables-restore-bin = /var/vcap/packages/iptables/sbin/iptables-restore
+  iptables-bin = <%= p("garden.iptables_bin_dir") %>/iptables
+  iptables-restore-bin = <%= p("garden.iptables_bin_dir") %>/iptables-restore
   init-bin = <%= "#{runtime_bin_dir}/init" %>
   dadoo-bin = /var/vcap/packages/guardian/bin/dadoo
   nstar-bin = /var/vcap/packages/guardian/bin/nstar
