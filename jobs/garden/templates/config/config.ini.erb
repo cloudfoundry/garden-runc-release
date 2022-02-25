@@ -1,4 +1,6 @@
 <%
+require 'ipaddr'
+
 def parse_ip (ip, var_name)
   unless ip.empty?
     ip = ip.split(":")[0]
@@ -23,7 +25,7 @@ parse_ips(p('garden.deny_networks'), 'garden.deny_networks')
 
 if_p("garden.debug_listen_address") do |addr|
   parse_ip(addr, 'garden.debug_listen_address')
-end 
+end
 
 parse_ip(p('garden.network_pool'), 'garden.network_pool')
 -%>
