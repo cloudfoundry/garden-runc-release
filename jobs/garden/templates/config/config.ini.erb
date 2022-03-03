@@ -18,6 +18,7 @@ def parse_ips (ips, var_name)
   end
 end
 
+# Validate ip address properties are valid before allowing them
 if p("garden.listen_network") == "tcp"
   parse_ip(p('garden.listen_address'), 'garden.listen_address')
 end
