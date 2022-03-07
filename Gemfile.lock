@@ -22,6 +22,8 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     iniparse (1.5.0)
+    libnotify (0.9.4)
+      ffi (>= 1.0.11)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -55,6 +57,7 @@ GEM
     rspec-support (3.11.0)
     semi_semantic (1.2.0)
     shellany (0.0.1)
+    terminal-notifier-guard (1.7.0)
     thor (1.2.1)
 
 PLATFORMS
@@ -64,8 +67,10 @@ DEPENDENCIES
   bosh-template
   guard-rspec
   iniparse
+  libnotify
   rspec
   rspec-its
+  terminal-notifier-guard
 
 BUNDLED WITH
    2.2.33

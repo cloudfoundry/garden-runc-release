@@ -5,5 +5,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-its'
   gem 'guard-rspec'
+  gem 'libnotify'
+  gem 'terminal-notifier-guard'
   gem 'iniparse'
 end
