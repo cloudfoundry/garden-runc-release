@@ -32,3 +32,5 @@ blobs
 /bin
 src/gopath/bin
 src/gopath/pkg
+.tool-versions
+Guardfile
