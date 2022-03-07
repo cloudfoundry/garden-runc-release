@@ -15,7 +15,7 @@ describe 'garden' do
     context 'with defaults' do
       let(:rendered_template) { IniParse.parse(template.render(properties)) }
 
-      it 'binds to a socket' do
+      it 'sets the bind-socket' do
         expect(rendered_template['server']['bind-socket']).to eql('/var/vcap/data/garden/garden.sock')
       end
 
@@ -131,16 +131,29 @@ describe 'garden' do
         expect(rendered_template['server']['bind-port']).to eql(5555)
       end
 
-      # it 'throws an exception if the ip is invalid' do
-      #   properties.merge!({
-      #     'garden' => {
-      #       'listen_network' => 'tcp',
-      #       'listen_address' => '0.0.0.1:5555'
-      #     }
-      #   })
-        
-      #   expect {template.render(properties)}.to raise_error(IPAddr::InvalidAddressError)
-      # end
+      context '(which is invalid)' do
+        it 'throws an exception if the ip is invalid' do
+          properties.merge!({
+            'garden' => {
+              'listen_network' => 'tcp',
+              'listen_address' => '999.999.999.999:5555'
+            }
+          })
+          
+          expect {template.render(properties)}.to raise_error(RuntimeError, /999.999.999.999/)
+        end
+
+        it 'throws an exception if the ip is with 0.x.x.x' do
+          properties.merge!({
+            'garden' => {
+              'listen_network' => 'tcp',
+              'listen_address' => '0.0.0.1:5555'
+            }
+          })
+          
+          expect {template.render(properties)}.to raise_error(RuntimeError, /0.0.0.1/)
+        end
+      end
     end
   end
 end

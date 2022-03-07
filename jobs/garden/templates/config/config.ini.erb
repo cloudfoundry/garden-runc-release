@@ -6,6 +6,7 @@ def parse_ip (ip, var_name)
     ip = ip.split(":")[0]
       begin
         parsed = IPAddr.new ip
+        raise if IPAddr.new('0.0.0.0/24').include? parsed
       rescue  => e
         raise "Invalid #{var_name} '#{ip}': #{e}"
       end
