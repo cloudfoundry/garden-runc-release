@@ -1,4 +1,6 @@
 <%
+require 'ipaddr'
+
 def parse_ip (ip, var_name)
   unless ip.empty?
     ip = ip.split(":")[0]
@@ -16,6 +18,7 @@ def parse_ips (ips, var_name)
   end
 end
 
+# Validate ip address properties are valid before allowing them
 if p("garden.listen_network") == "tcp"
   parse_ip(p('garden.listen_address'), 'garden.listen_address')
 end
@@ -23,7 +26,7 @@ parse_ips(p('garden.deny_networks'), 'garden.deny_networks')
 
 if_p("garden.debug_listen_address") do |addr|
   parse_ip(addr, 'garden.debug_listen_address')
-end 
+end
 
 parse_ip(p('garden.network_pool'), 'garden.network_pool')
 -%>
