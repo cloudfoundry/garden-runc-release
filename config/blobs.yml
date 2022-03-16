@@ -10,10 +10,10 @@ automake/automake-1.16.1.tar.gz:
   size: 2300906
   object_id: fc6c6d98-9fc9-4014-46c5-ea6a7c2028cd
   sha: sha256:608a97523f97db32f1f5d5615c98ca69326ced2054c9f82e65bade7fc4c9dea8
-busybox/busybox-1.27.2.tar.gz:
-  size: 692898
-  object_id: ed3e7c60-5c94-4359-6c7a-a56eeeffb1de
-  sha: 728ef13c40e4a091b22a657a22396b3d985af346
+busybox/busybox-1.35.0.tar.gz:
+  size: 749316
+  object_id: b8960a6f-5f3d-4527-690b-692d59d28159
+  sha: sha256:e42091a91c230aee47b6399e206d4c9e903a377bec57e532c5d509b8b60fcd8b
 golang/go1.17.linux-amd64.tar.gz:
   size: 134787877
   object_id: 2d7ebea7-913e-4309-76de-141958962797
