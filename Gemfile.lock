@@ -69,6 +69,7 @@ DEPENDENCIES
   guard-rspec
   iniparse
   libnotify
+  listen (~> 3.5)
   rspec
   rspec-its
   terminal-notifier-guard
