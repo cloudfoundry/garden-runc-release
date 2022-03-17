@@ -9,3 +9,5 @@ require (
 	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
 	golang.org/x/text v0.3.7 // indirect
 )
+
+replace golang.org/x/text => golang.org/x/text v0.3.7
