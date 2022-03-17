@@ -24,7 +24,7 @@ GEM
     iniparse (1.5.0)
     libnotify (0.9.4)
       ffi (>= 1.0.11)
-    listen (3.5.0)
+    listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     lumberjack (1.2.8)
@@ -69,7 +69,7 @@ DEPENDENCIES
   guard-rspec
   iniparse
   libnotify
-  listen (= 3.5.0)
+  listen (~> 3.5)
   rspec
   rspec-its
   terminal-notifier-guard
