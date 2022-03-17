@@ -1,6 +1,7 @@
 #!/bin/bash -exu
 
 if ! which bundler; then
+  export PATH="/rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin:${PATH}"
   eval "$(rbenv init -)"
 fi
 
