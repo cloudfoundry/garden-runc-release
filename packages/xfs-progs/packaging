@@ -13,7 +13,7 @@ addLib(){
   export PATH=$PACKAGES/$1/bin:$PATH
   export PKG_CONFIG_PATH="${PACKAGES}/$1/lib/pkgconfig:${PKG_CONFIG_PATH}"
   export LDFLAGS="${LDFLAGS} -L${PACKAGES}/$1/lib"
-  export CFLAGS="${CFLAGS} -I${PACKAGES}/$1/include"
+  export CFLAGS="${CFLAGS} -fcommon -I${PACKAGES}/$1/include"
 }
 
 setDeps(){
