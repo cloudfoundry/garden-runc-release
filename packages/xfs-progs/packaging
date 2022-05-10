@@ -33,6 +33,8 @@ setDeps(){
 tar xvzf xfs-progs/xfsprogs-4.20.0.tar.gz
 (
   cd xfsprogs-4.20.0
+  # gcc 10+ changed the default to "-fno-common"; we change it back to build properly
+  export CFLAGS="${CFLAGS} -fcommon"
 
   setDeps
 
