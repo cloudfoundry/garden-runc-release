@@ -2,4 +2,5 @@
 name: tar
 
 files:
-  - tar/tar-1.30.tar.xz
+  - tar/tar-1.32.tar.xz
+  - musl/musl-1.2.3.tar.gz

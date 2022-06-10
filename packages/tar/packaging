@@ -1,14 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="1.30"
+musl_version="1.2.3"
 
-tar xf "tar/tar-${version}.tar.xz"
+musl_install_path=$PWD/musl/out
 
-cd "tar-${version}"
+tar xzf "musl/musl-${musl_version}.tar.gz"
+pushd "musl-${musl_version}"
+  ./configure --prefix=${musl_install_path}
+  make install
+popd
+
+tar_version="1.32"
+
+tar xf "tar/tar-${tar_version}.tar.xz"
+
+cd "tar-${tar_version}"
 
 export LDFLAGS=-static
 export FORCE_UNSAFE_CONFIGURE=1
+export PATH=${musl_install_path}/bin:$PATH
+export CC="musl-gcc -static"
 ./configure
 make
 
