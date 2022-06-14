@@ -50,14 +50,18 @@ lzo/lzo-2.09.tar.gz:
   size: 594855
   object_id: 39bb6d9a-e168-4137-7751-c8262b743f1d
   sha: e2a60aca818836181e7e6f8c4f2c323aca6ac057
+musl/musl-1.2.3.tar.gz:
+  size: 1058642
+  object_id: 0e2e1101-d964-41d5-7c45-9383d0f9ae98
+  sha: sha256:7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4
 pkg-config/pkg-config-0.29.2.tar.gz:
   size: 2016830
   object_id: 047ac8ff-aae8-4df3-6746-3f05cfdbfc3b
   sha: sha256:6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591
-tar/tar-1.30.tar.xz:
-  size: 2108028
-  object_id: dc69bac3-828a-4d65-7479-4ef651208d03
-  sha: 0d442c4565f8131745a5dff1cd08f7eaa797f679
+tar/tar-1.32.tar.xz:
+  size: 2103348
+  object_id: 1dc2117b-abef-47a2-5616-27d2d958465e
+  sha: sha256:d0d3ae07f103323be809bc3eac0dcc386d52c5262499fe05511ac4788af1fdd8
 tini/tini-v0.18.0.tar.gz:
   size: 32152
   object_id: bfcc2f24-1cf0-432a-67cc-2c19518c839b
