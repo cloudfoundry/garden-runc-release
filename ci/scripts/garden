@@ -6,4 +6,5 @@ cd "$( dirname "$0" )/../.."
 cd src/garden
 
 go vet -mod vendor ./...
+go install github.com/onsi/ginkgo/ginkgo@latest
 ginkgo -mod vendor -r -p --race --keepGoing --nodes="${GINKGO_NODES:-8}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"

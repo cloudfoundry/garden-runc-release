@@ -4,6 +4,8 @@ set -ex
 basedir=$PWD
 grreleasedevelopdir="$basedir"/gr-release-develop
 
+go install github.com/onsi/ginkgo/ginkgo@latest
+
 # shellcheck source=../helpers/device-control
 source "$( dirname "$0" )/../helpers/device-control"
 

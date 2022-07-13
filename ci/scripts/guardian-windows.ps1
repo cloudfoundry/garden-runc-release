@@ -19,6 +19,7 @@ cd ./src/guardian
 $env:GO111MODULE = "on"
 
 go version
+go install github.com/onsi/ginkgo/ginkgo@latest
 go vet -mod vendor ./...
 Write-Host "compiling test process: $(date)"
 

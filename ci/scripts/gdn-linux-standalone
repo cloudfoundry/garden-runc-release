@@ -6,6 +6,8 @@
 
 set -ex
 
+go install github.com/onsi/ginkgo/ginkgo@latest
+
 # shellcheck source=../../src/build/runc.bash
 source "$(dirname "$0")/../../src/build/runc.bash"
 

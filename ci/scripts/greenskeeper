@@ -3,4 +3,5 @@ set -ex
 
 cd gr-release-develop/src/greenskeeper
 
+go install github.com/onsi/ginkgo/ginkgo@latest
 ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"

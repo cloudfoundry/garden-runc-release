@@ -9,4 +9,5 @@ create_loop_devices 256
 
 cd gr-release-develop/src/thresholder
 
+go install github.com/onsi/ginkgo/ginkgo@latest
 ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"

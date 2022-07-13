@@ -7,6 +7,7 @@ cd "$(dirname "$0")/../.."
 
 cd src/garden-integration-tests
 
+go install github.com/onsi/ginkgo/ginkgo@latest
 cmd="ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs"
 if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
   cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"

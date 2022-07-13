@@ -6,4 +6,5 @@ args=$@
 
 grr_base=$PWD/gr-release-develop
 cd "$grr_base"/src/dontpanic
+go install github.com/onsi/ginkgo/ginkgo@latest
 ginkgo -mod vendor -p -nodes 5 -race $args
