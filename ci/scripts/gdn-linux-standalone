@@ -30,7 +30,7 @@ fi
 source "$(dirname "$0")/../helpers/device-control"
 
 function build() {
-  go get github.com/go-bindata/go-bindata/go-bindata
+  go install github.com/go-bindata/go-bindata/go-bindata@latest
 
   LINUX_ASSETS=$PWD/linux
 
