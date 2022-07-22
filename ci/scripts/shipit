@@ -37,7 +37,7 @@ if [ -e "$RELEASE_YML" ]; then
 else
   echo "finalizing release"
   bosh -n finalize-release --sha2 --version "$GARDEN_VERSION" "${CANDIDATE_DIR}"/garden-runc-*.tgz
-  mv "${CANDIDATE_DIR}"/garden-runc-*.tgz "{$tarball_path}"
+  mv "${CANDIDATE_DIR}"/garden-runc-*.tgz "${tarball_path}"
   git add -A
   git commit -m "release v${GARDEN_VERSION}"
 fi
