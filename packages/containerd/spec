@@ -2,7 +2,7 @@
 name: containerd
 
 dependencies:
-  - golang-1.17-linux
+  - golang-1.18-linux
 
 files:
   - gopath/src/github.com/containerd/containerd/**/*

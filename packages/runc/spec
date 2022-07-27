@@ -3,7 +3,7 @@ name: runc
 
 dependencies:
   - libseccomp
-  - golang-1.17-linux
+  - golang-1.18-linux
   - apparmor
   - pkg-config
 

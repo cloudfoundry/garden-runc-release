@@ -16,7 +16,7 @@ if ($LASTEXITCODE -ge 8) {
     Write-Error "robocopy.exe /E ${PWD} src /xd src"
 }
 
-. C:\var\vcap\packages\golang-1.17-windows\bosh\compile.ps1
+. C:\var\vcap\packages\golang-*-windows\bosh\compile.ps1
 
 Push-Location guardian
 go.exe build -mod vendor -o "${BOSH_INSTALL_TARGET}\gdn.exe" -ldflags "-X main.version=${gdn_version}" ".\cmd\gdn"
