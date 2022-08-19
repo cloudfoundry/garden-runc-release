@@ -20,11 +20,11 @@ describe 'garden' do
       end
 
       it 'sets the ip tables bin dir' do
-        expect(rendered_template['server']['iptables-bin']).to eql('/usr/sbin/iptables')
+        expect(rendered_template['server']['iptables-bin']).to eql('/sbin/iptables')
       end
 
       it 'sets the ip tables restore bin dir' do
-        expect(rendered_template['server']['iptables-restore-bin']).to eql('/usr/sbin/iptables-restore')
+        expect(rendered_template['server']['iptables-restore-bin']).to eql('/sbin/iptables-restore')
       end
 
       it 'sets the init bin dir' do
