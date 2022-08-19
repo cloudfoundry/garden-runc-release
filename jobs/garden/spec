@@ -236,7 +236,7 @@ properties:
 
   garden.iptables_bin_dir:
     description: "Path to directory that contains iptables binary"
-   default: /sbin
+    default: /sbin
 
   grootfs.log_level:
     description: "Log level for grootfs - can be debug, info, error or fatal."
