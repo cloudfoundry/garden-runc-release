@@ -26,7 +26,7 @@ git config --global --add safe.directory '*'
 # If you want to fly execute this, you will have to pass DEV_MODE=true
 if [ -z "$DEV_MODE" ]; then
   gdn_version=$(cd gr-release-develop/src/guardian && git rev-parse HEAD)
-  gdn_build_ldflags="-X main.version=${gdn_version}"
+  gdn_build_ldflags="-X main.version=${gdn_version} -extldflags=-static"
 fi
 
 # shellcheck source=../helpers/device-control
@@ -92,7 +92,7 @@ function build() {
     cd gr-release-develop/src/guardian
 
     # must be built with 'daemon' flag because of docker packages :|
-    go build \
+    CGO_ENABLED=0 go build \
       -mod vendor \
       -tags daemon \
       -o "${basedir}/binary/gdn" \
