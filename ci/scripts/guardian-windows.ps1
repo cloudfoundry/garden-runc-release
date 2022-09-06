@@ -8,6 +8,9 @@ $env:GOPATH = ${env:PWD} + "\src\gopath"
 $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
 $env:GO111MODULE = "off"
 
+# This is work around --buildvcs issues in Go 1.18+
+git config --global --add safe.directory '*'
+
 Write-Host "Installing Ginkgo"
 go.exe get ./src/gopath/src/github.com/onsi/ginkgo/ginkgo
 if ($LastExitCode -ne 0) {

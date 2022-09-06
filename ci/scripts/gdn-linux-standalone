@@ -20,6 +20,9 @@ export PATH=$PATH:$GOPATH/bin
 
 basedir=$PWD
 
+# This is work around --buildvcs issues in Go 1.18+
+git config --global --add safe.directory '*'
+
 # If you want to fly execute this, you will have to pass DEV_MODE=true
 if [ -z "$DEV_MODE" ]; then
   gdn_version=$(cd gr-release-develop/src/guardian && git rev-parse HEAD)

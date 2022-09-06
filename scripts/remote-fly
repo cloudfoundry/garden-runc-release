@@ -17,4 +17,4 @@ if [[ "$build_yml" == *"windows"* ]]; then
   image_args=()
 fi
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p ${image_args[@]} -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
+fly --target "$GARDEN_REMOTE_ATC_URL" e --include-ignored $tag -p ${image_args[@]} -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"

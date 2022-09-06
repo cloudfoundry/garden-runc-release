@@ -17,6 +17,9 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH="${grr_base}/src/gopath"
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
+# This is work around --buildvcs issues in Go 1.18+
+git config --global --add safe.directory '*'
+
 if [ -n "${PATCH_RUNC:-}" ]; then
   (
   # Using patch instead of `git apply` to keep this path working with `fly

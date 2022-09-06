@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
+# This is work around --buildvcs issues in Go 1.18+
+git config --global --add safe.directory '*'
+
 cd "$( dirname "$0" )/../.."
 
 cd src/garden
