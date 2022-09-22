@@ -1,0 +1,22 @@
+---
+name: garden-binaries
+
+templates: {}
+
+packages:
+  - guardian
+  - iptables
+  - containerd
+  - runc
+  - busybox
+  - tar
+  - garden-idmapper
+  - greenskeeper
+  - grootfs
+  - xfs-progs
+  - thresholder
+  - netplugin-shim
+  - dontpanic
+  - tini
+
+properties: {}
