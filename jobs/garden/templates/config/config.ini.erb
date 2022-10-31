@@ -32,6 +32,15 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 -%>
 
 <%
+    def override_if_present(override, fallback)
+      if_p(override) do |prop|
+        return { key: override, value: prop }
+      end
+      return { key: fallback, value: p(fallback) }
+    end
+-%>
+
+<%
     runtime_bin_dir  = "/var/vcap/data/garden/bin"
     rootless         = p("garden.experimental_rootless_mode")
     groot_config_dir = rootless ? "/var/vcap/data/garden/config" : "/var/vcap/jobs/garden/config"
@@ -198,15 +207,12 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% if_p("garden.experimental_cpu_entitlement_per_share_in_percent") do |entitlement_per_share| -%>
   cpu-entitlement-per-share = <%= entitlement_per_share %>
 <% end -%>
-<% if_p("garden.experimental_cpu_throttling") do |enable_cpu_throttling| -%>
-  enable-cpu-throttling = <%= enable_cpu_throttling %>
+  enable-cpu-throttling = <%= override_if_present("garden.cpu_throttling", "garden.experimental_cpu_throttling")[:value] %>
+<% cpu_throttling_interval = override_if_present("garden.cpu_throttling_check_interval", "garden.experimental_cpu_throttling_check_interval") -%>
+<% if cpu_throttling_interval[:value] <= 0 -%>
+  <% raise "#{cpu_throttling_interval[:key]} should be a positive integer" -%>
 <% end -%>
-<% if_p("garden.experimental_cpu_throttling_check_interval") do |interval| -%>
-  <% if interval <= 0 -%>
-    <% raise "experimental_cpu_throttling_check_interval should be a positive integer" -%>
-  <% end -%>
-  cpu-throttling-check-interval = <%= interval %>
-<% end -%>
+  cpu-throttling-check-interval = <%= cpu_throttling_interval[:value] %>
 <% if p("garden.disable_swap_limit") -%>
   disable-swap-limit = true
 <% end -%>

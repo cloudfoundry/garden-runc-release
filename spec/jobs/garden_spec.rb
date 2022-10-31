@@ -91,12 +91,104 @@ describe 'garden' do
         expect(rendered_template['server']['cpu-entitlement-per-share']).to eql(0)
       end
 
-      it 'sets the enable cpu throttling per share to 0' do
-        expect(rendered_template['server']['enable-cpu-throttling']).to eql(false)
-      end
+      context 'cpu throttling' do
+        context 'by default' do
+          it 'sets the enable cpu throttling per share to false' do
+            expect(rendered_template['server']['enable-cpu-throttling']).to eql(false)
+          end
 
-      it 'sets the experimental cpu throttling check interval to 15' do
-        expect(rendered_template['server']['cpu-throttling-check-interval']).to eql(15)
+          it 'sets the experimental cpu throttling check interval to 15' do
+            expect(rendered_template['server']['cpu-throttling-check-interval']).to eql(15)
+          end
+        end
+
+        context 'when only experimental values are set' do
+          let(:properties) {
+            {
+              'garden' => {
+                'experimental_cpu_throttling' => ex_cpu_th,
+                'experimental_cpu_throttling_check_interval' => ex_cpu_th_int
+              }
+            }
+          }
+          let(:ex_cpu_th) { true }
+          let(:ex_cpu_th_int) { 20 }
+
+          it 'uses the experimental values' do
+            expect(rendered_template['server']['enable-cpu-throttling']).to eql(ex_cpu_th)
+            expect(rendered_template['server']['cpu-throttling-check-interval']).to eql(ex_cpu_th_int)
+          end
+          context 'when the experimental interval value is invalid' do
+            let(:ex_cpu_th_int) { 0 }
+            it 'errors' do
+              error_msg = 'garden.experimental_cpu_throttling_check_interval should be a positive integer'
+              expect { rendered_template }.to raise_error(error_msg)
+            end
+          end
+        end
+
+        context 'when experimental and non-experimental values are set' do
+          let(:properties) {
+            {
+              'garden' => {
+                'experimental_cpu_throttling' => ex_cpu_th,
+                'experimental_cpu_throttling_check_interval' => ex_cpu_th_int,
+                'cpu_throttling' => cpu_th,
+                'cpu_throttling_check_interval' => cpu_th_int
+              }
+            }
+          }
+          let(:ex_cpu_th) { true }
+          let(:ex_cpu_th_int) { 20 }
+          let(:cpu_th) { false }
+          let(:cpu_th_int) { 30 }
+
+          it 'uses the non-experimental values' do
+            expect(rendered_template['server']['enable-cpu-throttling']).to eql(cpu_th)
+            expect(rendered_template['server']['cpu-throttling-check-interval']).to eql(cpu_th_int)
+          end
+
+          context 'when the experimental interval value is invalid' do
+            let(:ex_cpu_th_int) { 0 }
+            it 'does not error' do
+              expect { rendered_template }.to_not raise_error
+            end
+          end
+
+          context 'when the non-experimental interval value is invalid' do
+            let(:cpu_th_int) { 0 }
+            it 'errors' do
+              error_msg = 'garden.cpu_throttling_check_interval should be a positive integer'
+              expect { rendered_template }.to raise_error(error_msg)
+            end
+          end
+        end
+
+        context 'when only non-experimental values are set' do
+          let(:properties) {
+            {
+              'garden' => {
+                'cpu_throttling' => cpu_th,
+                'cpu_throttling_check_interval' => cpu_th_int
+              }
+            }
+          }
+          let(:cpu_th) { false }
+          let(:cpu_th_int) { 30 }
+
+          it 'uses the non-experimental values' do
+            expect(rendered_template['server']['enable-cpu-throttling']).to eql(cpu_th)
+            expect(rendered_template['server']['cpu-throttling-check-interval']).to eql(cpu_th_int)
+          end
+
+          context 'when the non-experimental interval value is invalid' do
+            let(:cpu_th_int) { 0 }
+            it 'errors' do
+              error_msg = 'garden.cpu_throttling_check_interval should be a positive integer'
+              expect { rendered_template }.to raise_error(error_msg)
+            end
+          end
+        end
       end
 
       it 'sets the network-pool to 10.254.0.0/22' do
@@ -109,12 +201,11 @@ describe 'garden' do
 
       it 'sets the port-pool-properties-path' do
         expect(rendered_template['server']['port-pool-properties-path']).to eql('/var/vcap/data/garden/port-pool-props.json')
-      end      
+      end
 
       it 'sets the time-format' do
         expect(rendered_template['server']['time-format']).to eql('unix-epoch')
       end
-
     end
 
     context 'with a listen address' do
@@ -125,7 +216,6 @@ describe 'garden' do
             'listen_address' => '127.0.0.1:5555'
           }
         )
-        
         rendered_template = IniParse.parse(template.render(properties))
         expect(rendered_template['server']['bind-ip']).to eql('127.0.0.1')
         expect(rendered_template['server']['bind-port']).to eql(5555)
