@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+PIDFILE="/var/vcap/sys/run/garden/restart-garden.pid"
+FAILURE_COUNTER_FILE="<%= p("healthchecker.failure_counter_file") %>"
+
+# As this script might run longer than a monit cycle (10s) and thus might be
+# triggered several times, it must be ensured that it runs only once.
+[[ -s "$PIDFILE" ]] && exit
+
+function on_exit {
+    rm -f $PIDFILE
+}
+
+trap on_exit EXIT
+
+echo "$BASHPID" > "$PIDFILE"
+
+LOGFILE="/var/vcap/sys/log/garden/restart-garden.log"
+echo "$(date) - pid: $BASHPID - Monit triggered restart" >> "$LOGFILE"
+
+failure_counter="$(cat ${FAILURE_COUNTER_FILE})"
+
+if (( failure_counter < 10 )); then
+  /var/vcap/bosh/bin/monit restart garden
+  sleep 1
+  echo "$(date) - pid: $BASHPID - Waiting for garden to be restarted" >> "$LOGFILE"
+
+  until /var/vcap/bosh/bin/monit summary | grep garden | grep -v healthchecker | grep running; do
+    sleep 1
+  done
+  /var/vcap/bosh/bin/monit reload garden-healthchecker
+  echo "$(date) - pid: $BASHPID - garden was restarted" >> "$LOGFILE"
+else
+  echo "$(date) - pid: $BASHPID - 10 consecutive failures in a row. Stopping healthcheck to avoid constantly bringing down the main service." >> "${LOGFILE}"
+  /var/vcap/bosh/bin/monit unmonitor garden-healthchecker
+fi

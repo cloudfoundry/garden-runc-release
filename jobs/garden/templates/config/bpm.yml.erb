@@ -26,3 +26,14 @@ processes:
         shared: true
         writable: true
 <%- } } -%>
+  - name: garden-healthchecker
+    executable: /var/vcap/packages/guardian/bin/healthchecker
+    args:
+      - -c
+      - /var/vcap/jobs/garden/config/healthchecker.yml
+    additional_volumes:
+      - path: /var/vcap/data/garden/garden.sock
+        writable: true
+        mount_only: true
+      - path: /var/vcap/data/garden/counters
+        writable: true

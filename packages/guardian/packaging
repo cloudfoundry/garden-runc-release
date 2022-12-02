@@ -29,3 +29,7 @@ pushd "${guardian_dir}/cmd/init"
   gcc -static -o init init.c ignore_sigchild.c
   mv init "${BOSH_INSTALL_TARGET}/bin/init"
 popd
+
+pushd "${guardian_dir}/vendor/code.cloudfoundry.org/cf-networking-helpers/healthchecker/cmd/healthchecker"
+  go build -o "${BOSH_INSTALL_TARGET}/bin/healthchecker" .
+popd
