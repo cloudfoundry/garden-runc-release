@@ -20,3 +20,11 @@ check process garden
 
   group vcap
 <% end %>
+
+check process garden-healthchecker
+  with pidfile /var/vcap/sys/run/bpm/garden/garden-healthchecker.pid
+  start program "/var/vcap/jobs/bpm/bin/bpm start garden -p garden-healthchecker"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop garden -p garden-healthchecker"
+  if 1 restarts within 1 cycles then exec "/var/vcap/jobs/garden/bin/restart-garden"
+  depends on garden
+  group vcap
