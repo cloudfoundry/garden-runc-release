@@ -35,7 +35,7 @@ processes:
 <%- if p('garden.listen_network') == "unix" -%>
       - path: /var/vcap/data/garden/garden.sock
         writable: true
-<%- end -%>
         mount_only: true
+<%- end -%>
       - path: /var/vcap/data/garden/counters
         writable: true
