@@ -3,6 +3,8 @@ name: garden-windows
 
 templates:
   garden_ctl.ps1.erb: bin/garden_ctl.ps1
+  healthchecker_ctl.ps1.erb: bin/healthchecker_ctl.ps1
+  healthchecker.yml.erb: config/healthchecker.yml
 
 packages:
   - guardian-windows
@@ -66,3 +68,7 @@ properties:
   logging.format.timestamp:
     description: "Format for timestamp in component logs. Valid values are 'unix-epoch' and 'rfc3339'."
     default: "unix-epoch"
+
+  healthchecker.failure_counter_file:
+    description: "File used by the healthchecker to monitor consecutive failures."
+    default: "C:\\var\\vcap\\data\\garden\\counters\\consecutive_healthchecker_failures.count"

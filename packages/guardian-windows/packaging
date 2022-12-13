@@ -28,6 +28,11 @@ go.exe build -buildvcs=false -mod vendor -o "${BOSH_INSTALL_TARGET}\winit.exe" "
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: cmd\winit"
 }
+
+go.exe build -buildvcs=false -mod vendor -o "${BOSH_INSTALL_TARGET}\healthchecker.exe" ".\vendor\code.cloudfoundry.org\cf-networking-helpers\healthchecker\cmd\healthchecker"
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Error compiling: cf-networking-helpers\healthchecker\cmd\healthchecker (vendored package)"
+}
 Pop-Location
 
 Exit 0

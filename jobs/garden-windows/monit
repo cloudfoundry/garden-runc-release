@@ -7,6 +7,15 @@
         "C:\\var\\vcap\\jobs\\garden-windows\\bin\\garden_ctl.ps1"
       ],
       "env": {}
+    },
+    {
+      "name": "garden-windows-healthchecker",
+      "executable": "powershell",
+      "args": [
+        "C:\\var\\vcap\\jobs\\garden-windows\\bin\\healthchecker_ctl.ps1"
+      ],
+      "env": {},
+      "depends": ["garden-windows"]
     }
   ]
 }

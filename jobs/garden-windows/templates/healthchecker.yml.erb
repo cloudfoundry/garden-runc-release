@@ -1,0 +1,17 @@
+<%=
+
+ip, port = p('garden.listen_address').split(':')
+
+config = {
+  'component_name' => 'garden-healthchecker',
+  'failure_counter_file' => p('healthchecker.failure_counter_file'),
+  'log_level' =>  p('garden.log_level'),
+  'healthcheck_endpoint' => {
+    'host' => ip,
+    'port' => Integer(port),
+    'path' => '/ping'
+  }
+}
+
+config.to_yaml
+-%>

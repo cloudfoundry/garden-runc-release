@@ -1,0 +1,24 @@
+﻿$ErrorActionPreference = "Stop";
+trap { $host.SetShouldExit(1) }
+
+$counterDir=(Split-Path -Path "<%= p('healthchecker.failure_counter_file') %>")
+New-Item $counterDir -ItemType Directory -Force
+
+C:\var\vcap\packages\guardian-windows\healthchecker.exe `
+  -c C:\var\vcap\jobs\garden-windows\config\healthchecker.yml
+
+if ($LASTEXITCODE -ne 0) {
+  if ([int](cat "<%= p('healthchecker.failure_counter_file') %>") -lt 10) {
+    Write-Host (Get-Date -UFormat "%Y-%m-%dT%H:%M:%SZ%Z") - pid: $PID - Healthchecker failed, restarting garden-windows.
+    Restart-Service garden-windows
+    Write-Host (Get-Date -UFormat "%Y-%m-%dT%H:%M:%SZ%Z") - pid: $PID - Waiting for garden-windows to be restarted
+    do {
+      Start-Sleep -Seconds 1
+    } until (Get-Service garden-windows | Where-Object { $_.Status -eq "Running" })
+    Write-Host (Get-Date -UFormat "%Y-%m-%dT%H:%M:%SZ%Z") - pid: $PID - garden-windows was restarted
+    exit 1
+  } else {
+    Write-Host (Get-Date -UFormat "%Y-%m-%dT%H:%M:%SZ%Z") - pid: $PID - 10 consecutive failures in a row. Stopping healthcheck to avoid constantly bringing down the main service.
+    Stop-Service garden-windows-healthchecker
+  }
+}
