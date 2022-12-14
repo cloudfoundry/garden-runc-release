@@ -181,6 +181,8 @@ builds:
     version: 1.19.15
   db846e30-b0b5-4a7e-9856-30d87340814c:
     version: 1.2.1
+  dbdaceb5-3d5b-49ad-7b11-e584506fbaa2:
+    version: 1.22.6
   dc4cf53c-03ce-4212-6813-1d810c67258f:
     version: 1.19.16
   dee2d3a3-2f68-47ad-7049-5090cd187022:
