@@ -5,7 +5,7 @@ export PATH=$GOPATH/bin:$PATH
 
 DEVELOP=$PWD/gr-release-develop
 
-git clone ./gr-release-master ./release-merged
+git clone ./gr-release-release ./release-merged
 
 cd release-merged
 
@@ -17,4 +17,4 @@ git checkout local/develop
 git config --global user.email "ci@localhost"
 git config --global user.name "CI Bot"
 
-git merge --no-edit master
+git merge --no-edit release

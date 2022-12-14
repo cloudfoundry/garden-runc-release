@@ -42,7 +42,7 @@ else
   git commit -m "release v${GARDEN_VERSION}"
 fi
 
-cp -r . ../release/master
+cp -r . ../release/release
 )
 
 # prepare github release

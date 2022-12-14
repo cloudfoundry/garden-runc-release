@@ -7,10 +7,10 @@ image_resource:
 
 inputs:
   - name: gr-release-develop
-  - name: gr-release-master
+  - name: gr-release-release
 
 outputs:
   - name: release-merged
 
 run:
-  path: gr-release-develop/ci/scripts/merge-master
+  path: gr-release-develop/ci/scripts/merge-release
