@@ -23,6 +23,7 @@ disable_transparent_hugepages
 restrict_dmesg_access
 increase_max_open_fds
 increase_max_procs
+permit_device_control
 <% if p("garden.apparmor_profile") == "garden-default" %>
   load_apparmor_profile "$GARDEN_CONFIG_DIR"/garden-default
 <% end %>
