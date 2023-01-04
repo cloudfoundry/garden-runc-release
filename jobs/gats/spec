@@ -14,3 +14,15 @@ properties:
   garden_port:
     description: Port Garden is listening on
     default: 7777
+  containerd_for_processes:
+    description: Run GATS with CONTAINERD_FOR_PROCESSES_ENABLED
+    default: false
+  rootless:
+    description: Run GATS with ROOTLESS env var
+    default: false
+  cpu_throttling:
+    description: Run GATS with CPU_THROTTLING_ENABLED
+    default: false
+  windows_rootfs:
+    description: URL to pull the windows rootfs from
+    default: ""

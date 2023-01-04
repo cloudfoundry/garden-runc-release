@@ -164,22 +164,22 @@
       cni_config_dir: /var/vcap/jobs/silk-cni/config/cni
 
 - type: replace
-  path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin?
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/network_plugin?
   value: /var/vcap/packages/netplugin-shim/bin/garden-plugin
 
 - type: replace
-  path: /instance_groups/0/jobs/name=garden/properties/garden/network_plugin_extra_args?
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/network_plugin_extra_args?
   value:
     - "--socket"
     - "/var/vcap/data/netplugin-server/sockets/network-shim.sock"
 
 - type: replace
-  path: /instance_groups/0/jobs/name=garden/properties/garden/additional_bpm_volumes?
+  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/additional_bpm_volumes?
   value:
     - "/var/vcap/data/netplugin-server/sockets"
 
 - type: replace
-  path: /instance_groups/0/jobs/name=netplugin-server?
+  path: /instance_groups/name=garden/jobs/name=netplugin-server?
   value:
     name: netplugin-server
     release: garden-runc
