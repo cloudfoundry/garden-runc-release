@@ -1,0 +1,7 @@
+---
+- type: replace
+  path: /releases/name=garden-runc
+  value:
+    name: garden-runc
+    version: create
+    url: file://((release-path))

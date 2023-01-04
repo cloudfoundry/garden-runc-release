@@ -1,0 +1,17 @@
+set -e
+
+mkdir -p ${BOSH_INSTALL_TARGET}/src
+cp -a . ${BOSH_INSTALL_TARGET}/src
+
+pushd "${BOSH_INSTALL_TARGET}"
+  source /var/vcap/packages/golang-1.19-linux/bosh/compile.env
+
+  pushd src/garden-integration-tests
+      go install github.com/onsi/ginkgo/ginkgo
+      ginkgo build -r .
+      for file in $(find . -name "*.test"); do
+        dest=$(basename $file)
+        mv $file ../../bin/$dest
+      done
+  popd
+popd

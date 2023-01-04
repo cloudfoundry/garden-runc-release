@@ -1,0 +1,6 @@
+---
+- type: replace
+  path: /instance_groups/name=garden/jobs/-
+  value:
+    name: gats
+    release: garden-runc

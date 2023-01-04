@@ -1,0 +1,8 @@
+---
+name: gats
+
+dependencies:
+- golang-1.19-linux
+
+files:
+- garden-integration-tests/**

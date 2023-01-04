@@ -1,0 +1,16 @@
+---
+name: gats
+
+templates:
+  run.erb: bin/run
+
+packages:
+- gats
+
+properties:
+  garden_address:
+    description: Address Garden is listening on
+    default: 127.0.0.1
+  garden_port:
+    description: Port Garden is listening on
+    default: 7777

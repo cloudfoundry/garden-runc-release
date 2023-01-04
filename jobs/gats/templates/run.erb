@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -ex
+
+base=$PWD
+
+cd "$(dirname "$0")/.."
+
+cd packages/gats/bin
+
+export GARDEN_ADDRESS="<%= p("garden_address") %>"
+export GARDEN_PORT="<%= p("garden_port") %>"
+
+cmd="./ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs garden-integration-tests.test"
+
+if [ -n "${WINDOWS_TEST_ROOTFS:-}" ]; then
+  cmd="./ginkgo -mod vendor -stream gats98.test"
+fi
+
+$cmd
