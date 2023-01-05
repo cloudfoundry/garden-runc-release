@@ -28,8 +28,6 @@ instance_groups:
   azs: [((az))]
   stemcell: stemcell
   jobs:
-  - name: bpm
-    release: bpm
   - name: gats
     release: garden-runc
     properties:
