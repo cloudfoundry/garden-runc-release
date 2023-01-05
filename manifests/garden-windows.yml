@@ -34,7 +34,9 @@ instance_groups:
       windows_rootfs: true
 - name: garden-windows
   instances: 1
-  vm_type: ((vm))
+  vm_type: small-highmem
+  vm_extensions:
+    - 100GB_ephemeral_disk
   stemcell: windows2019
   azs: [((az))]
   networks:
