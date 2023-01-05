@@ -1,5 +1,5 @@
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: garden-binaries
     release: garden-runc

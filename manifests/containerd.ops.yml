@@ -1,6 +1,6 @@
 - type: remove
-  path: /instance_groups/name=garden/jobs/name=containerd?
+  path: /instance_groups/name=gats/jobs/name=containerd?
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/containerd_mode?
+  path: /instance_groups/name=gats/jobs/name=garden/properties/garden/containerd_mode?
   value: true
