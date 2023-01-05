@@ -44,8 +44,6 @@ instance_groups:
   jobs:
   - name: enable_ssh
     release: windows-utilities
-  - name: garden-plugins
-    release: garden-ci-artifacts
   - name: garden-windows
     release: garden-runc
     properties:
