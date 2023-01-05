@@ -4,8 +4,6 @@ name: ((deployment))
 releases:
 - name: garden-runc
   version: latest
-- name: garden-ci-artifacts
-  version: latest
 - name: winc
   version: latest
 - name: windows-utilities
