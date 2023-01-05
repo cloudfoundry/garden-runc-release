@@ -15,6 +15,9 @@ stemcells:
 - alias: windows2019
   os: windows2019
   version: latest
+- alias: stemcell
+  os: ((stemcell-os))
+  version: latest
 
 instance_groups:
 - name: gats
