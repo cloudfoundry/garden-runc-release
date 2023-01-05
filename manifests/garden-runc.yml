@@ -14,7 +14,7 @@ stemcells:
   version: latest
 
 instance_groups:
-- name: garden
+- name: gats
   instances: 1
   vm_type: ((vm))
   networks:
@@ -33,6 +33,26 @@ instance_groups:
         debug_listen_address: 0.0.0.0:17013
         log_level: debug
   - name: gats
+    release: garden-runc
+- name: gpats
+  instances: 1
+  vm_type: ((vm))
+  networks:
+  - name: ((network))
+  azs: [((az))]
+  stemcell: stemcell
+  jobs:
+  - name: bpm
+    release: bpm
+  - name: garden
+    release: garden-runc
+    properties:
+      garden:
+        listen_network: tcp
+        listen_address: 0.0.0.0:7777
+        debug_listen_address: 0.0.0.0:17013
+        log_level: debug
+  - name: gpats
     release: garden-runc
 
 update:

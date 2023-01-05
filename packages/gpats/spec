@@ -1,0 +1,8 @@
+---
+name: gpats
+
+dependencies:
+- golang-1.19-linux
+
+files:
+- garden-performance-acceptance-tests/**

@@ -65,3 +65,6 @@
 [submodule "src/dontpanic"]
 	path = src/dontpanic
 	url = https://github.com/cloudfoundry/dontpanic
+[submodule "src/garden-performance-acceptance-tests"]
+	path = src/garden-performance-acceptance-tests
+	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests.git

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -ex
+
+base=$PWD
+
+cd "$(dirname "$0")/.."
+
+cd packages/gpats/bin
+
+export GARDEN_ADDRESS="<%= p("garden_address") %>"
+export GARDEN_PORT="<%= p("garden_port") %>"
+
+cmd="./ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs *.test"
+
+
+$cmd

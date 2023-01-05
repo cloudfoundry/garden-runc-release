@@ -84,11 +84,11 @@
       - client_auth
 
 - type: replace
-  path: /instance_groups/name=garden/persistent_disk?
+  path: /instance_groups/name=gats/persistent_disk?
   value: 6000
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: mysql
     release: cf-mysql
@@ -110,7 +110,7 @@
             password: "((network_connectivity_database_password))"
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: silk-controller
     release: silk
@@ -131,7 +131,7 @@
         client_key: ((silk_daemon.private_key))
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: silk-daemon
     release: silk
@@ -143,19 +143,19 @@
         hostname: *controller_hostname
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: netmon
     release: silk
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: silk-cni
     release: silk
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/-
+  path: /instance_groups/name=gats/jobs/-
   value:
     name: garden-cni
     release: cf-networking
@@ -164,22 +164,22 @@
       cni_config_dir: /var/vcap/jobs/silk-cni/config/cni
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/network_plugin?
+  path: /instance_groups/name=gats/jobs/name=garden/properties/garden/network_plugin?
   value: /var/vcap/packages/netplugin-shim/bin/garden-plugin
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/network_plugin_extra_args?
+  path: /instance_groups/name=gats/jobs/name=garden/properties/garden/network_plugin_extra_args?
   value:
     - "--socket"
     - "/var/vcap/data/netplugin-server/sockets/network-shim.sock"
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=garden/properties/garden/additional_bpm_volumes?
+  path: /instance_groups/name=gats/jobs/name=garden/properties/garden/additional_bpm_volumes?
   value:
     - "/var/vcap/data/netplugin-server/sockets"
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=netplugin-server?
+  path: /instance_groups/name=gats/jobs/name=netplugin-server?
   value:
     name: netplugin-server
     release: garden-runc
