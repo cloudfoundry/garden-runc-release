@@ -3,5 +3,5 @@
   value: true
 
 - type: replace
-  path: /instance_groups/name=garen/jobs/name=gats/properties/cpu_throttling
+  path: /instance_groups/name=garen/jobs/name=gats/properties?/cpu_throttling
   value: true

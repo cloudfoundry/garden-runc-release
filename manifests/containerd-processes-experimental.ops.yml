@@ -5,5 +5,5 @@
   value: true
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=gats/properties/containerd_for_processes?
+  path: /instance_groups/name=garden/jobs/name=gats/properties?/containerd_for_processes
   value: true

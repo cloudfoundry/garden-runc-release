@@ -7,5 +7,5 @@
   value: true
 
 - type: replace
-  path: /instance_groups/name=garden/jobs/name=gats/properties/rootless?
+  path: /instance_groups/name=garden/jobs/name=gats/properties?/rootless
   value: true
