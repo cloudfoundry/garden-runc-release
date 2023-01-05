@@ -7,6 +7,12 @@ templates:
 packages:
   - guardian-windows
 
+provides:
+- name: garden-windows
+  type: garden-windows
+  properties:
+  - garden.listen_address
+
 properties:
   garden.listen_address:
     description: "Garden server listening address."

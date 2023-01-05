@@ -20,6 +20,20 @@ instance_groups:
 - name: gats
   instances: 1
   vm_type: ((vm))
+  networks:
+  - name: ((network))
+  azs: [((az))]
+  stemcell: stemcell
+  jobs:
+  - name: bpm
+    release: bpm
+  - name: gats
+    release: garden-runc
+    properties:
+      windows_rootfs: true
+- name: garden-windows
+  instances: 1
+  vm_type: ((vm))
   stemcell: windows2019
   azs: [((az))]
   networks:

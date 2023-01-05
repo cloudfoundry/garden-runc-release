@@ -17,6 +17,8 @@ export WINDOWS_TEST_ROOTFS="<%= p("windows_rootfs") %>"
 cmd="./ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs garden-integration-tests.test"
 
 if [ -n "${WINDOWS_TEST_ROOTFS:-}" ]; then
+  export GARDEN_ADDRESS="<%= link('garden-windows').instances[0].address %>"
+  export GARDEN_PORT="<%= link('garden-windows').p('garden.listen_address').split(":")[1] %>"
   cmd="./ginkgo -mod vendor -stream gats98.test"
 fi
 
