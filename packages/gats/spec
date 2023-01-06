@@ -151,6 +151,5 @@ files:
   - garden-integration-tests/vendor/golang.org/x/text/runes/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/text/transform/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
-  - garden-integration-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - garden-integration-tests/vendor/gopkg.in/tomb.v1/*.go # gosub
   - garden-integration-tests/vendor/gopkg.in/yaml.v3/*.go # gosub
