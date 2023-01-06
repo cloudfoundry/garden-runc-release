@@ -7,6 +7,11 @@ templates:
 packages:
 - gats
 
+consumes:
+- name: garden-windows
+  type: garden-windows
+  optional: true
+
 properties:
   garden_address:
     description: Address Garden is listening on

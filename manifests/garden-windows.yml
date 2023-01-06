@@ -8,6 +8,8 @@ releases:
   version: latest
 - name: windows-utilities
   version: latest
+- name: garden-ci-artifacts
+  version: latest
 
 stemcells:
 - alias: windows2019
@@ -20,6 +22,7 @@ stemcells:
 instance_groups:
 - name: gats
   instances: 1
+  lifecycle: errand
   vm_type: ((vm))
   networks:
   - name: ((network))
@@ -42,6 +45,8 @@ instance_groups:
   jobs:
   - name: enable_ssh
     release: windows-utilities
+  - name: garden-plugins
+    release: garden-ci-artifacts
   - name: garden-windows
     release: garden-runc
     properties:
@@ -50,18 +55,19 @@ instance_groups:
         image_plugin: C:\var\vcap\packages\groot\groot.exe
         image_plugin_extra_args:
         - "--driver-store"
-        - C:\var\vcap\data\groot\store
+        - C:\var\vcap\data\groot
         network_plugin: C:\var\vcap\packages\noop_plugin\noop_plugin.exe
         nstar_bin: C:\var\vcap\packages\noop_plugin\noop_plugin.exe
         listen_address: 0.0.0.0:7777
-        default_container_rootfs: docker://mcr.microsoft.com/windows/nanoserver:1809
+        default_container_rootfs: docker://mcr.microsoft.com/windows/nanoserver:ltsc2019
+        destroy_containers_on_start: true
   - name: winc
     release: winc
   - name: groot
     release: winc
     properties:
       groot:
-        driver_store: C:\var\vcap\data\groot\store
+        driver_store: C:\var\vcap\data\groot
 
 update:
   canaries: 1

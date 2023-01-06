@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -e
+
+# ensure gosub is installed (this will recompile it only if necessary)
+GO111MODULE=on go install github.com/vito/gosub@latest
+
+function sync_package() {
+  bosh_pkg=${1}
+  src_dir=${2}
+
+  shift
+  shift
+
+  (
+    set -e
+
+    cd "src/${src_dir}"
+
+    spec=../../packages/${bosh_pkg}/spec
+
+    {
+      cat $spec | grep -v '# gosub'
+
+      for package in $(gosub list "$@"); do
+        repo=$(echo ${2} | cut -f1-3 -d/)
+        base_pkg="$(echo $package | cut -f2- -d /)"
+        if [ -d "../../src/${base_pkg}" ]; then
+          package="${base_pkg}"
+        else
+          package="${src_dir}/vendor/${package}"
+        fi
+        echo ${package} | sed -e 's/\(.*\)/  - \1\/*.go # gosub/g'
+        if ls ../../src/${package}/*.s >/dev/null 2>&1; then
+          echo ${package} | sed -e 's/\(.*\)/  - \1\/*.s # gosub/g'
+        fi
+        if ls ../../src/${package}/*.h >/dev/null 2>&1; then
+          echo ${package} | sed -e 's/\(.*\)/  - \1\/*.h # gosub/g'
+        fi
+      done
+    } > $spec.new
+
+    mv $spec.new $spec
+  )
+}
+
+sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/ginkgo \
+  -test code.cloudfoundry.org/garden-integration-tests/... &
+sync_package gpats garden-performance-acceptance-tests -app  github.com/onsi/ginkgo/ginkgo \
+  -test code.cloudfoundry.org/garden-performance-acceptance-tests/... &
+
+wait
+
+git diff --name-only packages/*/spec | tee # pipe through tee to avoid issues with non-interactive shells
