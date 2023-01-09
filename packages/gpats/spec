@@ -8,17 +8,14 @@ files:
   - garden-performance-acceptance-tests/go.mod
   - garden-performance-acceptance-tests/go.sum
   - garden-performance-acceptance-tests/vendor/modules.txt
-  - garden/go.mod
-  - garden/go.sum
-  - garden/vendor/modules.txt
-  - garden/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/*.go # gosub
   - garden-performance-acceptance-tests/*.go # gosub
   - garden-performance-acceptance-tests/measurements/*.go # gosub
   - garden-performance-acceptance-tests/reporter/*.go # gosub
-  - garden/client/*.go # gosub
-  - garden/client/connection/*.go # gosub
-  - garden/routes/*.go # gosub
-  - garden/transport/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/client/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/client/connection/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/routes/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/*.go # gosub

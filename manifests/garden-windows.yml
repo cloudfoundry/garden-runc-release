@@ -32,7 +32,7 @@ instance_groups:
   - name: gats
     release: garden-runc
     properties:
-      windows_rootfs: true
+      windows_rootfs: docker://mcr.microsoft.com/windows/nanoserver:ltsc2019
 - name: garden-windows
   instances: 1
   vm_type: small-highmem

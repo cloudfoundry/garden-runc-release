@@ -8,30 +8,24 @@ files:
   - garden-integration-tests/go.mod
   - garden-integration-tests/go.sum
   - garden-integration-tests/vendor/modules.txt
-  - garden/go.mod
-  - garden/go.sum
-  - garden/vendor/modules.txt
-  - guardian/go.mod
-  - guardian/go.sum
-  - guardian/vendor/modules.txt
   - garden-integration-tests/vendor/code.cloudfoundry.org/archiver/extractor/test_helper/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/commandrunner/*.go # gosub
-  - garden/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/garden/*.go # gosub
   - garden-integration-tests/*.go # gosub
   - garden-integration-tests/gats98/*.go # gosub
   - garden-integration-tests/performance/*.go # gosub
   - garden-integration-tests/testhelpers/*.go # gosub
-  - garden/client/*.go # gosub
-  - garden/client/connection/*.go # gosub
-  - garden/routes/*.go # gosub
-  - garden/transport/*.go # gosub
-  - guardian/gardener/*.go # gosub
-  - guardian/gardener/container-spec/*.go # gosub
-  - guardian/rundmc/*.go # gosub
-  - guardian/rundmc/cgroups/*.go # gosub
-  - guardian/rundmc/cgroups/fs/*.go # gosub
-  - guardian/rundmc/event/*.go # gosub
-  - guardian/rundmc/goci/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/garden/client/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/garden/client/connection/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/garden/routes/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/gardener/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/gardener/container-spec/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/cgroups/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/cgroups/fs/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/event/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
   - garden-integration-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-integration-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
@@ -151,5 +145,6 @@ files:
   - garden-integration-tests/vendor/golang.org/x/text/runes/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/text/transform/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - garden-integration-tests/vendor/gopkg.in/tomb.v1/*.go # gosub
   - garden-integration-tests/vendor/gopkg.in/yaml.v3/*.go # gosub
