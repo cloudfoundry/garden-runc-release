@@ -23,7 +23,6 @@ templates:
   bin/containerd_utils.erb:                 bin/containerd_utils
   bin/pre-start:                            bin/pre-start
   bin/post-start:                           bin/post-start
-  bin/restart-garden.erb:                   bin/restart-garden
   config/healthchecker.yml.erb:             config/healthchecker.yml
 
 packages:
@@ -41,6 +40,7 @@ packages:
   - netplugin-shim
   - dontpanic
   - tini
+  - healthchecker
 
 provides:
 - name: iptables

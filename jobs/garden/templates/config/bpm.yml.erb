@@ -27,7 +27,7 @@ processes:
         writable: true
 <%- } } -%>
   - name: garden-healthchecker
-    executable: /var/vcap/packages/guardian/bin/healthchecker
+    executable: /var/vcap/packages/healthchecker/bin/healthchecker
     args:
       - -c
       - /var/vcap/jobs/garden/config/healthchecker.yml
@@ -37,5 +37,5 @@ processes:
         writable: true
         mount_only: true
 <%- end -%>
-      - path: /var/vcap/data/garden/counters
+      - path: <%= File.dirname(p('healthchecker.failure_counter_file')) %> 
         writable: true
