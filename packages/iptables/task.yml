@@ -1,0 +1,36 @@
+---
+platform: linux
+
+inputs:
+- name: release
+- name: pkg-config-out
+  path: /var/vcap/packages/pkg-config
+
+outputs:
+- name: install-target
+  path: /var/vcap/packages/iptables
+
+params:
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    export PACKAGE=iptables
+    export BOSH_INSTALL_TARGET=/var/vcap/packages/$PACKAGE
+    mkdir -p iptables
+    pushd release
+      bosh sync-blobs
+      cp ./blobs/iptables/* ../iptables
+    popd
+    apt install -y flex gettext
+    mkdir -p $BOSH_INSTALL_TARGET/lib/$PACKAGE
+
+    chmod +x release/packages/$PACKAGE/packaging
+    release/packages/$PACKAGE/packaging
+
+image_resource:
+  type: registry-image
+  source:
+    repository: c2cnetworking/tas-runtime-build
