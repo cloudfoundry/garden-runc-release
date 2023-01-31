@@ -62,10 +62,6 @@ util-linux/util-linux-2.28.tar.gz:
   size: 8860808
   object_id: ed756d6a-13d9-475e-6bba-99fc7531b470
   sha: ad8f1a338c23bcf3519b856295fbdb6a820db64c
-xfs-progs/xfsprogs-4.20.0.tar.gz:
-  size: 1750213
-  object_id: 46a0233d-1423-46d8-49ad-b5d0f07a39aa
-  sha: 46c23a0e222a3374d9c739b8c44be879712e6e75
 zlib/zlib-1.2.11.tar.gz:
   size: 607698
   object_id: 34c42971-0f0e-4704-7530-432d180753af
