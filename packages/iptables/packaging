@@ -35,7 +35,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
     cp "${BOSH_COMPILE_TARGET}/config/config.guess" ./build-aux/config.guess
     cp "${BOSH_COMPILE_TARGET}/config/config.sub" ./build-aux/config.sub
   fi
-  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}" --enable-static --disable-shared
   make
   make install
 )

@@ -1,39 +1,24 @@
 #!/usr/bin/env bash
 
-# This script is almost entirely based on
-# https://github.com/concourse/bin/blob/master/ci/build-linux and
-# https://github.com/concourse/bin/blob/master/scripts/build-linux
-
 set -ex
 
-go install github.com/onsi/ginkgo/ginkgo@latest
-
-# shellcheck source=../../src/build/runc.bash
-source "$(dirname "$0")/../../src/build/runc.bash"
-
-# shellcheck source=../helpers/gats-utils
-source "$(dirname "$0")/../helpers/gats-utils"
-
-grr_base=$PWD/gr-release-develop
-export GOPATH=$grr_base/src/gopath
-export PATH=$PATH:$GOPATH/bin
-
-basedir=$PWD
+release=$PWD/release
+binary=$PWD/binary
 
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
 
-# If you want to fly execute this, you will have to pass DEV_MODE=true
-if [ -z "$DEV_MODE" ]; then
-  gdn_version=$(cd gr-release-develop/src/guardian && git rev-parse HEAD)
-  gdn_build_ldflags="-X main.version=${gdn_version} -extldflags=-static"
-fi
-
-# shellcheck source=../helpers/device-control
-source "$(dirname "$0")/../helpers/device-control"
+# shellcheck source=../helpers/gats-utils
+source "$release/ci/helpers/gats-utils"
 
 function build() {
-  go install github.com/go-bindata/go-bindata/go-bindata@latest
+
+  # shellcheck source=../../src/build/runc.bash
+  source "$release/src/build/runc.bash"
+
+  gdn_version=$(cd $release/src/guardian && git rev-parse HEAD)
+  ldflags="-X main.version=${gdn_version} -extldflags=-static"
+
 
   LINUX_ASSETS=$PWD/linux
 
@@ -41,13 +26,13 @@ function build() {
   mkdir -p "${LINUX_ASSETS}/sbin"
   mkdir -p "${LINUX_ASSETS}/bin"
 
-  cp /opt/static-assets/tar/bin/tar "${LINUX_ASSETS}/bin/tar"
+  cp tar-out/tar "${LINUX_ASSETS}/bin/tar"
 
   # go-bindata does weird stuff with symlinks. we only care about iptables anyway
-  cp -aL /opt/static-assets/iptables/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
-  cp -aL /opt/static-assets/iptables/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
+  cp -aL iptables-out/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
+  cp -aL iptables-out/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
 
-  pushd gr-release-develop
+  pushd $release
   # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
   HOME=$PWD bosh sync-blobs
 
@@ -57,14 +42,12 @@ function build() {
       go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
     )
 
-    if [ -n "${PATCH_RUNC:-}" ]; then
-      (
-        # Using patch instead of `git apply` to keep this path working with `fly
-        # execute`, which does not preserve the `.git` dir.
-        cd "${grr_base}/src/gopath/src/github.com/opencontainers/runc"
-        patch <"${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
-      )
-    fi
+    (
+      # Using patch instead of `git apply` to keep this path working with `fly
+      # execute`, which does not preserve the `.git` dir.
+      cd "${release}/src/gopath/src/github.com/opencontainers/runc"
+      patch <"${release}/ci/runc-patches/0001-remove-delete-timeout.patch"
+    )
     build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
     pushd src/guardian/rundmc/nstar
@@ -77,31 +60,42 @@ function build() {
     mv init "${LINUX_ASSETS}/bin"
     popd
 
+
     (
       cd src/grootfs
-
       make
       make prefix="${LINUX_ASSETS}/bin" install
     )
   )
   popd
 
-  go-bindata -nomemcopy -pkg bindata -o gr-release-develop/src/guardian/bindata/bindata.go linux/...
+  go install github.com/go-bindata/go-bindata/go-bindata@latest
+  go-bindata -nomemcopy -pkg bindata -o $release/src/guardian/bindata/bindata.go linux/...
 
   (
-    cd gr-release-develop/src/guardian
+    cd $release/src/guardian
 
     # must be built with 'daemon' flag because of docker packages :|
     CGO_ENABLED=0 go build \
       -mod vendor \
       -tags daemon \
-      -o "${basedir}/binary/gdn" \
-      -ldflags "$gdn_build_ldflags" \
+      -o "${binary}/gdn" \
+      -ldflags "$ldflags" \
+      ./cmd/gdn
+
+    GOARCH=arm64 CGO_ENABLED=0 go build \
+      -mod vendor \
+      -tags daemon \
+      -o "${binary}/gdn-arm64" \
+      -ldflags "$ldflags" \
       ./cmd/gdn
   )
 }
 
 function prepare() {
+  # shellcheck source=../helpers/device-control
+  source "$release/ci/helpers/device-control"
+
   permit_device_control
   create_loop_devices 256
 
@@ -110,7 +104,7 @@ function prepare() {
 
   mkdir -p /var/lib/grootfs
 
-  binary/gdn \
+  ${binary}/gdn \
     server \
     --depot="${tmpdir}/depot" \
     --bind-ip=0.0.0.0 \
@@ -118,7 +112,7 @@ function prepare() {
     --debug-bind-ip=0.0.0.0 \
     --debug-bind-port=17013 \
     --network-pool=10.254.1.0/24 \
-    --log-level="${LOG_LEVEL}" \
+    --log-level="error" \
     --image-plugin-extra-arg=--config \
     --image-plugin-extra-arg=/opt/grootfs/grootfs.yml \
     --privileged-image-plugin-extra-arg=--config \
@@ -129,23 +123,22 @@ function prepare() {
 }
 
 function test() {
-  cd gr-release-develop/src/garden-integration-tests
+  cd $release/src/garden-integration-tests
+  export ROOTLESS=false
+  export CONTAINERD_FOR_PROCESSES_ENABLED=false
 
-  cmd="ginkgo -mod vendor -p -nodes=${GINKGO_NODES:-8} -failOnPending -randomizeSuites -randomizeAllSpecs $*"
-  if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-    cmd="$basedir/gr-release-develop/ci/helpers/slowmobius $cmd"
-  fi
-
-  $cmd
+  go install github.com/onsi/ginkgo/ginkgo@latest
+  ginkgo -mod vendor -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*
 }
 
-export tmpdir=/tmp/dir
-export GARDEN_ADDRESS
-GARDEN_ADDRESS="$(hostname)"
-export GARDEN_PORT=7777
-export GARDEN_DEBUG_PORT=17013
-export NESTED=true
+function verify() {
+  export tmpdir=/tmp/dir
+  export GARDEN_ADDRESS
+  GARDEN_ADDRESS="$(hostname)"
+  export GARDEN_PORT=7777
+  export GARDEN_DEBUG_PORT=17013
+  export NESTED=true
 
-build
-prepare
-test "$*"
+  prepare
+  test "$*"
+}

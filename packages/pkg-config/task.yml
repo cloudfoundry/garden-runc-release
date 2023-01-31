@@ -1,0 +1,32 @@
+---
+platform: linux
+
+inputs:
+- name: release
+
+outputs:
+- name: install-target
+  path: /var/vcap/packages/pkg-config
+
+params:
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    export PACKAGE=pkg-config
+    export BOSH_INSTALL_TARGET=/var/vcap/packages/$PACKAGE
+    mkdir -p pkg-config
+    pushd release
+      bosh sync-blobs
+      cp ./blobs/pkg-config/* ../pkg-config
+    popd
+
+    chmod +x release/packages/$PACKAGE/packaging
+    release/packages/$PACKAGE/packaging
+
+image_resource:
+  type: registry-image
+  source:
+    repository: c2cnetworking/tas-runtime-build
