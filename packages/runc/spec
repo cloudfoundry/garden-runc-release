@@ -4,7 +4,6 @@ name: runc
 dependencies:
   - libseccomp
   - golang-1.19-linux
-  - apparmor
   - pkg-config
 
 files:
