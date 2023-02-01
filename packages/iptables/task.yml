@@ -19,6 +19,7 @@ run:
   - |
     export PACKAGE=iptables
     export BOSH_INSTALL_TARGET=/var/vcap/packages/$PACKAGE
+    export STATIC="true"
     mkdir -p iptables
     pushd release
       bosh sync-blobs
