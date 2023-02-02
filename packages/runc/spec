@@ -9,4 +9,3 @@ dependencies:
 
 files:
   - gopath/src/github.com/opencontainers/runc/**/*
-  - patches/**/*
