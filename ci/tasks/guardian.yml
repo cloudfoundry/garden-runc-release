@@ -2,21 +2,14 @@
 platform: linux
 
 inputs:
-- name: gr-release-develop
+- name: release
 - name: tar-out
 
-caches:
-- path: gr-release-develop/bin
-- path: gr-release-develop/pkg
-
 params:
-  RACE_DETECTION:
   GINKGO_NODES:
   CONTAINERD_ENABLED:
-  LOCAL_DEV_RUN:
-  PATCH_RUNC:
   CONTAINERD_FOR_PROCESSES_ENABLED:
   CPU_THROTTLING_ENABLED:
 
 run:
-  path: gr-release-develop/ci/scripts/guardian
+  path: release/ci/scripts/guardian

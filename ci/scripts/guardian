@@ -1,42 +1,40 @@
 #!/usr/bin/env bash
 set -ex
 
-grr_base=$PWD/gr-release-develop
+release=$PWD/release
 
 # shellcheck source=../helpers/device-control
-source "$grr_base/ci/helpers/device-control"
+source "$release/ci/helpers/device-control"
 
 # shellcheck source=../../src/build/runc.bash
-source "$grr_base/src/build/runc.bash"
+source "$release/src/build/runc.bash"
 # shellcheck source=../../src/build/grootfs.bash
-source "$grr_base/src/build/grootfs.bash"
+source "$release/src/build/grootfs.bash"
 
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
-export GOPATH="${grr_base}/src/gopath"
+export GOPATH="${release}/src/gopath"
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
 
-if [ -n "${PATCH_RUNC:-}" ]; then
-  (
-  # Using patch instead of `git apply` to keep this path working with `fly
-  # execute`, which does not preserve the `.git` dir.
-  cd "${grr_base}/src/gopath/src/github.com/opencontainers/runc"
-  patch < "${grr_base}/ci/runc-patches/0001-remove-delete-timeout.patch"
-  )
-fi
+(
+# Using patch instead of `git apply` to keep this path working with `fly
+# execute`, which does not preserve the `.git` dir.
+cd "${release}/src/gopath/src/github.com/opencontainers/runc"
+patch < "${release}/ci/runc-patches/0001-remove-delete-timeout.patch"
+)
 
 mkdir -p "${GOPATH}/bin"
-build_runc "$grr_base" "${GOPATH}/bin"
-build_grootfs "$grr_base" "${GOPATH}/bin"
+build_runc "$release" "${GOPATH}/bin"
+build_grootfs "$release" "${GOPATH}/bin"
 
 if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
   #TODO: Figure out how to get rid of the containerd git-related errors below
   echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
-  pushd "$grr_base"/src/gopath/src/github.com/containerd/containerd
+  pushd "$release"/src/gopath/src/github.com/containerd/containerd
     BUILDTAGS=no_btrfs make && make install
   popd
 fi
@@ -61,21 +59,10 @@ go install github.com/onsi/ginkgo/ginkgo@latest
 
 echo "compiling test process: $(date)"
 
-cd "$grr_base"/src/guardian
+cd "$release"/src/guardian
 
 if [ -z "${NO_GO_VET:-}" ]; then
   go vet -mod vendor ./...
 fi
 
-cmd="ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -debug"
-if [ -n "${RACE_DETECTION:-}" ]; then
-  cmd="$cmd --race"
-fi
-
-cmd="$cmd $*"
-
-if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-  cmd="$grr_base/ci/helpers/slowmobius $cmd"
-fi
-
-$cmd
+ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
