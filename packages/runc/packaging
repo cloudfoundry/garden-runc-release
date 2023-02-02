@@ -3,9 +3,6 @@ set -euo pipefail
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# shellcheck source=../../src/patches/patch.bash
-source "${SCRIPT_DIR}/patches/patch.bash"
-
 export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
 
@@ -19,7 +16,6 @@ mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/github.com/opencontainers/runc
-  apply_patches "${SCRIPT_DIR}/patches/runc"
   make BUILDTAGS='seccomp apparmor' static
   cp runc "${GOBIN}/runc"
 popd
