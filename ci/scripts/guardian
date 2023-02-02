@@ -20,13 +20,6 @@ export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
 
-(
-# Using patch instead of `git apply` to keep this path working with `fly
-# execute`, which does not preserve the `.git` dir.
-cd "${release}/src/gopath/src/github.com/opencontainers/runc"
-patch < "${release}/ci/runc-patches/0001-remove-delete-timeout.patch"
-)
-
 mkdir -p "${GOPATH}/bin"
 build_runc "$release" "${GOPATH}/bin"
 build_grootfs "$release" "${GOPATH}/bin"

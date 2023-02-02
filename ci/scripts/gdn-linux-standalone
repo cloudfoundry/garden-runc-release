@@ -42,12 +42,6 @@ function build() {
       go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
     )
 
-    (
-      # Using patch instead of `git apply` to keep this path working with `fly
-      # execute`, which does not preserve the `.git` dir.
-      cd "${release}/src/gopath/src/github.com/opencontainers/runc"
-      patch <"${release}/ci/runc-patches/0001-remove-delete-timeout.patch"
-    )
     build_runc "$PWD" "${LINUX_ASSETS}/bin"
 
     pushd src/guardian/rundmc/nstar
