@@ -20,7 +20,7 @@ function permit_device_control() {
     return
   fi
 
-  cgroup_dir=${RUN_DIR}/devices-cgroup
+  cgroup_dir=/devices-cgroup
 
   if [ ! -e "${cgroup_dir}" ]; then
     # mount our container's devices subsystem somewhere

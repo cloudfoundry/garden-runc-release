@@ -5,62 +5,36 @@ set -ex
 release=$PWD/release
 binary=$PWD/binary
 
+export BINARIES=$PWD/linux
+
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
 
-# shellcheck source=../helpers/gats-utils
-source "$release/ci/helpers/gats-utils"
-
 function build() {
 
-  # shellcheck source=../../src/build/runc.bash
-  source "$release/src/build/runc.bash"
+  # shellcheck source=../helpers/build-binaries.bash
+  source "$release/ci/helpers/build-binaries.bash"
 
-  gdn_version=$(cd $release/src/guardian && git rev-parse HEAD)
-  ldflags="-X main.version=${gdn_version} -extldflags=-static"
+  rm -rf "$BINARIES"
+  mkdir -p "${BINARIES}/sbin"
+  mkdir -p "${BINARIES}/bin"
 
-
-  LINUX_ASSETS=$PWD/linux
-
-  rm -rf "$LINUX_ASSETS"
-  mkdir -p "${LINUX_ASSETS}/sbin"
-  mkdir -p "${LINUX_ASSETS}/bin"
-
-  cp tar-out/tar "${LINUX_ASSETS}/bin/tar"
+  cp tar-out/tar "${BINARIES}/bin/tar"
 
   # go-bindata does weird stuff with symlinks. we only care about iptables anyway
-  cp -aL iptables-out/sbin/iptables "${LINUX_ASSETS}/sbin/iptables"
-  cp -aL iptables-out/sbin/iptables-restore "${LINUX_ASSETS}/sbin/iptables-restore"
+  cp -aL iptables-out/sbin/iptables "${BINARIES}/sbin/iptables"
+  cp -aL iptables-out/sbin/iptables-restore "${BINARIES}/sbin/iptables-restore"
 
   pushd $release
   # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
   HOME=$PWD bosh sync-blobs
 
-  ( 
-    (
-      cd src/guardian
-      go build -mod vendor -o "${LINUX_ASSETS}/bin/dadoo" ./cmd/dadoo
-    )
-
-    build_runc "$PWD" "${LINUX_ASSETS}/bin"
-
-    pushd src/guardian/rundmc/nstar
-    make
-    mv nstar "${LINUX_ASSETS}/bin"
-    popd
-
-    pushd src/guardian/cmd/init
-    gcc -static -o init init.c ignore_sigchild.c
-    mv init "${LINUX_ASSETS}/bin"
-    popd
-
-
-    (
-      cd src/grootfs
-      make
-      make prefix="${LINUX_ASSETS}/bin" install
-    )
-  )
+  build_runc "$PWD" "${BINARIES}/bin"
+  build_dadoo "$PWD" "${BINARIES}/bin"
+  build_nstar "$PWD" "${BINARIES}/bin"
+  build_init "$PWD" "${BINARIES}/bin"
+  build_grootfs "$PWD" "${BINARIES}/bin"
+  build_idmapper_binaries "$PWD" "${BINARIES}/bin"
   popd
 
   go install github.com/go-bindata/go-bindata/go-bindata@latest
@@ -68,6 +42,8 @@ function build() {
 
   (
     cd $release/src/guardian
+    gdn_version=$(git rev-parse HEAD)
+    ldflags="-X main.version=${gdn_version} -extldflags=-static"
 
     # must be built with 'daemon' flag because of docker packages :|
     CGO_ENABLED=0 go build \
@@ -86,9 +62,50 @@ function build() {
   )
 }
 
+function write_groot_config_file() {
+  cat <<EOF > /opt/grootfs/grootfs.yml
+---
+store: /var/lib/grootfs/store
+tardis_bin: ${BINARIES}/bin/tardis
+newuidmap_bin: ${BINARIES}/bin/newuidmap
+newgidmap_bin: ${BINARIES}/bin/newgidmap
+log_level: $LOG_LEVEL
+
+create:
+  with_clean: false
+  without_mount: false
+
+init:
+  store_size_bytes: 51398832128
+EOF
+
+  cat <<EOF > /opt/grootfs/grootfs-privileged.yml
+---
+store: /var/lib/grootfs/store-privileged
+tardis_bin: ${BINARIES}/bin/tardis
+newuidmap_bin: ${BINARIES}/bin/newuidmap
+newgidmap_bin: ${BINARIES}/bin/newgidmap
+log_level: $LOG_LEVEL
+
+create:
+  with_clean: false
+  without_mount: false
+
+init:
+  store_size_bytes: 51398832128
+EOF
+}
+
+function wait_for_gdn_server() {
+  for i in {1..5}; do
+    curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping" && break || sleep 5
+  done
+}
+
+
 function prepare() {
-  # shellcheck source=../helpers/device-control
-  source "$release/ci/helpers/device-control"
+  # shellcheck source=../helpers/device-control.bash
+  source "$release/ci/helpers/device-control.bash"
 
   permit_device_control
   create_loop_devices 256
@@ -106,7 +123,7 @@ function prepare() {
     --debug-bind-ip=0.0.0.0 \
     --debug-bind-port=17013 \
     --network-pool=10.254.1.0/24 \
-    --log-level="error" \
+    --log-level="${LOG_LEVEL}" \
     --image-plugin-extra-arg=--config \
     --image-plugin-extra-arg=/opt/grootfs/grootfs.yml \
     --privileged-image-plugin-extra-arg=--config \
@@ -132,6 +149,7 @@ function verify() {
   export GARDEN_PORT=7777
   export GARDEN_DEBUG_PORT=17013
   export NESTED=true
+  export LOG_LEVEL=error
 
   prepare
   test "$*"

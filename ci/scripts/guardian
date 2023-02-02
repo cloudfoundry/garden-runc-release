@@ -3,59 +3,62 @@ set -ex
 
 release=$PWD/release
 
-# shellcheck source=../helpers/device-control
-source "$release/ci/helpers/device-control"
-
-# shellcheck source=../../src/build/runc.bash
-source "$release/src/build/runc.bash"
-# shellcheck source=../../src/build/grootfs.bash
-source "$release/src/build/grootfs.bash"
-
-export GOROOT=/usr/local/go
-export PATH=$GOROOT/bin:$PATH
-
-export GOPATH="${release}/src/gopath"
-export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
+export BINARIES="${release}/src/gopath"
+export PATH=$HOME/go/bin:${BINARIES}/bin:$PATH
 
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
 
-mkdir -p "${GOPATH}/bin"
-build_runc "$release" "${GOPATH}/bin"
-build_grootfs "$release" "${GOPATH}/bin"
+function build() {
+  # shellcheck source=../helpers/build-binaries.bash
+  source "$release/ci/helpers/build-binaries.bash"
 
-if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
-  #TODO: Figure out how to get rid of the containerd git-related errors below
-  echo -e "=========================================\n\n\n\nDuring containerd compilation you will get git fatals that complain of containerd directory not being a git repository. You can safely ignore them :)\n\n\n\n========================================="
-  pushd "$release"/src/gopath/src/github.com/containerd/containerd
-    BUILDTAGS=no_btrfs make && make install
-  popd
-fi
+  mkdir -p "${BINARIES}/bin"
+  build_runc "$release" "${BINARIES}/bin"
+  build_grootfs "$release" "${BINARIES}/bin"
 
-# Set up AppArmor
-if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
-  mount -t securityfs securityfs /sys/kernel/security
-fi
-apparmor_parser -r /opt/static-assets/garden-default
+  if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
+    build_containerd "$release" "${BINARIES}/bin"
+  fi
+}
 
-export GARDEN_TEST_ROOTFS=/opt/warden/rootfs.tar
-export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs.tar
-export GARDEN_TAR_PATH="$PWD/tar-out/tar"
-export GARDEN_TEST_GRAPHPATH=/tmp/aufs_mount
-export GARDEN_DOCKER_REGISTRY_V2_TEST_ROOTFS=/opt/warden/docker-registry-v2-rootfs.tar
+function prepare() {
+  # shellcheck source=../helpers/device-control.bash
+  source "$release/ci/helpers/device-control.bash"
+  permit_device_control
+  create_loop_devices 256
+  # Set up AppArmor
+  if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
+    mount -t securityfs securityfs /sys/kernel/security
+  fi
+  apparmor_parser -r /opt/static-assets/garden-default
 
-permit_device_control
-create_loop_devices 256
+}
 
-go version
-go install github.com/onsi/ginkgo/ginkgo@latest
+function test() {
+  #rootfses required in tests
+  export GARDEN_TEST_ROOTFS=/opt/warden/rootfs.tar
+  export GARDEN_FUSE_TEST_ROOTFS=/opt/warden/fuse-rootfs.tar
+  export GARDEN_DOCKER_REGISTRY_V2_TEST_ROOTFS=/opt/warden/docker-registry-v2-rootfs.tar
 
-echo "compiling test process: $(date)"
+  # binaries required for running tests
+  export GARDEN_TAR_PATH="$PWD/tar-out/tar"
+  export BINARIES="${BINARIES}"
 
-cd "$release"/src/guardian
+  # Test combinations
+  export CONTAINERD_ENABLED="${CONTAINERD_ENABLED}"
+  export CONTAINERD_FOR_PROCESSES_ENABLED="${CONTAINERD_FOR_PROCESSES_ENABLED}"
+  export CPU_THROTTLING_ENABLED="${CPU_THROTTLING_ENABLED}"
 
-if [ -z "${NO_GO_VET:-}" ]; then
+  go version
+  go install github.com/onsi/ginkgo/ginkgo@latest
+
+  cd "${release}/src/guardian"
+
   go vet -mod vendor ./...
-fi
+  ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
+}
 
-ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
+build
+prepare
+test "$*"

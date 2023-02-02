@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
-# shellcheck source=../helpers/device-control
-source "$( dirname "$0" )/../helpers/device-control"
+# shellcheck source=../helpers/device-control.bash
+source "$( dirname "$0" )/../helpers/device-control.bash"
 
 permit_device_control
 create_loop_devices 256

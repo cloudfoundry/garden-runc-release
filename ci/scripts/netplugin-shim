@@ -6,11 +6,4 @@ base=$PWD
 cd gr-release-develop/src/netplugin-shim
 
 go install github.com/onsi/ginkgo/ginkgo@latest
-cmd="ginkgo -mod vendor --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r"
-cmd="$cmd $*"
-
-if [ -n "${SLOW_MOBIUS_TIME_LIMIT_SECONDS:-}" ]; then
-  cmd="$base/gr-release-develop/ci/helpers/slowmobius $cmd"
-fi
-
-$cmd
+ginkgo -mod vendor --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r $*
