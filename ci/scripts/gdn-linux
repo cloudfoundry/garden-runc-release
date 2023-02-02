@@ -20,14 +20,6 @@ source "$( dirname "$0" )/../../src/build/runc.bash"
 
 function build() {
   mkdir -p "${GOPATH}/bin"
-  if [ -n "${PATCH_RUNC:-}" ]; then
-    (
-    # Using patch instead of `git apply` to keep this path working with `fly
-    # execute`, which does not preserve the `.git` dir.
-    cd "${grreleasedevelopdir}/src/gopath/src/github.com/opencontainers/runc"
-    patch < "${grreleasedevelopdir}/ci/runc-patches/0001-remove-delete-timeout.patch"
-    )
-  fi
   build_runc "$grreleasedevelopdir" "${GOPATH}/bin"
   build_nstar "$grreleasedevelopdir"
   build_grootfs "$grreleasedevelopdir"
