@@ -5,16 +5,20 @@ if [ -n "$TAG" ]; then
   tag="--tag $TAG"
 fi
 
-export LOCAL_DEV_RUN=${LOCAL_DEV_RUN:-true}
-export GARDEN_REMOTE_ATC_URL=${GARDEN_REMOTE_ATC_URL:-garden-ci}
+export GARDEN_REMOTE_ATC_URL=${GARDEN_REMOTE_ATC_URL:-runtime-garden}
 
 build_yml=$1
 shift
 
 echo "Running task ${build_yml}"
-image_args=("--inputs-from" "main/garden" "--image" "garden-ci-image")
+image_args=("--inputs-from" "garden-runc-release/garden" "--image" "garden-ci-image")
 if [[ "$build_yml" == *"windows"* ]]; then
   image_args=()
 fi
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e --include-ignored $tag -p ${image_args[@]} -i gr-release-develop=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
+inputs=$(yq -r '.inputs' < "$build_yml")
+echo "Make sure inputs other than 'release' are provided for this task with '-i input-name=local-path':"
+echo "$inputs"
+read -p "(yes): "
+
+fly --target "$GARDEN_REMOTE_ATC_URL" e --include-ignored $tag -p ${image_args[@]} -i release=$HOME/workspace/garden-runc-release -c "$build_yml" "$@"
