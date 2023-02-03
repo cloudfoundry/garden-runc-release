@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for mod in garden guardian grootfs idmapper netplugin-shim; do
+for mod in garden guardian grootfs idmapper netplugin-shim garden-integration-tests garden-performance-acceptance-tests; do
   pushd "src/$mod"
     git checkout master
     go mod tidy
