@@ -4,7 +4,7 @@ platform: linux
 inputs:
 - name: release
 - name: iptables-out
-  optiona: true
+  optional: true
 - name: tar-out
   optional: true
 - name: binary
