@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -ex
-
-cd "$( dirname "$0" )/../.."
-
-cd src/garden-integration-tests
-go install github.com/onsi/ginkgo/ginkgo@latest
-ginkgo -mod vendor -p --nodes=4 --failOnPending performance

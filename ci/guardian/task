@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -eux
 
 release=$PWD/release
 
@@ -56,7 +56,7 @@ function test() {
   cd "${release}/src/guardian"
 
   go vet -mod vendor ./...
-  ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
+  ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
 }
 
 build

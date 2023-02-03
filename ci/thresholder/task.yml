@@ -1,0 +1,20 @@
+---
+platform: linux
+
+inputs:
+  - name: release
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    # shellcheck source=../helpers/device-control.bash
+    source release/ci/helpers/device-control.bash"
+
+    permit_device_control
+    create_loop_devices 256
+
+    cd release/src/thresholder
+    ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"
+

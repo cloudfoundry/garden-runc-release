@@ -6,10 +6,10 @@ inputs:
 - name: tar-out
 
 params:
-  GINKGO_NODES:
+  GINKGO_NODES: 8
   CONTAINERD_ENABLED: false
   CONTAINERD_FOR_PROCESSES_ENABLED: false
   CPU_THROTTLING_ENABLED: false
 
 run:
-  path: release/ci/scripts/guardian
+  path: release/ci/guardian/task
