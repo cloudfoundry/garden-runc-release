@@ -1,0 +1,13 @@
+---
+platform: linux
+
+inputs:
+- name: release
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    cd release/src/greenskeeper
+    ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"

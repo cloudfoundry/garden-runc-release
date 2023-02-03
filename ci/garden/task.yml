@@ -1,0 +1,19 @@
+---
+platform: linux
+
+inputs:
+- name: release
+
+params:
+  GINKGO_NODES: 8
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    git config --global --add safe.directory '*'
+    cd release/src/garden
+    go vet -mod vendor ./...
+    ginkgo -mod vendor -r -p --race --keepGoing --nodes="${GINKGO_NODES}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
+

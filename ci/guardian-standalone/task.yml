@@ -1,0 +1,25 @@
+---
+platform: linux
+
+inputs:
+- name: release
+- name: iptables-out
+  optiona: true
+- name: tar-out
+  optional: true
+- name: binary
+  optional: true
+
+outputs:
+- name: binary
+
+params:
+  ACTION: ~
+
+run:
+  path: bash
+  args:
+  - -ceux
+  - |
+    . release/ci/guardian-standalone/task
+    ${ACTION}

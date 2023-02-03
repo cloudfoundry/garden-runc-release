@@ -2,11 +2,7 @@
 platform: linux
 
 inputs:
-- name: gr-release-develop
-
-caches:
-- path: gr-release-develop/bin
-- path: gr-release-develop/pkg
+- name: release
 
 params:
   DOCKER_REGISTRY_USERNAME:
@@ -16,6 +12,7 @@ params:
   GROOTFS_USER: whoever
 
 run:
-  dir: gr-release-develop/src/grootfs
-  path: ci/scripts/integration-tests.sh
+  dir: release/src/grootfs
   user: root
+  path: make
+  args: [integration-locally]

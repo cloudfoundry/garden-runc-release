@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -ex
-
-base=$PWD
-
-cd gr-release-develop/src/netplugin-shim
-
-go install github.com/onsi/ginkgo/ginkgo@latest
-ginkgo -mod vendor --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r $*

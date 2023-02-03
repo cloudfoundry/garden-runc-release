@@ -1,0 +1,14 @@
+---
+platform: linux
+
+inputs:
+  - name: release
+
+run:
+  path: bash
+  user: root
+  args:
+  - -ceux
+  - |
+    cd release/src/dontpanic
+    ginkgo -mod vendor -p -nodes 5 -race -r

@@ -1,0 +1,16 @@
+---
+platform: linux
+
+inputs:
+- name: release
+
+params:
+  DOCKER_REGISTRY_USERNAME:
+  DOCKER_REGISTRY_PASSWORD:
+  GROOTFS_USER: whoever
+
+run:
+  dir: release/src/grootfs
+  user: root
+  path: make
+  args: [unit-locally]
