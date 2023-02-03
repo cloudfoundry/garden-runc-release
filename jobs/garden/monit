@@ -25,6 +25,6 @@ check process garden-healthchecker
   with pidfile /var/vcap/sys/run/bpm/garden/garden-healthchecker.pid
   start program "/var/vcap/jobs/bpm/bin/bpm start garden -p garden-healthchecker"
   stop program "/var/vcap/jobs/bpm/bin/bpm stop garden -p garden-healthchecker"
-  if 1 restarts within 1 cycles then exec  "/var/vcap/packages/healthchecker/bin/restart-monit-job garden <%= p('healthchecker.failure_counter_file') %>" 
+  if 1 restarts within 1 cycles then exec  "/var/vcap/packages/garden-runc-healthchecker/bin/restart-monit-job garden <%= p('healthchecker.failure_counter_file') %>"
   depends on garden
   group vcap

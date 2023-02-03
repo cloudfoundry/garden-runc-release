@@ -27,7 +27,7 @@ processes:
         writable: true
 <%- } } -%>
   - name: garden-healthchecker
-    executable: /var/vcap/packages/healthchecker/bin/healthchecker
+    executable: /var/vcap/packages/garden-runc-healthchecker/bin/healthchecker
     args:
       - -c
       - /var/vcap/jobs/garden/config/healthchecker.yml
