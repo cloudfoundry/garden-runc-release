@@ -22,4 +22,8 @@ run:
   - -ceux
   - |
     . release/ci/guardian-standalone/task
-    ${ACTION}
+    if [ "${ACTION}" == "all" ];then
+      build && verify
+    else
+      ${ACTION}
+    fi

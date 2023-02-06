@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
 
-: "${FLY_TARGET:=garden-ci}"
+: "${FLY_TARGET:=runtime-garden}"
 export FLY_TARGET
 
 ROOT_DIR_PATH=$(cd "$(dirname "$0")"/.. && pwd)
@@ -34,43 +34,59 @@ go_vet_and_fmt() {
   popd
 }
 
-fly_login() {
-  which flightattendant &>/dev/null || wget -qO- bit.ly/fa_xip | sudo tar xJ -C /usr/local/bin
-
-  if ! flightattendant; then
-    fly -t $FLY_TARGET login
+prepare_dependencies() {
+  if [ -n "${TAR_OUT}" ] && [ -n "${IPTABLES_OUT}" ];then
+    return
   fi
+  export TAR_OUT=$(mktemp -d --suffix "-tar-out")
+  echo "Compile tar for tests"
+  echo 'yes' | ./scripts/remote-fly packages/tar/task.yml -o install-target="${TAR_OUT}"
+
+  export PKG_CONFIG_OUT=$(mktemp -d --suffix "-pkg-config-out")
+  echo "Compile pkg-config for tests"
+  echo 'yes' | ./scripts/remote-fly packages/pkg-config/task.yml -o install-target="${PKG_CONFIG_OUT}"
+
+  export IPTABLES_OUT=$(mktemp -d --suffix "-iptables-out")
+  echo "Compile iptables for tests"
+  echo 'yes' | ./scripts/remote-fly packages/iptables/task.yml -o install-target="${IPTABLES_OUT}" -i pkg-config-out="${PKG_CONFIG_OUT}"
+
+  echo "-------"
+  echo "export IPTABLES_OUT=${IPTABLES_OUT}"
+  echo "export TAR_OUT=${TAR_OUT}"
+  echo "-------"
+  echo "Export these env variables and re-run the test"
+  exit 0
 }
 
+run_garden="echo 'yes' | ./scripts/remote-fly ci/garden/task.yml"
+run_guardian="echo 'yes' | ./scripts/remote-fly ci/guardian/task.yml -i tar-out=${TAR_OUT}"
+run_guardian_containerd="echo 'yes' | CONTAINERD_ENABLED=true ./scripts/remote-fly ci/guardian/task.yml -i tar-out=${TAR_OUT}"
+run_guardian_nerdful="echo 'yes' | CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/guardian/tas.yml -i tar-out=${TAR_OUT}"
+run_guardian_throttled="echo 'yes' | CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true ./scripts/remote-fly ci/guardian/tas.yml -i tar-out=${TAR_OUT}"
+run_guardian_standalone="echo 'yes' | ACTION='all' ./scripts/remote-fly ci/guardian-standalone/task.yml -i tar-out=${TAR_OUT} -i iptables-out=${IPTABLES_OUT}"
+
 run_tests_in_serial() {
-  fly_login
+  prepare_dependencies
   go_vet_and_fmt
-  ./scripts/remote-fly ci/tasks/garden.yml
-  ./scripts/remote-fly ci/tasks/guardian.yml
-  CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
-  CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml
-  ./scripts/remote-fly ci/tasks/guardian-windows.yml
-  ./scripts/remote-fly ci/tasks/gdn-linux.yml
-  CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/gdn-linux.yml
-  DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml
+  eval "$run_garden"
+  eval "$run_guardian"
+  eval "$run_guardian_containerd"
+  eval "$run_guardian_nerdful"
+  eval "$run_guardian_throttled"
+  eval "$run_guardian_standalone"
 }
 
 run_tests_in_parallel() {
-  fly_login
+  prepare_dependencies
   print_message "about to run tests in parallel, it will be awesome" $GREEN
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )
-  tmux new-window -n garden-runc-tests "DEV_MODE=true /bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml; bash --init-file <(echo 'history -s DEV_MODE=true ./scripts/remote-fly ci/tasks/gdn-linux-standalone.yml')\""
-  tmux split-window -h -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/garden.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/garden.yml')\""
-  tmux split-window -h -p 50 "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian.yml')\""
-  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
-  tmux split-window -v -p 50 "/bin/bash -c \"./scripts/remote-fly ci/tasks/guardian-windows.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/guardian-windows.yml')\""
-  tmux select-pane -L
-  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
-  tmux split-window -v -p 50 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/guardian.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/tasks/guardian.yml')\""
-  tmux select-pane -L
-  tmux split-window -v -p 66 "/bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux.yml; bash --init-file <(echo 'history -s ./scripts/remote-fly ci/tasks/gdn-linux.yml')\""
-  tmux split-window -v -p 50 "CONTAINERD_ENABLED=true /bin/bash -c \"./scripts/remote-fly ci/tasks/gdn-linux.yml; bash --init-file <(echo 'history -s CONTAINERD_ENABLED=true ./scripts/remote-fly ci/tasks/gdn-linux.yml')\""
+  tmux new-window -n garden-runc-tests "$run_guardian_standalone"
+  tmux split-window -h -p 66 "/bin/bash -c $run_garden"
+  tmux split-window -h -p 50 "/bin/bash -c $run_guardian"
+  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true /bin/bash -c $run_guardian_containerd"
+  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true /bin/bash -c $run_guardian_throttled"
+  tmux split-window -v -p 50 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c $run_guardian_nerdful"
 }
 
 if [ -z "$*" ]; then
