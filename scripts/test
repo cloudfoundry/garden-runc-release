@@ -58,15 +58,10 @@ prepare_dependencies() {
   exit 0
 }
 
-run_garden="echo 'yes' | ./scripts/remote-fly ci/garden/task.yml"
-run_guardian="echo 'yes' | ./scripts/remote-fly ci/guardian/task.yml -i tar-out=${TAR_OUT}"
-run_guardian_containerd="echo 'yes' | CONTAINERD_ENABLED=true ./scripts/remote-fly ci/guardian/task.yml -i tar-out=${TAR_OUT}"
-run_guardian_nerdful="echo 'yes' | CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true ./scripts/remote-fly ci/guardian/tas.yml -i tar-out=${TAR_OUT}"
-run_guardian_throttled="echo 'yes' | CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true ./scripts/remote-fly ci/guardian/tas.yml -i tar-out=${TAR_OUT}"
-run_guardian_standalone="echo 'yes' | ACTION='all' ./scripts/remote-fly ci/guardian-standalone/task.yml -i tar-out=${TAR_OUT} -i iptables-out=${IPTABLES_OUT}"
 
 run_tests_in_serial() {
   prepare_dependencies
+  . "$ROOT_DIR_PATH/scripts/remote-fly-tasks.bash"
   go_vet_and_fmt
   eval "$run_garden"
   eval "$run_guardian"
@@ -78,6 +73,7 @@ run_tests_in_serial() {
 
 run_tests_in_parallel() {
   prepare_dependencies
+  . "$ROOT_DIR_PATH/scripts/remote-fly-tasks.bash"
   print_message "about to run tests in parallel, it will be awesome" $GREEN
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )

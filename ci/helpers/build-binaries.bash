@@ -17,7 +17,12 @@ function build_grootfs() {
   (
     cd "${release}/src/grootfs" || exit
 
-    make
+    make clean
+    if [ -z "${WITH_MUSL}" ]; then
+      make
+    else
+      CC="${WITH_MUSL}" STATIC_BINARY=true make
+    fi
     make prefix="${target}" install
   )
 }
@@ -28,7 +33,12 @@ function build_nstar() {
 
   (
     cd "${release}/src/guardian/rundmc/nstar" || exit
-    make
+    make clean
+    if [ -z "${WITH_MUSL}" ]; then
+      make
+    else
+      CC="${WITH_MUSL}" make
+    fi
     mv nstar "${target}"
   )
 }
@@ -40,7 +50,12 @@ function build_init() {
   (
     cd "${release}/src/guardian/cmd/init" || exit
 
-    gcc -static -o init init.c ignore_sigchild.c
+    if [ -z "${WITH_MUSL}" ]; then
+      gcc -static -o init init.c ignore_sigchild.c
+    else
+      CC="${WITH_MUSL}" gcc -static -o init init.c ignore_sigchild.c
+    fi
+
     mv init "${target}/init"
   )
 }
@@ -54,10 +69,6 @@ function build_dadoo() {
 
     go build -o "${target}/dadoo" ./cmd/dadoo
 
-    cd ./cmd/init || exit
-
-    gcc -static -o init init.c ignore_sigchild.c
-    mv init "${target}/init"
   )
 }
 
@@ -84,4 +95,24 @@ function build_idmapper_binaries() {
     go build -o "${target}/newgidmap" ./cmd/newgidmap
     go build -o "${target}/maximus" ./cmd/maximus
   )
+}
+
+function build_musl() {
+  local release="$1"
+  local target="$2"
+  local musl_tmp_dir="$(mktemp -d --suffix '-musl-tmp-dir')"
+  local musl_tarball="$(ls $release/blobs/musl/musl-*.tar.gz)"
+
+  tar xzf "$musl_tarball" -C "$musl_tmp_dir" --strip-components=1
+  (
+     cd "$musl_tmp_dir" || exit
+     ./configure --prefix="$target"
+     make install
+  )
+
+  ln -s /usr/include/linux "$target/include/"
+  ln -s /usr/include/asm-generic "$target/include/"
+  ln -s /usr/include/asm-generic "$target/include/asm"
+
+  rm -rf "$musl_tmp_dir"
 }

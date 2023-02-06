@@ -13,17 +13,5 @@ inputs:
 outputs:
 - name: binary
 
-params:
-  ACTION: ~
-
 run:
-  path: bash
-  args:
-  - -ceux
-  - |
-    . release/ci/guardian-standalone/task
-    if [ "${ACTION}" == "all" ];then
-      build && verify
-    else
-      ${ACTION}
-    fi
+  path: release/ci/guardian-standalone/task

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -euxo pipefail
 
 release=$PWD/release
 binary=$PWD/binary
@@ -29,11 +29,14 @@ function build() {
   # workaround 'mv /root/.tmp/... /tmp/...: invalid cross-device link'
   HOME=$PWD bosh sync-blobs
 
+  local musl="$(mktemp -d --suffix '-musl')"
+  build_musl "$PWD" "${musl}"
+
   build_runc "$PWD" "${BINARIES}/bin"
   build_dadoo "$PWD" "${BINARIES}/bin"
-  build_nstar "$PWD" "${BINARIES}/bin"
-  build_init "$PWD" "${BINARIES}/bin"
-  build_grootfs "$PWD" "${BINARIES}/bin"
+  WITH_MUSL="${musl}/bin/musl-gcc" build_nstar "$PWD" "${BINARIES}/bin"
+  WITH_MUSL="${musl}/bin/musl-gcc" build_init "$PWD" "${BINARIES}/bin"
+  WITH_MUSL="${musl}/bin/musl-gcc" build_grootfs "$PWD" "${BINARIES}/bin"
   build_idmapper_binaries "$PWD" "${BINARIES}/bin"
   popd
 
@@ -151,3 +154,6 @@ function verify() {
   prepare
   test "$*"
 }
+
+build
+verify
