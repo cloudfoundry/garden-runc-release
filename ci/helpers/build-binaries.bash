@@ -18,7 +18,7 @@ function build_grootfs() {
     cd "${release}/src/grootfs" || exit
 
     make clean
-    if [ -z "${WITH_MUSL}" ]; then
+    if [  "${WITH_MUSL:-no}" == "no" ]; then
       make
     else
       CC="${WITH_MUSL}" STATIC_BINARY=true make
@@ -34,7 +34,7 @@ function build_nstar() {
   (
     cd "${release}/src/guardian/rundmc/nstar" || exit
     make clean
-    if [ -z "${WITH_MUSL}" ]; then
+    if [  "${WITH_MUSL:-no}" == "no" ]; then
       make
     else
       CC="${WITH_MUSL}" make
@@ -50,7 +50,7 @@ function build_init() {
   (
     cd "${release}/src/guardian/cmd/init" || exit
 
-    if [ -z "${WITH_MUSL}" ]; then
+    if [  "${WITH_MUSL:-no}" == "no" ]; then
       gcc -static -o init init.c ignore_sigchild.c
     else
       CC="${WITH_MUSL}" gcc -static -o init init.c ignore_sigchild.c
