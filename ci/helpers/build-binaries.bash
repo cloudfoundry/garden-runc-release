@@ -52,7 +52,7 @@ function build_dadoo() {
   (
     cd "${release}/src/guardian" || exit
 
-    go build -mod vendor -o "${target}/dadoo" ./cmd/dadoo
+    go build -o "${target}/dadoo" ./cmd/dadoo
 
     cd ./cmd/init || exit
 
@@ -80,8 +80,8 @@ function build_idmapper_binaries() {
   (
     cd "${release}/src/idmapper" || exit
 
-    go build -mod vendor -o "${target}/newuidmap" ./cmd/newuidmap
-    go build -mod vendor -o "${target}/newgidmap" ./cmd/newgidmap
-    go build -mod vendor -o "${target}/maximus" ./cmd/maximus
+    go build -o "${target}/newuidmap" ./cmd/newuidmap
+    go build -o "${target}/newgidmap" ./cmd/newgidmap
+    go build -o "${target}/maximus" ./cmd/maximus
   )
 }

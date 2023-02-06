@@ -11,4 +11,4 @@ run:
   - -ceux
   - |
     cd release/src/dontpanic
-    ginkgo -mod vendor -p -nodes 5 -race -skipPackage "integration" -r
+    ginkgo -p -nodes 5 -race -skipPackage "integration" -r

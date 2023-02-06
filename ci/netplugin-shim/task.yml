@@ -10,5 +10,4 @@ run:
   - -ceux
   - |
     cd release/src/netplugin-shim
-    go install github.com/onsi/ginkgo/ginkgo@latest
-    ginkgo -mod vendor --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r $*
+    ginkgo --race --nodes 8 --keepGoing --failOnPending --randomizeSuites --randomizeAllSpecs -r $*

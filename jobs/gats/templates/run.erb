@@ -14,14 +14,14 @@ export ROOTLESS="<%= p("rootless") %>"
 export CPU_THROTTLING_ENABLED="<%= p("cpu_throttling") %>"
 export WINDOWS_TEST_ROOTFS="<%= p("windows_rootfs") %>"
 
-cmd="./ginkgo -mod vendor --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs garden-integration-tests.test"
+cmd="./ginkgo --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs garden-integration-tests.test"
 
 if [ -n "${WINDOWS_TEST_ROOTFS:-}" ]; then
   <% if_link('garden-windows') do |gw| %>
   export GARDEN_ADDRESS="<%= gw.instances[0].address %>"
   export GARDEN_PORT="<%= gw.p('garden.listen_address').split(":")[1] %>"
   <% end %>
-  cmd="./ginkgo -mod vendor -stream gats98.test"
+  cmd="./ginkgo -stream gats98.test"
 fi
 
 $cmd

@@ -16,5 +16,5 @@ run:
     create_loop_devices 256
 
     cd release/src/thresholder
-    ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"
+    ginkgo --race -r --randomizeAllSpecs "$@"
 

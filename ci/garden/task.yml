@@ -14,6 +14,6 @@ run:
   - |
     git config --global --add safe.directory '*'
     cd release/src/garden
-    go vet -mod vendor ./...
-    ginkgo -mod vendor -r -p --race --keepGoing --nodes="${GINKGO_NODES}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
+    go vet ./...
+    ginkgo -r -p --race --keepGoing --nodes="${GINKGO_NODES}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
 

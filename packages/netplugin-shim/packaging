@@ -11,6 +11,6 @@ mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/netplugin-shim
-  go install -mod vendor ./garden-plugin
-  go install -mod vendor ./netplugin-server
+  go install ./garden-plugin
+  go install ./netplugin-server
 popd

@@ -11,4 +11,4 @@ run:
   - -ceux
   - |
     cd release/src/idmapper
-    ginkgo -mod vendor -p -race -r "$@"
+    ginkgo -p -race -r "$@"

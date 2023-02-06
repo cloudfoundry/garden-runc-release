@@ -14,10 +14,10 @@ gdn_version="$( cat src/versions/guardian )"
 guardian_dir="src/guardian"
 
 pushd "${guardian_dir}"
-  go install -mod vendor -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
-  go install -mod vendor ./cmd/dadoo
-  go install -mod vendor ./cmd/socket2me
-  go install -mod vendor ./cmd/execas
+  go install -tags daemon -ldflags "-X main.version=$gdn_version" ./cmd/gdn
+  go install ./cmd/dadoo
+  go install ./cmd/socket2me
+  go install ./cmd/execas
 popd
 
 pushd "${guardian_dir}/rundmc/nstar"

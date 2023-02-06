@@ -47,14 +47,12 @@ function build() {
 
     # must be built with 'daemon' flag because of docker packages :|
     CGO_ENABLED=0 go build \
-      -mod vendor \
       -tags daemon \
       -o "${binary}/gdn" \
       -ldflags "$ldflags" \
       ./cmd/gdn
 
     GOARCH=arm64 CGO_ENABLED=0 go build \
-      -mod vendor \
       -tags daemon \
       -o "${binary}/gdn-arm64" \
       -ldflags "$ldflags" \
@@ -138,8 +136,7 @@ function test() {
   export ROOTLESS=false
   export CONTAINERD_FOR_PROCESSES_ENABLED=false
 
-  go install github.com/onsi/ginkgo/ginkgo@latest
-  ginkgo -mod vendor -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*
+  ginkgo -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*
 }
 
 function verify() {

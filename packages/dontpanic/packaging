@@ -12,5 +12,5 @@ mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/dontpanic
-  go install -mod vendor
+  go install
 popd

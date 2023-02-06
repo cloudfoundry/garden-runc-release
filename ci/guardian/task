@@ -51,12 +51,11 @@ function test() {
   export CPU_THROTTLING_ENABLED="${CPU_THROTTLING_ENABLED}"
 
   go version
-  go install github.com/onsi/ginkgo/ginkgo@latest
 
   cd "${release}/src/guardian"
 
-  go vet -mod vendor ./...
-  ginkgo -mod vendor -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
+  go vet ./...
+  ginkgo -tags daemon -r -p --keepGoing --nodes=${GINKGO_NODES} --failOnPending --randomizeSuites --randomizeAllSpecs -debug --race $*
 }
 
 build

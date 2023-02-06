@@ -12,7 +12,7 @@ export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/idmapper
   for binary in newuidmap newgidmap maximus; do
-    go install -mod vendor "./cmd/${binary}"
+    go install "./cmd/${binary}"
     chmod u+s "${BOSH_INSTALL_TARGET}/bin/${binary}"
   done
 popd

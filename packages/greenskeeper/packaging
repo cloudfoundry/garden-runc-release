@@ -11,6 +11,6 @@ mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/greenskeeper
-  go install -mod vendor ./cmd/greenskeeper
+  go install ./cmd/greenskeeper
   cp ./scripts/system-preparation "${BOSH_INSTALL_TARGET}/bin/system-preparation"
 popd

@@ -10,4 +10,4 @@ run:
   - -ceux
   - |
     cd release/src/greenskeeper
-    ginkgo -mod vendor --race -r --randomizeAllSpecs "$@"
+    ginkgo --race -r --randomizeAllSpecs "$@"
