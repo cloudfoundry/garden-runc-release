@@ -25,6 +25,7 @@ run:
       bosh sync-blobs
       cp ./blobs/iptables/* ../iptables
     popd
+    apt update
     apt install -y flex gettext
     mkdir -p $BOSH_INSTALL_TARGET/lib/$PACKAGE
 
