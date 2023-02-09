@@ -30,4 +30,4 @@ run:
 image_resource:
   type: registry-image
   source:
-    repository: c2cnetworking/tas-runtime-build
+    repository: cloudfoundry/tas-runtime-build
