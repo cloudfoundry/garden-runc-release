@@ -20,10 +20,12 @@ run:
     export PACKAGE=iptables
     export BOSH_INSTALL_TARGET=/var/vcap/packages/$PACKAGE
     export STATIC="true"
+    export WITH_MUSL="true"
     mkdir -p iptables
     pushd release
       bosh sync-blobs
       cp ./blobs/iptables/* ../iptables
+      cp ./blobs/musl/* ../iptables
     popd
     apt update
     apt install -y flex gettext
