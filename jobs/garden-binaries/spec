@@ -13,7 +13,6 @@ packages:
   - garden-idmapper
   - greenskeeper
   - grootfs
-  - xfs-progs
   - thresholder
   - netplugin-shim
   - dontpanic
