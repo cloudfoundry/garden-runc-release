@@ -42,10 +42,6 @@
 	path = src/grootfs
 	url = https://github.com/cloudfoundry/grootfs
 	branch = master
-[submodule "src/gopath/src/github.com/containerd/containerd"]
-	path = src/gopath/src/github.com/containerd/containerd
-	url = https://github.com/containerd/containerd
-	branch = master
 [submodule "src/gopath/src/code.cloudfoundry.org/archiver"]
 	path = src/gopath/src/code.cloudfoundry.org/archiver
 	url = https://github.com/cloudfoundry/archiver

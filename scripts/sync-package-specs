@@ -37,6 +37,9 @@ function sync_package() {
         if ls ../../src/${package}/*.h >/dev/null 2>&1; then
           echo ${package} | sed -e 's/\(.*\)/  - \1\/*.h # gosub/g'
         fi
+        if ls ../../src/${package}/Makefile >/dev/null 2>&1; then
+          echo ${package} | sed -e 's/\(.*\)/  - \1\/Makefile # gosub/g'
+        fi
       done
     } > $spec.new
 
@@ -44,8 +47,16 @@ function sync_package() {
   )
 }
 
+sync_package containerd guardian \
+  -app github.com/containerd/containerd/cmd/ctr \
+  -app github.com/containerd/containerd/cmd/containerd \
+  -app github.com/containerd/containerd/cmd/containerd-shim \
+  -app github.com/containerd/containerd/cmd/containerd-shim-runc-v1 \
+  -app github.com/containerd/containerd/cmd/containerd-shim-runc-v2 &
+
 sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/ginkgo \
   -test code.cloudfoundry.org/garden-integration-tests/... &
+
 sync_package gpats garden-performance-acceptance-tests -app  github.com/onsi/ginkgo/ginkgo \
   -test code.cloudfoundry.org/garden-performance-acceptance-tests/... &
 

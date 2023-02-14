@@ -77,9 +77,13 @@ function build_containerd() {
   local target="$2"
 
   (
-    cd "${release}/src/gopath/src/github.com/containerd/containerd" || exit
+    cd "${release}/src/guardian/vendor/github.com/containerd/containerd" || exit
 
-    BUILDTAGS=no_btrfs make
+    BUILDTAGS=no_btrfs make ./bin/containerd
+    BUILDTAGS=no_btrfs make ./bin/containerd-shim
+    BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v1
+    BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v2
+    BUILDTAGS=no_btrfs make ./bin/ctr
     mv bin/* "${target}"
   )
 }
