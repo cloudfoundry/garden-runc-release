@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version="2.69"
+
+tar xzf "autoconf/autoconf-${version}.tar.gz"
+
+cd "autoconf-${version}"
+
+autoconf_dir="${BOSH_INSTALL_TARGET}/share/autoconf" ./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"
