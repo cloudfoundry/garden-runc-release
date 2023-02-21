@@ -2,7 +2,7 @@
 name: guardian-windows
 
 dependencies:
-  - golang-1.19-windows
+  - golang-1.20-windows
 
 files:
   - exiter.ps1
