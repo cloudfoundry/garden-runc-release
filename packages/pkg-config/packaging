@@ -8,7 +8,7 @@ export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
 tar xzf "pkg-config/pkg-config-${version}.tar.gz"
 
 cd "pkg-config-${version}"
-
 ./configure "--prefix=${BOSH_INSTALL_TARGET}" --with-internal-glib
+
 make
 make install "prefix=${BOSH_INSTALL_TARGET}"

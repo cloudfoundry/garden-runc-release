@@ -11,17 +11,22 @@ outputs:
 params:
 
 run:
-  path: bash
+  path: sh
   args:
   - -ceux
   - |
+    export DEBIAN_FRONTEND=noninteractive
+    apt update
+    apt install -yq build-essential bash curl jq
+    curl -qLo /tmp/bosh $(curl -s https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest | jq -r '.assets[] | select(.name | test("linux-amd64")) | .browser_download_url') && install /tmp/bosh /usr/local/bin/bosh
+
     export PACKAGE=pkg-config
     export BOSH_INSTALL_TARGET=/var/vcap/packages/$PACKAGE
     mkdir -p pkg-config
-    pushd release
+    cd release
       bosh sync-blobs
       cp ./blobs/pkg-config/* ../pkg-config
-    popd
+    cd ..
 
     chmod +x release/packages/$PACKAGE/packaging
     release/packages/$PACKAGE/packaging
@@ -29,4 +34,5 @@ run:
 image_resource:
   type: registry-image
   source:
-    repository: cloudfoundry/tas-runtime-build
+    repository: ubuntu
+    tag: bionic

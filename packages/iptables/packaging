@@ -3,26 +3,6 @@ set -euo pipefail
 
 export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
 export PATH="/var/vcap/packages/pkg-config/bin:${PATH}"
-export CC_COMPILER="$(which gcc)"
-
-if [[ "${WITH_MUSL:=false}" == "true" ]]; then
-  musl_version="1.2.3"
-
-  musl_install_path=$PWD/musl/out
-
-  tar xzf "iptables/musl-${musl_version}.tar.gz"
-  pushd "musl-${musl_version}"
-    ./configure --prefix=${musl_install_path} --disable-shared
-    make install
-  popd
-
-  ln -s /usr/include/linux "${musl_install_path}/include/"
-  ln -s /usr/include/asm-generic "${musl_install_path}/include/"
-  ln -s /usr/include/x86_64-linux-gnu/asm "${musl_install_path}/include/"
-
-  export PATH=${musl_install_path}/bin:$PATH
-  export CC_COMPILER="${musl_install_path}/bin/musl-gcc -static"
-fi
 
 iptables_version="1.6.2"
 libnftnl_version="1.0.9"
@@ -35,7 +15,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
 (
   cd "libmnl-${libmnl_version}"
 
-  CC="$CC_COMPILER" ./configure "--prefix=${BOSH_INSTALL_TARGET}"
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
   make install
 )
@@ -43,7 +23,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
 (
   cd "libnftnl-${libnftnl_version}"
 
-  CC="$CC_COMPILER" ./configure "--prefix=${BOSH_INSTALL_TARGET}"
+  ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
   make install
 )
@@ -56,7 +36,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
     cp "${BOSH_COMPILE_TARGET}/config/config.sub" ./build-aux/config.sub
   fi
   if [[ "${STATIC:-false}" == "true" ]]; then
-    CC="$CC_COMPILER" ./configure "--prefix=${BOSH_INSTALL_TARGET}" --enable-static --disable-shared
+    ./configure "--prefix=${BOSH_INSTALL_TARGET}" --enable-static --disable-shared
   else
     ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   fi
