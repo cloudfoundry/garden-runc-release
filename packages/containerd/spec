@@ -67,9 +67,6 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
-  - guardian/vendor/github.com/containerd/btrfs/*.go # gosub
-  - guardian/vendor/github.com/containerd/btrfs/*.h # gosub
-  - guardian/vendor/github.com/containerd/btrfs/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
@@ -203,6 +200,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/pkg/seed/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/seutil/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/shutdown/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/snapshotters/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/stdio/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/timeout/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/ttrpcutil/*.go # gosub
@@ -255,8 +253,6 @@ files:
   - guardian/vendor/github.com/containerd/containerd/services/tasks/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/version/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/snapshots/btrfs/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/snapshots/btrfs/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/blkdiscard/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/dmsetup/*.go # gosub
@@ -393,8 +389,6 @@ files:
   - guardian/vendor/github.com/klauspost/compress/zstd/internal/xxhash/*.s # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/*.go # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/Makefile # gosub
-  - guardian/vendor/github.com/miekg/pkcs11/*.go # gosub
-  - guardian/vendor/github.com/miekg/pkcs11/*.h # gosub
   - guardian/vendor/github.com/mistifyio/go-zfs/*.go # gosub
   - guardian/vendor/github.com/moby/locker/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/*.go # gosub
