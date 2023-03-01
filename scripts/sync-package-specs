@@ -3,7 +3,8 @@
 set -e
 
 # ensure gosub is installed (this will recompile it only if necessary)
-GO111MODULE=on go install github.com/vito/gosub@latest
+GO111MODULE=on go install github.com/vito/gosub@master
+export PATH="$GOPATH/bin:$PATH"
 
 function sync_package() {
   bosh_pkg=${1}
@@ -47,7 +48,7 @@ function sync_package() {
   )
 }
 
-sync_package containerd guardian \
+BUILD_FLAGS="--tags cgo,no_btrfs" sync_package containerd guardian \
   -app github.com/containerd/containerd/cmd/ctr \
   -app github.com/containerd/containerd/cmd/containerd \
   -app github.com/containerd/containerd/cmd/containerd-shim \

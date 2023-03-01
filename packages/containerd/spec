@@ -389,6 +389,8 @@ files:
   - guardian/vendor/github.com/klauspost/compress/zstd/internal/xxhash/*.s # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/*.go # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/Makefile # gosub
+  - guardian/vendor/github.com/miekg/pkcs11/*.go # gosub
+  - guardian/vendor/github.com/miekg/pkcs11/*.h # gosub
   - guardian/vendor/github.com/mistifyio/go-zfs/*.go # gosub
   - guardian/vendor/github.com/moby/locker/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/*.go # gosub
