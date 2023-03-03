@@ -46,10 +46,6 @@
 	path = src/gopath/src/code.cloudfoundry.org/archiver
 	url = https://github.com/cloudfoundry/archiver
 	branch = master
-[submodule "src/gopath/src/github.com/opencontainers/runc"]
-	path = src/gopath/src/github.com/opencontainers/runc
-	url = https://github.com/opencontainers/runc
-	branch = master
 [submodule "src/idmapper"]
 	path = src/idmapper
 	url = https://github.com/cloudfoundry/idmapper

@@ -131,6 +131,7 @@ files:
   - garden-integration-tests/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.s # gosub
+  - garden-integration-tests/vendor/golang.org/x/sys/unix/*.c # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/windows/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/windows/*.s # gosub
   - garden-integration-tests/vendor/golang.org/x/text/encoding/*.go # gosub
