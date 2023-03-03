@@ -120,3 +120,14 @@ function build_musl() {
 
   rm -rf "$musl_tmp_dir"
 }
+
+function build_gosub() {
+  local release="$1"
+  local target="$2"
+
+  (
+    cd "${release}/src/gosub" || exit
+
+    go build -o "${target}/gosub" .
+  )
+}
