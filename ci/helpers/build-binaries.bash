@@ -3,7 +3,7 @@ function build_runc() {
   local target="$2"
 
   (
-    cd "${release}/src/gopath/src/github.com/opencontainers/runc" || exit
+    cd "${release}/src/guardian/vendor/github.com/opencontainers/runc" || exit
 
     make BUILDTAGS='seccomp apparmor' static
     mv runc "${target}"

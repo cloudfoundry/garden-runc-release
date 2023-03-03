@@ -7,15 +7,15 @@ export PKG_CONFIG_PATH=/var/vcap/packages/libseccomp/lib/pkgconfig
 export PATH=/var/vcap/packages/pkg-config/bin/:$PATH
 
 mkdir -p "${BOSH_INSTALL_TARGET}/src"
-mv gopath/src/* "${BOSH_INSTALL_TARGET}/src"
-mv "${BOSH_INSTALL_TARGET}/src" .
+mv * ${BOSH_INSTALL_TARGET}/src
+mv ${BOSH_INSTALL_TARGET}/src .
 
 source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/github.com/opencontainers/runc
+pushd src/guardian/vendor/github.com/opencontainers/runc
   make BUILDTAGS='seccomp apparmor' static
   cp runc "${GOBIN}/runc"
 popd

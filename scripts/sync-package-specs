@@ -38,6 +38,9 @@ function sync_package() {
         if ls ../../src/${package}/*.h >/dev/null 2>&1; then
           echo ${package} | sed -e 's/\(.*\)/  - \1\/*.h # gosub/g'
         fi
+        if ls ../../src/${package}/*.c >/dev/null 2>&1; then
+          echo ${package} | sed -e 's/\(.*\)/  - \1\/*.c # gosub/g'
+        fi
         if ls ../../src/${package}/Makefile >/dev/null 2>&1; then
           echo ${package} | sed -e 's/\(.*\)/  - \1\/Makefile # gosub/g'
         fi
@@ -54,6 +57,9 @@ BUILD_FLAGS="--tags cgo,no_btrfs" sync_package containerd guardian \
   -app github.com/containerd/containerd/cmd/containerd-shim \
   -app github.com/containerd/containerd/cmd/containerd-shim-runc-v1 \
   -app github.com/containerd/containerd/cmd/containerd-shim-runc-v2 &
+
+BUILD_FLAGS="--tags cgo,seccomp,apparmor" sync_package runc guardian \
+  -app github.com/opencontainers/runc &
 
 sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/ginkgo \
   -test code.cloudfoundry.org/garden-integration-tests/... &
