@@ -4,8 +4,8 @@ set -euxo pipefail
 
 release=$PWD/release
 
-export BINARIES="${release}/src/gopath"
-export PATH=$HOME/go/bin:${BINARIES}/bin:$PATH
+export BINARIES="${release}/bin"
+export PATH=$HOME/go/bin:${BINARIES}:$PATH
 
 # This is work around --buildvcs issues in Go 1.18+
 git config --global --add safe.directory '*'
@@ -14,12 +14,12 @@ function build() {
   # shellcheck source=../helpers/build-binaries.bash
   source "$release/ci/helpers/build-binaries.bash"
 
-  mkdir -p "${BINARIES}/bin"
-  build_runc "$release" "${BINARIES}/bin"
-  build_grootfs "$release" "${BINARIES}/bin"
+  mkdir -p "${BINARIES}"
+  build_runc "$release" "${BINARIES}"
+  build_grootfs "$release" "${BINARIES}"
 
   if [[ "$CONTAINERD_ENABLED" == "true" ]] ; then
-    build_containerd "$release" "${BINARIES}/bin"
+    build_containerd "$release" "${BINARIES}"
   fi
 }
 

@@ -30,7 +30,5 @@ blobs
 .vagrant/
 /pkg
 /bin
-src/gopath/bin
-src/gopath/pkg
 .tool-versions
 Guardfile
