@@ -2,9 +2,8 @@
 
 set -e
 
-# ensure gosub is installed (this will recompile it only if necessary)
-GO111MODULE=on go install github.com/vito/gosub@master
-export PATH="$GOPATH/bin:$PATH"
+source "$RELEASE_DIR/ci/helpers/build-binaries.bash"
+build_gosub "$RELEASE_DIR" "$RELEASE_DIR/bin"
 
 function sync_package() {
   bosh_pkg=${1}
@@ -23,7 +22,7 @@ function sync_package() {
     {
       cat $spec | grep -v '# gosub'
 
-      for package in $(gosub list "$@"); do
+      for package in $("$RELEASE_DIR/bin/gosub" list "$@"); do
         repo=$(echo ${2} | cut -f1-3 -d/)
         base_pkg="$(echo $package | cut -f2- -d /)"
         if [ -d "../../src/${src_dir}/vendor/${package}" ]; then
