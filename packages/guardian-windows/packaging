@@ -19,7 +19,7 @@ if ($LASTEXITCODE -ge 8) {
 . C:\var\vcap\packages\golang-*-windows\bosh\compile.ps1
 
 Push-Location guardian
-go.exe build -buildvcs=false -o "${BOSH_INSTALL_TARGET}\gdn.exe" -ldflags "-X main.version=${gdn_version}" ".\cmd\gdn"
+go.exe build -buildvcs=false -o "${BOSH_INSTALL_TARGET}\gdn.exe" ".\cmd\gdn"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: cmd\gdn"
 }

@@ -7,7 +7,6 @@ dependencies:
 files:
   - exiter.ps1
   - guardian/**/*
-  - versions/guardian
 
 # we are excluding these, because it is problematic to untar symlinks on windows
 # in order to list all symlinks run the following command from guardian root:

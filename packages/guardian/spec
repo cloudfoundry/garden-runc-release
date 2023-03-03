@@ -6,4 +6,3 @@ dependencies:
 
 files:
   - guardian/**/*
-  - versions/guardian
