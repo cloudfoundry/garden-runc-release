@@ -2,49 +2,17 @@
 	path = src/guardian
 	url = https://github.com/cloudfoundry/guardian
 	branch = master
-[submodule "src/gopath/src/github.com/onsi/gomega"]
-	path = src/gopath/src/github.com/onsi/gomega
-	url = https://github.com/onsi/gomega
-	branch = master
-[submodule "src/gopath/src/github.com/tedsuo/rata"]
-	path = src/gopath/src/github.com/tedsuo/rata
-	url = https://github.com/tedsuo/rata
-	branch = master
 [submodule "src/garden"]
 	path = src/garden
 	url = https://github.com/cloudfoundry/garden
-	branch = master
-[submodule "src/gopath/src/github.com/onsi/ginkgo"]
-	path = src/gopath/src/github.com/onsi/ginkgo
-	url = https://github.com/onsi/ginkgo
-	branch = master
-[submodule "src/gopath/src/github.com/bmizerany/pat"]
-	path = src/gopath/src/github.com/bmizerany/pat
-	url = https://github.com/bmizerany/pat
-	branch = master
-[submodule "src/gopath/src/gopkg.in/yaml.v2"]
-	path = src/gopath/src/gopkg.in/yaml.v2
-	url = https://gopkg.in/yaml.v2
-	branch = v2
-[submodule "src/gopath/src/code.cloudfoundry.org/lager"]
-	path = src/gopath/src/code.cloudfoundry.org/lager
-	url = https://github.com/cloudfoundry/lager
 	branch = master
 [submodule "src/garden-integration-tests"]
 	path = src/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = master
-[submodule "src/gopath/src/github.com/golang/protobuf"]
-	path = src/gopath/src/github.com/golang/protobuf
-	url = https://github.com/golang/protobuf
-	branch = master
 [submodule "src/grootfs"]
 	path = src/grootfs
 	url = https://github.com/cloudfoundry/grootfs
-	branch = master
-[submodule "src/gopath/src/code.cloudfoundry.org/archiver"]
-	path = src/gopath/src/code.cloudfoundry.org/archiver
-	url = https://github.com/cloudfoundry/archiver
 	branch = master
 [submodule "src/idmapper"]
 	path = src/idmapper
@@ -60,3 +28,7 @@
 [submodule "src/garden-performance-acceptance-tests"]
 	path = src/garden-performance-acceptance-tests
 	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests.git
+[submodule "src/gosub"]
+	path = src/gosub
+	url = https://github.com/vito/gosub
+	branch = master
