@@ -72,7 +72,6 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.s # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.c # gosub
@@ -94,5 +93,6 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/text/runes/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/text/transform/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - garden-performance-acceptance-tests/vendor/gopkg.in/tomb.v1/*.go # gosub
   - garden-performance-acceptance-tests/vendor/gopkg.in/yaml.v2/*.go # gosub
