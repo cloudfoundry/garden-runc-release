@@ -10,16 +10,15 @@ files:
   - guardian/go.mod
   - guardian/go.sum
   - guardian/vendor/modules.txt
-  - guardian/vendor/github.com/bits-and-blooms/bitset/*.go # gosub
-  - guardian/vendor/github.com/bits-and-blooms/bitset/*.s # gosub
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v5/*.go # gosub
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v5/Makefile # gosub
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v5/rpc/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/Makefile # gosub
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/btf/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/console/*.go # gosub
@@ -66,9 +65,7 @@ files:
   - guardian/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalk/*.go # gosub
-  - guardian/vendor/github.com/pkg/errors/*.go # gosub
-  - guardian/vendor/github.com/pkg/errors/Makefile # gosub
+  - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
   - guardian/vendor/github.com/russross/blackfriday/v2/*.go # gosub
   - guardian/vendor/github.com/seccomp/libseccomp-golang/*.go # gosub
   - guardian/vendor/github.com/seccomp/libseccomp-golang/Makefile # gosub

@@ -10,6 +10,7 @@ files:
   - guardian/vendor/modules.txt
   - guardian/vendor/github.com/Microsoft/go-winio/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/backuptar/*.go # gosub
+  - guardian/vendor/github.com/Microsoft/go-winio/internal/socket/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/etw/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/etwlogrus/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/fs/*.go # gosub
@@ -52,8 +53,6 @@ files:
   - guardian/vendor/github.com/Microsoft/hcsshim/pkg/go-runhcs/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/pkg/ociwclayer/*.go # gosub
   - guardian/vendor/github.com/beorn7/perks/quantile/*.go # gosub
-  - guardian/vendor/github.com/bits-and-blooms/bitset/*.go # gosub
-  - guardian/vendor/github.com/bits-and-blooms/bitset/*.s # gosub
   - guardian/vendor/github.com/blang/semver/*.go # gosub
   - guardian/vendor/github.com/cenkalti/backoff/v4/*.go # gosub
   - guardian/vendor/github.com/cespare/xxhash/v2/*.go # gosub
@@ -61,8 +60,9 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/Makefile # gosub
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/btf/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
@@ -410,7 +410,7 @@ files:
   - guardian/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalk/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
   - guardian/vendor/github.com/pelletier/go-toml/*.go # gosub
   - guardian/vendor/github.com/pelletier/go-toml/Makefile # gosub
   - guardian/vendor/github.com/pkg/errors/*.go # gosub
@@ -602,6 +602,7 @@ files:
   - guardian/vendor/google.golang.org/protobuf/types/descriptorpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/anypb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/durationpb/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/types/known/fieldmaskpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/timestamppb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/wrapperspb/*.go # gosub
   - guardian/vendor/gopkg.in/inf.v0/*.go # gosub
