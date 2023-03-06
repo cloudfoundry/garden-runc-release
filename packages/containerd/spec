@@ -602,7 +602,6 @@ files:
   - guardian/vendor/google.golang.org/protobuf/types/descriptorpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/anypb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/durationpb/*.go # gosub
-  - guardian/vendor/google.golang.org/protobuf/types/known/fieldmaskpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/timestamppb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/wrapperspb/*.go # gosub
   - guardian/vendor/gopkg.in/inf.v0/*.go # gosub
