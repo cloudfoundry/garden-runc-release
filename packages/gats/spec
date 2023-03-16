@@ -27,6 +27,8 @@ files:
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/event/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - garden-integration-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-integration-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
   - garden-integration-tests/vendor/github.com/cloudfoundry/dropsonde/metric_sender/*.go # gosub
@@ -119,6 +121,10 @@ files:
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/event/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/histogram/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/*.go # gosub
+  - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/event/*.go # gosub
+  - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/histogram/*.go # gosub
+  - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/metric/*.go # gosub
+  - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/*.go # gosub

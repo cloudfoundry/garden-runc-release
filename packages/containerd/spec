@@ -39,12 +39,15 @@ files:
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/log/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/logfields/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/longpath/*.go # gosub
+  - guardian/vendor/github.com/Microsoft/hcsshim/internal/memory/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/mergemaps/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/oc/*.go # gosub
+  - guardian/vendor/github.com/Microsoft/hcsshim/internal/protocol/guestrequest/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/queue/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/regstate/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/runhcs/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/safefile/*.go # gosub
+  - guardian/vendor/github.com/Microsoft/hcsshim/internal/security/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/timeout/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/vmcompute/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/internal/wclayer/*.go # gosub
@@ -53,7 +56,7 @@ files:
   - guardian/vendor/github.com/Microsoft/hcsshim/pkg/go-runhcs/*.go # gosub
   - guardian/vendor/github.com/Microsoft/hcsshim/pkg/ociwclayer/*.go # gosub
   - guardian/vendor/github.com/beorn7/perks/quantile/*.go # gosub
-  - guardian/vendor/github.com/blang/semver/*.go # gosub
+  - guardian/vendor/github.com/blang/semver/v4/*.go # gosub
   - guardian/vendor/github.com/cenkalti/backoff/v4/*.go # gosub
   - guardian/vendor/github.com/cespare/xxhash/v2/*.go # gosub
   - guardian/vendor/github.com/cespare/xxhash/v2/*.s # gosub
@@ -65,17 +68,25 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/multierror/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/pkg/cdi/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/specs-go/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
-  - guardian/vendor/github.com/containerd/cgroups/*.go # gosub
-  - guardian/vendor/github.com/containerd/cgroups/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
-  - guardian/vendor/github.com/containerd/cgroups/v2/*.go # gosub
-  - guardian/vendor/github.com/containerd/cgroups/v2/stats/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/Makefile # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/cgroup1/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/cgroup1/stats/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/cgroup2/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/v3/cgroup2/stats/*.go # gosub
   - guardian/vendor/github.com/containerd/console/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/Makefile # gosub
   - guardian/vendor/github.com/containerd/containerd/api/events/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/runtime/sandbox/v1/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/runtime/task/v2/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/runtime/task/v3/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/containers/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/content/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/diff/v1/*.go # gosub
@@ -84,19 +95,25 @@ files:
   - guardian/vendor/github.com/containerd/containerd/api/services/introspection/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/leases/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/namespaces/v1/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/services/sandbox/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/snapshots/v1/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/services/streaming/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/tasks/v1/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/services/transfer/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/ttrpc/events/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/version/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/types/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/types/task/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/types/transfer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/archive/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/archive/compression/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/archive/tarheader/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cio/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/containerd/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/containerd-shim/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/containerd-shim-runc-v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/containerd-shim-runc-v2/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/cmd/containerd/builtins/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/containerd/command/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/app/*.go # gosub
@@ -105,6 +122,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/content/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/events/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/images/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/info/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/install/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/leases/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/namespaces/*.go # gosub
@@ -112,6 +130,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/plugins/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/pprof/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/run/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/sandboxes/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/shim/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/snapshots/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/tasks/*.go # gosub
@@ -145,10 +164,12 @@ files:
   - guardian/vendor/github.com/containerd/containerd/images/converter/uncompress/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/labels/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/leases/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/leases/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/leases/proxy/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/log/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metadata/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metadata/boltutil/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/metadata/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metrics/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metrics/cgroups/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metrics/cgroups/common/*.go # gosub
@@ -157,18 +178,23 @@ files:
   - guardian/vendor/github.com/containerd/containerd/metrics/types/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/metrics/types/v2/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/mount/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/mount/*.s # gosub
   - guardian/vendor/github.com/containerd/containerd/namespaces/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/oci/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/apparmor/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/atomic/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/blockio/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cap/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cleanup/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/annotations/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/config/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/constants/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cri/instrument/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/io/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cri/nri/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/opts/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cri/sbserver/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cri/sbserver/podsandbox/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/server/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/server/bandwidth/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/store/*.go # gosub
@@ -178,21 +204,26 @@ files:
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/store/sandbox/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/store/snapshot/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/store/stats/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/pkg/cri/store/truncindex/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/streaming/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/streaming/portforward/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/streaming/remotecommand/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/util/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/dialer/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/epoch/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/hasher/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/ioutil/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/kmutex/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/netns/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/nri/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/nri/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/oom/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/oom/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/oom/v2/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/os/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/process/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/progress/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/randutil/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/rdt/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/registrar/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/runtimeoptions/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/schedcore/*.go # gosub
@@ -202,11 +233,29 @@ files:
   - guardian/vendor/github.com/containerd/containerd/pkg/shutdown/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/snapshotters/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/stdio/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/streaming/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/timeout/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/archive/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/image/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/local/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/plugins/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/proxy/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/registry/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/transfer/streaming/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/truncindex/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/ttrpcutil/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/unpack/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/userns/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/platforms/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/plugin/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/plugins/sandbox/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/plugins/streaming/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/plugins/transfer/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/protobuf/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/protobuf/plugin/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/protobuf/proto/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/protobuf/types/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/reference/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/reference/docker/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/remotes/*.go # gosub
@@ -230,11 +279,13 @@ files:
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/manager/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/options/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/pause/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/task/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/task/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/shim/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/runtime/v2/task/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/sandbox/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/sandbox/proxy/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/containers/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/content/*.go # gosub
@@ -247,10 +298,13 @@ files:
   - guardian/vendor/github.com/containerd/containerd/services/leases/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/namespaces/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/opt/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/services/sandbox/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/server/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/server/config/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/snapshots/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/services/streaming/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/tasks/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/services/transfer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/version/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/*.go # gosub
@@ -268,6 +322,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/snapshots/windows/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/sys/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/sys/reaper/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/third_party/k8s.io/cri-api/pkg/apis/runtime/v1alpha2/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/tracing/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/tracing/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/version/*.go # gosub
@@ -289,9 +344,17 @@ files:
   - guardian/vendor/github.com/containerd/imgcrypt/images/encryption/*.go # gosub
   - guardian/vendor/github.com/containerd/nri/*.go # gosub
   - guardian/vendor/github.com/containerd/nri/Makefile # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/adaptation/*.go # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/api/*.go # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/log/*.go # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/net/*.go # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/net/multiplex/*.go # gosub
+  - guardian/vendor/github.com/containerd/nri/pkg/runtime-tools/generate/*.go # gosub
   - guardian/vendor/github.com/containerd/nri/types/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/ttrpc/*.go # gosub
+  - guardian/vendor/github.com/containerd/ttrpc/Makefile # gosub
   - guardian/vendor/github.com/containerd/typeurl/*.go # gosub
+  - guardian/vendor/github.com/containerd/typeurl/v2/*.go # gosub
   - guardian/vendor/github.com/containerd/zfs/*.go # gosub
   - guardian/vendor/github.com/containerd/zfs/plugin/*.go # gosub
   - guardian/vendor/github.com/containernetworking/cni/libcni/*.go # gosub
@@ -327,15 +390,14 @@ files:
   - guardian/vendor/github.com/docker/go-events/*.go # gosub
   - guardian/vendor/github.com/docker/go-metrics/*.go # gosub
   - guardian/vendor/github.com/docker/go-units/*.go # gosub
-  - guardian/vendor/github.com/emicklei/go-restful/*.go # gosub
-  - guardian/vendor/github.com/emicklei/go-restful/Makefile # gosub
-  - guardian/vendor/github.com/emicklei/go-restful/log/*.go # gosub
+  - guardian/vendor/github.com/emicklei/go-restful/v3/*.go # gosub
+  - guardian/vendor/github.com/emicklei/go-restful/v3/Makefile # gosub
+  - guardian/vendor/github.com/emicklei/go-restful/v3/log/*.go # gosub
   - guardian/vendor/github.com/fsnotify/fsnotify/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - guardian/vendor/github.com/go-logr/stdr/*.go # gosub
   - guardian/vendor/github.com/godbus/dbus/v5/*.go # gosub
-  - guardian/vendor/github.com/gogo/googleapis/google/rpc/*.go # gosub
   - guardian/vendor/github.com/gogo/protobuf/gogoproto/*.go # gosub
   - guardian/vendor/github.com/gogo/protobuf/gogoproto/Makefile # gosub
   - guardian/vendor/github.com/gogo/protobuf/proto/*.go # gosub
@@ -345,15 +407,12 @@ files:
   - guardian/vendor/github.com/gogo/protobuf/sortkeys/*.go # gosub
   - guardian/vendor/github.com/gogo/protobuf/types/*.go # gosub
   - guardian/vendor/github.com/golang/groupcache/lru/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/descriptor/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/jsonpb/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/proto/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/protoc-gen-go/descriptor/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/ptypes/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/ptypes/any/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/ptypes/duration/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/ptypes/timestamp/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/ptypes/wrappers/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/internal/flags/*.go # gosub
@@ -364,13 +423,15 @@ files:
   - guardian/vendor/github.com/google/uuid/*.go # gosub
   - guardian/vendor/github.com/grpc-ecosystem/go-grpc-middleware/*.go # gosub
   - guardian/vendor/github.com/grpc-ecosystem/go-grpc-prometheus/*.go # gosub
-  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/internal/*.go # gosub
-  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/runtime/*.go # gosub
-  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/utilities/*.go # gosub
+  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/v2/internal/httprule/*.go # gosub
+  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/v2/runtime/*.go # gosub
+  - guardian/vendor/github.com/grpc-ecosystem/grpc-gateway/v2/utilities/*.go # gosub
   - guardian/vendor/github.com/hashicorp/errwrap/*.go # gosub
   - guardian/vendor/github.com/hashicorp/go-multierror/*.go # gosub
   - guardian/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
   - guardian/vendor/github.com/imdario/mergo/*.go # gosub
+  - guardian/vendor/github.com/intel/goresctrl/pkg/blockio/*.go # gosub
+  - guardian/vendor/github.com/intel/goresctrl/pkg/cgroups/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/kubernetes/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/log/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/rdt/*.go # gosub
@@ -387,15 +448,20 @@ files:
   - guardian/vendor/github.com/klauspost/compress/zstd/*.s # gosub
   - guardian/vendor/github.com/klauspost/compress/zstd/internal/xxhash/*.go # gosub
   - guardian/vendor/github.com/klauspost/compress/zstd/internal/xxhash/*.s # gosub
+  - guardian/vendor/github.com/klauspost/cpuid/v2/*.go # gosub
+  - guardian/vendor/github.com/klauspost/cpuid/v2/*.s # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/*.go # gosub
   - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/Makefile # gosub
   - guardian/vendor/github.com/miekg/pkcs11/*.go # gosub
   - guardian/vendor/github.com/miekg/pkcs11/*.h # gosub
+  - guardian/vendor/github.com/minio/sha256-simd/*.go # gosub
+  - guardian/vendor/github.com/minio/sha256-simd/*.s # gosub
   - guardian/vendor/github.com/mistifyio/go-zfs/*.go # gosub
   - guardian/vendor/github.com/moby/locker/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/spdy/*.go # gosub
   - guardian/vendor/github.com/moby/sys/mountinfo/*.go # gosub
+  - guardian/vendor/github.com/moby/sys/sequential/*.go # gosub
   - guardian/vendor/github.com/moby/sys/signal/*.go # gosub
   - guardian/vendor/github.com/moby/sys/symlink/*.go # gosub
   - guardian/vendor/github.com/modern-go/concurrent/*.go # gosub
@@ -406,8 +472,12 @@ files:
   - guardian/vendor/github.com/opencontainers/image-spec/identity/*.go # gosub
   - guardian/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
   - guardian/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/libcontainer/devices/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runtime-tools/generate/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runtime-tools/generate/seccomp/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runtime-tools/validate/capabilities/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
@@ -416,6 +486,7 @@ files:
   - guardian/vendor/github.com/pkg/errors/*.go # gosub
   - guardian/vendor/github.com/pkg/errors/Makefile # gosub
   - guardian/vendor/github.com/prometheus/client_golang/prometheus/*.go # gosub
+  - guardian/vendor/github.com/prometheus/client_golang/prometheus/collectors/*.go # gosub
   - guardian/vendor/github.com/prometheus/client_golang/prometheus/internal/*.go # gosub
   - guardian/vendor/github.com/prometheus/client_golang/prometheus/promhttp/*.go # gosub
   - guardian/vendor/github.com/prometheus/client_model/go/*.go # gosub
@@ -431,7 +502,8 @@ files:
   - guardian/vendor/github.com/spf13/pflag/*.go # gosub
   - guardian/vendor/github.com/stefanberger/go-pkcs11uri/*.go # gosub
   - guardian/vendor/github.com/stefanberger/go-pkcs11uri/Makefile # gosub
-  - guardian/vendor/github.com/tchap/go-patricia/patricia/*.go # gosub
+  - guardian/vendor/github.com/syndtr/gocapability/capability/*.go # gosub
+  - guardian/vendor/github.com/tchap/go-patricia/v2/patricia/*.go # gosub
   - guardian/vendor/github.com/urfave/cli/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netlink/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netlink/Makefile # gosub
@@ -454,6 +526,8 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/attribute/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/baggage/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/codes/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/envconfig/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/retry/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/internal/otlpconfig/*.go # gosub
@@ -461,15 +535,22 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/internal/attribute/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/baggage/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/global/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/metric/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/metric/global/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/metric/instrument/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/metric/internal/global/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/instrumentation/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/env/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/resource/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/trace/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.4.0/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.7.0/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/internal/v2/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/httpconv/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/collector/trace/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/common/v1/*.go # gosub
@@ -484,6 +565,7 @@ files:
   - guardian/vendor/golang.org/x/crypto/openpgp/packet/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/s2k/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/pbkdf2/*.go # gosub
+  - guardian/vendor/golang.org/x/mod/semver/*.go # gosub
   - guardian/vendor/golang.org/x/net/context/*.go # gosub
   - guardian/vendor/golang.org/x/net/context/ctxhttp/*.go # gosub
   - guardian/vendor/golang.org/x/net/http/httpguts/*.go # gosub
@@ -491,7 +573,9 @@ files:
   - guardian/vendor/golang.org/x/net/http2/Makefile # gosub
   - guardian/vendor/golang.org/x/net/http2/hpack/*.go # gosub
   - guardian/vendor/golang.org/x/net/idna/*.go # gosub
+  - guardian/vendor/golang.org/x/net/internal/socks/*.go # gosub
   - guardian/vendor/golang.org/x/net/internal/timeseries/*.go # gosub
+  - guardian/vendor/golang.org/x/net/proxy/*.go # gosub
   - guardian/vendor/golang.org/x/net/trace/*.go # gosub
   - guardian/vendor/golang.org/x/net/websocket/*.go # gosub
   - guardian/vendor/golang.org/x/oauth2/*.go # gosub
@@ -516,6 +600,7 @@ files:
   - guardian/vendor/golang.org/x/text/unicode/norm/*.go # gosub
   - guardian/vendor/golang.org/x/time/rate/*.go # gosub
   - guardian/vendor/google.golang.org/genproto/googleapis/api/httpbody/*.go # gosub
+  - guardian/vendor/google.golang.org/genproto/googleapis/rpc/code/*.go # gosub
   - guardian/vendor/google.golang.org/genproto/googleapis/rpc/errdetails/*.go # gosub
   - guardian/vendor/google.golang.org/genproto/googleapis/rpc/status/*.go # gosub
   - guardian/vendor/google.golang.org/genproto/protobuf/field_mask/*.go # gosub
@@ -602,6 +687,8 @@ files:
   - guardian/vendor/google.golang.org/protobuf/types/descriptorpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/anypb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/durationpb/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/types/known/emptypb/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/types/known/fieldmaskpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/timestamppb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/wrapperspb/*.go # gosub
   - guardian/vendor/gopkg.in/inf.v0/*.go # gosub
@@ -636,7 +723,6 @@ files:
   - guardian/vendor/k8s.io/apimachinery/pkg/runtime/serializer/versioning/*.go # gosub
   - guardian/vendor/k8s.io/apimachinery/pkg/selection/*.go # gosub
   - guardian/vendor/k8s.io/apimachinery/pkg/types/*.go # gosub
-  - guardian/vendor/k8s.io/apimachinery/pkg/util/clock/*.go # gosub
   - guardian/vendor/k8s.io/apimachinery/pkg/util/errors/*.go # gosub
   - guardian/vendor/k8s.io/apimachinery/pkg/util/framer/*.go # gosub
   - guardian/vendor/k8s.io/apimachinery/pkg/util/httpstream/*.go # gosub
@@ -658,13 +744,12 @@ files:
   - guardian/vendor/k8s.io/apimachinery/third_party/forked/golang/reflect/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/apis/audit/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/apis/audit/v1/*.go # gosub
-  - guardian/vendor/k8s.io/apiserver/pkg/apis/audit/v1alpha1/*.go # gosub
-  - guardian/vendor/k8s.io/apiserver/pkg/apis/audit/v1beta1/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/audit/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/authentication/user/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/authorization/authorizer/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/endpoints/metrics/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/endpoints/request/*.go # gosub
+  - guardian/vendor/k8s.io/apiserver/pkg/endpoints/responsewriter/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/features/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/server/httplog/*.go # gosub
   - guardian/vendor/k8s.io/apiserver/pkg/util/feature/*.go # gosub
@@ -672,7 +757,6 @@ files:
   - guardian/vendor/k8s.io/client-go/pkg/apis/clientauthentication/*.go # gosub
   - guardian/vendor/k8s.io/client-go/pkg/apis/clientauthentication/install/*.go # gosub
   - guardian/vendor/k8s.io/client-go/pkg/apis/clientauthentication/v1/*.go # gosub
-  - guardian/vendor/k8s.io/client-go/pkg/apis/clientauthentication/v1alpha1/*.go # gosub
   - guardian/vendor/k8s.io/client-go/pkg/apis/clientauthentication/v1beta1/*.go # gosub
   - guardian/vendor/k8s.io/client-go/pkg/version/*.go # gosub
   - guardian/vendor/k8s.io/client-go/plugin/pkg/client/auth/exec/*.go # gosub
@@ -692,12 +776,25 @@ files:
   - guardian/vendor/k8s.io/component-base/featuregate/*.go # gosub
   - guardian/vendor/k8s.io/component-base/metrics/*.go # gosub
   - guardian/vendor/k8s.io/component-base/metrics/legacyregistry/*.go # gosub
+  - guardian/vendor/k8s.io/component-base/metrics/prometheus/feature/*.go # gosub
+  - guardian/vendor/k8s.io/component-base/metrics/prometheusextension/*.go # gosub
   - guardian/vendor/k8s.io/component-base/version/*.go # gosub
   - guardian/vendor/k8s.io/cri-api/pkg/apis/runtime/v1/*.go # gosub
-  - guardian/vendor/k8s.io/cri-api/pkg/apis/runtime/v1alpha2/*.go # gosub
   - guardian/vendor/k8s.io/klog/v2/*.go # gosub
+  - guardian/vendor/k8s.io/klog/v2/internal/buffer/*.go # gosub
+  - guardian/vendor/k8s.io/klog/v2/internal/clock/*.go # gosub
+  - guardian/vendor/k8s.io/klog/v2/internal/dbg/*.go # gosub
+  - guardian/vendor/k8s.io/klog/v2/internal/serialize/*.go # gosub
+  - guardian/vendor/k8s.io/klog/v2/internal/severity/*.go # gosub
   - guardian/vendor/k8s.io/utils/clock/*.go # gosub
+  - guardian/vendor/k8s.io/utils/clock/testing/*.go # gosub
   - guardian/vendor/k8s.io/utils/exec/*.go # gosub
   - guardian/vendor/k8s.io/utils/integer/*.go # gosub
+  - guardian/vendor/k8s.io/utils/internal/third_party/forked/golang/net/*.go # gosub
+  - guardian/vendor/k8s.io/utils/net/*.go # gosub
+  - guardian/vendor/k8s.io/utils/strings/slices/*.go # gosub
+  - guardian/vendor/sigs.k8s.io/json/*.go # gosub
+  - guardian/vendor/sigs.k8s.io/json/Makefile # gosub
+  - guardian/vendor/sigs.k8s.io/json/internal/golang/encoding/json/*.go # gosub
   - guardian/vendor/sigs.k8s.io/structured-merge-diff/v4/value/*.go # gosub
   - guardian/vendor/sigs.k8s.io/yaml/*.go # gosub

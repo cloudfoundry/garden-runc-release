@@ -17,10 +17,17 @@ files:
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/routes/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/fsnotify/fsnotify/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-task/slim-sprig/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/flags/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/function/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/value/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/nxadm/tail/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/nxadm/tail/ratelimiter/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/nxadm/tail/util/*.go # gosub
@@ -95,4 +102,4 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - garden-performance-acceptance-tests/vendor/gopkg.in/tomb.v1/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/gopkg.in/yaml.v2/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/gopkg.in/yaml.v3/*.go # gosub
