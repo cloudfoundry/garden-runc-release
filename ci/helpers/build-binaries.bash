@@ -84,7 +84,7 @@ function build_containerd() {
     BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v1
     BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v2
     BUILDTAGS=no_btrfs make ./bin/ctr
-    mv bin/* "${target}"
+    mv -f bin/* "${target}"
   )
 }
 
