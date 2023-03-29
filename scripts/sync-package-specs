@@ -60,10 +60,10 @@ BUILD_FLAGS="--tags cgo,no_btrfs" sync_package containerd guardian \
 BUILD_FLAGS="--tags cgo,seccomp,apparmor" sync_package runc guardian \
   -app github.com/opencontainers/runc &
 
-sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/ginkgo \
+sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/v2/ginkgo \
   -test code.cloudfoundry.org/garden-integration-tests/... &
 
-sync_package gpats garden-performance-acceptance-tests -app  github.com/onsi/ginkgo/ginkgo \
+sync_package gpats garden-performance-acceptance-tests -app  github.com/onsi/ginkgo/v2/ginkgo \
   -test code.cloudfoundry.org/garden-performance-acceptance-tests/... &
 
 wait
