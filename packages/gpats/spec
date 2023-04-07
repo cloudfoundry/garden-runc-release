@@ -16,8 +16,8 @@ files:
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/client/connection/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/routes/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/internal/truncate/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/*.go # gosub
