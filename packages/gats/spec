@@ -26,7 +26,8 @@ files:
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/cgroups/fs/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/event/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
-  - garden-integration-tests/vendor/code.cloudfoundry.org/lager/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - garden-integration-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-integration-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
   - garden-integration-tests/vendor/github.com/cloudfoundry/dropsonde/metric_sender/*.go # gosub
@@ -101,6 +102,8 @@ files:
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/userns/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/utils/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
+  - garden-integration-tests/vendor/github.com/openzipkin/zipkin-go/idgenerator/*.go # gosub
+  - garden-integration-tests/vendor/github.com/openzipkin/zipkin-go/model/*.go # gosub
   - garden-integration-tests/vendor/github.com/pkg/errors/*.go # gosub
   - garden-integration-tests/vendor/github.com/pkg/errors/Makefile # gosub
   - garden-integration-tests/vendor/github.com/sirupsen/logrus/*.go # gosub
