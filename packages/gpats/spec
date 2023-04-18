@@ -65,6 +65,10 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/event/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/histogram/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/event/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/histogram/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/metric/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/context/*.go # gosub
