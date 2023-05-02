@@ -544,7 +544,6 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/metric/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/embedded/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/global/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/metric/instrument/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/internal/global/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/*.go # gosub
