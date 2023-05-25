@@ -41,8 +41,6 @@ files:
   - garden-integration-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-task/slim-sprig/*.go # gosub
   - garden-integration-tests/vendor/github.com/godbus/dbus/v5/*.go # gosub
-  - garden-integration-tests/vendor/github.com/gogo/protobuf/proto/*.go # gosub
-  - garden-integration-tests/vendor/github.com/gogo/protobuf/proto/Makefile # gosub
   - garden-integration-tests/vendor/github.com/google/go-cmp/cmp/*.go # gosub
   - garden-integration-tests/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
   - garden-integration-tests/vendor/github.com/google/go-cmp/cmp/internal/flags/*.go # gosub
