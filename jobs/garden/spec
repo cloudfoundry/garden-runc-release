@@ -89,7 +89,7 @@ properties:
 
   garden.default_container_rootfs:
     description: "path to the rootfs to use when a container specifies no rootfs"
-    default: /var/vcap/packages/busybox/busybox-1.35.0.tar
+    default: /var/vcap/packages/busybox/busybox-1.36.1.tar
 
   garden.graph_cleanup_threshold_in_mb:
     description: "DEPRECATED in favour of grootfs.reserved_space_for_other_jobs_in_mb."

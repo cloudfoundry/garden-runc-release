@@ -72,7 +72,7 @@ describe 'garden' do
       end
 
       it 'sets the default container rootfs to busybox' do
-        expect(rendered_template['server']['default-rootfs']).to eq('/var/vcap/packages/busybox/busybox-1.35.0.tar')
+        expect(rendered_template['server']['default-rootfs']).to eq('/var/vcap/packages/busybox/busybox-1.36.1.tar')
       end
 
       it 'sets the runtime plugin to 0' do
