@@ -10,10 +10,10 @@ automake/automake-1.16.1.tar.gz:
   size: 2300906
   object_id: fc6c6d98-9fc9-4014-46c5-ea6a7c2028cd
   sha: sha256:608a97523f97db32f1f5d5615c98ca69326ced2054c9f82e65bade7fc4c9dea8
-busybox/busybox-1.35.0.tar.gz:
-  size: 749316
-  object_id: b8960a6f-5f3d-4527-690b-692d59d28159
-  sha: sha256:e42091a91c230aee47b6399e206d4c9e903a377bec57e532c5d509b8b60fcd8b
+busybox/busybox-1.36.1.tar.gz:
+  size: 2524386
+  object_id: dcbd055b-aa50-4729-522a-55f30dd57aef
+  sha: sha256:68175336cdd42fecc2cd00851e9555fb2aebfe9f50d91ce8f9fb6708dba77110
 gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
