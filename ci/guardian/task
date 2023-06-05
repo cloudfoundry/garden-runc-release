@@ -56,7 +56,7 @@ function test() {
   cd "${release}/src/guardian"
 
   go vet ./...
-  go run github.com/onsi/ginkgo/v2/ginkgo -tags daemon -r -p --keepx-going --nodes=${GINKGO_NODES} --fail-on-pending --randomize-suites --randomize-all -debug --race $*
+  go run github.com/onsi/ginkgo/v2/ginkgo -tags daemon -r -p --keep-going --nodes=${GINKGO_NODES} --fail-on-pending --randomize-suites --randomize-all -debug --race $*
 }
 
 build
