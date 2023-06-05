@@ -60,6 +60,10 @@ BUILD_FLAGS="--tags cgo,no_btrfs" sync_package containerd guardian \
 BUILD_FLAGS="--tags cgo,seccomp,apparmor" sync_package runc guardian \
   -app github.com/opencontainers/runc &
 
+BUILD_FLAGS="--tags cloudfoundry" sync_package grootfs grootfs \
+  -app code.cloudfoundry.org/grootfs \
+  -app code.cloudfoundry.org/grootfs/store/filesystems/overlayxfs/tardis &
+
 sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/v2/ginkgo \
   -test code.cloudfoundry.org/garden-integration-tests/... &
 
