@@ -13,6 +13,7 @@ files:
   - guardian/vendor/github.com/Microsoft/go-winio/internal/fs/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/internal/socket/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/internal/stringbuffer/*.go # gosub
+  - guardian/vendor/github.com/Microsoft/go-winio/pkg/bindfilter/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/etw/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/etwlogrus/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/pkg/fs/*.go # gosub

@@ -14,6 +14,7 @@ files:
   - garden-integration-tests/*.go # gosub
   - garden-integration-tests/gats98/*.go # gosub
   - garden-integration-tests/performance/*.go # gosub
+  - garden-integration-tests/plugins/consume-mem/*.go # gosub
   - garden-integration-tests/testhelpers/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/garden/client/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/garden/client/connection/*.go # gosub

@@ -7,19 +7,21 @@ cd "$(dirname "$0")/.."
 
 cd packages/gats/bin
 
-export GARDEN_ADDRESS="<%= p("garden_address") %>"
-export GARDEN_PORT="<%= p("garden_port") %>"
+export GDN_BIND_IP="<%= p("garden_address") %>"
+export GDN_BIND_PORT="<%= p("garden_port") %>"
 export CONTAINERD_FOR_PROCESSES_ENABLED="<%= p("containerd_for_processes") %>"
 export ROOTLESS="<%= p("rootless") %>"
 export CPU_THROTTLING_ENABLED="<%= p("cpu_throttling") %>"
+export TEST_ROOTFS='docker:///alpine#3.6'
+export LIMITS_TEST_URI='docker:///busybox#1.23'
 export WINDOWS_TEST_ROOTFS="<%= p("windows_rootfs") %>"
 
-cmd="./ginkgo --nodes=${GINKGO_NODES:-8} --failOnPending --randomizeSuites --randomizeAllSpecs garden-integration-tests.test"
+cmd="./ginkgo --nodes=${GINKGO_NODES:-8} --fail-on-pending --randomize-suites --randomize-all garden-integration-tests.test"
 
 if [ -n "${WINDOWS_TEST_ROOTFS:-}" ]; then
   <% if_link('garden-windows') do |gw| %>
-  export GARDEN_ADDRESS="<%= gw.instances[0].address %>"
-  export GARDEN_PORT="<%= gw.p('garden.listen_address').split(":")[1] %>"
+  export GDN_BIND_IP="<%= gw.instances[0].address %>"
+  export GDN_BIND_PORT="<%= gw.p('garden.listen_address').split(":")[1] %>"
   <% end %>
   cmd="./ginkgo -stream gats98.test"
 fi
