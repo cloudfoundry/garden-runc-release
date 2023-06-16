@@ -65,7 +65,8 @@ BUILD_FLAGS="--tags cloudfoundry" sync_package grootfs grootfs \
   -app code.cloudfoundry.org/grootfs/store/filesystems/overlayxfs/tardis &
 
 sync_package gats garden-integration-tests -app github.com/onsi/ginkgo/v2/ginkgo \
-  -test code.cloudfoundry.org/garden-integration-tests/... &
+  -test code.cloudfoundry.org/garden-integration-tests/... \
+  -app code.cloudfoundry.org/garden-integration-tests/plugins/consume-mem &
 
 sync_package gpats garden-performance-acceptance-tests -app  github.com/onsi/ginkgo/v2/ginkgo \
   -test code.cloudfoundry.org/garden-performance-acceptance-tests/... &
