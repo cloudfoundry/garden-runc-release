@@ -99,7 +99,7 @@ EOF
 
 function wait_for_gdn_server() {
   for i in {1..5}; do
-    curl "${GARDEN_ADDRESS}:${GARDEN_PORT}/ping" && break || sleep 5
+    curl "${GDN_BIND_IP}:${GDN_BIND_PORT}/ping" && break || sleep 5
   done
 }
 
@@ -120,9 +120,9 @@ function prepare() {
     server \
     --depot="${tmpdir}/depot" \
     --bind-ip=0.0.0.0 \
-    --bind-port=7777 \
+    --bind-port="${GDN_BIND_PORT}" \
     --debug-bind-ip=0.0.0.0 \
-    --debug-bind-port=17013 \
+    --debug-bind-port="${GDN_DEBUG_PORT}" \
     --network-pool=10.254.1.0/24 \
     --log-level="${LOG_LEVEL}" \
     --image-plugin-extra-arg=--config \
@@ -139,21 +139,23 @@ function test() {
   export ROOTLESS=false
   export CONTAINERD_FOR_PROCESSES_ENABLED=false
 
-  ginkgo -p -nodes=8 -failOnPending -randomizeSuites -randomizeAllSpecs $*
+  go run github.com/onsi/ginkgo/v2/ginkgo -p -nodes 8 -fail-on-pending -randomize-suites -randomize-all "${@}"
 }
 
 function verify() {
   export tmpdir=/tmp/dir
-  export GARDEN_ADDRESS
-  GARDEN_ADDRESS="$(hostname)"
-  export GARDEN_PORT=7777
-  export GARDEN_DEBUG_PORT=17013
+  export GDN_BIND_IP
+  GDN_BIND_IP="$(hostname)"
+  export GDN_BIND_PORT=7777
+  export GDN_DEBUG_PORT=17013
   export NESTED=true
   export LOG_LEVEL=error
+  export TEST_ROOTFS="docker:///alpine#3.6"
+  export LIMITS_TEST_URI="docker:///busybox#1.23"
 
   prepare
-  test "$*"
+  test "${@}"
 }
 
 build
-verify
+verify "${@}"
