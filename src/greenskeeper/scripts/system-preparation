@@ -34,6 +34,13 @@ function permit_device_control() {
 }
 
 function create_loop_devices() {
+  LOOP_CONTROL=/dev/loop-control
+  if [ ! -c $LOOP_CONTROL ]; then
+    mknod $LOOP_CONTROL c 10 237
+    chown root:disk $LOOP_CONTROL
+    chmod 660 $LOOP_CONTROL
+  fi
+
   amt=$1
   for i in $(seq 0 $amt); do
     if [ ! -e /dev/loop$i ]; then
