@@ -2,6 +2,9 @@
 
 set -e
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+RELEASE_DIR="$(realpath ${SCRIPT_DIR}/..)"
+
 source "$RELEASE_DIR/ci/helpers/build-binaries.bash"
 build_gosub "$RELEASE_DIR" "$RELEASE_DIR/bin"
 
