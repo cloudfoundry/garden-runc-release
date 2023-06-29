@@ -171,6 +171,8 @@ files:
   - grootfs/vendor/github.com/urfave/cli/v2/*.go # gosub
   - grootfs/vendor/github.com/urfave/cli/v2/Makefile # gosub
   - grootfs/vendor/github.com/vbatts/tar-split/archive/tar/*.go # gosub
+  - grootfs/vendor/github.com/vbatts/tar-split/tar/asm/*.go # gosub
+  - grootfs/vendor/github.com/vbatts/tar-split/tar/storage/*.go # gosub
   - grootfs/vendor/github.com/ventu-io/go-shortid/*.go # gosub
   - grootfs/vendor/github.com/xrash/smetrics/*.go # gosub
   - grootfs/vendor/golang.org/x/exp/constraints/*.go # gosub
