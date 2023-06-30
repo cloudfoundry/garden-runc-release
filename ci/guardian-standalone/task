@@ -139,7 +139,7 @@ function test() {
   export ROOTLESS=false
   export CONTAINERD_FOR_PROCESSES_ENABLED=false
 
-  go run github.com/onsi/ginkgo/v2/ginkgo -p -nodes 8 -fail-on-pending -randomize-suites -randomize-all "${@}"
+  go run github.com/onsi/ginkgo/v2/ginkgo -p --nodes 8 --fail-on-pending --randomize-suites --randomize-all "${@}"
 }
 
 function verify() {

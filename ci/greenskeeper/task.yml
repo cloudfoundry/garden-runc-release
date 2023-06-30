@@ -10,4 +10,4 @@ run:
   - -ceux
   - |
     cd release/src/greenskeeper
-    ginkgo --race -r --randomizeAllSpecs "$@"
+    go run github.com/onsi/ginkgo/v2/ginkgo -r --race --randomize-all
