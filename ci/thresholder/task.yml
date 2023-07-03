@@ -16,5 +16,4 @@ run:
     create_loop_devices 256
 
     cd release/src/thresholder
-    ginkgo --race -r --randomizeAllSpecs "$@"
-
+    go run github.com/onsi/ginkgo/v2/ginkgo -r --race --randomize-all

@@ -11,4 +11,4 @@ run:
   - -ceux
   - |
     cd release/src/dontpanic
-    ginkgo -p -nodes 5 -race -skipPackage "integration" -r
+    go run github.com/onsi/ginkgo/v2/ginkgo -r -p --nodes 5 --race --skip-package 'integration'
