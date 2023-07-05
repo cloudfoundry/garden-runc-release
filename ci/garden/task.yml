@@ -15,5 +15,4 @@ run:
     git config --global --add safe.directory '*'
     cd release/src/garden
     go vet ./...
-    ginkgo -r -p --race --keepGoing --nodes="${GINKGO_NODES}" --failOnPending --randomizeSuites --randomizeAllSpecs "$@"
-
+    go run github.com/onsi/ginkgo/v2/ginkgo -r -p --race --keep-going --nodes="${GINKGO_NODES}" --fail-on-pending --randomize-suites --randomize-all
