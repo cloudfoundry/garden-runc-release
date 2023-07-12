@@ -191,6 +191,8 @@ builds:
     version: 1.16.5
   cd42e469-1ff7-4e67-43c8-f882888bcb82:
     version: 1.9.6
+  cfa46f24-618d-4939-43f7-feb0aa53e451:
+    version: 1.34.0
   d2c69a92-a23b-40c2-557c-46bcf06439bc:
     version: 1.19.18
   d3ec9695-3c54-48c2-7b7c-5236246e668d:
