@@ -76,6 +76,7 @@ files:
   - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/specs-go/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/cgroup1/*.go # gosub
