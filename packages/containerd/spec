@@ -185,6 +185,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/oci/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/apparmor/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/atomic/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/atomicfile/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/blockio/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cap/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cleanup/*.go # gosub
@@ -194,6 +195,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/constants/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/instrument/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/io/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/cri/labels/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/nri/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/opts/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/sbserver/*.go # gosub
@@ -459,7 +461,8 @@ files:
   - guardian/vendor/github.com/miekg/pkcs11/*.h # gosub
   - guardian/vendor/github.com/minio/sha256-simd/*.go # gosub
   - guardian/vendor/github.com/minio/sha256-simd/*.s # gosub
-  - guardian/vendor/github.com/mistifyio/go-zfs/*.go # gosub
+  - guardian/vendor/github.com/mistifyio/go-zfs/v3/*.go # gosub
+  - guardian/vendor/github.com/mistifyio/go-zfs/v3/Makefile # gosub
   - guardian/vendor/github.com/moby/locker/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/*.go # gosub
   - guardian/vendor/github.com/moby/spdystream/spdy/*.go # gosub
