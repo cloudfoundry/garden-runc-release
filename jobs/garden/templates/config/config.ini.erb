@@ -188,6 +188,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% p("garden.additional_host_entries").each do |host_entry| -%>
   additional-host-entry = "<%= host_entry %>"
 <% end -%>
+<% if p("garden.enable_container_network_metrics") -%>
+  enable-container-network-metrics = true
+<% end -%>
 
 ; properties
   properties-path = /var/vcap/data/garden/props.json
