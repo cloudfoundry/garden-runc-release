@@ -119,6 +119,10 @@ properties:
     description: "Additional hosts file entries to be used in containers."
     default: []
 
+  garden.enable_container_network_metrics:
+    description: "Enable container network metrics. This feature is only available on Linux."
+    default: false
+
   garden.insecure_docker_registry_list:
     description: "DEPRECATED in favour of grootfs property."
     default: []
