@@ -399,6 +399,9 @@ files:
   - guardian/vendor/github.com/emicklei/go-restful/v3/Makefile # gosub
   - guardian/vendor/github.com/emicklei/go-restful/v3/log/*.go # gosub
   - guardian/vendor/github.com/fsnotify/fsnotify/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v3/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v3/cipher/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v3/json/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - guardian/vendor/github.com/go-logr/stdr/*.go # gosub
@@ -565,7 +568,6 @@ files:
   - guardian/vendor/go.opentelemetry.io/proto/otlp/resource/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/trace/v1/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/cast5/*.go # gosub
-  - guardian/vendor/golang.org/x/crypto/ed25519/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/armor/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/elgamal/*.go # gosub
@@ -700,9 +702,6 @@ files:
   - guardian/vendor/google.golang.org/protobuf/types/known/timestamppb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/wrapperspb/*.go # gosub
   - guardian/vendor/gopkg.in/inf.v0/*.go # gosub
-  - guardian/vendor/gopkg.in/square/go-jose.v2/*.go # gosub
-  - guardian/vendor/gopkg.in/square/go-jose.v2/cipher/*.go # gosub
-  - guardian/vendor/gopkg.in/square/go-jose.v2/json/*.go # gosub
   - guardian/vendor/gopkg.in/yaml.v2/*.go # gosub
   - guardian/vendor/gopkg.in/yaml.v3/*.go # gosub
   - guardian/vendor/k8s.io/api/authentication/v1/*.go # gosub
