@@ -201,6 +201,8 @@ properties:
     description: A boolean stating whether or not to run garden-server as a non-root user
     default: false
 
+  # We believe this defaults to false to help concourse: https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.5.0
+  # For diego/cf, this should be set to true
   garden.cleanup_process_dirs_on_wait:
     description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
     default: false

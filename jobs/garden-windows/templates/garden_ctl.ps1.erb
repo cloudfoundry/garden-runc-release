@@ -69,4 +69,7 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
     <% raise "logging.format.timestamp should be one of: 'unix-epoch' or 'rfc3339'" %> `
   <% end %> `
   --time-format=<%= format %> `
+  <% end %> `
+  <% if p("garden.cleanup_process_dirs_on_wait") == true %> `
+  --cleanup-process-dirs-on-wait `
   <% end %>
