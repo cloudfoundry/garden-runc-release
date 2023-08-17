@@ -1,0 +1,12 @@
+---
+inputs:
+- name: release
+
+platform: windows
+run:
+  path: powershell
+  args:
+  - "-ExecutionPolicy"
+  - "Bypass"
+  - "-Command"
+  - "release/ci/guardian-windows/task.ps1"
