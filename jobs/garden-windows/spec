@@ -69,6 +69,12 @@ properties:
     description: "path to the rootfs to use when a container specifies no rootfs"
     default: ""
 
+  # Since garden-windows is not currently used in Concourse, we are setting this to 'true' to make life easier for diego/cf users.
+  # https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.5.0
+  garden.cleanup_process_dirs_on_wait:
+    description: A boolean stating whether or not to cleanup process state after waiting for it. If set a process can be waited for only once.
+    default: true
+
   logging.format.timestamp:
     description: "Format for timestamp in component logs. Valid values are 'unix-epoch' and 'rfc3339'."
     default: "unix-epoch"
