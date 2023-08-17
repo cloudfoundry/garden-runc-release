@@ -65,6 +65,7 @@ run_tests_in_serial() {
   go_vet_and_fmt
   eval "$run_garden"
   eval "$run_guardian"
+  eval "$run_guardian_windows"
   eval "$run_guardian_containerd"
   eval "$run_guardian_nerdful"
   eval "$run_guardian_throttled"
@@ -78,11 +79,12 @@ run_tests_in_parallel() {
   print_message "ctrl-d panes when they are done" $RED
   ( go_vet_and_fmt )
   tmux new-window -n garden-runc-tests "$run_guardian_standalone"
-  tmux split-window -h -p 66 "/bin/bash -c $run_garden"
-  tmux split-window -h -p 50 "/bin/bash -c $run_guardian"
-  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true /bin/bash -c $run_guardian_containerd"
-  tmux split-window -v -p 66 "CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true /bin/bash -c $run_guardian_throttled"
-  tmux split-window -v -p 50 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c $run_guardian_nerdful"
+  tmux split-window -h -p 75 "/bin/bash -c $run_garden"
+  tmux split-window -h -p 66 "/bin/bash -c $run_guardian"
+  tmux split-window -h -p 50 "/bin/bash -c $run_guardian_windows"
+  tmux split-window -v -f -p 50 "CONTAINERD_ENABLED=true /bin/bash -c $run_guardian_containerd"
+  tmux split-window -h -p 75 "CONTAINERD_ENABLED=true CPU_THROTTLING_ENABLED=true /bin/bash -c $run_guardian_throttled"
+  tmux split-window -h -p 66 "CONTAINERD_ENABLED=true CONTAINERD_FOR_PROCESSES_ENABLED=true /bin/bash -c $run_guardian_nerdful"
 }
 
 if [ -z "$*" ]; then
