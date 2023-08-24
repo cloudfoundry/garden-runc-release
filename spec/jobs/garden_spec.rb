@@ -218,6 +218,24 @@ describe 'garden' do
       it 'sets the time-format' do
         expect(rendered_template['server']['time-format']).to eql('unix-epoch')
       end
+
+      it 'does not enable the container network metrics' do
+        expect(rendered_template['server']['enable-container-network-metrics']).to eql(nil)
+      end
+
+      context 'when container network metrics are enabled' do
+        let(:properties) {
+          {
+            'garden' => {
+              'enable_container_network_metrics' => true,
+            }
+          }
+        }
+
+        it 'sets the enable container network metrics to true' do
+          expect(rendered_template['server']['enable-container-network-metrics']).to eql(true)
+        end
+      end
     end
 
     context 'with a listen address' do
