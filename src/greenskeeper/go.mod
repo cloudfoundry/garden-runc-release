@@ -3,7 +3,7 @@ module greenskeeper
 go 1.18
 
 require (
-	github.com/onsi/ginkgo/v2 v2.11.0
+	github.com/onsi/ginkgo/v2 v2.12.0
 	github.com/onsi/gomega v1.27.10
 )
 
