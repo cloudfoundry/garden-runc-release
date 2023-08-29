@@ -150,6 +150,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/diff/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/diff/apply/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/diff/lcow/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/diff/proxy/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/diff/walking/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/diff/walking/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/diff/windows/*.go # gosub
@@ -312,6 +313,8 @@ files:
   - guardian/vendor/github.com/containerd/containerd/services/transfer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/version/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/snapshots/blockfile/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/snapshots/blockfile/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/blkdiscard/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/devmapper/dmsetup/*.go # gosub
