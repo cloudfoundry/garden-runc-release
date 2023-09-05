@@ -582,7 +582,6 @@ files:
   - guardian/vendor/golang.org/x/net/context/*.go # gosub
   - guardian/vendor/golang.org/x/net/http/httpguts/*.go # gosub
   - guardian/vendor/golang.org/x/net/http2/*.go # gosub
-  - guardian/vendor/golang.org/x/net/http2/Makefile # gosub
   - guardian/vendor/golang.org/x/net/http2/hpack/*.go # gosub
   - guardian/vendor/golang.org/x/net/idna/*.go # gosub
   - guardian/vendor/golang.org/x/net/internal/socks/*.go # gosub

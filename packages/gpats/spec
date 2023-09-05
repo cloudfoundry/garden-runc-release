@@ -19,7 +19,7 @@ files:
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/bmizerany/pat/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/v4/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-task/slim-sprig/*.go # gosub
@@ -65,9 +65,12 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/event/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/histogram/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/auth/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/auth/csp/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/event/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/histogram/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/metric/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
