@@ -2,7 +2,7 @@
 name: netplugin-shim
 
 dependencies:
-  - golang-1.20-linux
+  - golang-1.21-linux
 
 files:
   - netplugin-shim/**/*
