@@ -2,7 +2,7 @@
 name: gpats
 
 dependencies:
-- golang-1.20-linux
+- golang-1.21-linux
 
 files:
   - garden-performance-acceptance-tests/go.mod
