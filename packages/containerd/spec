@@ -648,6 +648,7 @@ files:
   - guardian/vendor/google.golang.org/grpc/internal/grpcrand/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/grpcsync/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/grpcutil/*.go # gosub
+  - guardian/vendor/google.golang.org/grpc/internal/idle/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/metadata/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/pretty/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/resolver/*.go # gosub
