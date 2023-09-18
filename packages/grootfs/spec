@@ -136,6 +136,7 @@ files:
   - grootfs/vendor/github.com/json-iterator/go/*.go # gosub
   - grootfs/vendor/github.com/klauspost/compress/*.go # gosub
   - grootfs/vendor/github.com/klauspost/compress/flate/*.go # gosub
+  - grootfs/vendor/github.com/klauspost/compress/flate/*.s # gosub
   - grootfs/vendor/github.com/klauspost/compress/fse/*.go # gosub
   - grootfs/vendor/github.com/klauspost/compress/huff0/*.go # gosub
   - grootfs/vendor/github.com/klauspost/compress/huff0/*.s # gosub
