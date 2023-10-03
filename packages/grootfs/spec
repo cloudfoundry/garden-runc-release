@@ -116,8 +116,8 @@ files:
   - grootfs/vendor/github.com/containers/storage/pkg/unshare/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/unshare/*.c # gosub
   - grootfs/vendor/github.com/cpuguy83/go-md2man/v2/md2man/*.go # gosub
-  - grootfs/vendor/github.com/docker/distribution/digestset/*.go # gosub
-  - grootfs/vendor/github.com/docker/distribution/reference/*.go # gosub
+  - grootfs/vendor/github.com/distribution/reference/*.go # gosub
+  - grootfs/vendor/github.com/distribution/reference/Makefile # gosub
   - grootfs/vendor/github.com/docker/distribution/registry/api/errcode/*.go # gosub
   - grootfs/vendor/github.com/docker/distribution/registry/api/v2/*.go # gosub
   - grootfs/vendor/github.com/docker/distribution/registry/client/auth/challenge/*.go # gosub
