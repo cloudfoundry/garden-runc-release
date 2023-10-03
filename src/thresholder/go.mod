@@ -5,7 +5,7 @@ go 1.18
 require (
 	code.cloudfoundry.org/grootfs v0.30.0
 	github.com/onsi/ginkgo/v2 v2.12.1
-	github.com/onsi/gomega v1.27.10
+	github.com/onsi/gomega v1.28.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
