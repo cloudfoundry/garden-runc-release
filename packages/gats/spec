@@ -117,7 +117,6 @@ files:
   - garden-integration-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
-  - garden-integration-tests/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.s # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.c # gosub

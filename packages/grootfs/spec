@@ -179,7 +179,6 @@ files:
   - grootfs/vendor/golang.org/x/exp/constraints/*.go # gosub
   - grootfs/vendor/golang.org/x/exp/maps/*.go # gosub
   - grootfs/vendor/golang.org/x/exp/slices/*.go # gosub
-  - grootfs/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.go # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.s # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.c # gosub

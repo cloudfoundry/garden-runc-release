@@ -77,7 +77,6 @@ files:
   - guardian/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netns/*.go # gosub
   - guardian/vendor/golang.org/x/net/bpf/*.go # gosub
-  - guardian/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub

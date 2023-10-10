@@ -350,6 +350,7 @@ files:
   - guardian/vendor/github.com/containerd/imgcrypt/*.go # gosub
   - guardian/vendor/github.com/containerd/imgcrypt/Makefile # gosub
   - guardian/vendor/github.com/containerd/imgcrypt/images/encryption/*.go # gosub
+  - guardian/vendor/github.com/containerd/log/*.go # gosub
   - guardian/vendor/github.com/containerd/nri/*.go # gosub
   - guardian/vendor/github.com/containerd/nri/Makefile # gosub
   - guardian/vendor/github.com/containerd/nri/pkg/adaptation/*.go # gosub
@@ -594,7 +595,6 @@ files:
   - guardian/vendor/golang.org/x/sync/errgroup/*.go # gosub
   - guardian/vendor/golang.org/x/sync/semaphore/*.go # gosub
   - guardian/vendor/golang.org/x/sys/execabs/*.go # gosub
-  - guardian/vendor/golang.org/x/sys/internal/unsafeheader/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub
