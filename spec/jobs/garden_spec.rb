@@ -91,18 +91,6 @@ describe 'garden' do
         expect(rendered_template['server']['cpu-entitlement-per-share']).to eql(0)
       end
 
-      context 'healthchecker' do
-        let(:template) { job.template('config/healthchecker.yml') }
-        let(:rendered_template) { YAML.load(template.render(properties)) }
-
-        it 'parses out the correct health endpoint' do
-          expect(rendered_template['healthcheck_endpoint']).to eql({
-            'socket' => '/var/vcap/data/garden/garden.sock',
-            'path'   => '/ping',
-          })
-        end
-      end
-
       context 'cpu throttling' do
         context 'by default' do
           it 'sets the enable cpu throttling per share to false' do
@@ -239,32 +227,16 @@ describe 'garden' do
     end
 
     context 'with a listen address' do
-      before do
+      it 'switches to a listen address and port' do
         properties.merge!(
           'garden' => {
             'listen_network' => 'tcp',
             'listen_address' => '127.0.0.1:5555'
           }
         )
-      end
-
-      it 'switches to a listen address and port' do
         rendered_template = IniParse.parse(template.render(properties))
         expect(rendered_template['server']['bind-ip']).to eql('127.0.0.1')
         expect(rendered_template['server']['bind-port']).to eql(5555)
-      end
-
-      context 'healthchecker' do
-        let(:template) { job.template('config/healthchecker.yml') }
-        let(:rendered_template) { YAML.load(template.render(properties)) }
-
-        it 'parses out the correct health endpoint' do
-          expect(rendered_template['healthcheck_endpoint']).to eql({
-            'port' => 5555,
-           'host'  => '127.0.0.1',
-            'path' => '/ping',
-          })
-        end
       end
 
       # it 'throws an exception if the ip is invalid' do
