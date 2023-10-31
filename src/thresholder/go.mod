@@ -5,12 +5,12 @@ go 1.18
 require (
 	code.cloudfoundry.org/grootfs v0.30.0
 	github.com/onsi/ginkgo/v2 v2.13.0
-	github.com/onsi/gomega v1.28.1
+	github.com/onsi/gomega v1.29.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
-	github.com/go-logr/logr v1.2.4 // indirect
+	github.com/go-logr/logr v1.3.0 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/pprof v0.0.0-20231023181126-ff6d637d2a7b // indirect
