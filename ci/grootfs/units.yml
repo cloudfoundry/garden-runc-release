@@ -13,7 +13,7 @@ inputs:
 params:
   DOCKER_REGISTRY_USERNAME:
   DOCKER_REGISTRY_PASSWORD:
-  GROOTFS_USER: whoever
+  GROOTFS_USER: nonroot
 
 run:
   dir: release/src/grootfs
