@@ -1,4 +1,0 @@
-name: garden-runc-healthchecker
-fingerprint: fd4d1a280162624a7a0dd0ad2fcc7d03756322d571181ba41779eefec8345c21
-dependencies:
-- garden-runc-golang-1.21-linux

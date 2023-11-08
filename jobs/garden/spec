@@ -39,7 +39,6 @@ packages:
   - netplugin-shim
   - dontpanic
   - tini
-  - garden-runc-healthchecker
 
 provides:
 - name: iptables
