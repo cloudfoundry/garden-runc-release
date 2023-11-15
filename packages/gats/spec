@@ -22,6 +22,7 @@ files:
   - garden-integration-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/gardener/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/gardener/container-spec/*.go # gosub
+  - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/kawasaki/netns/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/cgroups/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/cgroups/fs/*.go # gosub
@@ -38,6 +39,7 @@ files:
   - garden-integration-tests/vendor/github.com/cloudfoundry/sonde-go/events/*.go # gosub
   - garden-integration-tests/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
+  - garden-integration-tests/vendor/github.com/docker/docker/pkg/reexec/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-task/slim-sprig/*.go # gosub
@@ -101,6 +103,10 @@ files:
   - garden-integration-tests/vendor/github.com/pkg/errors/Makefile # gosub
   - garden-integration-tests/vendor/github.com/sirupsen/logrus/*.go # gosub
   - garden-integration-tests/vendor/github.com/tedsuo/rata/*.go # gosub
+  - garden-integration-tests/vendor/github.com/vishvananda/netlink/*.go # gosub
+  - garden-integration-tests/vendor/github.com/vishvananda/netlink/Makefile # gosub
+  - garden-integration-tests/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
+  - garden-integration-tests/vendor/github.com/vishvananda/netns/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/event/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/histogram/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/*.go # gosub
