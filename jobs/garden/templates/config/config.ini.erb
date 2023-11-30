@@ -89,6 +89,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% end -%>
 <% if_p("garden.max_containers") do |max_containers| -%>
   max-containers = <%= max_containers %>
+  <% if max-containers <= 0 -%>
+    <% raise "max-containers should be a positive integer" -%>
+  <% end -%>
 <% end -%>
 <% if p("garden.cleanup_process_dirs_on_wait") -%>
   cleanup-process-dirs-on-wait = true
