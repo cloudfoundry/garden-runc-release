@@ -91,17 +91,17 @@ describe 'garden' do
         expect(rendered_template['server']['cpu-entitlement-per-share']).to eql(0)
       end
 
-      context 'when we change the default value of garden.max_containers' do 
-        it('checks if max_containers is a positive integer') do 
-          let(:properties) {
+      context 'checks if max_containers is a positive integer' do 
+        let(:properties) {
           {
             'garden' => {
               'max_containers' => -10,
             }
           }
+        }
+        it 'raises an error for a non-positive integer' do
           error_msg = 'max-containers should be a positive integer'
           expect { rendered_template }.to raise_error(error_msg)
-        }
         end
       end
 
