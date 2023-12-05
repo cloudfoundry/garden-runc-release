@@ -1,9 +1,0 @@
-# this ops file can only be used in combination with containerd.ops.yml
-
-- type: replace
-  path: /instance_groups/name=gats/jobs/name=garden/properties/garden/experimental_use_containerd_mode_for_processes?
-  value: true
-
-- type: replace
-  path: /instance_groups/name=gats/jobs/name=gats/properties?/containerd_for_processes
-  value: true

@@ -28,9 +28,5 @@
 	branch = main
 [submodule "src/garden-performance-acceptance-tests"]
 	path = src/garden-performance-acceptance-tests
-	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests.git
+	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests
 	branch = main
-[submodule "src/gosub"]
-	path = src/gosub
-	url = https://github.com/vito/gosub
-	branch = master

@@ -1,5 +1,0 @@
-deployment: garden-runc
-stemcell-os: ubuntu-xenial
-vm: container
-network: lite
-az: lite

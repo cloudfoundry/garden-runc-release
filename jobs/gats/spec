@@ -19,6 +19,9 @@ properties:
   garden_port:
     description: Port Garden is listening on
     default: 7777
+  garden_test_rootfs:
+    description: Test rootfs to use
+    default: 'docker:///cloudfoundry/garden-rootfs'
   containerd_for_processes:
     description: Run GATS with CONTAINERD_FOR_PROCESSES_ENABLED
     default: false
@@ -28,6 +31,9 @@ properties:
   cpu_throttling:
     description: Run GATS with CPU_THROTTLING_ENABLED
     default: false
+  limits_test_uri:
+    description: Limists Test rootfs to use
+    default: 'docker:///busybox'
   windows_rootfs:
     description: URL to pull the windows rootfs from
     default: ""

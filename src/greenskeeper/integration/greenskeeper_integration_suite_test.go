@@ -25,14 +25,15 @@ func TestGreenskeeper(t *testing.T) {
 	RunSpecs(t, "Greenskeeper Integration Suite")
 }
 
-var _ = BeforeSuite(func() {
+var _ = SynchronizedBeforeSuite(func() {
+	ensureVcapUserAndGroup(vcapID)
+}, func() {
 	var err error
 	gkBin, err = gexec.Build("greenskeeper/cmd/greenskeeper", "-mod=vendor")
 	Expect(err).ToNot(HaveOccurred())
-	ensureVcapUserAndGroup(vcapID)
 })
 
-var _ = AfterSuite(func() {
+var _ = SynchronizedAfterSuite(func() {}, func() {
 	gexec.CleanupBuildArtifacts()
 })
 
