@@ -12,8 +12,8 @@ export GDN_BIND_PORT="<%= p("garden_port") %>"
 export CONTAINERD_FOR_PROCESSES_ENABLED="<%= p("containerd_for_processes") %>"
 export ROOTLESS="<%= p("rootless") %>"
 export CPU_THROTTLING_ENABLED="<%= p("cpu_throttling") %>"
-export TEST_ROOTFS='docker:///alpine#3.6'
-export LIMITS_TEST_URI='docker:///busybox#1.23'
+export GARDEN_TEST_ROOTFS="<%= p("garden_test_rootfs") %>"
+export LIMITS_TEST_URI="<%= p("limits_test_uri") %>"
 export WINDOWS_TEST_ROOTFS="<%= p("windows_rootfs") %>"
 
 cmd="./ginkgo --nodes=${GINKGO_NODES:-8} --fail-on-pending --randomize-suites --randomize-all garden-integration-tests.test"

@@ -4,8 +4,14 @@ go 1.18
 
 require (
 	code.cloudfoundry.org/grootfs v0.30.0
+<<<<<<< HEAD
 	github.com/onsi/ginkgo/v2 v2.13.1
 	github.com/onsi/gomega v1.30.0
+=======
+	github.com/BurntSushi/toml v1.3.2
+	github.com/onsi/ginkgo/v2 v2.13.0
+	github.com/onsi/gomega v1.29.0
+>>>>>>> 4437839f (bump dontpanic grootfs guardian)
 	gopkg.in/yaml.v2 v2.4.0
 )
 

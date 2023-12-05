@@ -61,12 +61,20 @@ You can use other distributions or OS X for development since a good chunk of
 the unit tests work across alternative platforms, and you can run platform
 specific tests in a VM using [Concourse CI](https://concourse.ci/).
 
+- Clone [CI repository](https://github.com/cloudfoundry/wg-app-platform-runtime-ci) (next to where this code is cloned), and make sure latest
+is pulled by running `git pull`
+
+  ```bash
+  mkdir -p ~/workspace
+  cd ~/workspace
+  git clone https://github.com/cloudfoundry/wg-app-platform-runtime-ci.git
+  ```
+
 In order to contribute to the project you may want some of the following installed:
 
 - [Git](https://git-scm.com/) - Distributed version control system
 - [Go](https://golang.org/doc/install#install) - The Go programming
   language
-- [Direnv](https://github.com/direnv/direnv) - Environment management
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
 - [Virtualbox](https://www.virtualbox.org/) - Virtualization box
 - [Vagrant](https://www.vagrantup.com/) - Portable dev environment
@@ -85,20 +93,7 @@ Some of Garden-runC's important components currently are:
   found under `src/garden-integration-tests`
   are the cross-backend integration tests of Garden.
 
-Update:
-
-- [Garden Shed](https://github.com/cloudfoundry/garden-shed), previously found under
-  `src/code.cloudfoundry.org/garden-shed`, has now been removed. GrootFS is now the default container
-  rootfs management tool with no option to revert to Shed from versions above 1.16.8.
-
-Set your `$GOPATH` to `<garden-runc-release-dir>/src/gopath`, or use Direnv to do this, as
-below:
-
-```bash
-direnv allow
-```
-
-### Running the tests
+### Running the tests with fly
 
 [Concourse CI](https://concourse-ci.org/) is used for running Garden-runC tests
 in a VM. It provides the [Fly CLI](https://github.com/concourse/fly) for
@@ -109,64 +104,15 @@ Once running, navigate to [https://192.168.100.4:8080](https://192.168.100.4:808
 and download the [Fly CLI](https://concourse-ci.org/download.html) using the links found in
 the bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
 
-The tests use the [Ginkgo](https://onsi.github.io/ginkgo/) BDD testing
-framework.
+- `./scripts/create-docker-container.bash`: This will create a docker container with mounts for running linter and templates tests
+- `./scripts/fly/build-binaries.bash`: This will build binaries required for testing garden-runc-release
+- `./scripts/fly/test.bash`: This will test a specific package e.g. './scripts/fly/test.bash src/grootfs'
+- `./scripts/fly/test-all.bash`: This will test all packages.
+- `./scripts/test-in-docker-locally.bash`: This will only test templates and linters
 
-Assuming you have configured a Concourse and installed Ginkgo, you can run all
-the tests by executing `FLY_TARGET=<your concourse target> ./scripts/test` from the top level `garden-runc-release` directory.
-
-Note: The concourse-lite VM may need to be provisioned with more RAM
-If you start to see tests failing with 'out of disk' errors.
-
-#### Integration tests
-
-The integration tests can be executed in Concourse CI by using Fly CLI and
-executing `./scripts/test`.
-To run individual tests, use`./scripts/remote-fly`:
-
-```bash
-# Set your concourse target
-export GARDEN_REMOTE_ATC_URL=<target>
-
-# Running Guardian tests
-./scripts/remote-fly ci/tasks/guardian.yml
-
-# Running Garden tests
-./scripts/remote-fly ci/tasks/garden.yml
-
-# Running Garden Integration tests
-./scripts/remote-fly ci/tasks/gdn-linux.yml
-
-# Running Garden Integration Windows Regression tests (aka Gats98)
-WINDOWS_TEST_ROOTFS=docker:///microsoft/nanoserver:1709 ./scripts/remote-fly ci/tasks/gdn-linux.yml
-```
-
-#### Running the tests locally
-
-It is possible to run the integration tests locally on a Linux based OS like Ubuntu, but we don't recommend it
-due to the dependencies required, and the need for parts of the testing suite to run as a privileged user.
-If you'd like to run them locally, you will need at least:
-
-- A recent version of Go (1.8+)
-- Kernel version 4.4+
-- Running as a privileged user
-- [Overlayfs](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt)
-- [xfs](http://xfs.org)
-
-The tests can be executed without Concourse CLI by running `ginkgo -r`
-command for any of the components:
-
-```bash
-# Running Garden unit tests
-cd src/garden
-ginkgo -r
-
-# Running Guardian unit tests
-cd src/guardian
-ginkgo -r
-```
-
-It should be possible to run the unit tests on any system that satisfies golang build constraints.
+When inside docker container: 
+- `/repo/scripts/docker/tests-templates.bash`: This will run all of tests for bosh tempalates
+- `/repo/scripts/docker/lint.bash`: This will run all of linting defined for this repo.
 
 #### Committing code
 
@@ -181,12 +127,7 @@ git commit
 git push
 ```
 
-Commit the changes, run the tests, and create a bump commit:
-
-```bash
-# from the garden-runc directory
-./scripts/test-and-bump # or just ./scripts/bump if you've already run the tests
-```
+Commit the changes, run the tests, and create a bump commit.
 
 ### Troubleshooting
 
