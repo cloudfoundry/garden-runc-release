@@ -123,6 +123,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/containers/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/content/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/deprecations/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/events/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/images/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/cmd/ctr/commands/info/*.go # gosub
@@ -214,6 +215,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/streaming/portforward/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/streaming/remotecommand/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/cri/util/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/pkg/deprecation/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/dialer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/epoch/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/pkg/hasher/*.go # gosub
@@ -312,6 +314,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/services/tasks/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/transfer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/services/version/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/services/warning/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/blockfile/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/snapshots/blockfile/plugin/*.go # gosub
@@ -539,23 +542,24 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/attribute/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/baggage/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/codes/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/envconfig/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/internal/retry/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/internal/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/internal/otlpconfig/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/internal/tracetransform/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/internal/envconfig/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/internal/otlpconfig/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/internal/retry/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/envconfig/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/otlpconfig/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/retry/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/attribute/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/baggage/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/internal/global/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/embedded/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/metric/global/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/metric/internal/global/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/instrumentation/*.go # gosub
@@ -566,7 +570,9 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/semconv/internal/v2/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/httpconv/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.21.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/trace/embedded/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/collector/trace/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/common/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/resource/v1/*.go # gosub

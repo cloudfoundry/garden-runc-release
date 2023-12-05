@@ -84,6 +84,7 @@ files:
   - grootfs/vendor/github.com/containers/image/v5/internal/signature/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/streamdigest/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/tmpdir/*.go # gosub
+  - grootfs/vendor/github.com/containers/image/v5/internal/unparsedimage/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/uploadreader/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/useragent/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/manifest/*.go # gosub
