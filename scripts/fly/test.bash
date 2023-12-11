@@ -22,7 +22,7 @@ LOCATION=${LOCATION} make
 popd
 
 echo "Testing ${1}"
-ENVS='GARDEN_TEST_ROOTFS=$PWD/input-01/garden-runc-release-rootfs.tar 
-GARDEN_FUSE_TEST_ROOTFS=$PWD/input-01/garden-runc-release-fuse-rootfs.tar' \
+ENVS='GARDEN_TEST_ROOTFS=$PWD/input-01/garden-rootfs.tar
+GARDEN_FUSE_TEST_ROOTFS=$PWD/input-01/garden-fuse.tar' \
 DIR=${1} \
 "$CI/bin/fly-exec.bash" run-bin-test -i repo="${REPO_PATH}" -i built-binaries="${BUILT_BINARIES}" -i input-01="${LOCATION}" -p
