@@ -34,8 +34,8 @@ docker rm -f $CONTAINER_NAME
 docker run -it \
   --env "REPO_NAME=$REPO_NAME" \
   --env "REPO_PATH=/repo" \
-  --env "GARDEN_TEST_ROOTFS=/artifacts/garden-runc-release-rootfs.tar" \
-  --env "GARDEN_FUSE_TEST_ROOTFS=/artifacts/garden-runc-release-fuse-rootfs.tar" \
+  --env "GARDEN_TEST_ROOTFS=/artifacts/garden-rootfs.tar" \
+  --env "GARDEN_FUSE_TEST_ROOTFS=/artifacts/garden-fuse.tar" \
   --rm \
   --name "$CONTAINER_NAME" \
   -v "${REPO_PATH}:/repo" \
