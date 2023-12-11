@@ -88,9 +88,6 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
   destroy-containers-on-startup = true
 <% end -%>
 <% if_p("garden.max_containers") do |max_containers| -%>
-  <% if max_containers <= 0 -%>
-    <% raise "max-containers should be a positive integer" -%>
-  <% end -%>
   max-containers = <%= max_containers %>
 <% end -%>
 <% if p("garden.cleanup_process_dirs_on_wait") -%>
