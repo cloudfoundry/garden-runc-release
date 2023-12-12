@@ -405,6 +405,8 @@ files:
   - guardian/vendor/github.com/emicklei/go-restful/v3/*.go # gosub
   - guardian/vendor/github.com/emicklei/go-restful/v3/Makefile # gosub
   - guardian/vendor/github.com/emicklei/go-restful/v3/log/*.go # gosub
+  - guardian/vendor/github.com/felixge/httpsnoop/*.go # gosub
+  - guardian/vendor/github.com/felixge/httpsnoop/Makefile # gosub
   - guardian/vendor/github.com/fsnotify/fsnotify/*.go # gosub
   - guardian/vendor/github.com/go-jose/go-jose/v3/*.go # gosub
   - guardian/vendor/github.com/go-jose/go-jose/v3/cipher/*.go # gosub
@@ -537,6 +539,8 @@ files:
   - guardian/vendor/go.opencensus.io/trace/tracestate/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/internal/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconvutil/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/Makefile # gosub
   - guardian/vendor/go.opentelemetry.io/otel/attribute/*.go # gosub
@@ -567,9 +571,7 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/env/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/resource/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/trace/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/semconv/internal/v2/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/httpconv/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.21.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/collector/trace/v1/*.go # gosub
@@ -658,6 +660,7 @@ files:
   - guardian/vendor/google.golang.org/grpc/internal/pretty/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/resolver/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/resolver/dns/*.go # gosub
+  - guardian/vendor/google.golang.org/grpc/internal/resolver/dns/internal/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/resolver/passthrough/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/resolver/unix/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/internal/serviceconfig/*.go # gosub
@@ -669,6 +672,7 @@ files:
   - guardian/vendor/google.golang.org/grpc/metadata/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/peer/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/resolver/*.go # gosub
+  - guardian/vendor/google.golang.org/grpc/resolver/dns/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/serviceconfig/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/stats/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/status/*.go # gosub
