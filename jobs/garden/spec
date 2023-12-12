@@ -45,11 +45,6 @@ provides:
   type: iptables
   properties:
   - garden.iptables_bin_dir
-  
-- name: max_containers
-  type: max_containers
-  properties:
-  - garden.max_containers
 
 properties:
   garden.listen_network:
