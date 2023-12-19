@@ -106,7 +106,7 @@ the bottom-right corner. Place the `fly` binary somewhere on your `$PATH`.
 
 - `./scripts/create-docker-container.bash`: This will create a docker container with mounts for running linter and templates tests
 - `./scripts/fly/build-binaries.bash`: This will build binaries required for testing garden-runc-release
-- `./scripts/fly/test.bash`: This will test a specific package e.g. './scripts/fly/test.bash src/grootfs'
+- `./scripts/fly/test.bash`: This will test a specific package e.g. './scripts/fly/test.bash grootfs'
 - `./scripts/fly/test-all.bash`: This will test all packages.
 - `./scripts/test-in-docker-locally.bash`: This will only test templates and linters
 
