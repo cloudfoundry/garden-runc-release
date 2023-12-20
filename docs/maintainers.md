@@ -1,14 +1,7 @@
 # Garden Maintainers
 
 ## Maintainers
-
-| Maintainer | GitHub ID | Affiliation |
-| --------------- | --------- | ----------- |
-| Danail Branekov | [danail-branekov](https://github.com/danail-branekov) | [SAP](https://www.github.com/sap/) |
-| Georgi Sabev | [georgethebeatle](https://github.com/georgethebeatle) | [SAP](https://www.github.com/sap/) |
-| Giuseppe Capizzi | [gcapizzi](https://github.com/gcapizzi) | [VMware](https://www.github.com/vmware/) |
-| Kieron Browne | [kieron-pivotal](https://github.com/kieron-pivotal) | [VMware](https://www.github.com/vmware/) |
-| Mario Nitchev | [mnitchev](https://github.com/mnitchev) | [SAP](https://www.github.com/sap/) |
+The Garden release is currently maintained by the [Cloud Foundry App Runtime Platform Working Group](https://github.com/cloudfoundry/community/blob/main/toc/working-groups/app-runtime-platform.md). You can find the team in [`#wg-app-runtime-platform`](https://cloudfoundry.slack.com/archives/C02HNDJB31R) on the [CloudFoundry Slack](https://slack.cloudfoundry.org/)
 
 ## Have a question or feedback, reach out to us
 
