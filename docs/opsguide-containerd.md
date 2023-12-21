@@ -15,7 +15,7 @@ Here is a table describing that mapping.
 |---------------|-----------------|----------------------------------------------------------|
 ```
 
-Another important concept of containerd is the concept of `namecpaces`. Each client can work in its own 
+Another important concept of containerd is the concept of `namespaces`. Each client can work in its own 
 namespace, so that different clients do not have to give their containers globally unique names. Guardian 
 is working in a namespace named "garden".
 
