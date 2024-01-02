@@ -701,6 +701,7 @@ files:
   - guardian/vendor/google.golang.org/protobuf/internal/version/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/proto/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.binpb # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protoreflect/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protoregistry/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/runtime/protoiface/*.go # gosub
