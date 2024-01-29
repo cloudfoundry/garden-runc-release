@@ -125,8 +125,6 @@ files:
   - grootfs/vendor/github.com/docker/docker-credential-helpers/client/*.go # gosub
   - grootfs/vendor/github.com/docker/docker-credential-helpers/credentials/*.go # gosub
   - grootfs/vendor/github.com/docker/docker/api/types/versions/*.go # gosub
-  - grootfs/vendor/github.com/docker/docker/pkg/meminfo/*.go # gosub
-  - grootfs/vendor/github.com/docker/docker/pkg/process/*.go # gosub
   - grootfs/vendor/github.com/docker/docker/pkg/system/*.go # gosub
   - grootfs/vendor/github.com/docker/go-connections/tlsconfig/*.go # gosub
   - grootfs/vendor/github.com/docker/go-units/*.go # gosub
