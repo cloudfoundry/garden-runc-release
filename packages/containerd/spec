@@ -8,6 +8,7 @@ files:
   - guardian/go.mod
   - guardian/go.sum
   - guardian/vendor/modules.txt
+  - guardian/vendor/dario.cat/mergo/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/backuptar/*.go # gosub
   - guardian/vendor/github.com/Microsoft/go-winio/internal/fs/*.go # gosub
@@ -72,7 +73,10 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/multierror/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/validation/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/validation/k8s/*.go # gosub
   - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/pkg/cdi/*.go # gosub
+  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/pkg/parser/*.go # gosub
   - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/specs-go/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
@@ -446,7 +450,6 @@ files:
   - guardian/vendor/github.com/hashicorp/errwrap/*.go # gosub
   - guardian/vendor/github.com/hashicorp/go-multierror/*.go # gosub
   - guardian/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
-  - guardian/vendor/github.com/imdario/mergo/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/blockio/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/cgroups/*.go # gosub
   - guardian/vendor/github.com/intel/goresctrl/pkg/kubernetes/*.go # gosub
@@ -482,6 +485,7 @@ files:
   - guardian/vendor/github.com/moby/sys/sequential/*.go # gosub
   - guardian/vendor/github.com/moby/sys/signal/*.go # gosub
   - guardian/vendor/github.com/moby/sys/symlink/*.go # gosub
+  - guardian/vendor/github.com/moby/sys/user/*.go # gosub
   - guardian/vendor/github.com/modern-go/concurrent/*.go # gosub
   - guardian/vendor/github.com/modern-go/reflect2/*.go # gosub
   - guardian/vendor/github.com/modern-go/reflect2/*.s # gosub
@@ -490,8 +494,6 @@ files:
   - guardian/vendor/github.com/opencontainers/image-spec/identity/*.go # gosub
   - guardian/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
   - guardian/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/devices/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runtime-tools/generate/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runtime-tools/generate/seccomp/*.go # gosub
@@ -572,6 +574,7 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/sdk/resource/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/trace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.20.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.21.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/collector/trace/v1/*.go # gosub
@@ -601,7 +604,6 @@ files:
   - guardian/vendor/golang.org/x/oauth2/internal/*.go # gosub
   - guardian/vendor/golang.org/x/sync/errgroup/*.go # gosub
   - guardian/vendor/golang.org/x/sync/semaphore/*.go # gosub
-  - guardian/vendor/golang.org/x/sys/execabs/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub

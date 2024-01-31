@@ -7,6 +7,7 @@ dependencies:
   - pkg-config
 
 files:
+  - runc-patches/*.patch
   - guardian/go.mod
   - guardian/go.sum
   - guardian/vendor/modules.txt
@@ -59,6 +60,7 @@ files:
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/userns/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/libcontainer/userns/*.c # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/utils/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/types/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/types/features/*.go # gosub

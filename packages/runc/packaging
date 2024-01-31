@@ -15,6 +15,24 @@ source /var/vcap/packages/golang-*-linux/bosh/compile.env
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
+. /etc/lsb-release
+if [[ "${DISTRIB_CODENAME}" == "xenial" ]]; then
+  patch -r Makefile-xenial.rej -F 0 \
+    src/guardian/vendor/github.com/opencontainers/runc/Makefile \
+    src/runc-patches/Makefile-xenial.patch \
+    >&2 || true >&2
+  # there are cases where patch can return 0, but will still generate a .rej file since
+  # it tried to be smart and figure out how to apply the patch. We'd like to err on the side
+  # of failure and requiring human eyes just in case. As a result, we ignore the exit code,
+  # and look for the reject file to tell us things failed.
+  if [[ -f Makefile-xenial.rej ]]; then
+    echo "Patching Makefile with Makefile-xenial.patch failed" >&2
+    echo "Please resolve the issue manually until patching succeeds and does not generate a .rej file:" >&2
+    echo "'patch -r Makefile-xenial.rej -F 0 src/guardian/vendor/github.com/opencontainers/runc/Makefile src/runc-patches/Makefile-xenial.patch' succeeds" >&2
+    exit 1
+  fi
+fi
+
 pushd src/guardian/vendor/github.com/opencontainers/runc
   make BUILDTAGS='seccomp apparmor' static
   cp runc "${GOBIN}/runc"
