@@ -72,12 +72,6 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/multierror/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/validation/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/internal/validation/k8s/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/pkg/cdi/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/pkg/parser/*.go # gosub
-  - guardian/vendor/github.com/container-orchestrated-devices/container-device-interface/specs-go/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
@@ -820,3 +814,9 @@ files:
   - guardian/vendor/sigs.k8s.io/json/internal/golang/encoding/json/*.go # gosub
   - guardian/vendor/sigs.k8s.io/structured-merge-diff/v4/value/*.go # gosub
   - guardian/vendor/sigs.k8s.io/yaml/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/internal/multierror/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/internal/validation/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/internal/validation/k8s/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/pkg/cdi/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/pkg/parser/*.go # gosub
+  - guardian/vendor/tags.cncf.io/container-device-interface/specs-go/*.go # gosub
