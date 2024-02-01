@@ -11,5 +11,8 @@ CONTAINER_NAME="$REPO_NAME-docker-container"
 
 "${THIS_FILE_DIR}/create-docker-container.bash" -d
 
+docker exec "${CONTAINER_NAME}" '/repo/scripts/docker/build-binaries.bash'
 docker exec $CONTAINER_NAME '/repo/scripts/docker/tests-templates.bash'
+docker exec "${CONTAINER_NAME}" '/repo/scripts/docker/test.bash' "$@"
 docker exec $CONTAINER_NAME '/repo/scripts/docker/lint.bash'
+

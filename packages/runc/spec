@@ -19,7 +19,10 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/console/*.go # gosub
@@ -78,6 +81,9 @@ files:
   - guardian/vendor/github.com/vishvananda/netlink/Makefile # gosub
   - guardian/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netns/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/constraints/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/maps/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/slices/*.go # gosub
   - guardian/vendor/golang.org/x/net/bpf/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
