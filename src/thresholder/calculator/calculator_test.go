@@ -51,6 +51,26 @@ var _ = Describe("modern calculator", func() {
 				Expect(storeSize).To(Equal(int64(10)))
 			})
 		})
+
+		When("reserved size is equal to -1", func() {
+			BeforeEach(func() {
+				reservedSpace = -1
+			})
+
+			It("does not subtract the sentinel value from the disk size", func() {
+				Expect(storeSize).To(Equal(diskSize))
+			})
+		})
+
+		When("reserved size is equal to -2", func() {
+			BeforeEach(func() {
+				reservedSpace = -2
+			})
+
+			It("does not subtract the sentinel value from the disk size", func() {
+				Expect(storeSize).To(Equal(diskSize))
+			})
+		})
 	})
 
 	Describe("CalculateGCThreshold", func() {
@@ -87,6 +107,16 @@ var _ = Describe("modern calculator", func() {
 				Expect(threshold).To(Equal(diskSize))
 			})
 		})
+
+		When("reserved size is -2", func() {
+			BeforeEach(func() {
+				reservedSpace = -2
+			})
+
+			It("signals that GC should happen with each container creation and returns 0", func() {
+				Expect(threshold).To(Equal(int64(0)))
+			})
+		})
 	})
 
 	Describe("ShouldCollectGarbageOnCreate", func() {
@@ -106,7 +136,7 @@ var _ = Describe("modern calculator", func() {
 			})
 		})
 
-		When("reserved size < 0", func() {
+		When("reserved size is equal to -1", func() {
 			BeforeEach(func() {
 				reservedSpace = -1
 			})
@@ -114,6 +144,17 @@ var _ = Describe("modern calculator", func() {
 			It("returns false", func() {
 				Expect(cleanOnStart).To(Equal(false))
 			})
+		})
+
+		When("reserved size is equal to -2", func() {
+			BeforeEach(func() {
+				reservedSpace = -2
+			})
+
+			It("returns true", func() {
+				Expect(cleanOnStart).To(Equal(true))
+			})
+
 		})
 	})
 })

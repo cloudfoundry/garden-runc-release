@@ -1,5 +1,8 @@
 package calculator
 
+const NO_CLEANUP = -1
+const ROUTINE_CLEANUP = -2
+
 type Calculator interface {
 	ShouldCollectGarbageOnCreate() bool
 	CalculateStoreSize() int64
@@ -21,7 +24,7 @@ func NewModernCalculator(reservedSpace, diskSize, minStoreSize int64) Calculator
 }
 
 func (m modernCalculator) ShouldCollectGarbageOnCreate() bool {
-	return m.reservedSpace >= 0
+	return m.reservedSpace != NO_CLEANUP
 }
 
 func (m modernCalculator) CalculateStoreSize() int64 {
@@ -34,6 +37,10 @@ func (m modernCalculator) CalculateStoreSize() int64 {
 }
 
 func (m modernCalculator) CalculateGCThreshold() int64 {
+	if m.reservedSpace == ROUTINE_CLEANUP {
+		return 0
+	}
+
 	return positiveOrZero(m.diskSize - positiveOrZero(m.reservedSpace))
 }
 
