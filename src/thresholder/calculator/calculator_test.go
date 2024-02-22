@@ -77,6 +77,16 @@ var _ = Describe("modern calculator", func() {
 				Expect(threshold).To(BeZero())
 			})
 		})
+
+		When("reserved size is -1", func() {
+			BeforeEach(func() {
+				reservedSpace = -1
+			})
+
+			It("does not subtract the sentinel value from the disk size", func() {
+				Expect(threshold).To(Equal(diskSize))
+			})
+		})
 	})
 
 	Describe("ShouldCollectGarbageOnCreate", func() {

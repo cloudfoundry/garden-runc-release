@@ -34,7 +34,7 @@ func (m modernCalculator) CalculateStoreSize() int64 {
 }
 
 func (m modernCalculator) CalculateGCThreshold() int64 {
-	return positiveOrZero(m.diskSize - m.reservedSpace)
+	return positiveOrZero(m.diskSize - positiveOrZero(m.reservedSpace))
 }
 
 type oldFashionedCalculator struct {
