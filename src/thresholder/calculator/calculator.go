@@ -10,13 +10,19 @@ type modernCalculator struct {
 	reservedSpace int64
 	diskSize      int64
 	minStoreSize  int64
+	routineGC     bool
 }
 
-func NewModernCalculator(reservedSpace, diskSize, minStoreSize int64) Calculator {
+func NewModernCalculator(reservedSpace, diskSize, minStoreSize int64, routineGC bool) Calculator {
+	if routineGC {
+		reservedSpace = diskSize
+	}
+
 	return &modernCalculator{
 		reservedSpace: reservedSpace,
 		diskSize:      diskSize,
 		minStoreSize:  minStoreSize,
+		routineGC:     routineGC,
 	}
 }
 

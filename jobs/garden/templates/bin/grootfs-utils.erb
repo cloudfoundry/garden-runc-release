@@ -4,8 +4,8 @@ export store_mountpoint="/var/vcap/data"
 
 invoke_thresholder() {
   log "running thresholder"
-  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
-  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
+  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "<%= p("grootfs.routine_gc") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
+  /var/vcap/packages/thresholder/bin/thresholder "<%= p("grootfs.reserved_space_for_other_jobs_in_mb") %>" "<%= p("grootfs.routine_gc") %>" "$DATA_DIR" "$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml" "<%= p("garden.graph_cleanup_threshold_in_mb") %>" "<%= p("grootfs.graph_cleanup_threshold_in_mb") %>"
   log "done"
 }
 

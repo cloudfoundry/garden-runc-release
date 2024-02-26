@@ -8,8 +8,9 @@ import (
 )
 
 var (
-	diskSize int64
-	calc     calculator.Calculator
+	diskSize  int64
+	routineGC bool
+	calc      calculator.Calculator
 )
 
 var _ = Describe("modern calculator", func() {
@@ -20,11 +21,12 @@ var _ = Describe("modern calculator", func() {
 
 	BeforeEach(func() {
 		diskSize = 10
+		routineGC = false
 		minStoreSize = 3
 	})
 
 	JustBeforeEach(func() {
-		calc = calculator.NewModernCalculator(reservedSpace, diskSize, minStoreSize)
+		calc = calculator.NewModernCalculator(reservedSpace, diskSize, minStoreSize, routineGC)
 	})
 
 	Describe("CalculateStoreSize", func() {
@@ -51,6 +53,16 @@ var _ = Describe("modern calculator", func() {
 				Expect(storeSize).To(Equal(int64(10)))
 			})
 		})
+
+		When("routineGC is true", func() {
+			BeforeEach(func() {
+				routineGC = true
+			})
+
+			It("acts as though the reservedSpace is equal to diskSize and returns the diskSize", func() {
+				Expect(storeSize).To(Equal(diskSize))
+			})
+		})
 	})
 
 	Describe("CalculateGCThreshold", func() {
@@ -74,6 +86,16 @@ var _ = Describe("modern calculator", func() {
 			})
 
 			It("returns 0", func() {
+				Expect(threshold).To(BeZero())
+			})
+		})
+
+		When("routineGC is true", func() {
+			BeforeEach(func() {
+				routineGC = true
+			})
+
+			It("acts as though the reservedSpace is equal to diskSize and returns 0", func() {
 				Expect(threshold).To(BeZero())
 			})
 		})
@@ -103,6 +125,16 @@ var _ = Describe("modern calculator", func() {
 
 			It("returns false", func() {
 				Expect(cleanOnStart).To(Equal(false))
+			})
+		})
+
+		When("routineGC is true", func() {
+			BeforeEach(func() {
+				routineGC = true
+			})
+
+			It("acts as though the reservedSpace is equal to diskSize and returns true", func() {
+				Expect(cleanOnStart).To(BeTrue())
 			})
 		})
 	})

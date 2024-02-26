@@ -15,22 +15,27 @@ import (
 const MIN_STORE_SIZE = 15 * 1024 * 1024 * 1024
 
 func main() {
-	if len(os.Args) != 6 {
-		failWithMessage("Not all input arguments provided (Expected: 5)")
+	if len(os.Args) != 7 {
+		failWithMessage("Not all input arguments provided (Expected: 6)")
 	}
 
 	reservedSpace := megabytesToBytes(parseIntParameter(os.Args[1], "Reserved space parameter must be a number"))
-	diskPath := os.Args[2]
-	configPath := os.Args[3]
-	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[4], "Garden GC threshold parameter must be a number"))
-	grootfsGcThreshold := megabytesToBytes(parseIntParameter(os.Args[5], "GrootFS GC threshold parameter must be a number"))
+	routineGC, err := strconv.ParseBool(os.Args[2])
+	if err != nil {
+		failWithMessage(err.Error())
+	}
+
+	diskPath := os.Args[3]
+	configPath := os.Args[4]
+	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[5], "Garden GC threshold parameter must be a number"))
+	grootfsGcThreshold := megabytesToBytes(parseIntParameter(os.Args[6], "GrootFS GC threshold parameter must be a number"))
 
 	diskSize, err := disk.NewMeter().GetAvailableSpace(diskPath)
 	if err != nil {
 		failWithMessage(err.Error())
 	}
 
-	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE)
+	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE, routineGC)
 	if gardenGcThreshold > 0 || grootfsGcThreshold > 0 {
 		calc = calculator.NewOldFashionedCalculator(diskSize, gardenGcThreshold, grootfsGcThreshold)
 	}

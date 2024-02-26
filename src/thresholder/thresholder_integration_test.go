@@ -20,6 +20,7 @@ import (
 var _ = Describe("Thresholder", func() {
 	var (
 		reservedSpace       string
+		routineGC           string
 		thresholderCmd      *exec.Cmd
 		pathToDisk          string
 		pathToGrootfsConfig string
@@ -41,6 +42,7 @@ var _ = Describe("Thresholder", func() {
 
 	BeforeEach(func() {
 		reservedSpace = "3000"
+		routineGC = "false"
 		pathToDisk = fsMountPoint
 		pathToGrootfsConfigAsset := filepath.Join("testassets", "grootfs.yml")
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
@@ -49,7 +51,7 @@ var _ = Describe("Thresholder", func() {
 	})
 
 	JustBeforeEach(func() {
-		thresholderCmd = exec.Command(thresholderBin, reservedSpace, pathToDisk, pathToGrootfsConfig, gardenGcThreshold, grootfsGcThreshold)
+		thresholderCmd = exec.Command(thresholderBin, reservedSpace, routineGC, pathToDisk, pathToGrootfsConfig, gardenGcThreshold, grootfsGcThreshold)
 	})
 
 	AfterEach(func() {
@@ -118,6 +120,23 @@ var _ = Describe("Thresholder", func() {
 		})
 	})
 
+	When("the user requests routine garbage collections", func() {
+		BeforeEach(func() {
+			routineGC = "true"
+		})
+
+		It("sets 'reservedSpace' to equal the total disk size, and operates accordingly", func() {
+			session := gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
+
+			Expect(config.Create.WithClean).To(BeTrue())
+			Expect(config.Clean.ThresholdBytes).To(BeZero())
+			Expect(config.Init.StoreSizeBytes).To(Equal(diskSize))
+			Expect(session).To(gbytes.Say("Warning.*15GB"))
+		})
+
+	})
+
 	When("the store path doesn't exist", func() {
 		BeforeEach(func() {
 			pathToDisk = "/path/to/foo/bar"
@@ -128,12 +147,20 @@ var _ = Describe("Thresholder", func() {
 	})
 
 	Describe("Parameters validation", func() {
-		Context("when not all input args are provided", func() {
+		Context("when too few input args are provided", func() {
 			JustBeforeEach(func() {
-				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6")
+				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5")
 			})
 
-			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 5)")
+			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 6)")
+		})
+
+		Context("when too many input args are provided", func() {
+			JustBeforeEach(func() {
+				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6", "7")
+			})
+
+			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 6)")
 		})
 
 		Context("when reserved space parameter cannot be parsed", func() {
