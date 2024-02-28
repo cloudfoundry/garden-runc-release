@@ -422,11 +422,7 @@ files:
   - guardian/vendor/github.com/gogo/protobuf/sortkeys/*.go # gosub
   - guardian/vendor/github.com/gogo/protobuf/types/*.go # gosub
   - guardian/vendor/github.com/golang/groupcache/lru/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/jsonpb/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/proto/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/ptypes/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/ptypes/any/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/ptypes/duration/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/ptypes/timestamp/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
@@ -696,6 +692,7 @@ files:
   - guardian/vendor/google.golang.org/protobuf/internal/strs/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/version/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/proto/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/protoadapt/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.binpb # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protoreflect/*.go # gosub
