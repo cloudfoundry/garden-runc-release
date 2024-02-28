@@ -137,10 +137,3 @@ func tempFile(name, tmp string) string {
 	file.Close()
 	return file.Name()
 }
-
-func expectDirectory(path string, mode os.FileMode) {
-	ExpectWithOffset(1, path).To(BeADirectory())
-	fileInfo, err := os.Stat(path)
-	ExpectWithOffset(1, err).NotTo(HaveOccurred())
-	ExpectWithOffset(1, fileInfo.Mode().Perm()).To(Equal(mode))
-}
