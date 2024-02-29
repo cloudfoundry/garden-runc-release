@@ -2,7 +2,6 @@ package greenskeeper_integration_test
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path"
@@ -29,7 +28,7 @@ var _ = Describe("Greenskeeper", func() {
 
 		BeforeEach(func() {
 			var err error
-			tmpDir, err = ioutil.TempDir("", "")
+			tmpDir, err = os.MkdirTemp("", "")
 			Expect(err).ToNot(HaveOccurred())
 			pidFileName = tempFile("pidfile", tmpDir)
 			envs = []string{

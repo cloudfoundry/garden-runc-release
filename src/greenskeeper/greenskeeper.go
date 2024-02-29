@@ -2,7 +2,6 @@ package greenskeeper
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"strings"
@@ -89,7 +88,7 @@ func CheckExistingGdnProcess(pidFilePath string) error {
 }
 
 func checkExistingGdnProcess(pidFilePath string, remove func(string) error) error {
-	contents, err := ioutil.ReadFile(pidFilePath)
+	contents, err := os.ReadFile(pidFilePath)
 	if os.IsNotExist(err) {
 		return nil
 	} else if err != nil {
