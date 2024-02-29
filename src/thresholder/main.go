@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"thresholder/calculator"
@@ -62,7 +61,7 @@ func parseIntParameter(parameterValue, failureMessage string) int64 {
 }
 
 func parseFileParameter(parameterValue, failureMessage string) *config.Config {
-	configBytes, err := ioutil.ReadFile(parameterValue)
+	configBytes, err := os.ReadFile(parameterValue)
 	if err != nil {
 		failWithMessage(failureMessage)
 	}
@@ -80,7 +79,7 @@ func writeConfig(config *config.Config, configPath string) {
 	if err != nil {
 		failWithMessage(err.Error())
 	}
-	if err := ioutil.WriteFile(configPath, configBytes, 0600); err != nil {
+	if err := os.WriteFile(configPath, configBytes, 0600); err != nil {
 		failWithMessage(err.Error())
 	}
 }
