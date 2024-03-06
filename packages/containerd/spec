@@ -69,12 +69,13 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
-  - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/cgroup1/*.go # gosub
@@ -343,6 +344,7 @@ files:
   - guardian/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/proto/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/sysx/*.go # gosub
+  - guardian/vendor/github.com/containerd/errdefs/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/Makefile # gosub
   - guardian/vendor/github.com/containerd/go-cni/*.go # gosub
@@ -579,6 +581,9 @@ files:
   - guardian/vendor/golang.org/x/crypto/openpgp/packet/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/s2k/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/pbkdf2/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/constraints/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/maps/*.go # gosub
+  - guardian/vendor/golang.org/x/exp/slices/*.go # gosub
   - guardian/vendor/golang.org/x/mod/semver/*.go # gosub
   - guardian/vendor/golang.org/x/net/context/*.go # gosub
   - guardian/vendor/golang.org/x/net/http/httpguts/*.go # gosub
@@ -675,6 +680,8 @@ files:
   - guardian/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/descopts/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/detrand/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/internal/editiondefaults/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/internal/editiondefaults/*.binpb # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/encoding/defval/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/encoding/json/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/encoding/messageset/*.go # gosub
@@ -694,12 +701,12 @@ files:
   - guardian/vendor/google.golang.org/protobuf/proto/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/protoadapt/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.go # gosub
-  - guardian/vendor/google.golang.org/protobuf/reflect/protodesc/*.binpb # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protoreflect/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/reflect/protoregistry/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/runtime/protoiface/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/runtime/protoimpl/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/descriptorpb/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/types/gofeaturespb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/anypb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/durationpb/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/types/known/emptypb/*.go # gosub
