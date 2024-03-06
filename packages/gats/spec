@@ -146,12 +146,15 @@ files:
   - garden-integration-tests/vendor/golang.org/x/text/language/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/text/runes/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/text/transform/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/cover/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/descopts/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/detrand/*.go # gosub
+  - garden-integration-tests/vendor/google.golang.org/protobuf/internal/editiondefaults/*.go # gosub
+  - garden-integration-tests/vendor/google.golang.org/protobuf/internal/editiondefaults/*.binpb # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/encoding/defval/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/encoding/messageset/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/encoding/tag/*.go # gosub
