@@ -3,7 +3,6 @@ package main_test
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -181,7 +180,7 @@ var _ = Describe("Thresholder", func() {
 
 		Context("when grootfs configfile does not contain valid grootfs config", func() {
 			BeforeEach(func() {
-				Expect(ioutil.WriteFile(pathToGrootfsConfig, []byte("not yaml"), 0o600)).To(Succeed())
+				Expect(os.WriteFile(pathToGrootfsConfig, []byte("not yaml"), 0o600)).To(Succeed())
 			})
 
 			exitsNonZeroWithMessage("Grootfs config parameter must be path to valid grootfs config file")
@@ -206,10 +205,10 @@ var _ = Describe("Thresholder", func() {
 })
 
 func copyFileToTempFile(src string) string {
-	fileContents, err := ioutil.ReadFile(src)
+	fileContents, err := os.ReadFile(src)
 	Expect(err).NotTo(HaveOccurred())
 
-	tempFile, err := ioutil.TempFile("", "")
+	tempFile, err := os.CreateTemp("", "")
 	Expect(err).NotTo(HaveOccurred())
 	defer tempFile.Close()
 
@@ -220,7 +219,7 @@ func copyFileToTempFile(src string) string {
 }
 
 func configFromFile(path string) *config.Config {
-	conf, err := ioutil.ReadFile(path)
+	conf, err := os.ReadFile(path)
 	Expect(err).NotTo(HaveOccurred())
 
 	var c config.Config

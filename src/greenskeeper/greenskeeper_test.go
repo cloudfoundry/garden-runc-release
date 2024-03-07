@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path"
@@ -24,7 +23,7 @@ var _ = Describe("Greenskeeper", func() {
 
 		BeforeEach(func() {
 			var err error
-			pidFile, err = ioutil.TempFile("", "pidfile")
+			pidFile, err = os.CreateTemp("", "pidfile")
 			Expect(err).NotTo(HaveOccurred())
 			pidFile.Close()
 		})
@@ -62,7 +61,7 @@ var _ = Describe("Greenskeeper", func() {
 				sleepSession = gexecStart(exec.Command("sleep", "60"), GinkgoWriter, GinkgoWriter)
 				sleepPid = strconv.Itoa(sleepSession.Command.Process.Pid)
 
-				Expect(ioutil.WriteFile(pidFile.Name(), []byte(sleepPid), os.ModePerm)).To(Succeed())
+				Expect(os.WriteFile(pidFile.Name(), []byte(sleepPid), os.ModePerm)).To(Succeed())
 			})
 
 			AfterEach(func() {
@@ -86,7 +85,7 @@ var _ = Describe("Greenskeeper", func() {
 
 		BeforeEach(func() {
 			var err error
-			dir, err = ioutil.TempDir("", "")
+			dir, err = os.MkdirTemp("", "")
 			Expect(err).NotTo(HaveOccurred())
 			pikachuDir = path.Join(dir, "pikachu")
 			directories = []Directory{NewDirectoryBuilder(pikachuDir).Mode(0644).
