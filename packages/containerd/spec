@@ -76,6 +76,7 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/*.go # gosub
   - guardian/vendor/github.com/containerd/aufs/plugin/*.go # gosub
+  - guardian/vendor/github.com/containerd/cgroups/stats/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/*.go # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/Makefile # gosub
   - guardian/vendor/github.com/containerd/cgroups/v3/cgroup1/*.go # gosub
@@ -344,7 +345,6 @@ files:
   - guardian/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/proto/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/sysx/*.go # gosub
-  - guardian/vendor/github.com/containerd/errdefs/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/Makefile # gosub
   - guardian/vendor/github.com/containerd/go-cni/*.go # gosub
