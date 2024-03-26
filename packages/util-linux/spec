@@ -8,4 +8,4 @@ dependencies:
 - pkg-config
 
 files:
-- util-linux/util-linux-2.28.tar.gz
+- util-linux/util-linux-*.tar.gz

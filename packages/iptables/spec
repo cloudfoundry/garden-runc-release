@@ -5,8 +5,8 @@ dependencies:
   - pkg-config
 
 files:
-  - iptables/iptables-1.6.2.tar.bz2
-  - iptables/libnftnl-1.0.9.tar.bz2
-  - iptables/libmnl-1.0.4.tar.bz2
+  - iptables/iptables-*.tar.xz
+  - iptables/libnftnl-*.tar.xz
+  - iptables/libmnl-*.tar.bz2
   - config/config.guess
   - config/config.sub

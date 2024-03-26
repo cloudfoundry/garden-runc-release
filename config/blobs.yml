@@ -1,7 +1,3 @@
-apparmor/apparmor-2.13.2.tar.gz:
-  size: 7369240
-  object_id: 3baa1660-b997-47b5-4fad-336937db42b0
-  sha: e3ba457792f42178be5cd18192dc1af53e336503
 autoconf/autoconf-2.69.tar.gz:
   size: 1927468
   object_id: c2a13621-9ec0-4da4-7ce7-229066284651
@@ -18,18 +14,10 @@ gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
   sha: sha256:588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2
-iptables/iptables-1.6.2.tar.bz2:
-  size: 639785
-  object_id: cafb6233-5827-4b55-4f1d-0da60ca30345
-  sha: 6279effbf8f2c7ff53d19ae13308f8a6e6a60dd9
 iptables/libmnl-1.0.4.tar.bz2:
   size: 301270
   object_id: f196a106-27aa-48e6-867b-62e33663e578
   sha: 2db40dea612e88c62fd321906be40ab5f8f1685a
-iptables/libnftnl-1.0.9.tar.bz2:
-  size: 402296
-  object_id: 7c9cb0cd-d6e7-461b-4d11-045dcced5eec
-  sha: 90b70f52a26f88ab1106671e797faac21265fa6a
 libseccomp/libseccomp-2.5.1.tar.gz:
   size: 638811
   object_id: 15ec2e2a-4040-43be-7ad9-f6313dc28230

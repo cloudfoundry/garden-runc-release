@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="2.09"
+tar xvzf lzo/lzo-*.tar.gz
 
-tar xvzf "lzo/lzo-${version}.tar.gz"
-
-cd "lzo-${version}"
+cd lzo-*
 
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make

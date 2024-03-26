@@ -1,8 +1,8 @@
 # abort script on any command that exits with a non zero value
 set -e
 
-tar xvzf tini/tini-v0.18.0.tar.gz
-cd tini-0.18.0
+tar xvzf tini/tini-*.tar.gz
+cd tini-*
 export CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
 cmake .
 make

@@ -5,4 +5,4 @@ dependencies:
 - gperf
 
 files:
-  - libseccomp/libseccomp-2.5.1.tar.gz
+  - libseccomp/libseccomp-*.tar.gz

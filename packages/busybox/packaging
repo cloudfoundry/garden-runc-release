@@ -4,7 +4,10 @@ set -euo pipefail
 # Busybox tarball created with:
 # <garden-runc-release>/scripts/create-busybox-tar.sh busybox:1.36.1 busybox
 
-name="busybox-1.36.1"
+
+tgz_name="$(basename busybox/busybox-*.tar.gz)"
+# cut out last 7 characters .tar.gz
+name=${tgz_name::-7}
 
 mkdir -p "${BOSH_INSTALL_TARGET}/${name}"
 mv "busybox/${name}.tar.gz" "${BOSH_INSTALL_TARGET}/"

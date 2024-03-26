@@ -4,4 +4,4 @@ name: autoconf
 dependencies: []
 
 files:
-- autoconf/autoconf-2.69.tar.gz
+- autoconf/autoconf-*.tar.gz
