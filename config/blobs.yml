@@ -46,10 +46,10 @@ pkg-config/pkg-config-0.29.2.tar.gz:
   size: 2016830
   object_id: 047ac8ff-aae8-4df3-6746-3f05cfdbfc3b
   sha: sha256:6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591
-tar/tar-1.32.tar.xz:
-  size: 2103348
-  object_id: 1dc2117b-abef-47a2-5616-27d2d958465e
-  sha: sha256:d0d3ae07f103323be809bc3eac0dcc386d52c5262499fe05511ac4788af1fdd8
+tar/tar-1.35.tar.xz:
+  size: 2317208
+  object_id: 0091a979-2720-4f67-75e6-f617f395a6ec
+  sha: sha256:4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16
 tini/tini-v0.18.0.tar.gz:
   size: 32152
   object_id: bfcc2f24-1cf0-432a-67cc-2c19518c839b
