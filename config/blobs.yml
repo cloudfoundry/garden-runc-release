@@ -50,10 +50,10 @@ tar/tar-1.35.tar.xz:
   size: 2317208
   object_id: 0091a979-2720-4f67-75e6-f617f395a6ec
   sha: sha256:4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16
-tini/tini-v0.18.0.tar.gz:
-  size: 32152
-  object_id: bfcc2f24-1cf0-432a-67cc-2c19518c839b
-  sha: 27b7529ae87ea688e21d0a061b6d9299ff9362f6
+tini/tini-0.19.0.tar.gz:
+  size: 32369
+  object_id: e542dbad-4e45-40fc-43fd-49f7561ab600
+  sha: sha256:0fd35a7030052acd9f58948d1d900fe1e432ee37103c5561554408bdac6bbf0d
 util-linux/util-linux-2.28.tar.gz:
   size: 8860808
   object_id: ed756d6a-13d9-475e-6bba-99fc7531b470
