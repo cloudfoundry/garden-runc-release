@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="0.29.2"
 export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
 
 # pkg-config
-tar xzf "pkg-config/pkg-config-${version}.tar.gz"
+tar xzf pkg-config/pkg-config-*.tar.gz
 
-cd "pkg-config-${version}"
+cd pkg-config-*
 ./configure "--prefix=${BOSH_INSTALL_TARGET}" --with-internal-glib
 
 make

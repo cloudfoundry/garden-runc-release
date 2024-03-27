@@ -8,4 +8,4 @@ dependencies:
 - pkg-config
 
 files:
-- lzo/lzo-2.09.tar.gz
+- lzo/lzo-*.tar.gz

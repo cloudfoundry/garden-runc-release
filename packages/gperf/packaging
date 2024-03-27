@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="3.1"
+tar zxf gperf/gperf-*.tar.gz
 
-tar zxf "gperf/gperf-${version}.tar.gz"
-
-cd "gperf-${version}"
+cd gperf-*
 
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make

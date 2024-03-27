@@ -4,16 +4,12 @@ set -euo pipefail
 export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
 export PATH="/var/vcap/packages/pkg-config/bin:${PATH}"
 
-iptables_version="1.6.2"
-libnftnl_version="1.0.9"
-libmnl_version="1.0.4"
-
-tar jxf "iptables/iptables-${iptables_version}.tar.bz2"
-tar jxf "iptables/libnftnl-${libnftnl_version}.tar.bz2"
-tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
+tar xf iptables/iptables-*.tar.xz
+tar xf iptables/libnftnl-*.tar.xz
+tar jxf iptables/libmnl-*.tar.bz2
 
 (
-  cd "libmnl-${libmnl_version}"
+  cd libmnl-*
 
   ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
@@ -21,7 +17,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
 )
 
 (
-  cd "libnftnl-${libnftnl_version}"
+  cd libnftnl-*
 
   ./configure "--prefix=${BOSH_INSTALL_TARGET}"
   make
@@ -29,7 +25,7 @@ tar jxf "iptables/libmnl-${libmnl_version}.tar.bz2"
 )
 
 (
-  cd "iptables-${iptables_version}"
+  cd iptables-*
 
   if [ "$( uname -m )" == "ppc64le" ]; then
     cp "${BOSH_COMPILE_TARGET}/config/config.guess" ./build-aux/config.guess

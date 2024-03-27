@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="1.2.11"
+tar xvzf zlib/zlib-*.tar.gz
 
-tar xvzf "zlib/zlib-${version}.tar.gz"
-
-cd "zlib-${version}"
+cd zlib-*
 
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make

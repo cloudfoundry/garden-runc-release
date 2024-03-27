@@ -4,5 +4,5 @@ name: libtool
 dependencies: []
 
 files:
-- libtool/libtool-2.4.6.tar.gz
+- libtool/libtool-*.tar.gz
 

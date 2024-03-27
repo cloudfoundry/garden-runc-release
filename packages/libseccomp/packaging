@@ -12,11 +12,9 @@ setDeps() {
   addLib gperf
 }
 
-version="2.5.1"
+tar xzf libseccomp/libseccomp-*.tar.gz
 
-tar xzf "libseccomp/libseccomp-${version}.tar.gz"
-
-cd "libseccomp-${version}"
+cd libseccomp-*
 
 setDeps
 

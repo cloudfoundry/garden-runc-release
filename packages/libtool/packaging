@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="2.4.6"
+tar xzf libtool/libtool-*.tar.gz
 
-tar xzf "libtool/libtool-${version}.tar.gz"
-
-cd "libtool-${version}"
+cd libtool-*
 
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make
