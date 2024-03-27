@@ -76,8 +76,6 @@ In order to contribute to the project you may want some of the following install
 - [Go](https://golang.org/doc/install#install) - The Go programming
   language
 - [Fly CLI](https://github.com/concourse/fly) - Concourse CLI
-- [Virtualbox](https://www.virtualbox.org/) - Virtualization box
-- [Vagrant](https://www.vagrantup.com/) - Portable dev environment
 
 Garden-runC uses git submodules to maintain its dependencies and components.
 Some of Garden-runC's important components currently are:
