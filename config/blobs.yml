@@ -54,10 +54,10 @@ tini/tini-0.19.0.tar.gz:
   size: 32369
   object_id: e542dbad-4e45-40fc-43fd-49f7561ab600
   sha: sha256:0fd35a7030052acd9f58948d1d900fe1e432ee37103c5561554408bdac6bbf0d
-util-linux/util-linux-2.28.tar.gz:
-  size: 8860808
-  object_id: ed756d6a-13d9-475e-6bba-99fc7531b470
-  sha: ad8f1a338c23bcf3519b856295fbdb6a820db64c
+util-linux/util-linux-2.39.3.tar.gz:
+  size: 18876273
+  object_id: 0e867333-34d5-4d6f-6bca-e286aa5539ce
+  sha: sha256:40ea07584d56c310455471afa92c119ec259776a561af7159cc802344c2c370d
 xfs-progs/xfsprogs-4.20.0.tar.gz:
   size: 1750213
   object_id: 46a0233d-1423-46d8-49ad-b5d0f07a39aa
