@@ -18,10 +18,10 @@ iptables/iptables-1.8.10.tar.xz:
   size: 641168
   object_id: fd8cb91a-ef7c-4150-7b32-0aa43b982d83
   sha: sha256:5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c
-iptables/libmnl-1.0.4.tar.bz2:
-  size: 301270
-  object_id: f196a106-27aa-48e6-867b-62e33663e578
-  sha: 2db40dea612e88c62fd321906be40ab5f8f1685a
+iptables/libmnl-1.0.5.tar.bz2:
+  size: 314791
+  object_id: 38e97674-46be-432a-46e8-d4b9278ffb19
+  sha: sha256:274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525
 libseccomp/libseccomp-2.5.1.tar.gz:
   size: 638811
   object_id: 15ec2e2a-4040-43be-7ad9-f6313dc28230
