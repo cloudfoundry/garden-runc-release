@@ -14,6 +14,10 @@ gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
   sha: sha256:588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2
+iptables/iptables-1.8.10.tar.xz:
+  size: 641168
+  object_id: fd8cb91a-ef7c-4150-7b32-0aa43b982d83
+  sha: sha256:5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c
 iptables/libmnl-1.0.4.tar.bz2:
   size: 301270
   object_id: f196a106-27aa-48e6-867b-62e33663e578
