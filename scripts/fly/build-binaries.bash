@@ -12,4 +12,10 @@ REPO_NAME=$(git_get_remote_name)
 REPO_PATH="${THIS_FILE_DIR}/../../"
 unset THIS_FILE_DIR
 
-DEFAULT_PARAMS="ci/$REPO_NAME/default-params/build-binaries/linux.yml" "$CI/bin/fly-exec.bash" build-binaries -i repo="${REPO_PATH}" -o built-binaries="${BUILT_BINARIES}"
+if [[ "${CLEAN_CACHE:-no}" == "yes" ]]; then
+  rm -rf "${BUILT_BINARIES}"
+fi
+
+if [[ ! -d "${BUILT_BINARIES}" ]]; then
+  DEFAULT_PARAMS="ci/$REPO_NAME/default-params/build-binaries/linux.yml" "$CI/bin/fly-exec.bash" build-binaries -i repo="${REPO_PATH}" -o built-binaries="${BUILT_BINARIES}"
+fi

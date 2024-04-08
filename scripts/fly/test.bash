@@ -32,6 +32,13 @@ if [[ -f "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash" ]]
   export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime | yq -r .password)"
 fi
 
+if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
+  cat << EOF
+  Run this script with DOCKER_REGISTRY_USERNAME, DOCKER_REGISTRY_PASSWORD env variables
+EOF
+exit 1
+fi
+
 ENVS="$ROOTFS_ENVS
 DOCKER_REGISTRY_USERNAME="$DOCKER_REGISTRY_USERNAME"
 DOCKER_REGISTRY_PASSWORD="$DOCKER_REGISTRY_PASSWORD"
