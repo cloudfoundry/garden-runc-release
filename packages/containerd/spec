@@ -425,7 +425,6 @@ files:
   - guardian/vendor/github.com/gogo/protobuf/types/*.go # gosub
   - guardian/vendor/github.com/golang/groupcache/lru/*.go # gosub
   - guardian/vendor/github.com/golang/protobuf/proto/*.go # gosub
-  - guardian/vendor/github.com/golang/protobuf/ptypes/timestamp/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
   - guardian/vendor/github.com/google/go-cmp/cmp/internal/flags/*.go # gosub
