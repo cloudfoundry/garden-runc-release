@@ -211,7 +211,7 @@ properties:
 
   garden.containerd_mode:
     description: "Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
-    default: false
+    default: true
 
   garden.tcp_keepalive_time:
     description: Sets the `net.ipv4.tcp_keepalive_time` kernel parameter in containers. If not specified, the value from the linux init_net namespace is used.
