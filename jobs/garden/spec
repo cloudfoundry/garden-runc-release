@@ -229,7 +229,7 @@ properties:
     description: Sets the `net.ipv4.tcp_retries2` kernel parameter in containers. If not specified, the value from the linux init_net namespace is used.
 
   garden.experimental_use_containerd_mode_for_processes:
-    description: "(Under development) Use containerd for container process management. Must be used with containerd_mode also set to true. NOTE: cannot be used in combination with bpm or rootless"
+    description: "(Deprecated) No longer used/tested."
     default: false
 
   garden.experimental_cpu_throttling:

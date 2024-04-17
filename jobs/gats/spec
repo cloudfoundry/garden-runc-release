@@ -22,9 +22,6 @@ properties:
   garden_test_rootfs:
     description: Test rootfs to use
     default: 'docker:///cloudfoundry/garden-rootfs'
-  containerd_for_processes:
-    description: Run GATS with CONTAINERD_FOR_PROCESSES_ENABLED
-    default: false
   rootless:
     description: Run GATS with ROOTLESS env var
     default: false
