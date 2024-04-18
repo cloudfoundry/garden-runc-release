@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/grootfs v0.30.0
 	github.com/BurntSushi/toml v1.3.2
 	github.com/onsi/ginkgo/v2 v2.17.1
-	github.com/onsi/gomega v1.32.0
+	github.com/onsi/gomega v1.33.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
