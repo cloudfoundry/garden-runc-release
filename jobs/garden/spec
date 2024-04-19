@@ -199,10 +199,6 @@ properties:
     description: AppArmor profile to use for unprivileged container processes
     default: garden-default
 
-  garden.experimental_rootless_mode:
-    description: A boolean stating whether or not to run garden-server as a non-root user
-    default: false
-
   # We believe this defaults to false to help concourse: https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.5.0
   # For diego/cf, this should be set to true
   garden.cleanup_process_dirs_on_wait:
@@ -210,7 +206,7 @@ properties:
     default: false
 
   garden.containerd_mode:
-    description: "Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm or rootless"
+    description: "Use containerd for container lifecycle management. NOTE: cannot be used in combination with bpm"
     default: true
 
   garden.tcp_keepalive_time:

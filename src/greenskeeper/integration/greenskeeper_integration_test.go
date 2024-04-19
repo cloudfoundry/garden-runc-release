@@ -35,13 +35,10 @@ var _ = Describe("Greenskeeper", func() {
 				"PIDFILE=" + pidFileName,
 				"RUN_DIR=" + path.Join(tmpDir, "run"),
 				"GARDEN_DATA_DIR=" + path.Join(tmpDir, "garden"),
-				"CONTAINERD_DATA_DIR=" + path.Join(tmpDir, "containerd"),
 				"LOG_DIR=" + path.Join(tmpDir, "log"),
 				"TMPDIR=" + path.Join(tmpDir, "tmp"),
 				"DEPOT_PATH=" + path.Join(tmpDir, "depot"),
 				"RUNTIME_BIN_DIR=" + path.Join(tmpDir, "bin"),
-				"XDG_RUNTIME_DIR=" + path.Join(tmpDir, "xdg"),
-				"GARDEN_ROOTLESS_CONFIG_DIR=" + path.Join(tmpDir, "rootless-config"),
 				"MAXIMUS=" + strconv.Itoa(maxID),
 			}
 
@@ -78,25 +75,6 @@ var _ = Describe("Greenskeeper", func() {
 				Entry("LOG_DIR", "log", 0770, 0, 0),
 				Entry("TMPDIR", "tmp", 0755, 0, 0),
 				Entry("DEPOT_PATH", "depot", 0755, 0, 0),
-			)
-		})
-
-		Context("rootless directories", func() {
-			BeforeEach(func() {
-				gkCmd = exec.Command(gkBin, "--rootless")
-				gkCmd.Env = envs
-			})
-
-			DescribeTable("are created with max owner",
-				func(dir string, mode, uid, gid int) {
-					checkPermissionsAndOwnership(tmpDir, dir, mode, uid, gid)
-				},
-				Entry("LOG_DIR", "log", 0770, maxID, maxID),
-				Entry("TMPDIR", "tmp", 0755, maxID, maxID),
-				Entry("DEPOT_PATH", "depot", 0755, maxID, maxID),
-				Entry("XDG_RUNTIME_DIR", "xdg", 0700, maxID, maxID),
-				Entry("CONTAINERD_DATA_DIR", "containerd", 0700, maxID, maxID),
-				Entry("GARDEN_ROOTLESS_CONFIG_DIR", "rootless-config", 0700, maxID, maxID),
 			)
 		})
 	})

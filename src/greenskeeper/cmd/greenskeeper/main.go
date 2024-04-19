@@ -10,15 +10,10 @@ import (
 )
 
 func main() {
-	var rootlessMode bool
-	flag.BoolVar(&rootlessMode, "rootless", false, "run rootless setup")
 
 	flag.Parse()
 
 	owner := 0
-	if rootlessMode {
-		owner = mustGetMaximus()
-	}
 
 	pidFilePath := os.Getenv("PIDFILE")
 	if err := greenskeeper.CheckExistingGdnProcess(pidFilePath); err != nil {
@@ -33,12 +28,6 @@ func main() {
 		greenskeeper.NewDirectoryBuilder(mustGetenv("TMPDIR")).Mode(0755).UID(owner).GID(owner).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("DEPOT_PATH")).Mode(0755).UID(owner).GID(owner).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("RUNTIME_BIN_DIR")).Mode(0750).GID(mustGetMaximus()).Build(),
-	}
-
-	if rootlessMode {
-		directories = append(directories, greenskeeper.NewDirectoryBuilder(mustGetenv("XDG_RUNTIME_DIR")).Mode(0700).UID(owner).GID(owner).Build())
-		directories = append(directories, greenskeeper.NewDirectoryBuilder(mustGetenv("GARDEN_ROOTLESS_CONFIG_DIR")).Mode(0700).UID(owner).GID(owner).Build())
-		directories = append(directories, greenskeeper.NewDirectoryBuilder(mustGetenv("CONTAINERD_DATA_DIR")).Mode(0700).UID(owner).GID(owner).Build())
 	}
 
 	if err := greenskeeper.CreateDirectories(directories...); err != nil {

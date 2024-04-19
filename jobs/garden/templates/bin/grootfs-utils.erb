@@ -17,9 +17,6 @@ unprivileged_root_mapping() {
 unprivileged_range_mapping() {
   maximus_uid=$(/var/vcap/packages/garden-idmapper/bin/maximus)
   range="1:1:$((maximus_uid-1))"
-  <% if p('garden.experimental_rootless_mode') %>
-    range="1:65536:$((maximus_uid-65536))"
-  <% end %>
   echo -n $range
 }
 

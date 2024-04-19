@@ -42,8 +42,7 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 
 <%
     runtime_bin_dir  = "/var/vcap/data/garden/bin"
-    rootless         = p("garden.experimental_rootless_mode")
-    groot_config_dir = rootless ? "/var/vcap/data/garden/config" : "/var/vcap/jobs/garden/config"
+    groot_config_dir = "/var/vcap/jobs/garden/config"
 
     bind_ip, bind_port = p("garden.listen_address").split(":")
 
@@ -64,7 +63,7 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
     use_provided_image_plugin             = image_plugin_provided
     use_provided_privileged_image_plugin  = privileged_image_plugin_provided
     use_default_image_plugin              = !image_plugin_provided
-    use_default_privileged_image_plugin   = !privileged_image_plugin_provided && !rootless
+    use_default_privileged_image_plugin   = !privileged_image_plugin_provided
 
     apparmor_profile_provided = !p("garden.apparmor_profile").empty?
 -%>
@@ -242,15 +241,8 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
   skip-setup = true
   depot = /var/vcap/data/garden/depot
   runtime-plugin=<%= p("garden.runtime_plugin") %>
-<% if rootless -%>
-  disable-privileged-containers = true
-<% end -%>
 
 <% if p("garden.containerd_mode") -%>
 ; containerd
-	<% if rootless -%>
-  containerd-socket = /var/vcap/data/containerd/sockets/containerd.sock
-	<% else -%>
   containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
-  <% end -%>
 <% end -%>

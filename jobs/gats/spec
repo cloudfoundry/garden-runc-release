@@ -22,9 +22,6 @@ properties:
   garden_test_rootfs:
     description: Test rootfs to use
     default: 'docker:///cloudfoundry/garden-rootfs'
-  rootless:
-    description: Run GATS with ROOTLESS env var
-    default: false
   cpu_throttling:
     description: Run GATS with CPU_THROTTLING_ENABLED
     default: false

@@ -11,9 +11,6 @@ exec 2>> "${LOG_DIR}/garden_ctl.stderr.log"
 
 log "running greenskeeper"
 greenskeeper_cmd="/var/vcap/packages/greenskeeper/bin/greenskeeper"
-<% if p("garden.experimental_rootless_mode") %>
-  greenskeeper_cmd="$greenskeeper_cmd --rootless"
-<% end %>
 $greenskeeper_cmd
 log "running greenskeeper: done"
 
@@ -59,24 +56,6 @@ setup_cmd="/var/vcap/packages/guardian/bin/gdn setup"
 <% end -%>
 exec_command="exec"
 id_map_start=1
-
-<% if p("garden.experimental_rootless_mode") %>
-  <% if p("garden.listen_network") == "tcp" %>
-    exec_command="exec execas --uid $MAXIMUS --gid $MAXIMUS"
-  <% else %>
-    exec_command="exec socket2me --socket-path <%= p("garden.listen_address") %> --uid $MAXIMUS --gid $MAXIMUS --socket-uid 1000 --socket-gid 1000"
-  <% end %>
-  setup_cmd="$setup_cmd --rootless-uid $MAXIMUS --rootless-gid $MAXIMUS"
-  id_map_start=65536
-
-  cp "$GARDEN_CONFIG_DIR/grootfs_config.yml" "$GARDEN_CONFIG_DIR/config.ini" "$GARDEN_ROOTLESS_CONFIG_DIR"
-  chown "$MAXIMUS:$MAXIMUS" "$GARDEN_ROOTLESS_CONFIG_DIR/grootfs_config.yml" "$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
-
-  mkdir $GARDEN_ROOTLESS_CERTS_DIR
-  cp "$GARDEN_CERTS_DIR/remote-layer.cert" "$GARDEN_CERTS_DIR/remote-layer.crt" "$GARDEN_CERTS_DIR/remote-layer.key" "$GARDEN_ROOTLESS_CERTS_DIR"
-  chown "$MAXIMUS:$MAXIMUS" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.cert" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.crt" "$GARDEN_ROOTLESS_CERTS_DIR/remote-layer.key"
-
-<% end %>
 
 log "running setup"
 $setup_cmd

@@ -157,7 +157,6 @@ files:
   - grootfs/vendor/github.com/opencontainers/go-digest/*.go # gosub
   - grootfs/vendor/github.com/opencontainers/image-spec/specs-go/*.go # gosub
   - grootfs/vendor/github.com/opencontainers/image-spec/specs-go/v1/*.go # gosub
-  - grootfs/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - grootfs/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - grootfs/vendor/github.com/openzipkin/zipkin-go/idgenerator/*.go # gosub
   - grootfs/vendor/github.com/openzipkin/zipkin-go/model/*.go # gosub

@@ -23,19 +23,6 @@ if [ -d "/run/systemd/system" ]; then
   export IS_RUNNING_SYSTEMD=true
 fi
 
-<% if p("garden.experimental_rootless_mode") %>
-# runc makes use of the XDG_RUNTIME_DIR env var in order to determine
-# where to place the runc root dir in rootless mode.
-# Given that this is not set on stemcells we choose to set it explicitely
-# here.
-export XDG_RUNTIME_DIR=/var/run/user/$MAXIMUS
-export TMPDIR=$TMPDIR/user/$MAXIMUS/tmp
-export GARDEN_ROOTLESS_CONFIG_DIR="$GARDEN_DATA_DIR/config"
-export GARDEN_CONFIG_PATH="$GARDEN_ROOTLESS_CONFIG_DIR/config.ini"
-export GARDEN_ROOTLESS_CERTS_DIR="$GARDEN_DATA_DIR/certs"
-export CONTAINERD_DATA_DIR=/var/vcap/data/containerd
-<% end %>
-
 <% if_p('garden.http_proxy') do |http_proxy| %>
 export HTTP_PROXY='<%= http_proxy %>'
 export http_proxy='<%= http_proxy %>'

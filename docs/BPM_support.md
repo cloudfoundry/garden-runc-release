@@ -18,7 +18,7 @@ Its default value is left blank.
 ### Secondary Properties
 In addition to the above primary properties, there are some secondary properties that have caveats when enabling BPM:
 #### `garden.experimental_use_containerd_mode_for_processes`
-When enabling [`garden.experimental_use_containerd_mode_for_processes`](https://github.com/cloudfoundry/garden-runc-release/blob/develop/jobs/garden/spec#L231-L233), please ensure you do NOT have `bpm.enabled` enabled. The two properties are incompatible with one another. The purpose of the property is to use Containerd for container process management. Must be used with containerd_mode also set to true. NOTE: cannot be used in combination with bpm or rootless
+When enabling [`garden.experimental_use_containerd_mode_for_processes`](https://github.com/cloudfoundry/garden-runc-release/blob/develop/jobs/garden/spec#L231-L233), please ensure you do NOT have `bpm.enabled` enabled. The two properties are incompatible with one another. The purpose of the property is to use Containerd for container process management. Must be used with containerd_mode also set to true. NOTE: cannot be used in combination with bpm
 By default it is disabled(set to false).
 
 #### `garden.destroy_containers_on_start`

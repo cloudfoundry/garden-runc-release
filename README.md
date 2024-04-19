@@ -43,15 +43,6 @@ The following doc provides an overview of security features on Garden vs Docker 
 
 [Security overview.](docs/security-overview.md)
 
-### Rootless containers
-
-Garden has experimental support for running containers without requiring root
-privileges. Take a look at the
-[rootless-containers.md](docs/articles/rootless-containers.md) doc for further info.
-
-If you would like to enable rootless containers please read [this
-document](docs/enabling-rootless-containers.md).
-
 ## Contributing
 See the [Contributing.md](./.github/CONTRIBUTING.md) for more information on how to contribute.
 
