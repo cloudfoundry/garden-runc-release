@@ -15,7 +15,6 @@ packages:
   - grootfs
   - xfs-progs
   - thresholder
-  - netplugin-shim
   - dontpanic
   - tini
 

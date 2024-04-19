@@ -1,5 +1,0 @@
-check process netplugin-server
-  with pidfile /var/vcap/sys/run/netplugin-server/netplugin-server.pid
-  start program "/bin/sh -c '/var/vcap/jobs/netplugin-server/bin/netplugin-server_ctl start'" with timeout 120 seconds
-  stop program "/var/vcap/jobs/netplugin-server/bin/netplugin-server_ctl stop"
-  group vcap
