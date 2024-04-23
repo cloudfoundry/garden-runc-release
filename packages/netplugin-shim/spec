@@ -1,8 +1,0 @@
----
-name: netplugin-shim
-
-dependencies:
-  - golang-1.22-linux
-
-files:
-  - netplugin-shim/**/*

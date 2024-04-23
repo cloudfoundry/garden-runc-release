@@ -43,14 +43,6 @@ start_containerd() {
 
   containerd_config_filepath="$GARDEN_CONFIG_DIR/containerd.toml"
   exec_command="exec"
-  <% if p("garden.experimental_rootless_mode") -%>
-    maximus=$(/var/vcap/packages/garden-idmapper/bin/maximus)
-    cp "$GARDEN_CONFIG_DIR/containerd.toml" "$GARDEN_ROOTLESS_CONFIG_DIR"
-    chown "$maximus:$maximus" "$GARDEN_ROOTLESS_CONFIG_DIR/containerd.toml"
-    containerd_config_filepath="$GARDEN_ROOTLESS_CONFIG_DIR/containerd.toml"
-
-    exec_command="exec execas --uid $maximus --gid $maximus"
-  <% end -%>
 
   log "running containerd"
   $exec_command /var/vcap/packages/containerd/bin/containerd -c "$containerd_config_filepath" \

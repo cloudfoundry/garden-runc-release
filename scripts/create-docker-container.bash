@@ -29,6 +29,18 @@ pushd "$CI/garden-runc-release/dockerfiles"
 LOCATION=${LOCATION} make
 popd
 
+if [[ -f "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash" ]]; then
+  . "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash"
+  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime-username)"
+  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime-password)"
+fi
+if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
+  cat << EOF
+  Run this script with DOCKER_REGISTRY_USERNAME, DOCKER_REGISTRY_PASSWORD env variables
+EOF
+exit 1
+fi
+
 docker pull "${IMAGE}"
 docker rm -f $CONTAINER_NAME
 docker run -it \
@@ -36,6 +48,8 @@ docker run -it \
   --env "REPO_PATH=/repo" \
   --env "GARDEN_TEST_ROOTFS=/artifacts/garden-rootfs.tar" \
   --env "GARDEN_FUSE_TEST_ROOTFS=/artifacts/garden-fuse.tar" \
+  --env "DOCKER_REGISTRY_USERNAME=$DOCKER_REGISTRY_USERNAME" \
+  --env "DOCKER_REGISTRY_PASSWORD=$DOCKER_REGISTRY_PASSWORD" \
   --rm \
   --name "$CONTAINER_NAME" \
   -v "${REPO_PATH}:/repo" \

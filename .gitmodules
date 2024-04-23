@@ -18,10 +18,6 @@
 	path = src/idmapper
 	url = https://github.com/cloudfoundry/idmapper
 	branch = main
-[submodule "src/netplugin-shim"]
-	path = src/netplugin-shim
-	url = https://github.com/cloudfoundry/netplugin-shim
-	branch = main
 [submodule "src/dontpanic"]
 	path = src/dontpanic
 	url = https://github.com/cloudfoundry/dontpanic

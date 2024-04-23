@@ -26,26 +26,8 @@ disabled_plugins = [
 ]
 
 [grpc]
-<% if p("garden.experimental_rootless_mode") -%>
-address = "/var/vcap/data/containerd/sockets/containerd.sock"
-uid = 4294967294
-gid = 4294967294
-<% else -%>
 address = "/var/vcap/sys/run/containerd/containerd.sock"
-<% end -%>
 
 [debug]
-<% if p("garden.experimental_rootless_mode") -%>
-address = "/var/vcap/data/containerd/sockets/debug.sock"
-uid = 4294967294
-gid = 4294967294
-<% else -%>
 address = "/var/vcap/sys/run/containerd/debug.sock"
-<% end -%>
 level = "info"
-
-<% if p("garden.experimental_rootless_mode") -%>
-[plugins]
-  [plugins.linux]
-    runtime_root = "/var/run/user/4294967294/runc"
-<% end -%>

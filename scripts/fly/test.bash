@@ -28,8 +28,8 @@ GARDEN_FUSE_TEST_ROOTFS=$PWD/input-01/garden-fuse.tar'
 
 if [[ -f "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash" ]]; then
   . "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash"
-  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime | yq -r .user)"
-  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime | yq -r .password)"
+  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime-username)"
+  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime-password)"
 fi
 
 if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
