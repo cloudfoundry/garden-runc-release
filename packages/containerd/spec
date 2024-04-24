@@ -533,6 +533,7 @@ files:
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/internal/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconv/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconvutil/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/Makefile # gosub
