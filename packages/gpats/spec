@@ -22,7 +22,7 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/v4/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/github.com/go-task/slim-sprig/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/go-task/slim-sprig/v3/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/diff/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/google/go-cmp/cmp/internal/flags/*.go # gosub
