@@ -88,7 +88,6 @@ files:
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub
   - guardian/vendor/golang.org/x/sys/windows/*.go # gosub
-  - guardian/vendor/golang.org/x/sys/windows/*.s # gosub
   - guardian/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub

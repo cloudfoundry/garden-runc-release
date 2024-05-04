@@ -183,7 +183,6 @@ files:
   - grootfs/vendor/golang.org/x/sys/unix/*.s # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.c # gosub
   - grootfs/vendor/golang.org/x/sys/windows/*.go # gosub
-  - grootfs/vendor/golang.org/x/sys/windows/*.s # gosub
   - grootfs/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub

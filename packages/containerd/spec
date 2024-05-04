@@ -603,7 +603,6 @@ files:
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub
   - guardian/vendor/golang.org/x/sys/windows/*.go # gosub
-  - guardian/vendor/golang.org/x/sys/windows/*.s # gosub
   - guardian/vendor/golang.org/x/sys/windows/registry/*.go # gosub
   - guardian/vendor/golang.org/x/sys/windows/svc/*.go # gosub
   - guardian/vendor/golang.org/x/sys/windows/svc/debug/*.go # gosub
