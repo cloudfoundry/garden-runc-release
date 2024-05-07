@@ -177,6 +177,10 @@ properties:
     description: "If true, container is not going to be limited in swap space. Should only be used if swap is disabled on the VM."
     default: false
 
+  garden.use_network_spec_ip:
+    description: "If true, the instance IP specified from the BOSH spec object (https://bosh.io/docs/jobs/#properties-spec) will be used as the garden container's external IP."
+    default: false
+
   garden.destroy_containers_on_start:
     description: "If true, all existing containers will be destroyed any time the garden server starts up"
     default: false

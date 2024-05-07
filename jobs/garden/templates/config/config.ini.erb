@@ -190,6 +190,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% if p("garden.enable_container_network_metrics") -%>
   enable-container-network-metrics = true
 <% end -%>
+<% if p("garden.use_network_spec_ip") -%>
+  external-ip = <%= spec.ip %>
+<% end -%>
 
 ; properties
   properties-path = /var/vcap/data/garden/props.json
