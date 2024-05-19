@@ -1,6 +1,8 @@
 module thresholder
 
-go 1.18
+go 1.21
+
+toolchain go1.22.3
 
 require (
 	code.cloudfoundry.org/grootfs v0.30.0

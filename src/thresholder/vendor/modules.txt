@@ -1,5 +1,5 @@
 # code.cloudfoundry.org/grootfs v0.30.0 => ../grootfs
-## explicit; go 1.20
+## explicit; go 1.21
 code.cloudfoundry.org/grootfs/commands/config
 # github.com/BurntSushi/toml v1.3.2
 ## explicit; go 1.16
