@@ -105,6 +105,7 @@ files:
   - grootfs/vendor/github.com/containers/ocicrypt/spec/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/chunked/compressor/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/chunked/internal/*.go # gosub
+  - grootfs/vendor/github.com/containers/storage/pkg/fileutils/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/homedir/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/idtools/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/ioutils/*.go # gosub
