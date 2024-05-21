@@ -56,6 +56,7 @@ files:
   - garden-integration-tests/vendor/github.com/moby/sys/mountinfo/*.go # gosub
   - garden-integration-tests/vendor/github.com/nu7hatch/gouuid/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/*.go # gosub
+  - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/Makefile # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/config/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/formatter/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/ginkgo/*.go # gosub
