@@ -345,6 +345,7 @@ files:
   - guardian/vendor/github.com/containerd/continuity/pathdriver/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/proto/*.go # gosub
   - guardian/vendor/github.com/containerd/continuity/sysx/*.go # gosub
+  - guardian/vendor/github.com/containerd/errdefs/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/*.go # gosub
   - guardian/vendor/github.com/containerd/fifo/Makefile # gosub
   - guardian/vendor/github.com/containerd/go-cni/*.go # gosub
