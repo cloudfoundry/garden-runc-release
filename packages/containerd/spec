@@ -409,9 +409,9 @@ files:
   - guardian/vendor/github.com/felixge/httpsnoop/*.go # gosub
   - guardian/vendor/github.com/felixge/httpsnoop/Makefile # gosub
   - guardian/vendor/github.com/fsnotify/fsnotify/*.go # gosub
-  - guardian/vendor/github.com/go-jose/go-jose/v3/*.go # gosub
-  - guardian/vendor/github.com/go-jose/go-jose/v3/cipher/*.go # gosub
-  - guardian/vendor/github.com/go-jose/go-jose/v3/json/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v4/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v4/cipher/*.go # gosub
+  - guardian/vendor/github.com/go-jose/go-jose/v4/json/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/*.go # gosub
   - guardian/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - guardian/vendor/github.com/go-logr/stdr/*.go # gosub
