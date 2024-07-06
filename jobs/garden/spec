@@ -300,7 +300,21 @@ properties:
     default: false
 
   bpm.enabled:
-    description: "Use bpm. NOTE: this requires a recreate when enabling for the first time, otherwise old containers may be left running. NOTE: When this property is enabled, containers won't survive a restart of the garden job. This is why garden.destroy_containers_on_start should be set to avoid leaking container state."
+    description: |
+      Use BPM to run garden.
+
+      This in incompatible with recent stemcells that use systemd. Indeed,
+      then only way for sysyemd not to mess up with the garden-managed cgroups
+      (whether in containerd mode or not), is to run garden as a systemd
+      service with the 'Delegate=yes' property. Bosh-Lite (Warden) stemcells
+      are a noticable exception, as these don't use systemd.
+
+      Changing this property requires a recreate when enabling for the first
+      time, otherwise old containers may be left running.
+
+      When this property is enabled, containers won't survive a restart of the
+      garden job. This is why 'garden.destroy_containers_on_start' should be
+      set to 'true' to avoid leaking container state.
     default: false
 
   logging.format.timestamp:
