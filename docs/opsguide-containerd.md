@@ -9,14 +9,14 @@ Here is a table describing that mapping.
 |---------------|-----------------|----------------------------------------------------------|
 | Guardian Term | Containerd Term | RunC Representation                                      |
 |---------------|-----------------|----------------------------------------------------------|
-| OCI Bundle    | Container       | The config.json used by runc                             | 
+| OCI Bundle    | Container       | The config.json used by runc                             |
 | Container     | Task            | The running instance of a runc bundle (runc run)         |
 | Process       | Process         | A process exec-ed into a running runc bundle (runc exec) |
 |---------------|-----------------|----------------------------------------------------------|
 ```
 
-Another important concept of containerd is the concept of `namespaces`. Each client can work in its own 
-namespace, so that different clients do not have to give their containers globally unique names. Guardian 
+Another important concept of containerd is the concept of `namespaces`. Each client can work in its own
+namespace, so that different clients do not have to give their containers globally unique names. Guardian
 is working in a namespace named "garden".
 
 #### The ctr client
@@ -51,7 +51,7 @@ You can also use the `ctr` client:
 
 ## Containerizer
 
-RunContainerd is Guardian's containerd mode containerizer. It is a thin wrapper around containerd. 
+RunContainerd is Guardian's containerd mode containerizer. It is a thin wrapper around containerd.
 In order to create and manage containers it relies on a containerd instance running on a unix socket.
 The socket path is `/var/vcap/sys/run/containerd/containerd.sock`
 
@@ -67,21 +67,22 @@ For example, to execute a process in a container you can execute:
 ## Further Reading
 
 To enable the usage of containerd:
-
-https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/spec#L212-L214
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/spec#L212-L214
 
 In addition, in order to enable containerd for container process management:
-https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/spec#L231-L233
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/spec#L231-L233
 
-For Containerd's daemon:
-We set up the config file here: https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/spec#L22
+For Containerd's daemon, we set up the config file here:
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/spec#L22
 
-Containerd's config file is built here: https://github.com/cloudfoundry/garden-runc-release/blob/develop/jobs/garden/templates/config/containerd.toml.erb#L29C17-L51
+Containerd's config file is built here:
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/templates/config/containerd.toml.erb#L28-L51
 
-Garden Start starts up the containerd process by calling the method `start_containerd`: https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/templates/bin/garden_start.erb#L46
+Garden Start starts up the containerd process by calling the method `start_containerd`:
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/templates/bin/garden_start.erb#L46
 
-Which then kicks off the steps to invoke containerd with the previously generated config file: https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/templates/bin/containerd_utils.erb#L28-L68
+Which then kicks off the steps to invoke containerd with the previously generated config file:
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/templates/bin/containerd_utils.erb#L28-L68
 
-Garden's start had previously been accomplished by the configuration of this BPM configuration file: https://github.com/cloudfoundry/garden-runc-release/blob/861e755aed81d437f84f6af709344537578dd6e9/jobs/garden/templates/config/bpm.yml.erb#L1C1-L8C22
-
-
+Garden's start had previously been accomplished by the configuration of this BPM configuration file:
+https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/templates/config/bpm.yml.erb#L1C1-L8C22
