@@ -32,9 +32,15 @@ Look at [ctr docs](https://github.com/projectatomic/containerd/blob/master/docs/
 
 #### Processes
 
-For the time being the containerd mode is limited to container operations. So even when containerd mode
-is on, all process operations are still being handled by "RunDmc" - the RunC mode containerizer. Please
-have a look at the [RunC mode ops guide](opsguide-runc.md#processes) for more details.
+The containerd mode is limited to container operations. There has been an
+experimental option for handling processes operations by ContainerD instead of
+RunC since v1.15.0 (as of 2028-06-18), but it has been deprecated in v1.53.0
+(2024-05-16). So even when containerd mode is on, all process operations are
+still being handled by the `RunDmc` component - the RunC mode containerizer,
+as detailed in [Garden Components][garden_components]. Please have a look at
+the [RunC mode ops guide](opsguide-runc.md#processes) for more details.
+
+[garden_components]: https://github.com/cloudfoundry/garden-runc-release/blob/develop/docs/opsguide.md#garden-components
 
 #### The Bundle Config
 If you need to look at your RunC bundle config it can be found at:
@@ -67,9 +73,18 @@ For example, to execute a process in a container you can execute:
 ## Further Reading
 
 To enable the usage of containerd:
+
 https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/spec#L212-L214
 
-In addition, in order to enable containerd for container process management:
+This has been GA since garden-runc-release [v1.17.0][gdn-runc_v1.17.0] (after
+being introduced as experimental in [v1.15.0][gdn-runc_v1.15.0]), and
+integrated by default in cf-deployment [v6.3.0][cf-d_v6.3.0].
+
+[gdn-runc_v1.15.0]: https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.15.0
+[gdn-runc_v1.17.0]: https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.17.0
+[cf-d_v6.3.0]: https://github.com/cloudfoundry/cf-deployment/releases/tag/v6.3.0
+
+In addition, in order to enable containerd for container process management (deprecated in v1.53.0):
 https://github.com/cloudfoundry/garden-runc-release/blob/861e755/jobs/garden/spec#L231-L233
 
 For Containerd's daemon, we set up the config file here:
