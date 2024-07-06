@@ -6,13 +6,13 @@ why it is important to understand how Guardian is mapping its terminology to the
 Here is a table describing that mapping.
 
 ```
-|---------------|-----------------|----------------------------------------------------------|
-| Guardian Term | Containerd Term | RunC Representation                                      |
-|---------------|-----------------|----------------------------------------------------------|
-| OCI Bundle    | Container       | The config.json used by runc                             |
-| Container     | Task            | The running instance of a runc bundle (runc run)         |
-| Process       | Process         | A process exec-ed into a running runc bundle (runc exec) |
-|---------------|-----------------|----------------------------------------------------------|
+|---------------|-----------------|--------------------------------------------------------------|
+| Guardian Term | Containerd Term | RunC Representation                                          |
+|---------------|-----------------|--------------------------------------------------------------|
+| OCI Bundle    | Container       | The `config.json` used by RunC                               |
+| Container     | Task            | The running instance of a RunC bundle (`runc run`)           |
+| Process       | Process         | A process `exec`-ed into a running RunC bundle (`runc exec`) |
+|---------------|-----------------|--------------------------------------------------------------|
 ```
 
 Another important concept of containerd is the concept of `namespaces`. Each client can work in its own
@@ -33,8 +33,8 @@ Look at [ctr docs](https://github.com/projectatomic/containerd/blob/master/docs/
 #### Processes
 
 For the time being the containerd mode is limited to container operations. So even when containerd mode
-is on, all process operations are still being handled by "RunDmc" - the runc mode containerizer. Please
-have a look at the [runc mode ops guide](opsguide-runc.md#processes) for more details.
+is on, all process operations are still being handled by "RunDmc" - the RunC mode containerizer. Please
+have a look at the [RunC mode ops guide](opsguide-runc.md#processes) for more details.
 
 #### The Bundle Config
 If you need to look at your RunC bundle config it can be found at:
