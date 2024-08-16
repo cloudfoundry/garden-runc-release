@@ -2,10 +2,10 @@ autoconf/autoconf-2.72.tar.gz:
   size: 2143794
   object_id: de05bbf1-1ab7-4c21-4add-859e81b80b84
   sha: sha256:afb181a76e1ee72832f6581c0eddf8df032b83e2e0239ef79ebedc4467d92d6e
-automake/automake-1.16.5.tar.gz:
-  size: 2389045
-  object_id: 4d12a5fb-6ad3-4cf3-5846-eba18f35b300
-  sha: sha256:07bd24ad08a64bc17250ce09ec56e921d6343903943e99ccf63bbf0705e34605
+automake/automake-1.17.tar.gz:
+  size: 2451070
+  object_id: 53b1a04f-256f-4eea-6c54-ad1cac93c6b3
+  sha: sha256:397767d4db3018dd4440825b60c64258b636eaf6bf99ac8b0897f06c89310acd
 busybox/busybox-1.36.1.tar.gz:
   size: 2524386
   object_id: dcbd055b-aa50-4729-522a-55f30dd57aef
