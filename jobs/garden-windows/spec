@@ -36,6 +36,10 @@ properties:
     description: "An array of additional arguments which will be passed to the runtime plugin binary"
     default: []
 
+  garden.read_header_timeout:
+    description: "The amount of time allowed to read request headers"
+    default: 30s
+
   garden.image_plugin:
     description: "Path to an image plugin binary"
 

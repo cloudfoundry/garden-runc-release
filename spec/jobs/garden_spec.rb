@@ -79,6 +79,10 @@ describe 'garden' do
         expect(rendered_template['server']['runtime-plugin']).to eql('/var/vcap/packages/runc/bin/runc')
       end
 
+      it 'sets the read header timeout to 30s' do
+        expect(rendered_template['server']['read-header-timeout']).to eql('30s')
+      end
+
       it 'sets the max containers to 250' do
         expect(rendered_template['server']['max-containers']).to eql(250)
       end
