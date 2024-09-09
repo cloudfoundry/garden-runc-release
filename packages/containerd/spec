@@ -463,8 +463,6 @@ files:
   - guardian/vendor/github.com/klauspost/compress/zstd/internal/xxhash/*.s # gosub
   - guardian/vendor/github.com/klauspost/cpuid/v2/*.go # gosub
   - guardian/vendor/github.com/klauspost/cpuid/v2/*.s # gosub
-  - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/*.go # gosub
-  - guardian/vendor/github.com/matttproud/golang_protobuf_extensions/pbutil/Makefile # gosub
   - guardian/vendor/github.com/miekg/pkcs11/*.go # gosub
   - guardian/vendor/github.com/miekg/pkcs11/*.h # gosub
   - guardian/vendor/github.com/minio/sha256-simd/*.go # gosub
@@ -536,6 +534,7 @@ files:
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/internal/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/request/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconv/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconvutil/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/*.go # gosub
@@ -561,17 +560,21 @@ files:
   - guardian/vendor/go.opentelemetry.io/otel/internal/global/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/metric/embedded/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/metric/noop/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/instrumentation/*.go # gosub
-  - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/env/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/sdk/internal/x/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/resource/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/sdk/trace/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.17.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.20.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.21.0/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/semconv/v1.26.0/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/trace/embedded/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/otel/trace/noop/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/collector/trace/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/common/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/resource/v1/*.go # gosub
@@ -680,6 +683,7 @@ files:
   - guardian/vendor/google.golang.org/grpc/stats/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/status/*.go # gosub
   - guardian/vendor/google.golang.org/grpc/tap/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/encoding/protodelim/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/encoding/protojson/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
@@ -824,6 +828,7 @@ files:
   - guardian/vendor/sigs.k8s.io/json/internal/golang/encoding/json/*.go # gosub
   - guardian/vendor/sigs.k8s.io/structured-merge-diff/v4/value/*.go # gosub
   - guardian/vendor/sigs.k8s.io/yaml/*.go # gosub
+  - guardian/vendor/sigs.k8s.io/yaml/goyaml.v2/*.go # gosub
   - guardian/vendor/tags.cncf.io/container-device-interface/internal/validation/*.go # gosub
   - guardian/vendor/tags.cncf.io/container-device-interface/internal/validation/k8s/*.go # gosub
   - guardian/vendor/tags.cncf.io/container-device-interface/pkg/cdi/*.go # gosub
