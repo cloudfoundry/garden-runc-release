@@ -94,6 +94,7 @@ files:
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/devices/*.go # gosub
+  - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/user/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/userns/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/userns/*.c # gosub
