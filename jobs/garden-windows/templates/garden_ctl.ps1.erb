@@ -32,6 +32,7 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   server `
   --skip-setup `
   --depot=$depotDir `
+  --read-header-timeout=<%= p("garden.read_header_timeout") %> `
   --log-level=<%= p("garden.log_level") %> `
   <% ip, port = p("garden.listen_address").split(":") %> `
   --bind-ip=<%= ip %> `

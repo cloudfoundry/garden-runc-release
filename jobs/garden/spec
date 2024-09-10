@@ -128,6 +128,10 @@ properties:
     description: "Path to a runtime plugin binary"
     default: /var/vcap/packages/runc/bin/runc
 
+  garden.read_header_timeout:
+    description: "The amount of time allowed to read request headers"
+    default: 30s
+
   garden.no_image_plugin:
     description: "If true, disables image plugin usage, thus ignoring other image plugin settings"
     default: false

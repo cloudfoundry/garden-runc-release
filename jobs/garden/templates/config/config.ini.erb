@@ -241,6 +241,7 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
   skip-setup = true
   depot = /var/vcap/data/garden/depot
   runtime-plugin=<%= p("garden.runtime_plugin") %>
+  read-header-timeout = <%= p("garden.read_header_timeout") %>
 
 <% if p("garden.containerd_mode") -%>
 ; containerd
