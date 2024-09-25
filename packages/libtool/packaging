@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tar xzf libtool/libtool-*.tar.gz
+mkdir -p libtool-build
+tar xzf libtool/libtool-*.tar.gz -C libtool-build
 
-cd libtool-*
+pushd libtool-build
 
 ./configure "--prefix=${BOSH_INSTALL_TARGET}"
 make
 make install "prefix=${BOSH_INSTALL_TARGET}"
+
+popd
