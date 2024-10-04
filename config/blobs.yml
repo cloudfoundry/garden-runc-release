@@ -22,10 +22,10 @@ iptables/libmnl-1.0.5.tar.bz2:
   size: 314791
   object_id: 38e97674-46be-432a-46e8-d4b9278ffb19
   sha: sha256:274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525
-iptables/libnftnl-1.2.7.tar.xz:
-  size: 343876
-  object_id: 20407fb6-e9ce-47bb-70b4-e0170435eeba
-  sha: sha256:9122774f968093d5c0bacddd67de480f31fa4073405a7fc058a34b0f387aecb3
+iptables/libnftnl-1.2.8.tar.xz:
+  size: 343732
+  object_id: 1135a4a1-efa1-4230-6e3b-08c00c3c847b
+  sha: sha256:37fea5d6b5c9b08de7920d298de3cdc942e7ae64b1a3e8b880b2d390ae67ad95
 libseccomp/libseccomp-2.5.5.tar.gz:
   size: 642445
   object_id: 1e0357af-031f-42d0-68c2-e77256b3728c
