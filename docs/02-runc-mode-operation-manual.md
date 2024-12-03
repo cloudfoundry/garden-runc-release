@@ -1,3 +1,9 @@
+---
+title: runc-mode Operator's Manual
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 ## Important Directories
 
 ### The Depot

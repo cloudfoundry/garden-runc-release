@@ -1,3 +1,9 @@
+---
+title: CPU Throttling
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 # CPU Throttling
 
 Enable cpu throttling by setting the

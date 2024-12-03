@@ -1,3 +1,9 @@
+---
+title: BOSH’s BPM Support within the Garden-runc-release
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 # BOSH’s BPM Support within the Garden-runc-release
 BOSH’s workload isolation [BPM](https://bosh.io/docs/bpm/bpm/) presents additional complexities to Garden’s workload isolation and should be approached with full knowledge of the caveats involved.
 
