@@ -1,3 +1,9 @@
+---
+title: containerd-mode Operator's Manual
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 ### Terminology
 
 When it is running in containerd mode, Guardian will delegate all container operations to containerd.
@@ -34,7 +40,7 @@ Look at [ctr docs](https://github.com/projectatomic/containerd/blob/master/docs/
 
 For the time being the containerd mode is limited to container operations. So even when containerd mode
 is on, all process operations are still being handled by "RunDmc" - the runc mode containerizer. Please
-have a look at the [runc mode ops guide](opsguide-runc.md#processes) for more details.
+have a look at the [runc mode ops guide](02-runc-mode-operation-manual.md#processes) for more details.
 
 #### The Bundle Config
 If you need to look at your RunC bundle config it can be found at:

@@ -1,4 +1,10 @@
-# How much disk space is GrootFS using?
+---
+title: Understanding container's disk usage by grootfs
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
+# Understanding container's disk usage by grootfs
 
 Understanding how GrootFS uses its disk, and how to find out about that usage, is important for operators or support agents who are reconciling disk allocations for containers with actual disk usage on the host.
 This is often complicated by the fact that standard tools (`du` and `df`) can be misleading due to how container filesystems work.

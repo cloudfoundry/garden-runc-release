@@ -1,3 +1,9 @@
+---
+title: GrootFS Store Sizing and Garbage Collection
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 # GrootFS Store Sizing and Garbage Collection
 
 This document details how GrootFS manages its dedicated space and how it uses garbage collection of unused container image layers to optimise its space usage.

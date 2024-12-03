@@ -1,3 +1,9 @@
+---
+title: CPU Entitlement
+expires_at: never
+tags: [ garden-runc-release ]
+---
+
 # CPU Entitlement
 
 CPU entitlement describes the percentage of host CPU a particular application instance is ‘entitled’ to use. A user will see CPU performance less than 100% when their usage is within their entitlement, and greater than 100% when above their entitlement.
