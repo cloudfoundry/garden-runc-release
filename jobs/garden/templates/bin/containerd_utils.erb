@@ -52,7 +52,7 @@ start_containerd() {
 
   echo "$!" > "$CONTAINERD_PIDFILE"
 
-  address=$(grep containerd.sock $containerd_config_filepath | awk '{print $3}' | tr -d '"')
+  address=$(grep containerd.sock $containerd_config_filepath | awk '{print $3}' | tr -d \')
   while ! /var/vcap/packages/containerd/bin/ctr -a $address --connect-timeout 100ms c ls; do
     log "waiting for containerd to become available"
     sleep 0.1
