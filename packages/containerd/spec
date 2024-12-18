@@ -511,6 +511,9 @@ files:
   - guardian/vendor/github.com/prometheus/procfs/internal/util/*.go # gosub
   - guardian/vendor/github.com/russross/blackfriday/v2/*.go # gosub
   - guardian/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - guardian/vendor/github.com/smallstep/pkcs7/*.go # gosub
+  - guardian/vendor/github.com/smallstep/pkcs7/Makefile # gosub
+  - guardian/vendor/github.com/smallstep/pkcs7/internal/legacy/x509/*.go # gosub
   - guardian/vendor/github.com/spf13/pflag/*.go # gosub
   - guardian/vendor/github.com/stefanberger/go-pkcs11uri/*.go # gosub
   - guardian/vendor/github.com/stefanberger/go-pkcs11uri/Makefile # gosub
@@ -523,14 +526,14 @@ files:
   - guardian/vendor/github.com/vishvananda/netns/*.go # gosub
   - guardian/vendor/go.etcd.io/bbolt/*.go # gosub
   - guardian/vendor/go.etcd.io/bbolt/Makefile # gosub
-  - guardian/vendor/go.mozilla.org/pkcs7/*.go # gosub
-  - guardian/vendor/go.mozilla.org/pkcs7/Makefile # gosub
   - guardian/vendor/go.opencensus.io/*.go # gosub
   - guardian/vendor/go.opencensus.io/Makefile # gosub
   - guardian/vendor/go.opencensus.io/internal/*.go # gosub
   - guardian/vendor/go.opencensus.io/trace/*.go # gosub
   - guardian/vendor/go.opencensus.io/trace/internal/*.go # gosub
   - guardian/vendor/go.opencensus.io/trace/tracestate/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/auto/sdk/*.go # gosub
+  - guardian/vendor/go.opentelemetry.io/auto/sdk/internal/telemetry/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/internal/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
@@ -580,6 +583,8 @@ files:
   - guardian/vendor/go.opentelemetry.io/proto/otlp/resource/v1/*.go # gosub
   - guardian/vendor/go.opentelemetry.io/proto/otlp/trace/v1/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/cast5/*.go # gosub
+  - guardian/vendor/golang.org/x/crypto/cryptobyte/*.go # gosub
+  - guardian/vendor/golang.org/x/crypto/cryptobyte/asn1/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/armor/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/elgamal/*.go # gosub
@@ -708,6 +713,7 @@ files:
   - guardian/vendor/google.golang.org/protobuf/internal/impl/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/order/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/pragma/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/internal/protolazy/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/set/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/strs/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/version/*.go # gosub

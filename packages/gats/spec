@@ -165,6 +165,7 @@ files:
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/impl/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/order/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/pragma/*.go # gosub
+  - garden-integration-tests/vendor/google.golang.org/protobuf/internal/protolazy/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/set/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/strs/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/version/*.go # gosub

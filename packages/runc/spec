@@ -107,6 +107,7 @@ files:
   - guardian/vendor/google.golang.org/protobuf/internal/impl/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/order/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/pragma/*.go # gosub
+  - guardian/vendor/google.golang.org/protobuf/internal/protolazy/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/set/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/strs/*.go # gosub
   - guardian/vendor/google.golang.org/protobuf/internal/version/*.go # gosub

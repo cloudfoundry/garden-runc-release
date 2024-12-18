@@ -171,6 +171,7 @@ files:
   - grootfs/vendor/google.golang.org/protobuf/internal/impl/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/order/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/pragma/*.go # gosub
+  - grootfs/vendor/google.golang.org/protobuf/internal/protolazy/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/set/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/strs/*.go # gosub
   - grootfs/vendor/google.golang.org/protobuf/internal/version/*.go # gosub
