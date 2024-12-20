@@ -119,7 +119,6 @@ files:
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
-  - garden-integration-tests/vendor/golang.org/x/net/context/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
