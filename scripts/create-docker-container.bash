@@ -29,8 +29,8 @@ pushd "$CI/garden-runc-release/dockerfiles"
 LOCATION=${LOCATION} make
 popd
 
-if [[ -f "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash" ]]; then
-  . "${HOME}/workspace/devenv/functions/gcp-secret-manager-helpers.bash"
+if [[ -f "${HOME}/.bash_functions" ]]; then
+  . "${HOME}/.bash_functions"
   export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime-username)"
   export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime-password)"
 fi
