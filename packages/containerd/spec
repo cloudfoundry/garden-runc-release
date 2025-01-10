@@ -69,8 +69,12 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
@@ -106,6 +110,7 @@ files:
   - guardian/vendor/github.com/containerd/containerd/api/services/ttrpc/events/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/services/version/v1/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/types/*.go # gosub
+  - guardian/vendor/github.com/containerd/containerd/api/types/runc/options/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/types/task/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/api/types/transfer/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/archive/*.go # gosub
@@ -284,7 +289,6 @@ files:
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/manager/*.go # gosub
-  - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/options/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/pause/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/task/*.go # gosub
   - guardian/vendor/github.com/containerd/containerd/runtime/v2/runc/task/plugin/*.go # gosub
@@ -592,9 +596,6 @@ files:
   - guardian/vendor/golang.org/x/crypto/openpgp/packet/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/openpgp/s2k/*.go # gosub
   - guardian/vendor/golang.org/x/crypto/pbkdf2/*.go # gosub
-  - guardian/vendor/golang.org/x/exp/constraints/*.go # gosub
-  - guardian/vendor/golang.org/x/exp/maps/*.go # gosub
-  - guardian/vendor/golang.org/x/exp/slices/*.go # gosub
   - guardian/vendor/golang.org/x/mod/semver/*.go # gosub
   - guardian/vendor/golang.org/x/net/context/*.go # gosub
   - guardian/vendor/golang.org/x/net/http/httpguts/*.go # gosub
