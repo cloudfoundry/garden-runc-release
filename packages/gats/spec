@@ -39,7 +39,6 @@ files:
   - garden-integration-tests/vendor/github.com/cloudfoundry/sonde-go/events/*.go # gosub
   - garden-integration-tests/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
-  - garden-integration-tests/vendor/github.com/docker/docker/pkg/reexec/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-task/slim-sprig/v3/*.go # gosub
