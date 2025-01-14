@@ -54,6 +54,7 @@ files:
   - garden-integration-tests/vendor/github.com/hashicorp/go-multierror/*.go # gosub
   - garden-integration-tests/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
   - garden-integration-tests/vendor/github.com/moby/sys/mountinfo/*.go # gosub
+  - garden-integration-tests/vendor/github.com/moby/sys/reexec/*.go # gosub
   - garden-integration-tests/vendor/github.com/moby/sys/userns/*.go # gosub
   - garden-integration-tests/vendor/github.com/nu7hatch/gouuid/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/*.go # gosub
