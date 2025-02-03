@@ -1,33 +1,32 @@
-root = "/var/vcap/data/containerd/root"
-state = "/var/vcap/sys/run/containerd/state"
-subreaper = true
+version = 3
+root = '/var/vcap/data/containerd/root'
+state = '/var/vcap/sys/run/containerd/state'
+disabled_plugins = ['io.containerd.snapshotter.v1.aufs',
+  'io.containerd.snapshotter.v1.devmapper',
+  'io.containerd.snapshotter.v1.overlayfs',
+  'io.containerd.snapshotter.v1.zfs',
+  'io.containerd.grpc.v1.walking',
+  'io.containerd.gc.v1.scheduler',
+  'io.containerd.service.v1.diff-service',
+  'io.containerd.service.v1.images-service',
+  'io.containerd.service.v1.namespaces-service',
+  'io.containerd.service.v1.snapshots-service',
+  'io.containerd.grpc.v1.diff',
+ 'io.containerd.grpc.v1.healthcheck',
+ 'io.containerd.grpc.v1.images',
+ 'io.containerd.grpc.v1.namespaces',
+ 'io.containerd.grpc.v1.snapshots',
+ 'io.containerd.grpc.v1.version',
+ 'io.containerd.grpc.v1.cri',
+ 'io.containerd.grpc.v1.leases',
+ 'io.containerd.service.v1.leases-service',
+ 'io.containerd.internal.v1.restart']
+
 oom_score = -999
-disabled_plugins = [
-  "aufs",
-  "devmapper",
-  "overlayfs",
-  "zfs",
-  "walking",
-  "scheduler",
-  "diff-service",
-  "images-service",
-  "namespaces-service",
-  "snapshots-service",
-  "diff",
-  "healthcheck",
-  "images",
-  "namespaces",
-  "snapshots",
-  "version",
-  "cri",
-  "leases",
-  "leases-service",
-  "restart",
-]
 
 [grpc]
-address = "/var/vcap/sys/run/containerd/containerd.sock"
+  address = '/var/vcap/sys/run/containerd/containerd.sock'
 
 [debug]
-address = "/var/vcap/sys/run/containerd/debug.sock"
-level = "info"
+  address = '/var/vcap/sys/run/containerd/debug.sock'
+  level = 'info'

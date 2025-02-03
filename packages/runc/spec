@@ -7,7 +7,6 @@ dependencies:
   - pkg-config
 
 files:
-  - runc-patches/*.patch
   - guardian/go.mod
   - guardian/go.sum
   - guardian/vendor/modules.txt

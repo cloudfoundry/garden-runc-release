@@ -10,10 +10,8 @@ source /var/vcap/packages/golang-*-linux/bosh/compile.env
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/guardian/vendor/github.com/containerd/containerd
+pushd src/containerd
   BUILDTAGS=no_btrfs make ./bin/containerd
-  BUILDTAGS=no_btrfs make ./bin/containerd-shim
-  BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v1
   BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v2
   BUILDTAGS=no_btrfs make ./bin/ctr
   cp -R bin "${BOSH_INSTALL_TARGET}"
