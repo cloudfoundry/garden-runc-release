@@ -80,6 +80,7 @@ files:
   - grootfs/vendor/github.com/containers/image/v5/internal/pkg/platform/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/private/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/putblobdigest/*.go # gosub
+  - grootfs/vendor/github.com/containers/image/v5/internal/reflink/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/rootless/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/set/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/signature/*.go # gosub
@@ -120,7 +121,6 @@ files:
   - grootfs/vendor/github.com/distribution/reference/Makefile # gosub
   - grootfs/vendor/github.com/docker/distribution/registry/api/errcode/*.go # gosub
   - grootfs/vendor/github.com/docker/distribution/registry/api/v2/*.go # gosub
-  - grootfs/vendor/github.com/docker/distribution/registry/client/auth/challenge/*.go # gosub
   - grootfs/vendor/github.com/docker/docker-credential-helpers/client/*.go # gosub
   - grootfs/vendor/github.com/docker/docker-credential-helpers/credentials/*.go # gosub
   - grootfs/vendor/github.com/docker/docker/api/types/versions/*.go # gosub
