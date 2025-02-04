@@ -63,6 +63,7 @@ files:
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/nsenter/*.h # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/nsenter/*.c # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/seccomp/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/libcontainer/seccomp/patchbpf/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/specconv/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/system/kernelversion/*.go # gosub
@@ -75,6 +76,8 @@ files:
   - guardian/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
   - guardian/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
   - guardian/vendor/github.com/russross/blackfriday/v2/*.go # gosub
+  - guardian/vendor/github.com/seccomp/libseccomp-golang/*.go # gosub
+  - guardian/vendor/github.com/seccomp/libseccomp-golang/Makefile # gosub
   - guardian/vendor/github.com/sirupsen/logrus/*.go # gosub
   - guardian/vendor/github.com/syndtr/gocapability/capability/*.go # gosub
   - guardian/vendor/github.com/urfave/cli/*.go # gosub
@@ -82,6 +85,7 @@ files:
   - guardian/vendor/github.com/vishvananda/netlink/Makefile # gosub
   - guardian/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netns/*.go # gosub
+  - guardian/vendor/golang.org/x/net/bpf/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - guardian/vendor/golang.org/x/sys/unix/*.c # gosub
