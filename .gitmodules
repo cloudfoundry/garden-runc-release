@@ -28,5 +28,5 @@
 	branch = main
 [submodule "src/containerd"]
 	path = src/containerd
-	url = https://github.com/containerd/containerd.git
+	url = https://github.com/containerd/containerd
 	branch = release/2.0
