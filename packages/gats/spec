@@ -146,6 +146,7 @@ files:
   - garden-integration-tests/vendor/golang.org/x/text/transform/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/cover/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/astutil/edge/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub
