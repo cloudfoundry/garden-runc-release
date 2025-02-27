@@ -1,8 +1,8 @@
 module thresholder
 
-go 1.22.8
+go 1.23.0
 
-toolchain go1.23.4
+toolchain go1.23.6
 
 require (
 	code.cloudfoundry.org/grootfs v0.30.0
@@ -15,7 +15,7 @@ require (
 require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/pprof v0.0.0-20250208200701-d0013a598941 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
