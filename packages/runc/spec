@@ -18,12 +18,14 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/efw/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/platform/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/testmain/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub

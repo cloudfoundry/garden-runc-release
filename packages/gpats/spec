@@ -76,6 +76,11 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/Makefile # gosub
+  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/cgroups/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/runtime/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/maxprocs/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
