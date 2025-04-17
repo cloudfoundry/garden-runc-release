@@ -80,7 +80,6 @@ files:
   - grootfs/vendor/github.com/containers/image/v5/internal/pkg/platform/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/private/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/putblobdigest/*.go # gosub
-  - grootfs/vendor/github.com/containers/image/v5/internal/reflink/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/rootless/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/set/*.go # gosub
   - grootfs/vendor/github.com/containers/image/v5/internal/signature/*.go # gosub
@@ -147,7 +146,6 @@ files:
   - grootfs/vendor/github.com/urfave/cli/v2/Makefile # gosub
   - grootfs/vendor/github.com/ventu-io/go-shortid/*.go # gosub
   - grootfs/vendor/github.com/xrash/smetrics/*.go # gosub
-  - grootfs/vendor/golang.org/x/exp/maps/*.go # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.go # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.s # gosub
   - grootfs/vendor/golang.org/x/sys/unix/*.c # gosub
