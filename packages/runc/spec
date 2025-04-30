@@ -36,26 +36,28 @@ files:
   - guardian/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
   - guardian/vendor/github.com/docker/go-units/*.go # gosub
   - guardian/vendor/github.com/godbus/dbus/v5/*.go # gosub
+  - guardian/vendor/github.com/moby/sys/capability/*.go # gosub
   - guardian/vendor/github.com/moby/sys/mountinfo/*.go # gosub
   - guardian/vendor/github.com/moby/sys/user/*.go # gosub
   - guardian/vendor/github.com/moby/sys/userns/*.go # gosub
   - guardian/vendor/github.com/mrunalp/fileutils/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/devices/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/devices/config/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/fs/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/fs2/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/fscommon/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/internal/path/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/manager/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/cgroups/systemd/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/Makefile # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/apparmor/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/capabilities/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/devices/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/manager/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/cgroups/systemd/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/configs/validate/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/devices/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/libcontainer/dmz/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/libcontainer/exeseal/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/intelrdt/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/internal/userns/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/internal/userns/*.c # gosub
@@ -81,7 +83,6 @@ files:
   - guardian/vendor/github.com/seccomp/libseccomp-golang/*.go # gosub
   - guardian/vendor/github.com/seccomp/libseccomp-golang/Makefile # gosub
   - guardian/vendor/github.com/sirupsen/logrus/*.go # gosub
-  - guardian/vendor/github.com/syndtr/gocapability/capability/*.go # gosub
   - guardian/vendor/github.com/urfave/cli/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netlink/*.go # gosub
   - guardian/vendor/github.com/vishvananda/netlink/Makefile # gosub
