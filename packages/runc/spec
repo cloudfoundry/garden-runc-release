@@ -10,6 +10,7 @@ files:
   - guardian/go.mod
   - guardian/go.sum
   - guardian/vendor/modules.txt
+  - guardian/vendor/github.com/opencontainers/runc/VERSION
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/*.go # gosub
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/Makefile # gosub
   - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/rpc/*.go # gosub
