@@ -65,7 +65,6 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   <% if p("garden.destroy_containers_on_start") %> `
   --destroy-containers-on-startup `
   <% end %> `
-  --time-format="rfc3339" `
   <% if p("garden.cleanup_process_dirs_on_wait") == true %> `
   --cleanup-process-dirs-on-wait `
   <% end %>
