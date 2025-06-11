@@ -105,6 +105,6 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/text/runes/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/text/transform/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/cover/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/edge/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/astutil/edge/*.go # gosub
   - garden-performance-acceptance-tests/vendor/gopkg.in/yaml.v3/*.go # gosub
