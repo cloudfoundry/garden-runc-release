@@ -207,10 +207,6 @@ describe 'garden' do
         expect(rendered_template['server']['port-pool-properties-path']).to eql('/var/vcap/data/garden/port-pool-props.json')
       end
 
-      it 'sets the time-format' do
-        expect(rendered_template['server']['time-format']).to eql('unix-epoch')
-      end
-
       it 'does not enable the container network metrics' do
         expect(rendered_template['server']['enable-container-network-metrics']).to eql(nil)
       end

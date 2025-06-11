@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-THIS_FILE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+THIS_FILE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 WORKSPACE_DIR="${THIS_FILE_DIR}/../.."
 LOCATION="$WORKSPACE_DIR/artifacts"
 CI="${THIS_FILE_DIR}/../../wg-app-platform-runtime-ci"
@@ -21,9 +21,9 @@ else
   ARGS="${*}"
 fi
 
-pushd $REPO_PATH > /dev/null
+pushd $REPO_PATH >/dev/null
 bosh sync-blobs
-popd > /dev/null
+popd >/dev/null
 
 pushd "$CI/garden-runc-release/dockerfiles"
 LOCATION=${LOCATION} make
@@ -31,14 +31,14 @@ popd
 
 if [[ -f "${HOME}/.bash_functions" ]]; then
   . "${HOME}/.bash_functions"
-  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime-username)"
-  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime-password)"
+  export DOCKER_REGISTRY_USERNAME="$(gimme-vault-secret-value-only dockerhub-tasruntime-username)"
+  export DOCKER_REGISTRY_PASSWORD="$(gimme-vault-secret-value-only dockerhub-tasruntime-password)"
 fi
 if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
-  cat << EOF
+  cat <<EOF
   Run this script with DOCKER_REGISTRY_USERNAME, DOCKER_REGISTRY_PASSWORD env variables
 EOF
-exit 1
+  exit 1
 fi
 
 docker pull "${IMAGE}"
@@ -60,4 +60,3 @@ docker run -it \
   ${ARGS} \
   "${IMAGE}" \
   /bin/bash
-  

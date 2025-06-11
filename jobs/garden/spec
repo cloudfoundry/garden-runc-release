@@ -306,7 +306,3 @@ properties:
   bpm.enabled:
     description: "Use bpm. NOTE: this requires a recreate when enabling for the first time, otherwise old containers may be left running. NOTE: When this property is enabled, containers won't survive a restart of the garden job. This is why garden.destroy_containers_on_start should be set to avoid leaking container state."
     default: false
-
-  logging.format.timestamp:
-    description: "Format for timestamp in component logs. Valid values are 'unix-epoch' and 'rfc3339'."
-    default: "unix-epoch"
