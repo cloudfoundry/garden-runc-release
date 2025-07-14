@@ -103,6 +103,7 @@ files:
   - grootfs/vendor/github.com/containers/image/v5/version/*.go # gosub
   - grootfs/vendor/github.com/containers/libtrust/*.go # gosub
   - grootfs/vendor/github.com/containers/ocicrypt/spec/*.go # gosub
+  - grootfs/vendor/github.com/containers/storage/internal/rawfilelock/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/fileutils/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/homedir/*.go # gosub
   - grootfs/vendor/github.com/containers/storage/pkg/idtools/*.go # gosub
