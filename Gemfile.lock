@@ -58,7 +58,7 @@ GEM
     semi_semantic (1.2.0)
     shellany (0.0.1)
     terminal-notifier-guard (1.7.0)
-    thor (1.2.2)
+    thor (1.4.0)
 
 PLATFORMS
   arm64-darwin-21
