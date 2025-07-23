@@ -3,6 +3,18 @@ set -e
 mkdir -p ${BOSH_INSTALL_TARGET}/src
 cp -a . ${BOSH_INSTALL_TARGET}/src
 
+OLD_IMAGE_DOCKER="docker:///"
+NEW_IMAGE_GCP_PATH="us-central1-docker.pkg.dev/app-runtime-platform-wg/dockerhub-mirror"
+
+# Recursively find files with docker ref
+find "src/garden-integration-tests" -type f -name "*.go" | while read -r file; do
+  if grep -q "$OLD_IMAGE" "$file"; then
+    echo "Updating $file"
+    sed -i.bak "s|$OLD_IMAGE_DOCKER|$NEW_IMAGE_GCP_PATH|g" "$file"
+    rm "${file}.bak"  # Remove backup file (optional)
+  fi
+done
+
 pushd "${BOSH_INSTALL_TARGET}"
   source /var/vcap/packages/golang-*-linux/bosh/compile.env
 
