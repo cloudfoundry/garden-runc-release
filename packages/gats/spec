@@ -30,6 +30,8 @@ files:
   - garden-integration-tests/vendor/code.cloudfoundry.org/guardian/rundmc/goci/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
   - garden-integration-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
+  - garden-integration-tests/vendor/github.com/Masterminds/semver/v3/*.go # gosub
+  - garden-integration-tests/vendor/github.com/Masterminds/semver/v3/Makefile # gosub
   - garden-integration-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-integration-tests/vendor/github.com/caio/go-tdigest/v4/*.go # gosub
   - garden-integration-tests/vendor/github.com/cloudfoundry/dropsonde/metric_sender/*.go # gosub

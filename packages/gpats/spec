@@ -18,6 +18,8 @@ files:
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/garden/transport/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/*.go # gosub
   - garden-performance-acceptance-tests/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/Masterminds/semver/v3/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/Masterminds/semver/v3/Makefile # gosub
   - garden-performance-acceptance-tests/vendor/github.com/bmizerany/pat/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/caio/go-tdigest/v4/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/go-logr/logr/*.go # gosub
