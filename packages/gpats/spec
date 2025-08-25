@@ -83,6 +83,7 @@ files:
   - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/cgroups/*.go # gosub
   - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/runtime/*.go # gosub
   - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/maxprocs/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/go.yaml.in/yaml/v3/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
@@ -109,4 +110,3 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/cover/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/edge/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/gopkg.in/yaml.v3/*.go # gosub
