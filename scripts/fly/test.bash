@@ -28,8 +28,8 @@ GARDEN_FUSE_TEST_ROOTFS=$PWD/input-01/garden-fuse.tar'
 
 if [[ -f "${HOME}/.bash_functions" ]]; then
   . "${HOME}/.bash_functions"
-  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-tasruntime-username)"
-  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-tasruntime-password)"
+  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-appruntimeplatform-username)"
+  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-appruntimeplatform-password)"
 fi
 
 if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
