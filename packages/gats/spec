@@ -98,7 +98,6 @@ files:
   - garden-integration-tests/vendor/github.com/opencontainers/cgroups/fs2/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/cgroups/fscommon/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/cgroups/internal/path/*.go # gosub
-  - garden-integration-tests/vendor/github.com/opencontainers/runc/libcontainer/configs/*.go # gosub
   - garden-integration-tests/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - garden-integration-tests/vendor/github.com/openzipkin/zipkin-go/idgenerator/*.go # gosub
   - garden-integration-tests/vendor/github.com/openzipkin/zipkin-go/model/*.go # gosub
