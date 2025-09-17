@@ -16,8 +16,6 @@ and this [video](https://youtu.be/vV87xmxKLeA).
 
 ## Enabling and disabling cpu-throttling
 
-Ensure you set the [destroy_containers_on_start](https://github.com/cloudfoundry/garden-runc-release/blob/42497fc3b1365210ffa9681acf97f3f7314bbd01/jobs/garden/spec#L171-L173) flag when changing this property, otherwise existing containers will be in the wrong part of the cgroup structure.
-
 ### cgroup structure
 
 When enabled, two extra cpu cgroup directories are inserted in the garden
