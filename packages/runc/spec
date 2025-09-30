@@ -33,6 +33,16 @@ files:
   - guardian/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - guardian/vendor/github.com/cpuguy83/go-md2man/v2/md2man/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/internal/consts/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/assert/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/fd/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gocompat/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/kernelversion/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/linux/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/procfs/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/procfs/*.go # gosub
   - guardian/vendor/github.com/docker/go-units/*.go # gosub
   - guardian/vendor/github.com/godbus/dbus/v5/*.go # gosub
   - guardian/vendor/github.com/moby/sys/capability/*.go # gosub

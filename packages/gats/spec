@@ -41,6 +41,16 @@ files:
   - garden-integration-tests/vendor/github.com/cloudfoundry/sonde-go/events/*.go # gosub
   - garden-integration-tests/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/internal/consts/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/assert/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/fd/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gocompat/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/kernelversion/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/linux/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/procfs/*.go # gosub
+  - garden-integration-tests/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/procfs/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - garden-integration-tests/vendor/github.com/go-task/slim-sprig/v3/*.go # gosub
