@@ -221,6 +221,8 @@ builds:
     version: 1.19.12
   b9d02a13-6b2e-4f4f-5f41-110bd0f35dcf:
     version: 1.18.3
+  babea10e-29dc-44b6-612e-d0caaadebfa4:
+    version: 1.77.0
   bc13d845-fcd3-46c4-45d7-ae147bb7c9c6:
     version: 1.22.5
   bc275f6a-66fb-420a-4137-040b815abe72:
