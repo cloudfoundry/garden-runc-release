@@ -49,6 +49,7 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/internal/global/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/internal/interrupt_handler/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/internal/parallel_support/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/internal/reporters/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/reporters/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/onsi/ginkgo/v2/types/*.go # gosub
@@ -78,15 +79,12 @@ files:
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-performance-acceptance-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/Makefile # gosub
-  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/cgroups/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/internal/runtime/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/go.uber.org/automaxprocs/maxprocs/*.go # gosub
   - garden-performance-acceptance-tests/vendor/go.yaml.in/yaml/v3/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/mod/semver/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/sync/errgroup/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.s # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/sys/unix/*.c # gosub
@@ -110,3 +108,20 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/cover/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/edge/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/gcexportdata/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/packages/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/types/objectpath/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/types/typeutil/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/aliases/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/core/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/keys/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/label/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/gcimporter/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/gocommand/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/packagesinternal/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/pkgbits/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/stdlib/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typesinternal/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/versions/*.go # gosub

@@ -86,6 +86,7 @@ files:
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/internal/global/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/internal/interrupt_handler/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/internal/parallel_support/*.go # gosub
+  - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/internal/reporters/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/reporters/*.go # gosub
   - garden-integration-tests/vendor/github.com/onsi/ginkgo/v2/types/*.go # gosub
@@ -131,15 +132,12 @@ files:
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/internal/span/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/senders/*.go # gosub
   - garden-integration-tests/vendor/github.com/wavefronthq/wavefront-sdk-go/version/*.go # gosub
-  - garden-integration-tests/vendor/go.uber.org/automaxprocs/*.go # gosub
-  - garden-integration-tests/vendor/go.uber.org/automaxprocs/Makefile # gosub
-  - garden-integration-tests/vendor/go.uber.org/automaxprocs/internal/cgroups/*.go # gosub
-  - garden-integration-tests/vendor/go.uber.org/automaxprocs/internal/runtime/*.go # gosub
-  - garden-integration-tests/vendor/go.uber.org/automaxprocs/maxprocs/*.go # gosub
   - garden-integration-tests/vendor/go.yaml.in/yaml/v3/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/mod/semver/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/atom/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/net/html/charset/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/sync/errgroup/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.s # gosub
   - garden-integration-tests/vendor/golang.org/x/sys/unix/*.c # gosub
@@ -164,6 +162,23 @@ files:
   - garden-integration-tests/vendor/golang.org/x/tools/cover/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/edge/*.go # gosub
   - garden-integration-tests/vendor/golang.org/x/tools/go/ast/inspector/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/go/gcexportdata/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/go/packages/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/go/types/objectpath/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/go/types/typeutil/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/aliases/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/event/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/event/core/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/event/keys/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/event/label/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/gcimporter/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/gocommand/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/packagesinternal/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/pkgbits/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/stdlib/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/typesinternal/*.go # gosub
+  - garden-integration-tests/vendor/golang.org/x/tools/internal/versions/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - garden-integration-tests/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub
