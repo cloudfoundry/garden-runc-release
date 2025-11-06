@@ -19,14 +19,12 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/efw/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/platform/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/testmain/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
@@ -41,7 +39,6 @@ files:
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/assert/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/fd/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gocompat/*.go # gosub
-  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gopathrs/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/kernelversion/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/linux/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/procfs/*.go # gosub
@@ -64,9 +61,6 @@ files:
   - guardian/vendor/github.com/opencontainers/cgroups/systemd/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/Makefile # gosub
-  - guardian/vendor/github.com/opencontainers/runc/internal/linux/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/internal/pathrs/*.go # gosub
-  - guardian/vendor/github.com/opencontainers/runc/internal/sys/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/apparmor/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/capabilities/*.go # gosub
