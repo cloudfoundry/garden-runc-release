@@ -61,7 +61,6 @@ GEM
     thor (1.2.2)
 
 PLATFORMS
-  aarch64-linux
   arm64-darwin-21
   x86_64-linux
 

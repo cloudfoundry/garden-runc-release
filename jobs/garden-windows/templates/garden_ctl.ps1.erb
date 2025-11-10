@@ -62,6 +62,9 @@ C:\var\vcap\packages\guardian-windows\gdn.exe `
   <% if_p("garden.dropsonde.destination") do |destination| %> `
     --dropsonde-destination=<%= destination %> `
   <% end %> `
+  <% if p("garden.destroy_containers_on_start") %> `
+  --destroy-containers-on-startup `
+  <% end %> `
   <% if p("garden.cleanup_process_dirs_on_wait") == true %> `
   --cleanup-process-dirs-on-wait `
   <% end %>

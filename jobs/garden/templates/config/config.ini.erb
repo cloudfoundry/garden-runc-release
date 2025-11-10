@@ -83,6 +83,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 
 ; containers
   default-grace-time = <%= p("garden.default_container_grace_time") %>
+<% if p("garden.destroy_containers_on_start") -%>
+  destroy-containers-on-startup = true
+<% end -%>
 <% if_p("garden.max_containers") do |max_containers| -%>
   max-containers = <%= max_containers %>
 <% end -%>
