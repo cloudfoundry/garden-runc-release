@@ -61,6 +61,9 @@ files:
   - guardian/vendor/github.com/opencontainers/cgroups/systemd/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/Makefile # gosub
+  - guardian/vendor/github.com/opencontainers/runc/internal/linux/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/internal/pathrs/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/internal/sys/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/apparmor/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/capabilities/*.go # gosub
