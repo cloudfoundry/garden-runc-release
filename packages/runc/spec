@@ -39,6 +39,7 @@ files:
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/assert/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/fd/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gocompat/*.go # gosub
+  - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/gopathrs/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/kernelversion/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/linux/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/pathrs-lite/internal/procfs/*.go # gosub
