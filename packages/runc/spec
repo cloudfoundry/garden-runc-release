@@ -11,20 +11,22 @@ files:
   - guardian/go.sum
   - guardian/vendor/modules.txt
   - guardian/vendor/github.com/opencontainers/runc/VERSION
-  - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/*.go # gosub
-  - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/Makefile # gosub
-  - guardian/vendor/github.com/checkpoint-restore/go-criu/v6/rpc/*.go # gosub
+  - guardian/vendor/github.com/checkpoint-restore/go-criu/v7/*.go # gosub
+  - guardian/vendor/github.com/checkpoint-restore/go-criu/v7/Makefile # gosub
+  - guardian/vendor/github.com/checkpoint-restore/go-criu/v7/rpc/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/Makefile # gosub
   - guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/efw/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/platform/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
-  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
+  - guardian/vendor/github.com/cilium/ebpf/internal/testutils/testmain/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
