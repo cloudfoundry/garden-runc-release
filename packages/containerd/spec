@@ -1,8 +1,7 @@
 ---
 name: containerd
 
-dependencies:
-  - golang-1.25-linux
+dependencies: []
 
 files:
-  - containerd/**/*
+  - containerd/*
