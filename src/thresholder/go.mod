@@ -4,7 +4,7 @@ go 1.24.9
 
 require (
 	code.cloudfoundry.org/grootfs v0.30.0
-	github.com/BurntSushi/toml v1.5.0
+	github.com/BurntSushi/toml v1.6.0
 	github.com/onsi/ginkgo/v2 v2.27.3
 	github.com/onsi/gomega v1.38.3
 	gopkg.in/yaml.v2 v2.4.0
