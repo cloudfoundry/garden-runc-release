@@ -1,18 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mkdir -p "${BOSH_INSTALL_TARGET}/src"
-mv * ${BOSH_INSTALL_TARGET}/src
-mv ${BOSH_INSTALL_TARGET}/src .
-
-source /var/vcap/packages/golang-*-linux/bosh/compile.env
-
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
-export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/containerd
-  BUILDTAGS=no_btrfs make ./bin/containerd
-  BUILDTAGS=no_btrfs make ./bin/containerd-shim-runc-v2
-  BUILDTAGS=no_btrfs make ./bin/ctr
-  cp -R bin "${BOSH_INSTALL_TARGET}"
-popd
+# tarball has its own bin/ directory
+tar -xzvf containerd/containerd-*-linux-amd64.tar.gz -C "${BOSH_INSTALL_TARGET}/"
