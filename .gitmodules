@@ -26,7 +26,3 @@
 	path = src/garden-performance-acceptance-tests
 	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests
 	branch = main
-[submodule "src/containerd"]
-	path = src/containerd
-	url = https://github.com/containerd/containerd
-	branch = release/2.0
