@@ -2,6 +2,7 @@ version = 3
 root = '/var/vcap/data/containerd/root'
 state = '/var/vcap/sys/run/containerd/state'
 disabled_plugins = ['io.containerd.snapshotter.v1.aufs',
+  'io.containerd.snapshotter.v1.btrfs',
   'io.containerd.snapshotter.v1.devmapper',
   'io.containerd.snapshotter.v1.overlayfs',
   'io.containerd.snapshotter.v1.zfs',
