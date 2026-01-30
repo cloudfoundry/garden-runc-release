@@ -202,6 +202,10 @@ properties:
     description: AppArmor profile to use for unprivileged container processes
     default: garden-default
 
+  garden.device_cgroup_rules:
+    description: Device cgroup rules that will be applied to privileged containers. By default loop devices are allowed for privileged containers.
+    default: ["b 7:* rwm", "c 10:237 rwm"]
+
   # We believe this defaults to false to help concourse: https://github.com/cloudfoundry/garden-runc-release/releases/tag/v1.5.0
   # For diego/cf, this should be set to true
   garden.cleanup_process_dirs_on_wait:

@@ -95,6 +95,10 @@ describe 'garden' do
         expect(rendered_template['server']['cpu-entitlement-per-share']).to eql(0)
       end
 
+      it 'sets the default device cgroup rules' do
+        expect(rendered_template['server']['device-cgroup-rule']).to eql(['"b 7:* rwm"', '"c 10:237 rwm"'])
+      end
+
       context 'cpu throttling' do
         context 'by default' do
           it 'sets the enable cpu throttling per share to false' do
