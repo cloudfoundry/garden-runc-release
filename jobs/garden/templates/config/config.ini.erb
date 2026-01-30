@@ -122,6 +122,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
   <% end -%>
   tcp-retries2 = <%= retries2 %>
 <% end -%>
+<% p("garden.device_cgroup_rules").each do |rule| -%>
+  device-cgroup-rule = "<%= rule %>"
+<% end -%>
 
 ; image and rootfs
   default-rootfs = <%= p("garden.default_container_rootfs") %>
