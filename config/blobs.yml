@@ -7,9 +7,9 @@ automake/automake-1.18.1.tar.gz:
   object_id: 576495be-219f-4a2e-705c-45191f5dc607
   sha: sha256:63e585246d0fc8772dffdee0724f2f988146d1a3f1c756a3dc5cfbefa3c01915
 busybox/busybox-1.37.0.tar.gz:
-  size: 3191834
-  object_id: 71274ba2-2deb-494d-6548-bfa1f485a24d
-  sha: sha256:320cdcfb938ca3c6c5c2ebe8e5c886537ac025a5d19bce29cab84b8ede388239
+  size: 2207314
+  object_id: 8f9ea3b3-01e4-4cea-6564-e054c2ed32d9
+  sha: sha256:68b2bbf13983413f5c1e3d0d9aeaef879da3c69d0fdadac27454d7d453167853
 containerd/containerd-2.2.1-linux-amd64.tar.gz:
   size: 35057737
   object_id: 13a9a1da-ce82-45bc-62a8-c70bd3278a79
