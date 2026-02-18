@@ -26,22 +26,9 @@ echo "Testing ${1}"
 ROOTFS_ENVS='GARDEN_TEST_ROOTFS=$PWD/input-01/garden-rootfs.tar
 GARDEN_FUSE_TEST_ROOTFS=$PWD/input-01/garden-fuse.tar'
 
-if [[ -f "${HOME}/.bash_functions" ]]; then
-  . "${HOME}/.bash_functions"
-  export DOCKER_REGISTRY_USERNAME="$(gimme-secret-value-only dockerhub-appruntimeplatform-username)"
-  export DOCKER_REGISTRY_PASSWORD="$(gimme-secret-value-only dockerhub-appruntimeplatform-password)"
-fi
-
-if [[ "${DOCKER_REGISTRY_USERNAME:-undefined}" == "undefined" || "${DOCKER_REGISTRY_PASSWORD:-undefined}" == "undefined" ]]; then
-  cat << EOF
-  Run this script with DOCKER_REGISTRY_USERNAME, DOCKER_REGISTRY_PASSWORD env variables
-EOF
-exit 1
-fi
-
 ENVS="$ROOTFS_ENVS
-DOCKER_REGISTRY_USERNAME="$DOCKER_REGISTRY_USERNAME"
-DOCKER_REGISTRY_PASSWORD="$DOCKER_REGISTRY_PASSWORD"
+DOCKER_REGISTRY_USERNAME=((dockerhub-appruntimeplatform-username))
+DOCKER_REGISTRY_PASSWORD=((dockerhub-appruntimeplatform-password))
 ${ENVS:-}" \
 DIR="src/${1}" \
 "$CI/bin/fly-exec.bash" run-bin-test -i repo="${REPO_PATH}" -i built-binaries="${BUILT_BINARIES}" -i input-01="${LOCATION}" -p
