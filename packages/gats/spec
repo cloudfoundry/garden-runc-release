@@ -2,7 +2,7 @@
 name: gats
 
 dependencies:
-- golang-1.25-linux
+- golang-1.26-linux
 
 files:
   - garden-integration-tests/go.mod
