@@ -29,7 +29,6 @@ files:
   - guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - guardian/vendor/github.com/containerd/console/*.go # gosub
-  - guardian/vendor/github.com/coreos/go-systemd/v22/activation/*.go # gosub
   - guardian/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - guardian/vendor/github.com/cpuguy83/go-md2man/v2/md2man/*.go # gosub
   - guardian/vendor/github.com/cyphar/filepath-securejoin/*.go # gosub
@@ -65,6 +64,7 @@ files:
   - guardian/vendor/github.com/opencontainers/runc/internal/linux/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/internal/pathrs/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/internal/sys/*.go # gosub
+  - guardian/vendor/github.com/opencontainers/runc/internal/third_party/systemd/activation/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/apparmor/*.go # gosub
   - guardian/vendor/github.com/opencontainers/runc/libcontainer/capabilities/*.go # gosub
