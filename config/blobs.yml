@@ -42,10 +42,10 @@ lzo/lzo-2.09.tar.gz:
   size: 594855
   object_id: 39bb6d9a-e168-4137-7751-c8262b743f1d
   sha: e2a60aca818836181e7e6f8c4f2c323aca6ac057
-musl/musl-1.2.5.tar.gz:
-  size: 1080786
-  object_id: 0721c194-e206-4fb7-7564-a5333458a927
-  sha: sha256:a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4
+musl/musl-1.2.6.tar.gz:
+  size: 1082499
+  object_id: 7b183f40-b4a1-4d13-5e48-6e08667fd0af
+  sha: sha256:d585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a
 pkg-config/pkg-config-0.29.2.tar.gz:
   size: 2016830
   object_id: 047ac8ff-aae8-4df3-6746-3f05cfdbfc3b
