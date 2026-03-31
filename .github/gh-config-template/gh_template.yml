@@ -1,0 +1,159 @@
+#@ load("@ytt:data", "data")
+#@ load("ytt-helpers.star", "helpers")
+name: unit-integration-tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches:
+      - develop
+    paths:
+      - 'src/**'
+      - 'packages/**'
+      - 'jobs/**'
+      - 'config/**'
+      - 'scripts/**'
+      - '.github/workflows/**'
+      - '.github/helpers/**'
+
+env:
+  MAPPING: |
+    build_tar=.
+    build_iptables=.
+    build_nstar=src/guardian/rundmc/nstar
+    build_runc=src/guardian/vendor/github.com/opencontainers/runc
+    build_socket2me=src/guardian/cmd/socket2me
+    build_fake_runc_stderr=src/guardian/gqt/cmd/fake_runc_stderr
+    build_grootfs=src/grootfs
+    build_init=src/guardian/cmd/init
+    build_dadoo=src/guardian/cmd/dadoo
+    build_idmapper=src/idmapper
+    build_containerd=.
+  FLAGS: |
+    --keep-going
+    --trace
+    -r
+    --fail-on-pending
+    --randomize-all
+    --nodes=7
+    --race
+    --timeout 30m
+    --flake-attempts 2
+  RUN_AS: root
+  VERIFICATIONS: |
+    verify_go repo/$DIR
+    verify_go_version_match_bosh_release repo
+    verify_gofmt repo/$DIR
+    verify_govet repo/$DIR
+    verify_staticcheck repo/$DIR
+  FUNCTIONS: ci/garden-runc-release/helpers/build-binaries.bash
+  DB: ""
+
+jobs:
+  repo-clone:
+    runs-on: ubuntu-latest
+    steps:
+    - name: garden-runc-release-repo
+      uses: actions/checkout@v4.3.1
+      with:
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        ref: ${{ github.event.pull_request.head.ref }}
+        submodules: recursive
+        path: repo
+    - name: Check out wg-appruntime code
+      uses: actions/checkout@v4.3.1
+      with:
+        repository: cloudfoundry/wg-app-platform-runtime-ci
+        path: ci
+    - name: zip repo artifacts
+      run: |
+        tar -czf repo-artifact.tar.gz repo
+        tar -czf ci-artifact.tar.gz ci
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: repo
+        path: |
+          repo-artifact.tar.gz
+          ci-artifact.tar.gz
+  determine-image-tag:
+    if: contains(github.event.pull_request.labels.*.name, 'ready-to-run')
+    runs-on: ubuntu-latest
+    outputs:
+      go_version: ${{ steps.get-version.outputs.go_version }}
+    steps:
+    - name: checkout ci repo
+      uses: actions/checkout@v4.3.1
+      with:
+        repository: cloudfoundry/wg-app-platform-runtime-ci
+        sparse-checkout: go-version.json
+        sparse-checkout-cone-mode: false
+    - name: get-version
+      id: get-version
+      run: |
+        version=$(jq -r '.releases["garden-runc"] // .default' go-version.json)
+        echo "go_version=${version}" >> "$GITHUB_OUTPUT"
+  template-tests:
+    runs-on: ubuntu-latest
+    needs: [repo-clone]
+    container: cloudfoundry/tas-runtime-build:latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: repo
+    - run: |
+        tar -xzvf repo-artifact.tar.gz
+        tar -xzvf ci-artifact.tar.gz
+    - name: template-tests
+      run: |
+        "${GITHUB_WORKSPACE}"/ci/shared/tasks/run-tests-templates/task.bash
+  lint-repo:
+    runs-on: ubuntu-latest
+    needs: [repo-clone]
+    container: cloudfoundry/tas-runtime-build:latest
+    env:
+      LINTERS: |
+        sync-package-specs.bash
+        sync-submodule-config.bash
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: repo
+    - run: |
+        tar -xzvf repo-artifact.tar.gz
+        tar -xzvf ci-artifact.tar.gz
+    - name: lint-repo
+      run: |
+        "${GITHUB_WORKSPACE}"/ci/shared/tasks/lint-repo/task.bash
+  test-repos-withoutdb:
+    if: contains(github.event.pull_request.labels.*.name, 'ready-to-run')
+    runs-on: ubuntu-latest
+    needs: [repo-clone, determine-image-tag]
+    env:
+      BUILD_IMAGE: cloudfoundry/tas-runtime-build:${{ needs.determine-image-tag.outputs.go_version }}
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: repo
+    - run: |
+        tar -xzvf repo-artifact.tar.gz
+        tar -xzvf ci-artifact.tar.gz
+    - name: pull image
+      run: docker pull "$BUILD_IMAGE"
+    - name: build binaries
+      run: |
+        repo/.github/helpers/build.bash ${{ github.workspace }} "$BUILD_IMAGE"
+#@ skip_packages = ["guardian", "grootfs"]
+#@ for package in helpers.packages_without_configure_db(data.values.internal_repos):
+#@ if package.name not in skip_packages:
+    - name: #@ package.name
+      env:
+        DIR: #@ "src/{}".format(package.name)
+      run: |
+        repo/.github/helpers/test.bash ${{ github.workspace }} "$BUILD_IMAGE"
+#@ end
+#@ end
+#! test
