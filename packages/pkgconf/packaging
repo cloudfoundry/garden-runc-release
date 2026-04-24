@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="${BOSH_INSTALL_TARGET}/bin:${PATH}"
+
+tar xzf pkgconf/pkgconf-*.tar.gz
+cd pkgconf-pkgconf-*
+
+./autogen.sh
+./configure "--prefix=${BOSH_INSTALL_TARGET}"
+make
+make install "prefix=${BOSH_INSTALL_TARGET}"
+
+ln -sf pkgconf "${BOSH_INSTALL_TARGET}/bin/pkg-config"

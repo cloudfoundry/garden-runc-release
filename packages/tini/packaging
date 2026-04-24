@@ -4,7 +4,7 @@ set -e
 tar xvzf tini/tini-*.tar.gz
 cd tini-*
 export CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
-cmake .
+cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
 make
 mkdir -p "${BOSH_INSTALL_TARGET}/bin/"
 mv tini "${BOSH_INSTALL_TARGET}/bin/"

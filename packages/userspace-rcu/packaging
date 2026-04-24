@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tar xjf userspace-rcu/userspace-rcu-*.tar.bz2
+cd userspace-rcu-*/
+
+./configure "--prefix=${BOSH_INSTALL_TARGET}" --enable-static --disable-shared
+make -j "$(nproc)"
+make install "prefix=${BOSH_INSTALL_TARGET}"

@@ -3,6 +3,11 @@
 set -e
 
 export PACKAGES=/var/vcap/packages
+export CPPFLAGS="${CPPFLAGS:-}"
+export CFLAGS="${CFLAGS:-}"
+export LDFLAGS="${LDFLAGS:-}"
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH:-}"
+export AL_OPTS="${AL_OPTS:-}"
 
 addBuildTool(){
   export PATH=$PACKAGES/$1/bin:$PATH
@@ -11,23 +16,26 @@ addBuildTool(){
 
 addLib(){
   export PATH=$PACKAGES/$1/bin:$PATH
-  export PKG_CONFIG_PATH="${PACKAGES}/$1/lib/pkgconfig:${PKG_CONFIG_PATH}"
-  export LDFLAGS="${LDFLAGS} -L${PACKAGES}/$1/lib"
-  export CFLAGS="${CFLAGS} -fcommon -I${PACKAGES}/$1/include"
+  export PKG_CONFIG_PATH="${PACKAGES}/$1/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
+  export LDFLAGS="${LDFLAGS:-} -L${PACKAGES}/$1/lib"
+  export CFLAGS="${CFLAGS:-} -fcommon -I${PACKAGES}/$1/include"
+  export CPPFLAGS="${CPPFLAGS:-} -I${PACKAGES}/$1/include"
 }
 
 setDeps(){
   addBuildTool autoconf
   addBuildTool automake
   addBuildTool libtool
-  addBuildTool pkg-config
+  addBuildTool pkgconf
 
+  addLib inih
+  addLib userspace-rcu
   addLib zlib
   addLib util-linux
   addLib lzo
 
   export CFLAGS="${CFLAGS} -L${PACKAGES}/lzo/lib"
-  export AL_OPTS="-I${PACKAGES}/pkg-config/share/aclocal ${AL_OPTS}"
+  export AL_OPTS="-I${PACKAGES}/pkgconf/share/aclocal ${AL_OPTS}"
 }
 
 tar xvzf xfs-progs/xfsprogs-*.tar.gz
@@ -36,7 +44,21 @@ tar xvzf xfs-progs/xfsprogs-*.tar.gz
 
   setDeps
 
-  ./configure --prefix=$BOSH_INSTALL_TARGET
+  ./configure --prefix=$BOSH_INSTALL_TARGET CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
   make
   make install prefix=$BOSH_INSTALL_TARGET
+
+  # xfsprogs 6.19+ enables several features by default that require very
+  # recent kernels. Disable features not supported by the kernels we target:
+  #   nrext64  (large extent counts)  - requires kernel 5.19+
+  #   exchange (extent swap)          - requires kernel 6.10+
+  #   parent   (parent pointers)      - requires kernel 6.8+
+  #   rmapbt   (reverse-mapping btree)- requires kernel 4.8+ but adds overhead
+  # This ensures filesystems are mountable on Jammy (5.15) and bosh-lite (6.8).
+  mv "${BOSH_INSTALL_TARGET}/sbin/mkfs.xfs" "${BOSH_INSTALL_TARGET}/sbin/mkfs.xfs.bin"
+  cat > "${BOSH_INSTALL_TARGET}/sbin/mkfs.xfs" <<'WRAPPER'
+#!/bin/sh
+exec "$(dirname "$0")/mkfs.xfs.bin" -i nrext64=0,exchange=0 -n parent=0 "$@"
+WRAPPER
+  chmod +x "${BOSH_INSTALL_TARGET}/sbin/mkfs.xfs"
 )

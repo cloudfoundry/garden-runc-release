@@ -1,0 +1,7 @@
+---
+name: pkgconf
+
+dependencies: []
+
+files:
+- pkgconf/pkgconf-*.tar.gz

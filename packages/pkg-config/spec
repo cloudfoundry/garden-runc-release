@@ -1,8 +1,0 @@
----
-name: pkg-config
-
-dependencies: []
-
-files:
-- pkg-config/pkg-config-*.tar.gz
-

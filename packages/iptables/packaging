@@ -2,7 +2,7 @@
 set -euo pipefail
 
 export PKG_CONFIG_PATH=/var/vcap/packages/iptables/lib/pkgconfig
-export PATH="/var/vcap/packages/pkg-config/bin:${PATH}"
+export PATH="/var/vcap/packages/pkgconf/bin:${PATH}"
 
 tar xf iptables/iptables-*.tar.xz
 tar xf iptables/libnftnl-*.tar.xz

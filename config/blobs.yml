@@ -18,6 +18,9 @@ gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
   sha: sha256:588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2
+inih/inih-r62.tar.gz:
+  size: 22145
+  sha: sha256:9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151
 iptables/iptables-1.8.13.tar.xz:
   size: 652632
   object_id: 63c93d14-1cfb-4be4-4010-43b76ae29bca
@@ -46,10 +49,9 @@ musl/musl-1.2.6.tar.gz:
   size: 1082499
   object_id: 7b183f40-b4a1-4d13-5e48-6e08667fd0af
   sha: sha256:d585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a
-pkg-config/pkg-config-0.29.2.tar.gz:
-  size: 2016830
-  object_id: 047ac8ff-aae8-4df3-6746-3f05cfdbfc3b
-  sha: sha256:6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591
+pkgconf/pkgconf-2.5.1.tar.gz:
+  size: 133113
+  sha: sha256:79721badcad1987dead9c3609eb4877ab9b58821c06bdacb824f2c8897c11f2a
 tar/tar-1.35.tar.xz:
   size: 2317208
   object_id: 0091a979-2720-4f67-75e6-f617f395a6ec
@@ -58,14 +60,16 @@ tini/tini-0.19.0.tar.gz:
   size: 32369
   object_id: e542dbad-4e45-40fc-43fd-49f7561ab600
   sha: sha256:0fd35a7030052acd9f58948d1d900fe1e432ee37103c5561554408bdac6bbf0d
+userspace-rcu/userspace-rcu-0.15.6.tar.bz2:
+  size: 686061
+  sha: sha256:850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
 util-linux/util-linux-2.39.4.tar.gz:
   size: 18915279
   object_id: 1bae6ff3-67e5-4d5e-7ecb-63706ebda274
   sha: sha256:b1ce77f20e080449d44b40b2f9570cc230584b7ae6439277473679888ac2bfe6
-xfs-progs/xfsprogs-4.20.0.tar.gz:
-  size: 1750213
-  object_id: 46a0233d-1423-46d8-49ad-b5d0f07a39aa
-  sha: 46c23a0e222a3374d9c739b8c44be879712e6e75
+xfs-progs/xfsprogs-6.19.0.tar.gz:
+  size: 2303230
+  sha: sha256:6e650b15a38e912f038542c1edab229cad67d2abb19cbfe0052e7c506f18bccc
 zlib/zlib-1.3.2.tar.gz:
   size: 1502830
   object_id: 92e75d86-fee1-457c-6879-16cef37605c5

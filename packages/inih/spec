@@ -1,0 +1,7 @@
+---
+name: inih
+
+dependencies: []
+
+files:
+- inih/inih-*.tar.gz
