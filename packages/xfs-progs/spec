@@ -4,9 +4,11 @@ name: xfs-progs
 dependencies:
 - autoconf
 - automake
+- inih
 - libtool
 - lzo
-- pkg-config
+- pkgconf
+- userspace-rcu
 - util-linux
 - zlib
 

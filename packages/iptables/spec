@@ -2,7 +2,7 @@
 name: iptables
 
 dependencies:
-  - pkg-config
+  - pkgconf
 
 files:
   - iptables/iptables-*.tar.xz

@@ -11,9 +11,9 @@ addBuildTool(){
 setDeps() {
   addBuildTool libtool
   addBuildTool automake
-  addBuildTool pkg-config
+  addBuildTool pkgconf
   addBuildTool autoconf
-  export AL_OPTS="-I/${PACKAGES}/pkg-config/share/aclocal"
+  export AL_OPTS="-I/${PACKAGES}/pkgconf/share/aclocal"
 }
 
 tar xvzf util-linux/util-linux-*.tar.gz

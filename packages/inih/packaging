@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tar xzf inih/inih-*.tar.gz
+cd inih-*
+
+mkdir -p "${BOSH_INSTALL_TARGET}/include"
+mkdir -p "${BOSH_INSTALL_TARGET}/lib/pkgconfig"
+
+cp ini.h "${BOSH_INSTALL_TARGET}/include/"
+
+cc -c -fPIC -o ini.o ini.c
+ar rcs libinih.a ini.o
+
+cp libinih.a "${BOSH_INSTALL_TARGET}/lib/"
+
+cat > "${BOSH_INSTALL_TARGET}/lib/pkgconfig/inih.pc" <<EOF
+prefix=${BOSH_INSTALL_TARGET}
+libdir=\${prefix}/lib
+includedir=\${prefix}/include
+
+Name: inih
+Description: Simple .INI file parser
+Version: 62
+Libs: -L\${libdir} -linih
+Cflags: -I\${includedir}
+EOF
