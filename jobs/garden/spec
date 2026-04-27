@@ -202,6 +202,10 @@ properties:
     description: AppArmor profile to use for unprivileged container processes
     default: garden-default
 
+  garden.no_new_privileges:
+    description: "Set NoNewPrivileges on unprivileged container processes. Prevents privilege escalation via setuid binaries and file capabilities."
+    default: false
+
   garden.device_cgroup_rules:
     description: Device cgroup rules that will be applied to privileged containers. By default loop devices are allowed for privileged containers.
     default: ["b 7:* rwm", "c 10:237 rwm"]
