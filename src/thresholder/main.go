@@ -44,6 +44,13 @@ func main() {
 	config.Clean.ThresholdBytes = calc.CalculateGCThreshold()
 	config.Init.StoreSizeBytes = calc.CalculateStoreSize()
 
+	// Cap at actual store filesystem capacity to prevent threshold > store on redeploys.
+	if storeCapacity, err := disk.NewMeter().GetTotalCapacity(config.StorePath); err == nil && storeCapacity > 0 {
+		if config.Clean.ThresholdBytes > storeCapacity {
+			config.Clean.ThresholdBytes = storeCapacity
+		}
+	}
+
 	writeConfig(config, configPath)
 
 	if config.Init.StoreSizeBytes == diskSize {

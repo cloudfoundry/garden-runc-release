@@ -19,6 +19,7 @@ func (fs SysFS) Stat(path string) (Stat, error) {
 	return Stat{
 		// #nosec G115 - changing these attributes to uint64 has a bunch of knock on effects that would change grootfs interfaces. We are fine until filesystems are > 9.2 exabytes though
 		AvailableBlocks: int64(fsStat.Bavail),
+		TotalBlocks:     int64(fsStat.Blocks),
 		BlockSize:       fsStat.Bsize,
 	}, nil
 }

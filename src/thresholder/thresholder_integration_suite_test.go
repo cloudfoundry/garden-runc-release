@@ -3,14 +3,18 @@ package main_test
 import (
 	"bytes"
 	"io"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"syscall"
 	"testing"
 
+	"code.cloudfoundry.org/grootfs/commands/config"
 	"github.com/BurntSushi/toml"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var (
@@ -69,6 +73,36 @@ func getDiskAvailableSpace(diskPath string) int64 {
 	var fsStat syscall.Statfs_t
 	Expect(syscall.Statfs(diskPath, &fsStat)).To(Succeed())
 	return fsStat.Bsize * int64(fsStat.Bavail)
+}
+
+func getFilesystemTotalCapacity(path string) int64 {
+	var fsStat syscall.Statfs_t
+	Expect(syscall.Statfs(path, &fsStat)).To(Succeed())
+	return fsStat.Bsize * int64(fsStat.Blocks)
+}
+
+func createSmallStore(parentDir string) (mntPath, filePath string) {
+	filePath = filepath.Join(parentDir, "small_store_file")
+	mntPath = filepath.Join(parentDir, "small_store_mnt")
+
+	Expect(exec.Command("truncate", "-s", "100M", filePath).Run()).To(Succeed())
+	Expect(exec.Command("mkfs.xfs", filePath).Run()).To(Succeed())
+	Expect(exec.Command("mkdir", "-p", mntPath).Run()).To(Succeed())
+	Expect(exec.Command("mount", filePath, mntPath).Run()).To(Succeed())
+	return
+}
+
+func updateConfigStorePath(configPath, storePath string) {
+	content, err := os.ReadFile(configPath)
+	ExpectWithOffset(1, err).NotTo(HaveOccurred())
+
+	var c config.Config
+	ExpectWithOffset(1, yaml.Unmarshal(content, &c)).To(Succeed())
+	c.StorePath = storePath
+
+	updatedContent, err := yaml.Marshal(&c)
+	ExpectWithOffset(1, err).NotTo(HaveOccurred())
+	ExpectWithOffset(1, os.WriteFile(configPath, updatedContent, 0600)).To(Succeed())
 }
 
 func createAndMountFilesystem(filename, size, mntPoint string) {

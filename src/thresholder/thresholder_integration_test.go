@@ -145,6 +145,32 @@ var _ = Describe("Thresholder", func() {
 		exitsNonZeroWithMessage(pathToDisk)
 	})
 
+	When("the store already exists with a smaller capacity than computed threshold", func() {
+		var (
+			storeMnt  string
+			storeFile string
+		)
+
+		BeforeEach(func() {
+			storeMnt, storeFile = createSmallStore(fsMountPoint)
+			updateConfigStorePath(pathToGrootfsConfig, storeMnt)
+		})
+
+		AfterEach(func() {
+			exec.Command("umount", storeMnt).Run()
+			exec.Command("rm", "-rf", storeFile, storeMnt).Run()
+		})
+
+		It("caps threshold_bytes at the store capacity", func() {
+			gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+			config := configFromFile(pathToGrootfsConfig)
+
+			storeCapacity := getFilesystemTotalCapacity(storeMnt)
+			Expect(config.Clean.ThresholdBytes).To(Equal(storeCapacity))
+			Expect(config.Clean.ThresholdBytes).To(BeNumerically("<", diskSize-megabytesToBytes(3000)))
+		})
+	})
+
 	Describe("Parameters validation", func() {
 		Context("when too few input args are provided", func() {
 			JustBeforeEach(func() {

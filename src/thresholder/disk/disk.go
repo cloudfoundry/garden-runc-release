@@ -6,6 +6,7 @@ import (
 
 type Stat struct {
 	AvailableBlocks int64
+	TotalBlocks     int64
 	BlockSize       int64
 }
 
@@ -34,4 +35,13 @@ func (d Meter) GetAvailableSpace(path string) (int64, error) {
 	}
 
 	return stat.BlockSize * stat.AvailableBlocks, nil
+}
+
+func (d Meter) GetTotalCapacity(path string) (int64, error) {
+	stat, err := d.fs.Stat(path)
+	if err != nil {
+		return 0, fmt.Errorf("cannot stat %s: %w", path, err)
+	}
+
+	return stat.BlockSize * stat.TotalBlocks, nil
 }
