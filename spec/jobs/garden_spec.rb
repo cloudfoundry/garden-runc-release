@@ -255,4 +255,98 @@ describe 'garden' do
       # end
     end
   end
+
+  context 'bin/grootfs-utils' do
+    let(:template) { job.template('bin/grootfs-utils') }
+
+    context 'with defaults' do
+      let(:rendered_template) { template.render(properties) }
+
+      it 'passes the default reserved_space_for_other_jobs_in_mb to thresholder' do
+        expect(rendered_template).to include('/var/vcap/packages/thresholder/bin/thresholder "15360"')
+      end
+
+      it 'passes routine_gc as false' do
+        expect(rendered_template).to match(/thresholder "15360" "false"/)
+      end
+
+      it 'passes the default gc_threshold_factor of 1.0' do
+        expect(rendered_template).to match(/"-1" "1.0"$/)
+      end
+
+      it 'invokes thresholder for both unprivileged and privileged configs' do
+        expect(rendered_template).to include('$GARDEN_CONFIG_DIR/grootfs_config.yml')
+        expect(rendered_template).to include('$GARDEN_CONFIG_DIR/privileged_grootfs_config.yml')
+      end
+    end
+
+    context 'when grootfs.gc_threshold_factor is set' do
+      let(:properties) do
+        {
+          'grootfs' => {
+            'gc_threshold_factor' => 0.5
+          }
+        }
+      end
+
+      let(:rendered_template) { template.render(properties) }
+
+      it 'passes the configured factor to thresholder' do
+        expect(rendered_template).to match(/"-1" "0.5"$/)
+      end
+    end
+
+    context 'when grootfs.routine_gc is true' do
+      let(:properties) do
+        {
+          'grootfs' => {
+            'routine_gc' => true
+          }
+        }
+      end
+
+      let(:rendered_template) { template.render(properties) }
+
+      it 'passes routine_gc as true' do
+        expect(rendered_template).to match(/thresholder "15360" "true"/)
+      end
+
+      it 'still passes the default gc_threshold_factor' do
+        expect(rendered_template).to match(/"-1" "1.0"$/)
+      end
+    end
+
+    context 'when grootfs.reserved_space_for_other_jobs_in_mb is customized' do
+      let(:properties) do
+        {
+          'grootfs' => {
+            'reserved_space_for_other_jobs_in_mb' => 5000,
+            'gc_threshold_factor' => 0.75
+          }
+        }
+      end
+
+      let(:rendered_template) { template.render(properties) }
+
+      it 'passes the custom reserved space and factor' do
+        expect(rendered_template).to match(/thresholder "5000" "false" "\$DATA_DIR" "\$GARDEN_CONFIG_DIR\/grootfs_config.yml" "-1" "-1" "0.75"/)
+      end
+    end
+
+    context 'when deprecated garden.graph_cleanup_threshold_in_mb is set' do
+      let(:properties) do
+        {
+          'garden' => {
+            'graph_cleanup_threshold_in_mb' => 2000
+          }
+        }
+      end
+
+      let(:rendered_template) { template.render(properties) }
+
+      it 'passes the deprecated threshold alongside the factor' do
+        expect(rendered_template).to match(/"2000" "-1" "1.0"$/)
+      end
+    end
+  end
 end

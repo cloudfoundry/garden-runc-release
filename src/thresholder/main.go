@@ -14,8 +14,8 @@ import (
 const MIN_STORE_SIZE = 15 * 1024 * 1024 * 1024
 
 func main() {
-	if len(os.Args) != 7 {
-		failWithMessage("Not all input arguments provided (Expected: 6)")
+	if len(os.Args) != 8 {
+		failWithMessage("Not all input arguments provided (Expected: 7)")
 	}
 
 	reservedSpace := megabytesToBytes(parseIntParameter(os.Args[1], "Reserved space parameter must be a number"))
@@ -28,13 +28,14 @@ func main() {
 	configPath := os.Args[4]
 	gardenGcThreshold := megabytesToBytes(parseIntParameter(os.Args[5], "Garden GC threshold parameter must be a number"))
 	grootfsGcThreshold := megabytesToBytes(parseIntParameter(os.Args[6], "GrootFS GC threshold parameter must be a number"))
+	gcThresholdFactor := parseFloatParameter(os.Args[7], "GC threshold factor parameter must be a number")
 
 	diskSize, err := disk.NewMeter().GetAvailableSpace(diskPath)
 	if err != nil {
 		failWithMessage(err.Error())
 	}
 
-	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE, routineGC)
+	calc := calculator.NewModernCalculator(reservedSpace, diskSize, MIN_STORE_SIZE, routineGC, gcThresholdFactor)
 	if gardenGcThreshold > 0 || grootfsGcThreshold > 0 {
 		calc = calculator.NewOldFashionedCalculator(diskSize, gardenGcThreshold, grootfsGcThreshold)
 	}
@@ -58,6 +59,15 @@ func parseIntParameter(parameterValue, failureMessage string) int64 {
 	}
 
 	return intValue
+}
+
+func parseFloatParameter(parameterValue, failureMessage string) float64 {
+	floatValue, err := strconv.ParseFloat(parameterValue, 64)
+	if err != nil {
+		failWithMessage(failureMessage)
+	}
+
+	return floatValue
 }
 
 func parseFileParameter(parameterValue, failureMessage string) *config.Config {

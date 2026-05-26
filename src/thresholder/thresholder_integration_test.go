@@ -25,6 +25,7 @@ var _ = Describe("Thresholder", func() {
 		pathToGrootfsConfig string
 		gardenGcThreshold   string
 		grootfsGcThreshold  string
+		gcThresholdFactor   string
 	)
 
 	exitsNonZeroWithMessage := func(message string) {
@@ -47,10 +48,11 @@ var _ = Describe("Thresholder", func() {
 		pathToGrootfsConfig = copyFileToTempFile(pathToGrootfsConfigAsset)
 		gardenGcThreshold = "-1"
 		grootfsGcThreshold = "-1"
+		gcThresholdFactor = "1.0"
 	})
 
 	JustBeforeEach(func() {
-		thresholderCmd = exec.Command(thresholderBin, reservedSpace, routineGC, pathToDisk, pathToGrootfsConfig, gardenGcThreshold, grootfsGcThreshold)
+		thresholderCmd = exec.Command(thresholderBin, reservedSpace, routineGC, pathToDisk, pathToGrootfsConfig, gardenGcThreshold, grootfsGcThreshold, gcThresholdFactor)
 	})
 
 	AfterEach(func() {
@@ -136,6 +138,69 @@ var _ = Describe("Thresholder", func() {
 
 	})
 
+	Context("when a GC threshold factor is provided", func() {
+		When("the factor is 1.0 (the default)", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = "1.0"
+			})
+
+			It("sets clean.threshold_bytes to the full available space minus reserved", func() {
+				gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+				config := configFromFile(pathToGrootfsConfig)
+
+				Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(diskSize - megabytesToBytes(3000)))
+			})
+		})
+
+		When("the factor is less than 1", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = "0.5"
+			})
+
+			It("scales clean.threshold_bytes by the factor", func() {
+				gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+				config := configFromFile(pathToGrootfsConfig)
+
+				expected := int64(float64(diskSize-megabytesToBytes(3000)) * 0.5)
+				Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(expected))
+			})
+
+			It("does not scale init.store_size_bytes", func() {
+				gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+				config := configFromFile(pathToGrootfsConfig)
+
+				Expect(config.Init.StoreSizeBytes).To(BeMoreOrLess(diskSize - megabytesToBytes(3000)))
+			})
+		})
+
+		When("the factor is invalid (out of range)", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = "2.0"
+			})
+
+			It("falls back to a factor of 1.0", func() {
+				gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+				config := configFromFile(pathToGrootfsConfig)
+
+				Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(diskSize - megabytesToBytes(3000)))
+			})
+		})
+
+		When("the factor is used together with the deprecated GC threshold properties", func() {
+			BeforeEach(func() {
+				gardenGcThreshold = "1000"
+				gcThresholdFactor = "0.5"
+			})
+
+			It("ignores the factor because the old-fashioned calculator takes precedence", func() {
+				gexecStartAndWait(thresholderCmd, GinkgoWriter, GinkgoWriter)
+				config := configFromFile(pathToGrootfsConfig)
+
+				Expect(config.Clean.ThresholdBytes).To(BeMoreOrLess(megabytesToBytes(1000)))
+			})
+		})
+	})
+
 	When("the store path doesn't exist", func() {
 		BeforeEach(func() {
 			pathToDisk = "/path/to/foo/bar"
@@ -148,18 +213,18 @@ var _ = Describe("Thresholder", func() {
 	Describe("Parameters validation", func() {
 		Context("when too few input args are provided", func() {
 			JustBeforeEach(func() {
-				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5")
+				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6")
 			})
 
-			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 6)")
+			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 7)")
 		})
 
 		Context("when too many input args are provided", func() {
 			JustBeforeEach(func() {
-				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6", "7")
+				thresholderCmd = exec.Command(thresholderBin, "1", "2", "3", "4", "5", "6", "7", "8")
 			})
 
-			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 6)")
+			exitsNonZeroWithMessage("Not all input arguments provided (Expected: 7)")
 		})
 
 		Context("when reserved space parameter cannot be parsed", func() {
@@ -200,6 +265,14 @@ var _ = Describe("Thresholder", func() {
 			})
 
 			exitsNonZeroWithMessage("GrootFS GC threshold parameter must be a number")
+		})
+
+		Context("when GC threshold factor parameter cannot be parsed", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = "abc"
+			})
+
+			exitsNonZeroWithMessage("GC threshold factor parameter must be a number")
 		})
 	})
 })
