@@ -307,6 +307,10 @@ properties:
     description: "Amount of space that will be kept free for other jobs. The GrootFS store will be able to grow up to a maximum size of its disk minus this reserved space. Where the reserved space does not allow sufficient size for GrootFS to store container images and root filesystems (currently 15GB), the limit will be a soft limit, and garbage collection will attempt to keep disk space available for other jobs. -1 disables GC and allows GrootFS to potentially use the whole disk."
     default: 15360
 
+  grootfs.gc_threshold_factor:
+    description: "Factor (in the range (0, 1]) applied to the available store space to compute the garbage collection threshold. The effective GC threshold is `factor * (available_space - reserved_space_for_other_jobs)`. A factor of 1.0 (the default) preserves the historical behaviour of triggering GC only when the store fills the available space; smaller values trigger GC sooner."
+    default: 1.0
+
   grootfs.experimental_direct_io:
     description: "Enable the DIRECT_IO flag on the loop device associated with the GrootFS store. This should reduce memory and processing overheads by eliminating double caching of the store filesystem"
     default: false

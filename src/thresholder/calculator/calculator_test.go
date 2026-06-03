@@ -15,18 +15,20 @@ var (
 
 var _ = Describe("modern calculator", func() {
 	var (
-		reservedSpace int64
-		minStoreSize  int64
+		reservedSpace     int64
+		minStoreSize      int64
+		gcThresholdFactor float64
 	)
 
 	BeforeEach(func() {
 		diskSize = 10
 		routineGC = false
 		minStoreSize = 3
+		gcThresholdFactor = 1.0
 	})
 
 	JustBeforeEach(func() {
-		calc = calculator.NewModernCalculator(reservedSpace, diskSize, minStoreSize, routineGC)
+		calc = calculator.NewModernCalculator(reservedSpace, diskSize, minStoreSize, routineGC, gcThresholdFactor)
 	})
 
 	Describe("CalculateStoreSize", func() {
@@ -63,6 +65,16 @@ var _ = Describe("modern calculator", func() {
 				Expect(storeSize).To(Equal(diskSize))
 			})
 		})
+
+		When("the GC threshold factor is less than 1", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = 0.5
+			})
+
+			It("does not affect the store size", func() {
+				Expect(storeSize).To(Equal(int64(6)))
+			})
+		})
 	})
 
 	Describe("CalculateGCThreshold", func() {
@@ -76,7 +88,7 @@ var _ = Describe("modern calculator", func() {
 			threshold = calc.CalculateGCThreshold()
 		})
 
-		It("returns (disk size - reserved size)", func() {
+		It("returns (disk size - reserved size) when factor is 1", func() {
 			Expect(threshold).To(Equal(int64(6)))
 		})
 
@@ -107,6 +119,89 @@ var _ = Describe("modern calculator", func() {
 
 			It("does not subtract the sentinel value from the disk size", func() {
 				Expect(threshold).To(Equal(diskSize))
+			})
+
+			When("the factor is less than 1", func() {
+				BeforeEach(func() {
+					gcThresholdFactor = 0.5
+				})
+
+				It("scales the full disk size by the factor", func() {
+					Expect(threshold).To(Equal(int64(5)))
+				})
+			})
+		})
+
+		When("the GC threshold factor is 0.5", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = 0.5
+			})
+
+			It("returns half of (disk size - reserved size)", func() {
+				Expect(threshold).To(Equal(int64(3)))
+			})
+		})
+
+		When("the GC threshold factor is 1", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = 1.0
+			})
+
+			It("preserves the historical behaviour", func() {
+				Expect(threshold).To(Equal(int64(6)))
+			})
+		})
+
+		When("the GC threshold factor produces a fractional result", func() {
+			BeforeEach(func() {
+				diskSize = 10
+				reservedSpace = 0
+				gcThresholdFactor = 0.33
+			})
+
+			It("floors the threshold to a whole number of bytes", func() {
+				Expect(threshold).To(Equal(int64(3)))
+			})
+		})
+
+		When("the GC threshold factor combines with routineGC", func() {
+			BeforeEach(func() {
+				routineGC = true
+				gcThresholdFactor = 0.5
+			})
+
+			It("still returns 0 because reservedSpace is forced to diskSize", func() {
+				Expect(threshold).To(BeZero())
+			})
+		})
+
+		When("the GC threshold factor is invalid (<= 0)", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = 0
+			})
+
+			It("falls back to a factor of 1.0 to preserve historical behaviour", func() {
+				Expect(threshold).To(Equal(int64(6)))
+			})
+		})
+
+		When("the GC threshold factor is invalid (> 1)", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = 2.5
+			})
+
+			It("falls back to a factor of 1.0 to preserve historical behaviour", func() {
+				Expect(threshold).To(Equal(int64(6)))
+			})
+		})
+
+		When("the GC threshold factor is negative", func() {
+			BeforeEach(func() {
+				gcThresholdFactor = -0.25
+			})
+
+			It("falls back to a factor of 1.0 to preserve historical behaviour", func() {
+				Expect(threshold).To(Equal(int64(6)))
 			})
 		})
 	})
@@ -144,6 +239,17 @@ var _ = Describe("modern calculator", func() {
 			})
 
 			It("acts as though the reservedSpace is equal to diskSize and returns true", func() {
+				Expect(cleanOnStart).To(BeTrue())
+			})
+		})
+
+		When("the GC threshold factor is less than 1", func() {
+			BeforeEach(func() {
+				reservedSpace = 1
+				gcThresholdFactor = 0.5
+			})
+
+			It("does not affect the result", func() {
 				Expect(cleanOnStart).To(BeTrue())
 			})
 		})
