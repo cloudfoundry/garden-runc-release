@@ -72,6 +72,9 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% if apparmor_profile_provided -%>
   apparmor = <%= p("garden.apparmor_profile") %>
 <% end -%>
+<% if p("garden.no_new_privileges") -%>
+  no-new-privileges = true
+<% end -%>
 
 ; binaries
   iptables-bin = <%= p("garden.iptables_bin_dir") %>/iptables
