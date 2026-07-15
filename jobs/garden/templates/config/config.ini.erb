@@ -209,6 +209,12 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 
 ; resource limiting
   default-container-blockio-weight = <%= p("garden.default_container_blockio_weight") %>
+<% if p("garden.container_io_max_read_bps") > 0 || p("garden.container_io_max_write_bps") > 0 || p("garden.container_io_max_read_iops") > 0 || p("garden.container_io_max_write_iops") > 0 -%>
+  container-io-max-read-bps = <%= p("garden.container_io_max_read_bps") %>
+  container-io-max-write-bps = <%= p("garden.container_io_max_write_bps") %>
+  container-io-max-read-iops = <%= p("garden.container_io_max_read_iops") %>
+  container-io-max-write-iops = <%= p("garden.container_io_max_write_iops") %>
+<% end -%>
 <% if_p("garden.cpu_quota_per_share_in_us") do |quota_per_share| -%>
   cpu-quota-per-share = <%= quota_per_share %>
 <% end -%>
