@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20260715020742-79c9837591af => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20260722020902-0d62a2590a0f => ../garden
 ## explicit; go 1.25.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.79.0
+# code.cloudfoundry.org/lager/v3 v3.80.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -95,7 +95,7 @@ github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics
 github.com/wavefronthq/wavefront-sdk-go/internal/span
 github.com/wavefronthq/wavefront-sdk-go/senders
 github.com/wavefronthq/wavefront-sdk-go/version
-# go.yaml.in/yaml/v3 v3.0.4
+# go.yaml.in/yaml/v3 v3.0.5
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
 # golang.org/x/mod v0.38.0
