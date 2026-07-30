@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+  echo -n "."
+  sleep 0.1
+done
