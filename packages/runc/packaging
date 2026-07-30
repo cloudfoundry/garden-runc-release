@@ -15,7 +15,12 @@ source /var/vcap/packages/golang-*-linux/bosh/compile.env
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/code.cloudfoundry.org/vendor/github.com/opencontainers/runc
-  make static
-  cp runc "${GOBIN}/runc"
+pushd src/code.cloudfoundry.org
+  CGO_ENABLED=1 go build \
+    -trimpath \
+    -buildmode=pie \
+    -tags "seccomp urfave_cli_no_docs netgo osusergo" \
+    -ldflags "-X main.gitCommit= -linkmode external -extldflags -static-pie" \
+    -o "${BOSH_INSTALL_TARGET}/bin/runc" \
+    github.com/opencontainers/runc
 popd
