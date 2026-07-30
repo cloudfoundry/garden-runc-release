@@ -1,7 +1,7 @@
 package calculator_test
 
 import (
-	"thresholder/calculator"
+	"code.cloudfoundry.org/thresholder/calculator"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

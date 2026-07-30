@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"thresholder/calculator"
-	"thresholder/disk"
+	"code.cloudfoundry.org/thresholder/calculator"
+	"code.cloudfoundry.org/thresholder/disk"
 
-	"code.cloudfoundry.org/grootfs/commands/config"
+	"code.cloudfoundry.org/guardian/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
 )
 

@@ -12,7 +12,7 @@ import (
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/types"
 
-	"code.cloudfoundry.org/grootfs/commands/config"
+	"code.cloudfoundry.org/guardian/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
 )
 

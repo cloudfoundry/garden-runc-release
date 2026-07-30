@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strconv"
-	"thresholder/disk"
+	"code.cloudfoundry.org/thresholder/disk"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

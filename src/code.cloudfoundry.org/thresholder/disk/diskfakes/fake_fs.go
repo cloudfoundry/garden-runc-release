@@ -3,7 +3,7 @@ package diskfakes
 
 import (
 	"sync"
-	"thresholder/disk"
+	"code.cloudfoundry.org/thresholder/disk"
 )
 
 type FakeFS struct {
