@@ -8,5 +8,5 @@ files:
   - code.cloudfoundry.org/go.mod
   - code.cloudfoundry.org/go.sum
   - code.cloudfoundry.org/vendor/modules.txt
-  - greenskeeper/*.go # gosub
-  - greenskeeper/cmd/greenskeeper/*.go # gosub
+  - code.cloudfoundry.org/greenskeeper/*.go # gosub
+  - code.cloudfoundry.org/greenskeeper/cmd/greenskeeper/*.go # gosub

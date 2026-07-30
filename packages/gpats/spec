@@ -9,9 +9,9 @@ files:
   - code.cloudfoundry.org/go.sum
   - code.cloudfoundry.org/vendor/modules.txt
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/garden/*.go # gosub
-  - garden-performance-acceptance-tests/*.go # gosub
-  - garden-performance-acceptance-tests/measurements/*.go # gosub
-  - garden-performance-acceptance-tests/reporter/*.go # gosub
+  - code.cloudfoundry.org/garden-performance-acceptance-tests/*.go # gosub
+  - code.cloudfoundry.org/garden-performance-acceptance-tests/measurements/*.go # gosub
+  - code.cloudfoundry.org/garden-performance-acceptance-tests/reporter/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/garden/client/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/garden/client/connection/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/garden/routes/*.go # gosub

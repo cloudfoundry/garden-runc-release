@@ -8,13 +8,13 @@ files:
   - code.cloudfoundry.org/go.mod
   - code.cloudfoundry.org/go.sum
   - code.cloudfoundry.org/vendor/modules.txt
-  - dontpanic/*.go # gosub
-  - dontpanic/collectors/command/*.go # gosub
-  - dontpanic/collectors/file/*.go # gosub
-  - dontpanic/collectors/grootfs/*.go # gosub
-  - dontpanic/collectors/process/*.go # gosub
-  - dontpanic/commandrunner/*.go # gosub
-  - dontpanic/osreporter/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/collectors/command/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/collectors/file/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/collectors/grootfs/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/collectors/process/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/commandrunner/*.go # gosub
+  - code.cloudfoundry.org/dontpanic/osreporter/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/jessevdk/go-flags/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/logrusorgru/aurora/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.go # gosub
