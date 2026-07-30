@@ -5,9 +5,9 @@ dependencies:
   - golang-1.26-linux
 
 files:
-  - grootfs/go.mod
-  - grootfs/go.sum
-  - grootfs/vendor/modules.txt
+  - code.cloudfoundry.org/go.mod
+  - code.cloudfoundry.org/go.sum
+  - code.cloudfoundry.org/vendor/modules.txt
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/grootfs/*.go # gosub
