@@ -30,6 +30,7 @@ code.cloudfoundry.org/guardian/cmd/dadoo
 code.cloudfoundry.org/guardian/cmd/execas
 code.cloudfoundry.org/guardian/cmd/gdn
 code.cloudfoundry.org/guardian/cmd/socket2me
+code.cloudfoundry.org/guardian/cmd/winit
 code.cloudfoundry.org/guardian/gardener
 code.cloudfoundry.org/guardian/gardener/container-spec
 code.cloudfoundry.org/guardian/grootfs

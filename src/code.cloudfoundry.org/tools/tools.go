@@ -8,6 +8,7 @@ import (
 	_ "code.cloudfoundry.org/guardian/cmd/execas"
 	_ "code.cloudfoundry.org/guardian/cmd/gdn"
 	_ "code.cloudfoundry.org/guardian/cmd/socket2me"
+	_ "code.cloudfoundry.org/guardian/cmd/winit"
 	_ "code.cloudfoundry.org/guardian/grootfs"
 	_ "code.cloudfoundry.org/guardian/grootfs/store/filesystems/overlayxfs/tardis"
 	_ "code.cloudfoundry.org/guardian/idmapper"
