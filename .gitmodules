@@ -1,4 +1,0 @@
-[submodule "src/garden-performance-acceptance-tests"]
-	path = src/garden-performance-acceptance-tests
-	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests
-	branch = main
