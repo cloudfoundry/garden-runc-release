@@ -1,0 +1,27 @@
+---
+image_resource:
+  type: docker-image
+  source:
+      repository: cloudfoundry/garden-runc-release
+      tag: '2.0.25'
+
+platform: linux
+
+inputs:
+- name: gpats-main
+  path: src/code.cloudfoundry.org/garden-performance-acceptance-tests
+
+outputs:
+- name: stats
+
+params:
+  GARDEN_ADDRESS: ""
+  GARDEN_PORT: ""
+  WAVEFRONT_TOKEN: ""
+  WAVEFRONT_URL: https://longboard.wavefront.com
+  WAVEFRONT_SOURCE: ""
+  IGNORE_PERF_EXPECTATIONS: ""
+  PREHEAT_SERVER: ""
+
+run:
+  path: src/code.cloudfoundry.org/garden-performance-acceptance-tests/ci/scripts/performance-tests
