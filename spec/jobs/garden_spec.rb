@@ -67,8 +67,15 @@ describe 'garden' do
         expect(rendered_template['server']['default-grace-time']).to eql(0)
       end
 
-      it 'sets the default container blockio wait to 0' do
+      it 'sets the default container blockio weight to 0' do
         expect(rendered_template['server']['default-container-blockio-weight']).to eql(0)
+      end
+
+      it 'does not render io-max properties when defaults are 0' do
+        expect(rendered_template['server']['container-io-max-read-bps']).to eql(nil)
+        expect(rendered_template['server']['container-io-max-write-bps']).to eql(nil)
+        expect(rendered_template['server']['container-io-max-read-iops']).to eql(nil)
+        expect(rendered_template['server']['container-io-max-write-iops']).to eql(nil)
       end
 
       it 'sets the default container rootfs to busybox' do
@@ -195,6 +202,58 @@ describe 'garden' do
               error_msg = 'garden.cpu_throttling_check_interval should be a positive integer'
               expect { rendered_template }.to raise_error(error_msg)
             end
+          end
+        end
+      end
+
+      context 'container io.max throttling' do
+        context 'when all io_max properties are set' do
+          let(:properties) {
+            {
+              'garden' => {
+                'container_io_max_read_bps' => 59768832,
+                'container_io_max_write_bps' => 59768832,
+                'container_io_max_read_iops' => 900,
+                'container_io_max_write_iops' => 900
+              }
+            }
+          }
+
+          it 'renders container-io-max-read-bps' do
+            expect(rendered_template['server']['container-io-max-read-bps']).to eql(59768832)
+          end
+
+          it 'renders container-io-max-write-bps' do
+            expect(rendered_template['server']['container-io-max-write-bps']).to eql(59768832)
+          end
+
+          it 'renders container-io-max-read-iops' do
+            expect(rendered_template['server']['container-io-max-read-iops']).to eql(900)
+          end
+
+          it 'renders container-io-max-write-iops' do
+            expect(rendered_template['server']['container-io-max-write-iops']).to eql(900)
+          end
+        end
+
+        context 'when only bps properties are set' do
+          let(:properties) {
+            {
+              'garden' => {
+                'container_io_max_read_bps' => 104857600,
+                'container_io_max_write_bps' => 52428800
+              }
+            }
+          }
+
+          it 'renders bps values' do
+            expect(rendered_template['server']['container-io-max-read-bps']).to eql(104857600)
+            expect(rendered_template['server']['container-io-max-write-bps']).to eql(52428800)
+          end
+
+          it 'renders iops as 0' do
+            expect(rendered_template['server']['container-io-max-read-iops']).to eql(0)
+            expect(rendered_template['server']['container-io-max-write-iops']).to eql(0)
           end
         end
       end
