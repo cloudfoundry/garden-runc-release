@@ -1,0 +1,120 @@
+module code.cloudfoundry.org
+
+go 1.26.3
+
+require (
+	code.cloudfoundry.org/guardian v0.0.0-20260730145202-b7ef8252c713
+	github.com/opencontainers/runc v1.5.1
+)
+
+require (
+	code.cloudfoundry.org/clock v1.81.0 // indirect
+	code.cloudfoundry.org/commandrunner v0.72.0 // indirect
+	code.cloudfoundry.org/debugserver v0.107.0 // indirect
+	code.cloudfoundry.org/garden v0.0.0-20260729020900-a0441c36f7b5 // indirect
+	code.cloudfoundry.org/lager/v3 v3.80.0 // indirect
+	code.cloudfoundry.org/localip v0.82.0 // indirect
+	cyphar.com/go-pathrs v0.2.5 // indirect
+	github.com/BurntSushi/toml v1.6.0 // indirect
+	github.com/Masterminds/semver/v3 v3.5.0 // indirect
+	github.com/Microsoft/go-winio v0.6.3-0.20251027160822-ad3df93bed29 // indirect
+	github.com/Microsoft/hcsshim v0.15.0-rc.3 // indirect
+	github.com/aperturerobotics/protobuf-go-lite v0.16.0 // indirect
+	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/checkpoint-restore/go-criu/v8 v8.4.0 // indirect
+	github.com/cilium/ebpf v0.22.0 // indirect
+	github.com/cloudfoundry/dropsonde v1.1.0 // indirect
+	github.com/cloudfoundry/gosigar v1.3.125 // indirect
+	github.com/cloudfoundry/sonde-go v0.0.0-20260720065356-6728909ed72b // indirect
+	github.com/containerd/cgroups/v3 v3.1.3 // indirect
+	github.com/containerd/console v1.0.5 // indirect
+	github.com/containerd/containerd/api v1.11.1 // indirect
+	github.com/containerd/containerd/v2 v2.3.3 // indirect
+	github.com/containerd/continuity v0.5.0 // indirect
+	github.com/containerd/errdefs v1.0.0 // indirect
+	github.com/containerd/errdefs/pkg v0.3.0 // indirect
+	github.com/containerd/fifo v1.1.0 // indirect
+	github.com/containerd/go-runc v1.1.0 // indirect
+	github.com/containerd/log v0.1.0 // indirect
+	github.com/containerd/platforms v1.0.0-rc.4 // indirect
+	github.com/containerd/plugin v1.1.0 // indirect
+	github.com/containerd/ttrpc v1.2.9 // indirect
+	github.com/containerd/typeurl/v2 v2.3.0 // indirect
+	github.com/containers/image/v5 v5.36.2 // indirect
+	github.com/containers/libtrust v0.0.0-20230121012942-c1716e8a8d01 // indirect
+	github.com/containers/ocicrypt v1.3.2 // indirect
+	github.com/containers/storage v1.59.1 // indirect
+	github.com/coreos/go-systemd/v22 v22.7.0 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
+	github.com/cyphar/filepath-securejoin v0.7.0 // indirect
+	github.com/distribution/reference v0.6.0 // indirect
+	github.com/docker/distribution v2.8.3+incompatible // indirect
+	github.com/docker/docker v28.5.2+incompatible // indirect
+	github.com/docker/docker-credential-helpers v0.9.8 // indirect
+	github.com/docker/go-connections v0.8.1 // indirect
+	github.com/docker/go-units v0.5.0 // indirect
+	github.com/eapache/go-resiliency v1.7.0 // indirect
+	github.com/felixge/httpsnoop v1.1.0 // indirect
+	github.com/go-logr/logr v1.4.4 // indirect
+	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
+	github.com/godbus/dbus/v5 v5.2.2 // indirect
+	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
+	github.com/google/pprof v0.0.0-20260709232956-b9395ee17fa0 // indirect
+	github.com/gorilla/mux v1.8.1 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/jessevdk/go-flags v1.6.1 // indirect
+	github.com/klauspost/compress v1.19.1 // indirect
+	github.com/mitchellh/copystructure v1.2.0 // indirect
+	github.com/mitchellh/reflectwalk v1.0.2 // indirect
+	github.com/moby/locker v1.0.1 // indirect
+	github.com/moby/sys/capability v0.4.0 // indirect
+	github.com/moby/sys/mountinfo v0.7.2 // indirect
+	github.com/moby/sys/reexec v0.1.0 // indirect
+	github.com/moby/sys/sequential v0.7.0 // indirect
+	github.com/moby/sys/signal v0.7.1 // indirect
+	github.com/moby/sys/user v0.4.1 // indirect
+	github.com/moby/sys/userns v0.1.0 // indirect
+	github.com/mrunalp/fileutils v0.5.1 // indirect
+	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
+	github.com/onsi/ginkgo/v2 v2.32.0 // indirect
+	github.com/opencontainers/cgroups v0.0.8 // indirect
+	github.com/opencontainers/go-digest v1.0.0 // indirect
+	github.com/opencontainers/image-spec v1.1.1 // indirect
+	github.com/opencontainers/runtime-spec v1.3.0 // indirect
+	github.com/opencontainers/selinux v1.15.1 // indirect
+	github.com/openzipkin/zipkin-go v0.4.3 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/seccomp/libseccomp-golang v0.11.1 // indirect
+	github.com/sirupsen/logrus v1.9.4 // indirect
+	github.com/tedsuo/ifrit v0.0.0-20260418191334-846868129986 // indirect
+	github.com/tedsuo/rata v1.0.0 // indirect
+	github.com/urfave/cli v1.22.17 // indirect
+	github.com/urfave/cli/v2 v2.27.7 // indirect
+	github.com/ventu-io/go-shortid v0.0.0-20201117134242-e59966efd125 // indirect
+	github.com/vishvananda/netlink v1.3.1 // indirect
+	github.com/vishvananda/netns v0.0.5 // indirect
+	github.com/xrash/smetrics v0.0.0-20250705151800-55b8f293f342 // indirect
+	go.opencensus.io v0.24.0 // indirect
+	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.69.0 // indirect
+	go.opentelemetry.io/otel v1.44.0 // indirect
+	go.opentelemetry.io/otel/metric v1.44.0 // indirect
+	go.opentelemetry.io/otel/trace v1.44.0 // indirect
+	golang.org/x/mod v0.38.0 // indirect
+	golang.org/x/net v0.57.0 // indirect
+	golang.org/x/sync v0.22.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
+	golang.org/x/tools v0.48.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260729162451-8efbd57d26e0 // indirect
+	google.golang.org/grpc v1.83.0 // indirect
+	google.golang.org/protobuf v1.36.12-0.20260120151049-f2248ac996af // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+replace code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260730145202-b7ef8252c713
