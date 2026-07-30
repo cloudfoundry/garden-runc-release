@@ -7,10 +7,10 @@ dependencies:
   - pkg-config
 
 files:
-  - guardian/go.mod
-  - guardian/go.sum
-  - guardian/vendor/modules.txt
-  - guardian/vendor/github.com/opencontainers/runc/VERSION
+  - code.cloudfoundry.org/go.mod
+  - code.cloudfoundry.org/go.sum
+  - code.cloudfoundry.org/vendor/modules.txt
+  - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/VERSION
   - code.cloudfoundry.org/vendor/github.com/aperturerobotics/protobuf-go-lite/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/aperturerobotics/protobuf-go-lite/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/checkpoint-restore/go-criu/v8/*.go # gosub
@@ -88,6 +88,7 @@ files:
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/nsenter/*.h # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/nsenter/*.c # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/seccomp/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/seccomp/patchbpf/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/specconv/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/system/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runc/libcontainer/system/kernelversion/*.go # gosub
@@ -100,12 +101,15 @@ files:
   - code.cloudfoundry.org/vendor/github.com/opencontainers/selinux/go-selinux/label/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/russross/blackfriday/v2/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/seccomp/libseccomp-golang/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/seccomp/libseccomp-golang/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/sirupsen/logrus/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/urfave/cli/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netlink/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netlink/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netns/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/net/bpf/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.s # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.c # gosub

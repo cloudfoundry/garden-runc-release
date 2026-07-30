@@ -75,6 +75,44 @@ files:
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/lager/v3/chug/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/lager/v3/internal/truncate/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/localip/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/backuptar/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/internal/fs/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/internal/socket/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/internal/stringbuffer/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/pkg/bindfilter/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/pkg/guid/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/go-winio/vhd/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/Makefile # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/computestorage/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/cow/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/hcs/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/hcs/schema1/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/hcs/schema2/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/hcserror/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/hns/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/interop/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/jobobject/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/log/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/logfields/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/longpath/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/memory/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/mergemaps/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/oc/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/protocol/guestrequest/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/queue/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/safefile/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/security/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/timeout/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/vmcompute/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/wclayer/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/winapi/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/winapi/cimfs/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/winapi/cimwriter/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/internal/winapi/types/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/osversion/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/Microsoft/hcsshim/pkg/ociwclayer/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/aperturerobotics/protobuf-go-lite/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/aperturerobotics/protobuf-go-lite/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/bmizerany/pat/*.go # gosub
@@ -100,6 +138,7 @@ files:
   - code.cloudfoundry.org/vendor/github.com/cloudfoundry/gosigar/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cloudfoundry/gosigar/sys/windows/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cloudfoundry/sonde-go/events/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/containerd/cgroups/v3/cgroup1/stats/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/console/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/api/events/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/api/runtime/sandbox/v1/*.go # gosub
@@ -160,7 +199,6 @@ files:
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/internal/kmutex/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/internal/lazyregexp/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/internal/randutil/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/internal/userns/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/pkg/archive/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/pkg/archive/compression/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/containerd/v2/pkg/archive/tarheader/*.go # gosub
@@ -194,7 +232,6 @@ files:
   - code.cloudfoundry.org/vendor/github.com/containerd/errdefs/pkg/internal/types/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/fifo/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/fifo/Makefile # gosub
-  - code.cloudfoundry.org/vendor/github.com/containerd/go-runc/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/log/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/platforms/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/containerd/plugin/*.go # gosub
@@ -223,6 +260,7 @@ files:
   - code.cloudfoundry.org/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/go-logr/stdr/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/godbus/dbus/v5/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/golang/groupcache/lru/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/hashicorp/errwrap/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/hashicorp/go-multierror/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
@@ -245,6 +283,7 @@ files:
   - code.cloudfoundry.org/vendor/github.com/moby/sys/capability/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/moby/sys/mountinfo/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/moby/sys/reexec/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/moby/sys/sequential/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/moby/sys/signal/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/moby/sys/user/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/moby/sys/userns/*.go # gosub
@@ -299,6 +338,12 @@ files:
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netlink/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/vishvananda/netns/*.go # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/*.go # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/Makefile # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/internal/*.go # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/trace/*.go # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/trace/internal/*.go # gosub
+  - code.cloudfoundry.org/vendor/go.opencensus.io/trace/tracestate/*.go # gosub
   - code.cloudfoundry.org/vendor/go.opentelemetry.io/auto/sdk/*.go # gosub
   - code.cloudfoundry.org/vendor/go.opentelemetry.io/auto/sdk/internal/telemetry/*.go # gosub
   - code.cloudfoundry.org/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
@@ -339,6 +384,7 @@ files:
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.s # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.c # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/sys/windows/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/sys/windows/registry/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/text/secure/bidirule/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/text/transform/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/text/unicode/bidi/*.go # gosub
