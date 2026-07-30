@@ -11,6 +11,12 @@ import (
 	_ "code.cloudfoundry.org/guardian/grootfs"
 	_ "code.cloudfoundry.org/guardian/grootfs/store/filesystems/overlayxfs/tardis"
 	_ "code.cloudfoundry.org/guardian/idmapper"
+	_ "code.cloudfoundry.org/guardian/idmapper/cmd/maximus"
+	_ "code.cloudfoundry.org/guardian/idmapper/cmd/newgidmap"
+	_ "code.cloudfoundry.org/guardian/idmapper/cmd/newuidmap"
+	_ "code.cloudfoundry.org/dontpanic"
+	_ "code.cloudfoundry.org/greenskeeper/cmd/greenskeeper"
+	_ "github.com/onsi/ginkgo/v2/ginkgo"
 	_ "github.com/opencontainers/runc"
 )
 

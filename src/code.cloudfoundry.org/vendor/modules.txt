@@ -65,6 +65,10 @@ code.cloudfoundry.org/guardian/grootfs/store/manager
 code.cloudfoundry.org/guardian/guardiancmd
 code.cloudfoundry.org/guardian/guardiancmd/cpuentitlement
 code.cloudfoundry.org/guardian/idmapper
+code.cloudfoundry.org/guardian/idmapper/cmd
+code.cloudfoundry.org/guardian/idmapper/cmd/maximus
+code.cloudfoundry.org/guardian/idmapper/cmd/newgidmap
+code.cloudfoundry.org/guardian/idmapper/cmd/newuidmap
 code.cloudfoundry.org/guardian/imageplugin
 code.cloudfoundry.org/guardian/kawasaki
 code.cloudfoundry.org/guardian/kawasaki/configure

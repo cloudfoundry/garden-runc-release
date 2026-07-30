@@ -5,4 +5,12 @@ dependencies:
   - golang-1.26-linux
 
 files:
-  - idmapper/**/*
+  - code.cloudfoundry.org/go.mod
+  - code.cloudfoundry.org/go.sum
+  - code.cloudfoundry.org/vendor/modules.txt
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/idmapper/*.go # gosub
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/idmapper/cmd/*.go # gosub
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/idmapper/cmd/maximus/*.go # gosub
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/idmapper/cmd/newgidmap/*.go # gosub
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/idmapper/cmd/newuidmap/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub

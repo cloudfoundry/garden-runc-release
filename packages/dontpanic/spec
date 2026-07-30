@@ -5,4 +5,19 @@ dependencies:
   - golang-1.26-linux
 
 files:
-  - dontpanic/**/*
+  - code.cloudfoundry.org/go.mod
+  - code.cloudfoundry.org/go.sum
+  - code.cloudfoundry.org/vendor/modules.txt
+  - dontpanic/*.go # gosub
+  - dontpanic/collectors/command/*.go # gosub
+  - dontpanic/collectors/file/*.go # gosub
+  - dontpanic/collectors/grootfs/*.go # gosub
+  - dontpanic/collectors/process/*.go # gosub
+  - dontpanic/commandrunner/*.go # gosub
+  - dontpanic/osreporter/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/jessevdk/go-flags/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/logrusorgru/aurora/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.s # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/sys/unix/*.c # gosub
+  - code.cloudfoundry.org/vendor/gopkg.in/yaml.v2/*.go # gosub
