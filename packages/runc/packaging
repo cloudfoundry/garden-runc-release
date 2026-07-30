@@ -15,7 +15,7 @@ source /var/vcap/packages/golang-*-linux/bosh/compile.env
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/guardian/vendor/github.com/opencontainers/runc
+pushd src/code.cloudfoundry.org/vendor/github.com/opencontainers/runc
   make static
   cp runc "${GOBIN}/runc"
 popd
