@@ -1,22 +1,6 @@
-[submodule "src/guardian"]
-	path = src/guardian
-	url = https://github.com/cloudfoundry/guardian
-	branch = main
-[submodule "src/garden"]
-	path = src/garden
-	url = https://github.com/cloudfoundry/garden
-	branch = main
 [submodule "src/garden-integration-tests"]
 	path = src/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
-	branch = main
-[submodule "src/grootfs"]
-	path = src/grootfs
-	url = https://github.com/cloudfoundry/grootfs
-	branch = main
-[submodule "src/idmapper"]
-	path = src/idmapper
-	url = https://github.com/cloudfoundry/idmapper
 	branch = main
 [submodule "src/dontpanic"]
 	path = src/dontpanic
