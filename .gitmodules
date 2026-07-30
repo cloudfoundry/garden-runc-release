@@ -2,10 +2,6 @@
 	path = src/garden-integration-tests
 	url = https://github.com/cloudfoundry/garden-integration-tests
 	branch = main
-[submodule "src/dontpanic"]
-	path = src/dontpanic
-	url = https://github.com/cloudfoundry/dontpanic
-	branch = main
 [submodule "src/garden-performance-acceptance-tests"]
 	path = src/garden-performance-acceptance-tests
 	url = https://github.com/cloudfoundry/garden-performance-acceptance-tests
