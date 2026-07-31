@@ -8,6 +8,11 @@ files:
   - code.cloudfoundry.org/go.mod
   - code.cloudfoundry.org/go.sum
   - code.cloudfoundry.org/vendor/modules.txt
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/rundmc/nstar/Makefile
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/rundmc/nstar/*.c
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/rundmc/nstar/*.h
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/cmd/init/*.c
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/cmd/init/*.h
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/clock/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/vendor/code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub

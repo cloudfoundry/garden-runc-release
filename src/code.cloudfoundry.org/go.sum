@@ -667,8 +667,8 @@ github.com/cloudfoundry/dropsonde v1.1.0 h1:nerhj8K0heOsv/U/Ddou5Esw56YlNeHHJH6M
 github.com/cloudfoundry/dropsonde v1.1.0/go.mod h1:OrkxsBrAvM8X0Ve9vaSNKLR+/Jeohu3+J0M4JEaTmnM=
 github.com/cloudfoundry/gosigar v1.3.125 h1:MFdFBLdXT0Bf2AP8LdJnzJIHjGIn75wt7hPr7n1Egw0=
 github.com/cloudfoundry/gosigar v1.3.125/go.mod h1:qAvqa9Mps1bhNAJnbpgbXwsa7QUIYriwEQnOTaIywxI=
-github.com/cloudfoundry/guardian v0.0.0-20260730145202-b7ef8252c713 h1:FhMdBQ7HtNophKcBS7LzaNyJL73WR0fbEo0+IYF6o3g=
-github.com/cloudfoundry/guardian v0.0.0-20260730145202-b7ef8252c713/go.mod h1:EPDWErc/hL71FwVrGq5ukQhBhjohyiA4mSIdenbIfv0=
+github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03 h1:lh+M/xiuPAjo9rpG1VW85S9JM0wxxSZcIZliRodciUA=
+github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03/go.mod h1:EPDWErc/hL71FwVrGq5ukQhBhjohyiA4mSIdenbIfv0=
 github.com/cloudfoundry/sonde-go v0.0.0-20260720065356-6728909ed72b h1:QoG349bugPqkb8XqPgZbf6VWyAuh3ONbTJ5aKazvbeQ=
 github.com/cloudfoundry/sonde-go v0.0.0-20260720065356-6728909ed72b/go.mod h1:rR3cyMIEfcaknKHjUDMf7Cuq5gn9Aiqvzz/gqsnsQBI=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=

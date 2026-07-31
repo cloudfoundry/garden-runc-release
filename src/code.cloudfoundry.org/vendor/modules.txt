@@ -23,12 +23,13 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/guardian v0.0.0-20260730145202-b7ef8252c713 => github.com/cloudfoundry/guardian v0.0.0-20260730145202-b7ef8252c713
+# code.cloudfoundry.org/guardian v0.0.0-20260730145202-b7ef8252c713 => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
 ## explicit; go 1.26.3
 code.cloudfoundry.org/guardian/bindata
 code.cloudfoundry.org/guardian/cmd/dadoo
 code.cloudfoundry.org/guardian/cmd/execas
 code.cloudfoundry.org/guardian/cmd/gdn
+code.cloudfoundry.org/guardian/cmd/init
 code.cloudfoundry.org/guardian/cmd/socket2me
 code.cloudfoundry.org/guardian/cmd/winit
 code.cloudfoundry.org/guardian/gardener
@@ -96,6 +97,7 @@ code.cloudfoundry.org/guardian/rundmc/event
 code.cloudfoundry.org/guardian/rundmc/execrunner
 code.cloudfoundry.org/guardian/rundmc/execrunner/dadoo
 code.cloudfoundry.org/guardian/rundmc/goci
+code.cloudfoundry.org/guardian/rundmc/nstar
 code.cloudfoundry.org/guardian/rundmc/peas
 code.cloudfoundry.org/guardian/rundmc/peas/privchecker
 code.cloudfoundry.org/guardian/rundmc/peas/processwaiter
@@ -935,4 +937,4 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
-# code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260730145202-b7ef8252c713
+# code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
