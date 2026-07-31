@@ -21,17 +21,13 @@ files:
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/Makefile # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/asm/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/btf/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/features/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/efw/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/mountinfo/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/platform/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
-  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/testutils/testmain/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/cilium/ebpf/link/*.go # gosub

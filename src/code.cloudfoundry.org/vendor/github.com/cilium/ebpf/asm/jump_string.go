@@ -23,10 +23,9 @@ func _() {
 	_ = x[JLE-176]
 	_ = x[JSLT-192]
 	_ = x[JSLE-208]
-	_ = x[JCOND-224]
 }
 
-const _JumpOp_name = "JaJEqJGTJGEJSetJNEJSGTJSGECallExitJLTJLEJSLTJSLEJCONDInvalidJumpOp"
+const _JumpOp_name = "JaJEqJGTJGEJSetJNEJSGTJSGECallExitJLTJLEJSLTJSLEInvalidJumpOp"
 
 var _JumpOp_map = map[JumpOp]string{
 	0:   _JumpOp_name[0:2],
@@ -43,8 +42,7 @@ var _JumpOp_map = map[JumpOp]string{
 	176: _JumpOp_name[37:40],
 	192: _JumpOp_name[40:44],
 	208: _JumpOp_name[44:48],
-	224: _JumpOp_name[48:53],
-	255: _JumpOp_name[53:66],
+	255: _JumpOp_name[48:61],
 }
 
 func (i JumpOp) String() string {

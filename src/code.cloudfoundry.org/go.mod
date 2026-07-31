@@ -5,7 +5,7 @@ go 1.26.3
 require (
 	code.cloudfoundry.org/archiver v0.81.0
 	code.cloudfoundry.org/garden v0.0.0-20260729020900-a0441c36f7b5
-	code.cloudfoundry.org/guardian v0.0.0-20260730145202-b7ef8252c713
+	code.cloudfoundry.org/guardian v0.0.0-00010101000000-000000000000
 	code.cloudfoundry.org/lager/v3 v3.80.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.125
@@ -125,3 +125,5 @@ require (
 )
 
 replace code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
+
+replace github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3

@@ -1,10 +1,8 @@
-//go:build !windows
-
 package link
 
 import (
 	"fmt"
-	"slices"
+	"unsafe"
 
 	"github.com/cilium/ebpf"
 	"github.com/cilium/ebpf/internal/sys"
@@ -34,12 +32,7 @@ type QueryResult struct {
 // HaveLinkInfo returns true if the kernel supports querying link information
 // for a particular [ebpf.AttachType].
 func (qr *QueryResult) HaveLinkInfo() bool {
-	return slices.ContainsFunc(qr.Programs,
-		func(ap AttachedProgram) bool {
-			_, ok := ap.LinkID()
-			return ok
-		},
-	)
+	return qr.Revision > 0
 }
 
 type AttachedProgram struct {
@@ -50,7 +43,8 @@ type AttachedProgram struct {
 // LinkID returns the ID associated with the program.
 //
 // Returns 0, false if the kernel doesn't support retrieving the ID or if the
-// program wasn't attached via a link.
+// program wasn't attached via a link. See [QueryResult.HaveLinkInfo] if you
+// need to tell the two apart.
 func (ap *AttachedProgram) LinkID() (ID, bool) {
 	return ap.linkID, ap.linkID != 0
 }
@@ -90,13 +84,13 @@ func QueryPrograms(opts QueryOptions) (*QueryResult, error) {
 		AttachType:        sys.AttachType(opts.Attach),
 		QueryFlags:        opts.QueryFlags,
 		Count:             count,
-		ProgIds:           sys.SlicePointer(progIds),
+		ProgIds:           sys.NewPointer(unsafe.Pointer(&progIds[0])),
 	}
 
 	var linkIds []ID
 	if haveLinkIDs {
 		linkIds = make([]ID, count)
-		attr.LinkIds = sys.SlicePointer(linkIds)
+		attr.LinkIds = sys.NewPointer(unsafe.Pointer(&linkIds[0]))
 	}
 
 	if err := sys.ProgQuery(&attr); err != nil {
