@@ -124,6 +124,6 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
+replace code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731160535-d3f00acb14f3
 
 replace github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3

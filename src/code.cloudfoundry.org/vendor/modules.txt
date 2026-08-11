@@ -23,7 +23,7 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/guardian v0.0.0-00010101000000-000000000000 => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
+# code.cloudfoundry.org/guardian v0.0.0-00010101000000-000000000000 => github.com/cloudfoundry/guardian v0.0.0-20260731160535-d3f00acb14f3
 ## explicit; go 1.26.3
 code.cloudfoundry.org/guardian/bindata
 code.cloudfoundry.org/guardian/cmd/dadoo
@@ -933,5 +933,5 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
-# code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731120748-50a535ff5c03
+# code.cloudfoundry.org/guardian => github.com/cloudfoundry/guardian v0.0.0-20260731160535-d3f00acb14f3
 # github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3
