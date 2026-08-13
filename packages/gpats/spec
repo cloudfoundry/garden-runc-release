@@ -111,7 +111,6 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/gcexportdata/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/packages/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/types/objectpath/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/go/types/typeutil/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/aliases/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/core/*.go # gosub
@@ -119,9 +118,9 @@ files:
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/event/label/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/gcimporter/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/gocommand/*.go # gosub
+  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/moremaps/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/packagesinternal/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/pkgbits/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/stdlib/*.go # gosub
-  - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/typesinternal/*.go # gosub
   - garden-performance-acceptance-tests/vendor/golang.org/x/tools/internal/versions/*.go # gosub
