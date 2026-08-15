@@ -38,10 +38,10 @@ libseccomp/libseccomp-2.6.1.tar.gz:
   size: 656231
   object_id: 2d443e45-e4f3-4d77-7180-2c48a03e0ef6
   sha: sha256:501f66c667225d53791b97e1d7cf85ab764c297d04881f60f38f451c4b0ee1be
-libtool/libtool-2.5.4-10.tar.gz:
-  size: 2026959
-  object_id: 954fec78-3c41-4963-5b6e-6f2195562295
-  sha: sha256:5f70e00ab9b1c47fb0108385f4704bd0cf5caaba681b23498aace9d8052f849f
+libtool/libtool-2.6.2-1.tar.gz:
+  size: 2113935
+  object_id: 63c0d105-0c74-4195-7fb0-e9938c8c8c9b
+  sha: sha256:aa91ec6e9e32b0186477c306daa7a15f5e51a28867f0601f56fc0f3f240e1df1
 lzo/lzo-2.09.tar.gz:
   size: 594855
   object_id: 39bb6d9a-e168-4137-7751-c8262b743f1d
