@@ -1,0 +1,77 @@
+package gqt_cleanup_test
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"path"
+	"time"
+
+	"code.cloudfoundry.org/garden"
+	"code.cloudfoundry.org/guardian/gqt/runner"
+	"code.cloudfoundry.org/guardian/properties"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gexec"
+)
+
+var _ = Describe("gdn cleanup", func() {
+	var (
+		containerHandle string
+		tmpDir          string
+	)
+
+	BeforeEach(func() {
+		var err error
+		tmpDir, err = os.MkdirTemp("", "")
+		Expect(err).NotTo(HaveOccurred())
+		config.PropertiesPath = path.Join(tmpDir, "props.json")
+		client := runner.Start(config)
+		container, err := client.Create(garden.ContainerSpec{
+			Privileged: false,
+			Network:    fmt.Sprintf("177.100.%d.0/24", GinkgoParallelProcess()),
+			Image: garden.ImageRef{
+				URI: "docker://cloudfoundry/garden-rootfs",
+			},
+		})
+		Expect(err).NotTo(HaveOccurred())
+
+		containerHandle = container.Handle()
+
+		Expect(client.Stop()).To(Succeed())
+	})
+
+	AfterEach(func() {
+		client := runner.Start(config)
+		Expect(client.DestroyAndStop()).To(Succeed())
+		Expect(os.RemoveAll(tmpDir)).To(Succeed())
+	})
+
+	JustBeforeEach(func() {
+		var err error
+		cleanupArgs := []string{
+			"cleanup",
+			"--depot", config.DepotDir,
+			"--properties-path", config.PropertiesPath,
+		}
+
+		cmd := exec.Command(binaries.Gdn, cleanupArgs...)
+		cleanupProcess, err := gexec.Start(cmd, GinkgoWriter, GinkgoWriter)
+		Expect(err).NotTo(HaveOccurred())
+
+		Eventually(cleanupProcess, 10*time.Second).Should(gexec.Exit(0))
+	})
+
+	It("cannot lookup the container anymore", func() {
+		client := runner.Start(config)
+		_, err := client.Lookup(containerHandle)
+		Expect(err).To(Equal(garden.ContainerNotFoundError{Handle: containerHandle}))
+		Expect(client.Stop()).To(Succeed())
+	})
+
+	It("cleans cleanedup containers properties", func() {
+		manager, err := properties.Load(config.PropertiesPath)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(manager.All(containerHandle)).To(BeEmpty())
+	})
+})

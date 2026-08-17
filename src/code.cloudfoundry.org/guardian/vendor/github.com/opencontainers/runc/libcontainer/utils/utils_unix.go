@@ -1,0 +1,247 @@
+//go:build !windows
+
+package utils
+
+import (
+	"fmt"
+	"math"
+	"os"
+	"runtime"
+	"strconv"
+	"sync"
+	_ "unsafe" // for go:linkname
+
+	"github.com/sirupsen/logrus"
+	"golang.org/x/sys/unix"
+
+	"github.com/opencontainers/runc/internal/linux"
+	"github.com/opencontainers/runc/internal/pathrs"
+)
+
+var (
+	haveCloseRangeCloexecBool bool
+	haveCloseRangeCloexecOnce sync.Once
+)
+
+func haveCloseRangeCloexec() bool {
+	haveCloseRangeCloexecOnce.Do(func() {
+		// Make sure we're not closing a random file descriptor.
+		tmpFd, err := unix.FcntlInt(0, unix.F_DUPFD_CLOEXEC, 0)
+		if err != nil {
+			return
+		}
+		defer unix.Close(tmpFd)
+
+		err = unix.CloseRange(uint(tmpFd), uint(tmpFd), unix.CLOSE_RANGE_CLOEXEC)
+		// Any error means we cannot use close_range(CLOSE_RANGE_CLOEXEC).
+		// -ENOSYS and -EINVAL ultimately mean we don't have support, but any
+		// other potential error would imply that even the most basic close
+		// operation wouldn't work.
+		haveCloseRangeCloexecBool = err == nil
+	})
+	return haveCloseRangeCloexecBool
+}
+
+type fdFunc func(fd int)
+
+// fdRangeFrom calls the passed fdFunc for each file descriptor that is open in
+// the current process.
+func fdRangeFrom(minFd int, fn fdFunc) error {
+	fdDir, closer, err := pathrs.ProcThreadSelfOpen("fd/", unix.O_DIRECTORY|unix.O_CLOEXEC)
+	if err != nil {
+		return fmt.Errorf("get handle to /proc/thread-self/fd: %w", err)
+	}
+	defer closer()
+	defer fdDir.Close()
+
+	fdList, err := fdDir.Readdirnames(-1)
+	if err != nil {
+		return err
+	}
+	for _, fdStr := range fdList {
+		fd, err := strconv.Atoi(fdStr)
+		// Ignore non-numeric file names.
+		if err != nil {
+			continue
+		}
+		// Ignore descriptors lower than our specified minimum.
+		if fd < minFd {
+			continue
+		}
+		// Ignore the file descriptor we used for readdir, as it will be closed
+		// when we return.
+		if uintptr(fd) == fdDir.Fd() {
+			continue
+		}
+		// Run the closure.
+		fn(fd)
+	}
+	return nil
+}
+
+// CloseExecFrom sets the O_CLOEXEC flag on all file descriptors greater or
+// equal to minFd in the current process.
+func CloseExecFrom(minFd int) error {
+	// Use close_range(CLOSE_RANGE_CLOEXEC) if possible.
+	if haveCloseRangeCloexec() {
+		err := unix.CloseRange(uint(minFd), math.MaxInt32, unix.CLOSE_RANGE_CLOEXEC)
+		if err == nil {
+			return nil
+		}
+
+		logrus.Debugf("close_range failed, closing range one at a time (error: %v)", err)
+
+		// If close_range fails, we fall back to the standard loop.
+	}
+	// Otherwise, fall back to the standard loop.
+	return fdRangeFrom(minFd, unix.CloseOnExec)
+}
+
+//go:linkname runtime_IsPollDescriptor internal/poll.IsPollDescriptor
+
+// In order to make sure we do not close the internal epoll descriptors the Go
+// runtime uses, we need to ensure that we skip descriptors that match
+// "internal/poll".IsPollDescriptor. Yes, this is a Go runtime internal thing,
+// unfortunately there's no other way to be sure we're only keeping the file
+// descriptors the Go runtime needs. Hopefully nothing blows up doing this...
+func runtime_IsPollDescriptor(fd uintptr) bool //nolint:revive
+
+// UnsafeCloseFrom closes all file descriptors greater or equal to minFd in the
+// current process, except for those critical to Go's runtime (such as the
+// netpoll management descriptors).
+//
+// NOTE: That this function is incredibly dangerous to use in most Go code, as
+// closing file descriptors from underneath *os.File handles can lead to very
+// bad behaviour (the closed file descriptor can be reused and then any
+// *os.File operations would apply to the wrong file). This function is only
+// intended to be called from the last stage of runc init.
+func UnsafeCloseFrom(minFd int) error {
+	// We cannot use close_range(2) even if it is available, because we must
+	// not close some file descriptors.
+	return fdRangeFrom(minFd, func(fd int) {
+		if runtime_IsPollDescriptor(uintptr(fd)) {
+			// These are the Go runtimes internal netpoll file descriptors.
+			// These file descriptors are operated on deep in the Go scheduler,
+			// and closing those files from underneath Go can result in panics.
+			// There is no issue with keeping them because they are not
+			// executable and are not useful to an attacker anyway. Also we
+			// don't have any choice.
+			return
+		}
+		// There's nothing we can do about errors from close(2), and the
+		// only likely error to be seen is EBADF which indicates the fd was
+		// already closed (in which case, we got what we wanted).
+		_ = unix.Close(fd)
+	})
+}
+
+// NewSockPair returns a new SOCK_STREAM unix socket pair.
+func NewSockPair(name string) (parent, child *os.File, err error) {
+	fds, err := unix.Socketpair(unix.AF_LOCAL, unix.SOCK_STREAM|unix.SOCK_CLOEXEC, 0)
+	if err != nil {
+		return nil, nil, err
+	}
+	return os.NewFile(uintptr(fds[1]), name+"-p"), os.NewFile(uintptr(fds[0]), name+"-c"), nil
+}
+
+// WithProcfdFile is a very minimal wrapper around [ProcThreadSelfFd]. The
+// caller is responsible for making sure that the provided file handle is
+// actually safe to operate on.
+//
+// NOTE: THIS FUNCTION IS INTERNAL TO RUNC, DO NOT USE IT.
+//
+// TODO: Migrate the mount logic towards a more move_mount(2)-friendly design
+// where this is kind of /proc/self/... tomfoolery is only done in a fallback
+// path for old kernels.
+func WithProcfdFile(file *os.File, fn func(procfd string) error) error {
+	fdpath, closer := ProcThreadSelfFd(file.Fd())
+	defer closer()
+
+	return fn(fdpath)
+}
+
+type ProcThreadSelfCloser func()
+
+var (
+	haveProcThreadSelf     bool
+	haveProcThreadSelfOnce sync.Once
+)
+
+// ProcThreadSelf returns a string that is equivalent to
+// /proc/thread-self/<subpath>, with a graceful fallback on older kernels where
+// /proc/thread-self doesn't exist. This method DOES NOT use SecureJoin,
+// meaning that the passed string needs to be trusted. The caller _must_ call
+// the returned procThreadSelfCloser function (which is runtime.UnlockOSThread)
+// *only once* after it has finished using the returned path string.
+func ProcThreadSelf(subpath string) (string, ProcThreadSelfCloser) {
+	haveProcThreadSelfOnce.Do(func() {
+		if _, err := os.Stat("/proc/thread-self/"); err == nil {
+			haveProcThreadSelf = true
+		} else {
+			logrus.Debugf("cannot stat /proc/thread-self (%v), falling back to /proc/self/task/<tid>", err)
+		}
+	})
+
+	// We need to lock our thread until the caller is done with the path string
+	// because any non-atomic operation on the path (such as opening a file,
+	// then reading it) could be interrupted by the Go runtime where the
+	// underlying thread is swapped out and the original thread is killed,
+	// resulting in pull-your-hair-out-hard-to-debug issues in the caller. In
+	// addition, the pre-3.17 fallback makes everything non-atomic because the
+	// same thing could happen between unix.Gettid() and the path operations.
+	//
+	// In theory, we don't need to lock in the atomic user case when using
+	// /proc/thread-self/, but it's better to be safe than sorry (and there are
+	// only one or two truly atomic users of /proc/thread-self/).
+	runtime.LockOSThread()
+
+	threadSelf := "/proc/thread-self/"
+	if !haveProcThreadSelf {
+		// Pre-3.17 kernels did not have /proc/thread-self, so do it manually.
+		threadSelf = "/proc/self/task/" + strconv.Itoa(unix.Gettid()) + "/"
+		if _, err := os.Stat(threadSelf); err != nil {
+			// Unfortunately, this code is called from rootfs_linux.go where we
+			// are running inside the pid namespace of the container but /proc
+			// is the host's procfs. Unfortunately there is no real way to get
+			// the correct tid to use here (the kernel age means we cannot do
+			// things like set up a private fsopen("proc") -- even scanning
+			// NSpid in all of the tasks in /proc/self/task/*/status requires
+			// Linux 4.1).
+			//
+			// So, we just have to assume that /proc/self is acceptable in this
+			// one specific case.
+			if os.Getpid() == 1 {
+				logrus.Debugf("/proc/thread-self (tid=%d) cannot be emulated inside the initial container setup -- using /proc/self instead: %v", unix.Gettid(), err)
+			} else {
+				// This should never happen, but the fallback should work in most cases...
+				logrus.Warnf("/proc/thread-self could not be emulated for pid=%d (tid=%d) -- using more buggy /proc/self fallback instead: %v", os.Getpid(), unix.Gettid(), err)
+			}
+			threadSelf = "/proc/self/"
+		}
+	}
+	return threadSelf + subpath, runtime.UnlockOSThread
+}
+
+// ProcThreadSelfFd is small wrapper around ProcThreadSelf to make it easier to
+// create a /proc/thread-self handle for given file descriptor.
+//
+// It is basically equivalent to ProcThreadSelf(fmt.Sprintf("fd/%d", fd)), but
+// without using fmt.Sprintf to avoid unneeded overhead.
+func ProcThreadSelfFd(fd uintptr) (string, ProcThreadSelfCloser) {
+	return ProcThreadSelf("fd/" + strconv.FormatUint(uint64(fd), 10))
+}
+
+// Openat is a Go-friendly openat(2) wrapper.
+func Openat(dir *os.File, path string, flags int, mode uint32) (*os.File, error) {
+	dirFd := unix.AT_FDCWD
+	if dir != nil {
+		dirFd = int(dir.Fd())
+	}
+	flags |= unix.O_CLOEXEC
+
+	fd, err := linux.Openat(dirFd, path, flags, mode)
+	if err != nil {
+		return nil, err
+	}
+	return os.NewFile(uintptr(fd), dir.Name()+"/"+path), nil
+}
