@@ -18,13 +18,13 @@ if ($LASTEXITCODE -ge 8) {
 
 . C:\var\vcap\packages\golang-*-windows\bosh\compile.ps1
 
-Push-Location code.cloudfoundry.org
-go.exe build -buildvcs=false -tags windows -o "${BOSH_INSTALL_TARGET}\gdn.exe" "code.cloudfoundry.org/guardian/cmd/gdn"
+Push-Location code.cloudfoundry.org\guardian
+go.exe build -buildvcs=false -tags windows -o "${BOSH_INSTALL_TARGET}\gdn.exe" ".\cmd\gdn"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: code.cloudfoundry.org/guardian/cmd/gdn"
 }
 
-go.exe build -buildvcs=false -tags windows -o "${BOSH_INSTALL_TARGET}\winit.exe" "code.cloudfoundry.org/guardian/cmd/winit"
+go.exe build -buildvcs=false -tags windows -o "${BOSH_INSTALL_TARGET}\winit.exe" ".\cmd\winit"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Error compiling: code.cloudfoundry.org/guardian/cmd/winit"
 }

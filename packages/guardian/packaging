@@ -10,19 +10,19 @@ source /var/vcap/packages/golang-*-linux/bosh/compile.env
 mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
-pushd src/code.cloudfoundry.org
-  go install -tags daemon code.cloudfoundry.org/guardian/cmd/gdn
-  go install code.cloudfoundry.org/guardian/cmd/dadoo
-  go install code.cloudfoundry.org/guardian/cmd/socket2me
-  go install code.cloudfoundry.org/guardian/cmd/execas
+pushd src/code.cloudfoundry.org/guardian
+  go install -tags daemon ./cmd/gdn
+  go install ./cmd/dadoo
+  go install ./cmd/socket2me
+  go install ./cmd/execas
 popd
 
-pushd src/code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/rundmc/nstar
+pushd src/code.cloudfoundry.org/guardian/rundmc/nstar
   make
   mv nstar "${BOSH_INSTALL_TARGET}/bin/nstar"
 popd
 
-pushd src/code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/cmd/init
+pushd src/code.cloudfoundry.org/guardian/cmd/init
   gcc -static -o init init.c ignore_sigchild.c
   mv init "${BOSH_INSTALL_TARGET}/bin/init"
 popd

@@ -1,3 +1,0 @@
-[codespell]
-skip = ./vendor,./.git,./go.sum
-ignore-words-list = clos,mis
