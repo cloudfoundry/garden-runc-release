@@ -16,6 +16,10 @@ mkdir -p "${BOSH_INSTALL_TARGET}/bin"
 export GOBIN="${BOSH_INSTALL_TARGET}/bin"
 
 pushd src/guardian/vendor/github.com/opencontainers/runc
+  # runc >=1.5 enables the libpathrs cgo binding (cyphar.com/go-pathrs) by
+  # default, which needs the native libpathrs C library we don't package.
+  # Opt out so runc uses its pure-Go pathrs-lite fallback for this static build.
+  export RUNC_BUILDTAGS="-libpathrs"
   make static
   cp runc "${GOBIN}/runc"
 popd
