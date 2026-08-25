@@ -2,8 +2,8 @@
 package diskfakes
 
 import (
-	"sync"
 	"code.cloudfoundry.org/thresholder/disk"
+	"sync"
 )
 
 type FakeFS struct {

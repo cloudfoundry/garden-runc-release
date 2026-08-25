@@ -1,9 +1,9 @@
 package disk_test
 
 import (
-	"errors"
 	"code.cloudfoundry.org/thresholder/disk"
 	"code.cloudfoundry.org/thresholder/disk/diskfakes"
+	"errors"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

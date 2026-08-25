@@ -1,11 +1,11 @@
 package disk_test
 
 import (
+	"code.cloudfoundry.org/thresholder/disk"
 	"fmt"
 	"os/exec"
 	"regexp"
 	"strconv"
-	"code.cloudfoundry.org/thresholder/disk"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

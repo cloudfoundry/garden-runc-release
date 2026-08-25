@@ -1,9 +1,9 @@
 package main
 
 import (
+	"code.cloudfoundry.org/greenskeeper"
 	"flag"
 	"fmt"
-	"code.cloudfoundry.org/greenskeeper"
 	"os"
 	"os/user"
 	"strconv"

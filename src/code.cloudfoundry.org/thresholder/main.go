@@ -1,11 +1,11 @@
 package main
 
 import (
+	"code.cloudfoundry.org/thresholder/calculator"
+	"code.cloudfoundry.org/thresholder/disk"
 	"fmt"
 	"os"
 	"strconv"
-	"code.cloudfoundry.org/thresholder/calculator"
-	"code.cloudfoundry.org/thresholder/disk"
 
 	"code.cloudfoundry.org/guardian/grootfs/commands/config"
 	yaml "gopkg.in/yaml.v2"
