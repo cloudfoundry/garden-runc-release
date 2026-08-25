@@ -12,7 +12,7 @@ filesystem_create_loop_devices 256
 if ! grep securityfs /proc/self/mounts > /dev/null 2>&1 ; then
     mount -t securityfs securityfs /sys/kernel/security
 fi
-apparmor_parser -r ../../jobs/garden/templates/config/garden-default
+apparmor_parser -r ../../../jobs/garden/templates/config/garden-default
 
 garden_rootfs_ext="${GARDEN_TEST_ROOTFS##*.}"
 if [[ $garden_rootfs_ext != "tar" ]]; then
