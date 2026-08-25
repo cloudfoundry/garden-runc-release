@@ -35,7 +35,7 @@ type data struct {
 }
 
 var _ = SynchronizedBeforeSuite(func() []byte {
-	binary, err := gexec.Build("thresholder", "-mod=vendor")
+	binary, err := gexec.Build("code.cloudfoundry.org/thresholder", "-mod=vendor")
 	Expect(err).ToNot(HaveOccurred())
 
 	createAndMountFilesystem(fsFile, fsSize, fsMountPoint)

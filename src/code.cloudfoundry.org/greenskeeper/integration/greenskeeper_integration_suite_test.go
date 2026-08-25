@@ -29,7 +29,7 @@ var _ = SynchronizedBeforeSuite(func() {
 	ensureVcapUserAndGroup(vcapID)
 }, func() {
 	var err error
-	gkBin, err = gexec.Build("greenskeeper/cmd/greenskeeper", "-mod=vendor")
+	gkBin, err = gexec.Build("code.cloudfoundry.org/greenskeeper/cmd/greenskeeper", "-mod=vendor")
 	Expect(err).ToNot(HaveOccurred())
 })
 
