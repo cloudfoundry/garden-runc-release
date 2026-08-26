@@ -7,12 +7,10 @@ dependencies:
   - pkg-config
 
 files:
-  - code.cloudfoundry.org/go.mod
-  - code.cloudfoundry.org/go.sum
-  - code.cloudfoundry.org/vendor/modules.txt
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/runc/VERSION
   - code.cloudfoundry.org/guardian/go.mod # gosub
   - code.cloudfoundry.org/guardian/go.sum # gosub
+  - code.cloudfoundry.org/guardian/vendor/modules.txt
   - code.cloudfoundry.org/guardian/vendor/github.com/aperturerobotics/protobuf-go-lite/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/aperturerobotics/protobuf-go-lite/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/*.go # gosub

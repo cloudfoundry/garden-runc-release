@@ -7,6 +7,7 @@ dependencies:
 files:
   - code.cloudfoundry.org/guardian/go.mod # gosub
   - code.cloudfoundry.org/guardian/go.sum # gosub
+  - code.cloudfoundry.org/guardian/vendor/modules.txt
   - code.cloudfoundry.org/guardian/idmapper/*.go # gosub
   - code.cloudfoundry.org/guardian/idmapper/cmd/*.go # gosub
   - code.cloudfoundry.org/guardian/idmapper/cmd/maximus/*.go # gosub

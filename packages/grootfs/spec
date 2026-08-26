@@ -7,6 +7,7 @@ dependencies:
 files:
   - code.cloudfoundry.org/guardian/go.mod # gosub
   - code.cloudfoundry.org/guardian/go.sum # gosub
+  - code.cloudfoundry.org/guardian/vendor/modules.txt
   - code.cloudfoundry.org/guardian/vendor/code.cloudfoundry.org/commandrunner/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/code.cloudfoundry.org/commandrunner/linux_command_runner/*.go # gosub
   - code.cloudfoundry.org/guardian/grootfs/*.go # gosub
