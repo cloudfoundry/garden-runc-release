@@ -5,9 +5,9 @@ dependencies:
   - golang-1.26-linux
 
 files:
+  - code.cloudfoundry.org/guardian/vendor/modules.txt
   - code.cloudfoundry.org/guardian/go.mod # gosub
   - code.cloudfoundry.org/guardian/go.sum # gosub
-  - code.cloudfoundry.org/guardian/vendor/modules.txt
   - code.cloudfoundry.org/guardian/rundmc/nstar/*.c # gosub
   - code.cloudfoundry.org/guardian/rundmc/nstar/*.h # gosub
   - code.cloudfoundry.org/guardian/rundmc/nstar/Makefile # gosub
