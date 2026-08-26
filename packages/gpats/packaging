@@ -13,7 +13,7 @@ pushd "${BOSH_INSTALL_TARGET}"
       ginkgo build -r .
       for file in $(find . -name "*.test"); do
         dest=$(basename $file)
-        mv $file ../../bin/$dest
+        mv $file "${BOSH_INSTALL_TARGET}/bin/$dest"
       done
   popd
 popd
