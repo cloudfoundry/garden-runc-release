@@ -279,10 +279,10 @@ var _ = Describe("Partially shared containers (peas)", func() {
 			limits = garden.Limits{
 				Bandwidth: garden.BandwidthLimits{RateInBytesPerSecond: mb, BurstRateInBytesPerSecond: mb},
 				//lint:ignore SA1019 LimitInShares used intentionally in pea limits test
-				CPU: garden.CPULimits{LimitInShares: 1024},
-				Disk:      garden.DiskLimits{ByteHard: gb},
-				Memory:    garden.MemoryLimits{LimitInBytes: 64 * mb},
-				Pid:       garden.PidLimits{Max: 50},
+				CPU:    garden.CPULimits{LimitInShares: 1024},
+				Disk:   garden.DiskLimits{ByteHard: gb},
+				Memory: garden.MemoryLimits{LimitInBytes: 64 * mb},
+				Pid:    garden.PidLimits{Max: 50},
 			}
 		})
 
