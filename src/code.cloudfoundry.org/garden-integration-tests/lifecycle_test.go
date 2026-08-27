@@ -67,6 +67,7 @@ var _ = Describe("Lifecycle", func() {
 				if cgroups.IsCgroup2UnifiedMode() {
 					Skip("for cgroups-v1 only")
 				}
+				//lint:ignore SA1019 LimitInShares used intentionally for cgroups-v1 test
 				limits.CPU = garden.CPULimits{LimitInShares: 50}
 			})
 			It("it applies limits if set in the container spec", func() {
@@ -80,11 +81,13 @@ var _ = Describe("Lifecycle", func() {
 				if !cgroups.IsCgroup2UnifiedMode() {
 					Skip("for cgroups-v2 only")
 				}
+				//lint:ignore SA1019 LimitInShares: 0 is explicit zero for clarity in cgroups-v2 test
 				limits.CPU = garden.CPULimits{Weight: 1028, LimitInShares: 0}
 			})
 			It("it applies limits if set in the container spec", func() {
 				cpuLimit, err := container.CurrentCPULimits()
 				Expect(err).ToNot(HaveOccurred())
+				//lint:ignore SA1019 asserting against LimitInShares returned by CurrentCPULimits in cgroups-v2
 				value := garden.CPULimits{LimitInShares: cgroups.ConvertCPUSharesToCgroupV2Value(limits.CPU.Weight)}
 				Expect(cpuLimit).To(Equal(value))
 			})

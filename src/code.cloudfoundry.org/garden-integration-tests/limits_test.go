@@ -22,6 +22,7 @@ var _ = Describe("Limits", func() {
 			if cgroups.IsCgroup2UnifiedMode() {
 				Skip("running this for cgroups-v1 only")
 			}
+			//lint:ignore SA1019 LimitInShares used intentionally for cgroups-v1 test
 			limits.CPU = garden.CPULimits{
 				LimitInShares: 100,
 			}
