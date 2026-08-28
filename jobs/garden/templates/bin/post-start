@@ -14,6 +14,13 @@ log() {
 start="$( date +%s )"
 timeout=120
 
+# In Resolute netcat has an AppArmor profile that requires the garden
+# directory to be executable even when post-start runs netcat as root.
+# consider changing greenskeeper to create this with these permissions,
+# or just use curl instead of netcat.
+chmod 755 /var/vcap/data/garden/
+
+
 log "Pinging garden server..."
 i=1
 

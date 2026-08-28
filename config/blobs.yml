@@ -8,7 +8,7 @@ automake/automake-1.18.1.tar.gz:
   sha: sha256:63e585246d0fc8772dffdee0724f2f988146d1a3f1c756a3dc5cfbefa3c01915
 busybox/busybox-1.37.0.tar.gz:
   size: 2206826
-  object_id: 91104c31-e456-4018-69dc-47a5c233071c
+  object_id: df2b0515-4413-448b-5fc5-f054f8e3f71b
   sha: sha256:c5cf4f08e731defaee66d187ad3907cb5f4ce53c37a6aca954ac67eb6f1966e2
 containerd/containerd-2.2.3-linux-amd64.tar.gz:
   size: 35352990
@@ -18,6 +18,10 @@ gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
   sha: sha256:588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2
+inih/inih-r62.tar.gz:
+  size: 22145
+  object_id: 9f77aba0-48e7-4fac-50cb-497f5fc46d99
+  sha: sha256:9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151
 iptables/iptables-1.8.13.tar.xz:
   size: 652632
   object_id: 63c93d14-1cfb-4be4-4010-43b76ae29bca
@@ -34,10 +38,10 @@ libseccomp/libseccomp-2.6.1.tar.gz:
   size: 656231
   object_id: 2d443e45-e4f3-4d77-7180-2c48a03e0ef6
   sha: sha256:501f66c667225d53791b97e1d7cf85ab764c297d04881f60f38f451c4b0ee1be
-libtool/libtool-2.5.4-10.tar.gz:
-  size: 2026959
-  object_id: 954fec78-3c41-4963-5b6e-6f2195562295
-  sha: sha256:5f70e00ab9b1c47fb0108385f4704bd0cf5caaba681b23498aace9d8052f849f
+libtool/libtool-2.6.2-1.tar.gz:
+  size: 2113935
+  object_id: 63c0d105-0c74-4195-7fb0-e9938c8c8c9b
+  sha: sha256:aa91ec6e9e32b0186477c306daa7a15f5e51a28867f0601f56fc0f3f240e1df1
 lzo/lzo-2.09.tar.gz:
   size: 594855
   object_id: 39bb6d9a-e168-4137-7751-c8262b743f1d
@@ -46,10 +50,10 @@ musl/musl-1.2.6.tar.gz:
   size: 1082499
   object_id: 7b183f40-b4a1-4d13-5e48-6e08667fd0af
   sha: sha256:d585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a
-pkg-config/pkg-config-0.29.2.tar.gz:
-  size: 2016830
-  object_id: 047ac8ff-aae8-4df3-6746-3f05cfdbfc3b
-  sha: sha256:6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591
+pkgconf/pkgconf-2.5.1.tar.gz:
+  size: 133113
+  object_id: 240deee3-2183-4d8f-40a4-a4b1000fee01
+  sha: sha256:79721badcad1987dead9c3609eb4877ab9b58821c06bdacb824f2c8897c11f2a
 tar/tar-1.35.tar.xz:
   size: 2317208
   object_id: 0091a979-2720-4f67-75e6-f617f395a6ec
@@ -58,14 +62,18 @@ tini/tini-0.19.0.tar.gz:
   size: 32369
   object_id: e542dbad-4e45-40fc-43fd-49f7561ab600
   sha: sha256:0fd35a7030052acd9f58948d1d900fe1e432ee37103c5561554408bdac6bbf0d
+userspace-rcu/userspace-rcu-0.15.6.tar.bz2:
+  size: 686061
+  object_id: f36c531a-df83-48d8-46ac-ac0ac0c2198b
+  sha: sha256:850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
 util-linux/util-linux-2.39.4.tar.gz:
   size: 18915279
   object_id: 1bae6ff3-67e5-4d5e-7ecb-63706ebda274
   sha: sha256:b1ce77f20e080449d44b40b2f9570cc230584b7ae6439277473679888ac2bfe6
-xfs-progs/xfsprogs-4.20.0.tar.gz:
-  size: 1750213
-  object_id: 46a0233d-1423-46d8-49ad-b5d0f07a39aa
-  sha: 46c23a0e222a3374d9c739b8c44be879712e6e75
+xfs-progs/xfsprogs-6.19.0.tar.gz:
+  size: 2303230
+  object_id: e38473d7-1b02-4dc7-6513-fc94df29d353
+  sha: sha256:6e650b15a38e912f038542c1edab229cad67d2abb19cbfe0052e7c506f18bccc
 zlib/zlib-1.3.2.tar.gz:
   size: 1502830
   object_id: 92e75d86-fee1-457c-6879-16cef37605c5
