@@ -276,13 +276,13 @@ var _ = Describe("Partially shared containers (peas)", func() {
 			if runtime.GOOS == "windows" {
 				Skip("pending for windows")
 			}
-			//lint:ignore SA1019 LimitInShares used intentionally in pea limits test
 			limits = garden.Limits{
 				Bandwidth: garden.BandwidthLimits{RateInBytesPerSecond: mb, BurstRateInBytesPerSecond: mb},
-				CPU:       garden.CPULimits{LimitInShares: 1024},
-				Disk:      garden.DiskLimits{ByteHard: gb},
-				Memory:    garden.MemoryLimits{LimitInBytes: 64 * mb},
-				Pid:       garden.PidLimits{Max: 50},
+				//lint:ignore SA1019 LimitInShares used intentionally in pea limits test
+				CPU:    garden.CPULimits{LimitInShares: 1024},
+				Disk:   garden.DiskLimits{ByteHard: gb},
+				Memory: garden.MemoryLimits{LimitInBytes: 64 * mb},
+				Pid:    garden.PidLimits{Max: 50},
 			}
 		})
 
