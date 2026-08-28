@@ -7,6 +7,8 @@ package typesinternal
 import (
 	"fmt"
 	"go/types"
+
+	"golang.org/x/tools/go/types/typeutil"
 )
 
 // ForEachElement calls f for type T and each type reachable from its
@@ -14,24 +16,25 @@ import (
 // type constructors; in addition, for each named type N, the type *N
 // is added to the result as it may have additional methods.
 //
-// The access argument passed to f indicates whether the type is
-// inaccessible to reflection (for example, intermediate tuple types
-// or underlying types of named types).
+// The caller must provide an initially empty set used to de-duplicate
+// identical types, potentially across multiple calls to ForEachElement.
+// (Its final value holds all the elements seen, matching the arguments
+// passed to f.)
 //
-// The result of f indicates whether the caller has seen this type
-// already, so we can prune the traversal.
-//
-// methodSetOf abstracts (*typeutil.MethodSetCache).MethodSet,
-// avoiding an import cycle.
-func ForEachElement(methodSetOf func(types.Type) *types.MethodSet, T types.Type, f func(T types.Type, access bool) bool) {
-	var visit func(T types.Type, access bool)
-	visit = func(T types.Type, access bool) {
-		if f(T, access) {
-			return // duplicate; prune descent
+// TODO(adonovan): share/harmonize with go/callgraph/rta.
+func ForEachElement(rtypes *typeutil.Map, msets *typeutil.MethodSetCache, T types.Type, f func(types.Type)) {
+	var visit func(T types.Type, skip bool)
+	visit = func(T types.Type, skip bool) {
+		if !skip {
+			if seen, _ := rtypes.Set(T, true).(bool); seen {
+				return // de-dup
+			}
+
+			f(T) // notify caller of new element type
 		}
 
 		// Recursion over signatures of each method.
-		tmset := methodSetOf(T)
+		tmset := msets.MethodSet(T)
 		for method := range tmset.Methods() {
 			sig := method.Type().(*types.Signature)
 			if sig.TypeParams() != nil {
@@ -62,13 +65,13 @@ func ForEachElement(methodSetOf func(types.Type) *types.MethodSet, T types.Type,
 			//
 			// TODO(adonovan): document whether or not it is
 			// safe to skip non-exported methods (as RTA does).
-			visit(sig.Params(), false)  // the Tuple is inaccessible
-			visit(sig.Results(), false) // the Tuple is inaccessible
+			visit(sig.Params(), true)  // skip the Tuple
+			visit(sig.Results(), true) // skip the Tuple
 		}
 
 		switch T := T.(type) {
 		case *types.Alias:
-			visit(types.Unalias(T), access) // emulates the pre-Alias behavior
+			visit(types.Unalias(T), skip) // emulates the pre-Alias behavior
 
 		case *types.Basic:
 			// nop
@@ -77,49 +80,49 @@ func ForEachElement(methodSetOf func(types.Type) *types.MethodSet, T types.Type,
 			// nop---handled by recursion over method set.
 
 		case *types.Pointer:
-			visit(T.Elem(), true)
+			visit(T.Elem(), false)
 
 		case *types.Slice:
-			visit(T.Elem(), true)
+			visit(T.Elem(), false)
 
 		case *types.Chan:
-			visit(T.Elem(), true)
+			visit(T.Elem(), false)
 
 		case *types.Map:
-			visit(T.Key(), true)
-			visit(T.Elem(), true)
+			visit(T.Key(), false)
+			visit(T.Elem(), false)
 
 		case *types.Signature:
 			if T.Recv() != nil {
 				panic(fmt.Sprintf("Signature %s has Recv %s", T, T.Recv()))
 			}
-			visit(T.Params(), false)  // the Tuple is inaccessible
-			visit(T.Results(), false) // the Tuple is inaccessible
+			visit(T.Params(), true)  // skip the Tuple
+			visit(T.Results(), true) // skip the Tuple
 
 		case *types.Named:
 			// A pointer-to-named type can be derived from a named
 			// type via reflection.  It may have methods too.
-			visit(types.NewPointer(T), true)
+			visit(types.NewPointer(T), false)
 
 			// Consider 'type T struct{S}' where S has methods.
 			// Reflection provides no way to get from T to struct{S},
 			// only to S, so the method set of struct{S} is unwanted,
-			// so mark it inaccessible during recursion.
-			visit(T.Underlying(), false) // skip the unnamed type
+			// so set 'skip' flag during recursion.
+			visit(T.Underlying(), true) // skip the unnamed type
 
 		case *types.Array:
-			visit(T.Elem(), true)
+			visit(T.Elem(), false)
 
 		case *types.Struct:
 			for i, n := 0, T.NumFields(); i < n; i++ {
 				// TODO(adonovan): document whether or not
 				// it is safe to skip non-exported fields.
-				visit(T.Field(i).Type(), true)
+				visit(T.Field(i).Type(), false)
 			}
 
 		case *types.Tuple:
 			for i, n := 0, T.Len(); i < n; i++ {
-				visit(T.At(i).Type(), true)
+				visit(T.At(i).Type(), false)
 			}
 
 		case *types.TypeParam, *types.Union:
@@ -130,5 +133,5 @@ func ForEachElement(methodSetOf func(types.Type) *types.MethodSet, T types.Type,
 			panic(fmt.Sprintf("ForEachElement called on unexpected type %T", T))
 		}
 	}
-	visit(T, true)
+	visit(T, false)
 }
