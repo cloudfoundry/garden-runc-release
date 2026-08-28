@@ -111,6 +111,7 @@ files:
   - code.cloudfoundry.org/vendor/golang.org/x/tools/go/gcexportdata/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/go/packages/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/go/types/objectpath/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/tools/go/types/typeutil/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/aliases/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/event/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/event/core/*.go # gosub
@@ -118,9 +119,9 @@ files:
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/event/label/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/gcimporter/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/gocommand/*.go # gosub
-  - x/tools/internal/moremaps/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/packagesinternal/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/pkgbits/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/stdlib/*.go # gosub
+  - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/typeparams/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/typesinternal/*.go # gosub
   - code.cloudfoundry.org/vendor/golang.org/x/tools/internal/versions/*.go # gosub
