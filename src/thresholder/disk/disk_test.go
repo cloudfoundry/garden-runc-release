@@ -48,3 +48,33 @@ var _ = Describe("Meter", func() {
 		})
 	})
 })
+
+var _ = Describe("Meter - GetTotalCapacity", func() {
+	var (
+		fs    *diskfakes.FakeFS
+		meter disk.Meter
+	)
+
+	BeforeEach(func() {
+		fs = new(diskfakes.FakeFS)
+		fs.StatReturns(disk.Stat{TotalBlocks: 10, BlockSize: 7}, nil)
+		meter = disk.NewMeterWithFS(fs)
+	})
+
+	It("returns TotalBlocks * BlockSize", func() {
+		cap, err := meter.GetTotalCapacity("/store/path")
+		Expect(err).NotTo(HaveOccurred())
+		Expect(cap).To(Equal(int64(70)))
+	})
+
+	When("statting fails", func() {
+		BeforeEach(func() {
+			fs.StatReturns(disk.Stat{}, errors.New("stat-error"))
+		})
+
+		It("returns the error", func() {
+			_, err := meter.GetTotalCapacity("/store/path")
+			Expect(err).To(MatchError("cannot stat /store/path: stat-error"))
+		})
+	})
+})
