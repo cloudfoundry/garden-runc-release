@@ -21,9 +21,8 @@ var (
 	MaximusBin          string
 	NamespaceWrapperBin string
 
-	RootID     = uint32(0)
-	overflowID = uint32(65534)
-	MaximusID  uint32
+	RootID    = uint32(0)
+	MaximusID uint32
 )
 
 func TestIntegration(t *testing.T) {
