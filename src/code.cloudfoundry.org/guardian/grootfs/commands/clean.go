@@ -1,3 +1,5 @@
+//go:build !windows
+
 package commands // import "code.cloudfoundry.org/guardian/grootfs/commands"
 
 import (
