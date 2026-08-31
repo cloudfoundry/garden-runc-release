@@ -1,5 +1,3 @@
-//go:build !windows
-
 //go:build linux && cgo
 // +build linux,cgo
 
