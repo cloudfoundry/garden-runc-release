@@ -1,3 +1,5 @@
+//go:build !windows
+
 package runner
 
 func (r Runner) Delete(id string) error {
