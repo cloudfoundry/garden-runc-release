@@ -1,3 +1,5 @@
+//go:build !windows
+
 package locksmith // import "code.cloudfoundry.org/guardian/grootfs/store/locksmith"
 
 import (

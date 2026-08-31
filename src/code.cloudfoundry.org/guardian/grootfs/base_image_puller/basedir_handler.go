@@ -1,3 +1,5 @@
+//go:build !windows
+
 package base_image_puller
 
 import (
