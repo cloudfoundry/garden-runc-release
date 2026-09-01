@@ -17,20 +17,12 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/internal/proto/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/rpc/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/btf/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/kallsyms/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/kconfig/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/sysenc/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/tracefs/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/link/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/console/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cpuguy83/go-md2man/v2/md2man/*.go # gosub
@@ -98,6 +90,8 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/selinux/pkg/pwalkdir/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/russross/blackfriday/v2/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/seccomp/libseccomp-golang/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/seccomp/libseccomp-golang/*.h # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/seccomp/libseccomp-golang/*.c # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/seccomp/libseccomp-golang/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/sirupsen/logrus/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/urfave/cli/*.go # gosub

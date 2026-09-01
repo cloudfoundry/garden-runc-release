@@ -107,7 +107,6 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/idtools/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/ioutils/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/lockfile/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/longpath/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/mount/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/reexec/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containers/storage/pkg/regexp/*.go # gosub
@@ -160,7 +159,6 @@ files:
   - code.cloudfoundry.org/guardian/vendor/golang.org/x/sys/unix/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/golang.org/x/sys/unix/*.s # gosub
   - code.cloudfoundry.org/guardian/vendor/golang.org/x/sys/unix/*.c # gosub
-  - code.cloudfoundry.org/guardian/vendor/golang.org/x/sys/windows/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/google.golang.org/protobuf/encoding/prototext/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/google.golang.org/protobuf/encoding/protowire/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/google.golang.org/protobuf/internal/descfmt/*.go # gosub

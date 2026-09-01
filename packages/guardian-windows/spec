@@ -99,7 +99,7 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/longpath/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/memory/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/mergemaps/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/oc/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/ot/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/protocol/guestrequest/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/queue/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/Microsoft/hcsshim/internal/safefile/*.go # gosub
@@ -260,7 +260,7 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/go-logr/logr/funcr/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/go-logr/stdr/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/godbus/dbus/v5/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/golang/groupcache/lru/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/google/uuid/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/hashicorp/errwrap/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/hashicorp/go-multierror/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
@@ -338,12 +338,6 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/vishvananda/netlink/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/vishvananda/netlink/nl/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/vishvananda/netns/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/Makefile # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/internal/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/trace/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/trace/internal/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opencensus.io/trace/tracestate/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/auto/sdk/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/auto/sdk/internal/telemetry/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/*.go # gosub
@@ -363,9 +357,19 @@ files:
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/metric/embedded/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/metric/noop/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/instrumentation/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/internal/attrnorm/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/internal/x/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/resource/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/trace/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/trace/internal/env/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/trace/internal/observ/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/internal/metricpool/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.37.0/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.41.0/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.41.0/httpconv/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.43.0/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.43.0/httpconv/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/semconv/v1.43.0/otelconv/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/trace/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/trace/embedded/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/trace/internal/telemetry/*.go # gosub
