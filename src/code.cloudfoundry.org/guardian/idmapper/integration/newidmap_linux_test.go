@@ -13,6 +13,8 @@ import (
 	"github.com/onsi/gomega/gexec"
 )
 
+var overflowID = uint32(65534)
+
 var _ = Describe("newgidmap", func() {
 	testIDMapperBins(func() string { return NewgidmapBin }, "%g")
 })
