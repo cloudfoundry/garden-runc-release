@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+# to run gats98 suite set
+# export WINDOWS_TEST_ROOTFS=docker://mcr.microsoft.com/windows/nanoserver:1809
+
+ARGS=$@
+
+(cd ../..; ./scripts/remote-fly ci/tasks/non-nested-gats.yml -- $ARGS)

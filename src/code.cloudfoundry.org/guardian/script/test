@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+ARGS=$@
+
+GRR_ROOT=$HOME/workspace/garden-runc-release
+
+DIRS=$(for d in $ARGS; do [ -d "$d" ] && echo "$d"; done)
+
+TASK="$GRR_ROOT"/ci/guardian/task.yml
+if [ "$GOOS" == "windows" ]; then
+  TASK="$GRR_ROOT"/ci/tasks/guardian-windows.yml
+fi
+
+if egrep -q gqt <(echo "$ARGS"); then
+  "$GRR_ROOT"/scripts/remote-fly $TASK -- $ARGS
+elif [ "$(find $DIRS -maxdepth 1 -name '*_linux_test.go')" != "" ]; then
+  "$GRR_ROOT"/scripts/remote-fly $TASK -- $ARGS
+else
+  ginkgo -race -nodes=8 -failOnPending -randomizeAllSpecs -randomizeSuites $ARGS
+fi
+

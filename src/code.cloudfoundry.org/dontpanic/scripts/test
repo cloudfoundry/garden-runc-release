@@ -1,0 +1,94 @@
+#!/bin/bash -e
+
+# Default fly target
+[ -z "$FLY_TARGET" ] && FLY_TARGET="garden-ci"
+[ -z "$FLY_ARGS" ] && FLY_ARGS="-p"
+
+GRR_ROOT=$HOME/workspace/garden-runc-release
+
+RED=1
+GREEN=2
+print_message() {
+  message=$1
+  colour=$2
+  printf "\r\033[00;3${colour}m[${message}]\033[0m\n"
+}
+
+usage() {
+  colour=$1
+  print_message "Usage:" $colour
+  print_message "test --- run all the tests" $colour
+  print_message "test -u --- run all unit tests" $colour
+  print_message "test -i --- run all integration tests" $colour
+}
+
+compile_fly_cmd() {
+  task_path=$1
+
+  cmd="fly -t $FLY_TARGET"
+  cmd=$cmd" e"
+  cmd=$cmd" --inputs-from main/garden"
+  cmd=$cmd" --image garden-ci-image"
+  cmd=$cmd" -c $task_path"
+  cmd=$cmd" -i gr-release-develop=${GRR_ROOT}"
+  cmd=$cmd" $FLY_ARGS"
+  cmd=$cmd" --"
+
+  echo $cmd
+}
+
+compile_ginkgo_args() {
+  test_path=${1:-""}
+
+  args=""
+  [ "$GINKGO_ARGS" != "" ] && args=$args" $GINKGO_ARGS"
+  [ "$test_path" != "" ] && args=$args" $test_path"
+
+  echo $args
+}
+
+run_unit_tests() {
+  echo "Running UNIT tests"
+
+  cmd=$(compile_fly_cmd $GRR_ROOT/ci/tasks/dontpanic-unit.yml)
+  cmd=$cmd" "$(compile_ginkgo_args)
+
+  eval $cmd
+}
+
+run_integration_tests() {
+  echo "Running INTEGRATION tests"
+
+  cmd=$(compile_fly_cmd $GRR_ROOT/ci/tasks/dontpanic-integration.yml)
+  cmd=$cmd" "$(compile_ginkgo_args integration)
+
+  eval $cmd
+}
+
+run_all_tests() {
+  echo "Running ALL tests"
+
+  run_unit_tests
+  run_integration_tests
+}
+
+while getopts "ui" OPTION
+do
+  case $OPTION in
+    u)
+      run_unit_tests
+      exit
+      ;;
+    i)
+      run_integration_tests
+      exit
+      ;;
+    *)
+      usage $RED
+      exit
+      ;;
+  esac
+done
+
+run_all_tests "$@"
+

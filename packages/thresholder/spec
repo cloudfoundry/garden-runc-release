@@ -5,4 +5,13 @@ dependencies:
   - golang-1.26-linux
 
 files:
-  - thresholder/**/*
+  - code.cloudfoundry.org/go.mod
+  - code.cloudfoundry.org/go.sum
+  - code.cloudfoundry.org/vendor/modules.txt
+  - code.cloudfoundry.org/vendor/code.cloudfoundry.org/guardian/grootfs/commands/config/*.go # gosub
+  - code.cloudfoundry.org/thresholder/*.go # gosub
+  - code.cloudfoundry.org/thresholder/calculator/*.go # gosub
+  - code.cloudfoundry.org/thresholder/disk/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/pkg/errors/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/pkg/errors/Makefile # gosub
+  - code.cloudfoundry.org/vendor/gopkg.in/yaml.v2/*.go # gosub
