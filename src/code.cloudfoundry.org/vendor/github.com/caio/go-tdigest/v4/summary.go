@@ -25,7 +25,7 @@ func (s *summary) Len() int {
 
 func (s *summary) Add(key float64, value uint64) error {
 	if math.IsNaN(key) {
-		return fmt.Errorf("Key must not be NaN")
+		return fmt.Errorf("key must not be NaN")
 	}
 	if value == 0 {
 		return fmt.Errorf("Count must be >0")
@@ -159,6 +159,11 @@ func (s *summary) Clone() *summary {
 		means:  append([]float64{}, s.means...),
 		counts: append([]uint64{}, s.counts...),
 	}
+}
+
+func (s *summary) Reset() {
+	s.means = s.means[:0]
+	s.counts = s.counts[:0]
 }
 
 // Randomly shuffles summary contents, so they can be added to another summary
