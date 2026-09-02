@@ -11,10 +11,10 @@ require (
 	code.cloudfoundry.org/archiver v0.86.0
 	code.cloudfoundry.org/clock v1.86.0
 	code.cloudfoundry.org/commandrunner v0.73.0
-	code.cloudfoundry.org/debugserver v0.112.0
+	code.cloudfoundry.org/debugserver v0.113.0
 	code.cloudfoundry.org/garden v0.0.0-20260826021137-674e52f7c65b
 	code.cloudfoundry.org/lager/v3 v3.85.0
-	code.cloudfoundry.org/localip v0.86.0
+	code.cloudfoundry.org/localip v0.87.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/dropsonde v1.1.0
 	github.com/cloudfoundry/gosigar v1.3.126
@@ -92,7 +92,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260830191439-4932ad3515ea // indirect
+	github.com/google/pprof v0.0.0-20260902005441-ca85771921e4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
