@@ -6,17 +6,17 @@ function generate_release_notes() {
   # ex. local_end_ref="v0.344.0"
   local_end_ref=$(get_end_ref_from_range "${version_range}")
 
-  BLOBS_LOCATION="config/blobs.yml";
+  BLOBS_LOCATION="config/blobs.yml"
 
   display_non_bot_commits "${local_start_ref}" "${local_end_ref}"
   display_blob_change_info "${local_start_ref}" "${local_end_ref}" "${BLOBS_LOCATION}"
 
-  for repo in guardian garden garden-integration-tests grootfs idmapper dontpanic garden-performance-acceptance-tests containerd; do
-    START_REF_REPO=$(git rev-parse "${local_start_ref}:src/${repo}")
-    END_REF_REPO=$(git rev-parse "${local_end_ref}:src/${repo}")
-    pushd src/${repo} > /dev/null
-      display_non_bot_commits "${START_REF_REPO}" "${END_REF_REPO}" "${repo}"
-      display_go_mod_diff "${START_REF_REPO}" "${END_REF_REPO}" "go.mod" "${repo}"
-    popd > /dev/null
-  done
+  # Post-PR#398: submodules removed; code lives in src/code.cloudfoundry.org/ as a
+  # monorepo with a single go.mod. Only diff go.mod when both refs have this layout;
+  # skip silently if start ref predates the restructure (no go.mod at that path yet).
+  local MONOREPO_GO_MOD="src/code.cloudfoundry.org/go.mod"
+  if git cat-file -e "${local_start_ref}:${MONOREPO_GO_MOD}" 2>/dev/null && \
+     git cat-file -e "${local_end_ref}:${MONOREPO_GO_MOD}" 2>/dev/null; then
+    display_go_mod_diff "${local_start_ref}" "${local_end_ref}" "${MONOREPO_GO_MOD}"
+  fi
 }
