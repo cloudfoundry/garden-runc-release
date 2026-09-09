@@ -297,6 +297,7 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/pkg/errors/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/pkg/errors/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/sirupsen/logrus/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/sirupsen/logrus/hooks/slog/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/tedsuo/ifrit/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/tedsuo/ifrit/http_server/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/tedsuo/ifrit/sigmon/*.go # gosub
