@@ -62,10 +62,10 @@ tini/tini-0.19.0.tar.gz:
   size: 32369
   object_id: e542dbad-4e45-40fc-43fd-49f7561ab600
   sha: sha256:0fd35a7030052acd9f58948d1d900fe1e432ee37103c5561554408bdac6bbf0d
-userspace-rcu/userspace-rcu-0.15.6.tar.bz2:
-  size: 686061
-  object_id: f36c531a-df83-48d8-46ac-ac0ac0c2198b
-  sha: sha256:850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
+userspace-rcu/userspace-rcu-0.15.7.tar.bz2:
+  size: 687049
+  object_id: 7a893baa-fa07-457e-4073-9a155a646eff
+  sha: sha256:2556b83adc0f9b3ac8024e613e17d014d04c4c49110604ce55fcb14eae32edd3
 util-linux/util-linux-2.39.4.tar.gz:
   size: 18915279
   object_id: 1bae6ff3-67e5-4d5e-7ecb-63706ebda274
