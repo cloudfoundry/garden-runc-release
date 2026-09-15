@@ -153,6 +153,11 @@ func (n *Nerd) tryToGetTask(log lager.Logger, container client.Container) (clien
 			if errdefs.IsNotFound(err) {
 				return nil, runcontainerd.TaskNotFoundError{Handle: container.ID()}
 			}
+			if errors.Is(err, context.DeadlineExceeded) {
+				log.Info("retrying-after-task-error", lager.Data{"retry-number": i + 1, "error": err.Error()})
+				time.Sleep(500 * time.Millisecond)
+				continue
+			}
 			return nil, err
 		}
 
