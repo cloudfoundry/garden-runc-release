@@ -1,21 +1,21 @@
-# code.cloudfoundry.org/archiver v0.87.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/archiver v0.88.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/archiver/extractor/test_helper
-# code.cloudfoundry.org/clock v1.87.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/clock v1.88.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/clock
 code.cloudfoundry.org/clock/fakeclock
-# code.cloudfoundry.org/commandrunner v0.77.0
+# code.cloudfoundry.org/commandrunner v0.78.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/commandrunner
 code.cloudfoundry.org/commandrunner/fake_command_runner
 code.cloudfoundry.org/commandrunner/fake_command_runner/matchers
 code.cloudfoundry.org/commandrunner/linux_command_runner
 code.cloudfoundry.org/commandrunner/windows_command_runner
-# code.cloudfoundry.org/debugserver v0.114.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/debugserver v0.115.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/debugserver
-# code.cloudfoundry.org/garden v0.3.0
+# code.cloudfoundry.org/garden v0.4.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -27,15 +27,15 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.86.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/lager/v3 v3.87.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/chug
 code.cloudfoundry.org/lager/v3/internal/truncate
 code.cloudfoundry.org/lager/v3/lagerctx
 code.cloudfoundry.org/lager/v3/lagertest
-# code.cloudfoundry.org/localip v0.88.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/localip v0.89.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/localip
 # cyphar.com/go-pathrs v0.2.6
 ## explicit; go 1.18
@@ -137,8 +137,8 @@ github.com/cloudfoundry/dropsonde/metric_sender/fake
 github.com/cloudfoundry/dropsonde/metricbatcher
 github.com/cloudfoundry/dropsonde/metrics
 github.com/cloudfoundry/dropsonde/runtime_stats
-# github.com/cloudfoundry/gosigar v1.3.126
-## explicit; go 1.25.0
+# github.com/cloudfoundry/gosigar v1.3.127
+## explicit; go 1.26.0
 github.com/cloudfoundry/gosigar
 github.com/cloudfoundry/gosigar/sys/windows
 # github.com/cloudfoundry/sonde-go v0.0.0-20260818080958-d46298cd8513
@@ -477,7 +477,7 @@ github.com/mrunalp/fileutils
 github.com/nu7hatch/gouuid
 # github.com/nxadm/tail v1.4.11
 ## explicit; go 1.13
-# github.com/onsi/ginkgo/v2 v2.32.1
+# github.com/onsi/ginkgo/v2 v2.32.2
 ## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
@@ -756,7 +756,7 @@ golang.org/x/tools/internal/stdlib
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
 golang.org/x/tools/internal/versions
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20260908043556-f8649ddbbfe6
+# google.golang.org/genproto/googleapis/rpc v0.0.0-20260911204522-f61a6ca850bd
 ## explicit; go 1.25.0
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.83.2
