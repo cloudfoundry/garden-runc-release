@@ -1,10 +1,10 @@
-# code.cloudfoundry.org/archiver v0.87.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/archiver v0.88.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/archiver/extractor/test_helper
-# code.cloudfoundry.org/commandrunner v0.77.0
+# code.cloudfoundry.org/commandrunner v0.78.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/commandrunner
-# code.cloudfoundry.org/garden v0.3.0
+# code.cloudfoundry.org/garden v0.4.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -22,8 +22,8 @@ code.cloudfoundry.org/guardian/rundmc/cgroups
 code.cloudfoundry.org/guardian/rundmc/cgroups/fs
 code.cloudfoundry.org/guardian/rundmc/event
 code.cloudfoundry.org/guardian/rundmc/goci
-# code.cloudfoundry.org/lager/v3 v3.86.0
-## explicit; go 1.25.0
+# code.cloudfoundry.org/lager/v3 v3.87.0
+## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
 # github.com/BurntSushi/toml v1.6.0
@@ -43,8 +43,8 @@ github.com/caio/go-tdigest/v4
 ## explicit; go 1.18
 github.com/cloudfoundry/dropsonde/metric_sender
 github.com/cloudfoundry/dropsonde/metrics
-# github.com/cloudfoundry/gosigar v1.3.126
-## explicit; go 1.25.0
+# github.com/cloudfoundry/gosigar v1.3.127
+## explicit; go 1.26.0
 github.com/cloudfoundry/gosigar
 github.com/cloudfoundry/gosigar/sys/windows
 # github.com/cloudfoundry/sonde-go v0.0.0-20260818080958-d46298cd8513
@@ -103,7 +103,7 @@ github.com/moby/sys/userns
 # github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 ## explicit
 github.com/nu7hatch/gouuid
-# github.com/onsi/ginkgo/v2 v2.32.1
+# github.com/onsi/ginkgo/v2 v2.32.2
 ## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
