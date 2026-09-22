@@ -90,6 +90,15 @@ func (c *Creator) Create(log lager.Logger, id string, bundle goci.Bndl, pio gard
 	}
 	cmd.Stdout = pio.Stdout
 	cmd.Stderr = pio.Stderr
+
+	log.Info("diagnostic-env-before-run", lager.Data{
+		"TMPDIR":     os.Getenv("TMPDIR"),
+		"TEMP":       os.Getenv("TEMP"),
+		"TMP":        os.Getenv("TMP"),
+		"cmd.Env":    cmd.Env,
+		"os.TempDir": os.TempDir(),
+	})
+
 	err = c.commandRunner.Run(cmd)
 
 	log.Info("completing")

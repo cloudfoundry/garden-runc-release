@@ -198,6 +198,14 @@ func (e *WindowsExecRunner) runProcess(
 		AdditionalInheritedHandles: []syscall.Handle{syscall.Handle(logWFd)},
 	}
 
+	log.Info("diagnostic-env-before-start", lager.Data{
+		"TMPDIR":     os.Getenv("TMPDIR"),
+		"TEMP":       os.Getenv("TEMP"),
+		"TMP":        os.Getenv("TMP"),
+		"cmd.Env":    cmd.Env,
+		"os.TempDir": os.TempDir(),
+	})
+
 	if err := e.commandRunner.Start(cmd); err != nil {
 		return nil, errors.Wrap(err, "execing runtime plugin")
 	}

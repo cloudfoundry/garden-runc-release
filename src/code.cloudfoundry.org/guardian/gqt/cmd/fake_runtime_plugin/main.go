@@ -54,6 +54,8 @@ func main() {
 }
 
 func writeArgs(action string) {
+	fmt.Fprintf(os.Stderr, "DIAGNOSTIC action=%s pid=%d TempDir=%q TMPDIR=%q TEMP=%q TMP=%q\n",
+		action, os.Getpid(), os.TempDir(), os.Getenv("TMPDIR"), os.Getenv("TEMP"), os.Getenv("TMP"))
 	err := os.WriteFile(filepath.Join(os.TempDir(), fmt.Sprintf("%s-args", action)), []byte(strings.Join(os.Args, " ")), 0777)
 	if err != nil {
 		panic(err)
@@ -206,6 +208,8 @@ var ExecCommand = cli.Command{
 	},
 
 	Action: func(ctx *cli.Context) error {
+		fmt.Fprintf(os.Stderr, "DIAGNOSTIC action=exec pid=%d TempDir=%q TMPDIR=%q TEMP=%q TMP=%q\n",
+			os.Getpid(), os.TempDir(), os.Getenv("TMPDIR"), os.Getenv("TEMP"), os.Getenv("TMP"))
 		procSpecFilePath := filepath.Join(os.TempDir(), "exec-process-spec")
 		copyFile(ctx.String("p"), procSpecFilePath)
 		writeArgs("exec")
