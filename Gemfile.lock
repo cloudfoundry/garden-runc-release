@@ -25,7 +25,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     iniparse (1.5.0)
-    io-console (0.9.3)
+    io-console (0.9.4)
     libnotify (0.9.4)
       ffi (>= 1.0.11)
     listen (3.10.0)
@@ -84,4 +84,4 @@ DEPENDENCIES
   terminal-notifier-guard
 
 BUNDLED WITH
-  4.0.20
+  4.0.21
