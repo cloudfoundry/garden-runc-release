@@ -53,17 +53,30 @@ func main() {
 	_ = fakeRuntimePlugin.Run(os.Args)
 }
 
+// tempDir resolves the effective temp directory the same way the gqt test
+// harness does. os.TempDir() cannot be relied on here: under some Windows
+// execution contexts (e.g. LocalSystem/service accounts) GetTempPath ignores
+// the process's TMP/TEMP/TMPDIR environment variables and always resolves to
+// the machine-wide system temp directory, which does not match the per-test
+// directory the harness expects evidence files to be written to.
+func tempDir() string {
+	for _, key := range []string{"TMPDIR", "TEMP", "TMP"} {
+		if v := os.Getenv(key); v != "" {
+			return v
+		}
+	}
+	return os.TempDir()
+}
+
 func writeArgs(action string) {
-	fmt.Fprintf(os.Stderr, "DIAGNOSTIC action=%s pid=%d TempDir=%q TMPDIR=%q TEMP=%q TMP=%q\n",
-		action, os.Getpid(), os.TempDir(), os.Getenv("TMPDIR"), os.Getenv("TEMP"), os.Getenv("TMP"))
-	err := os.WriteFile(filepath.Join(os.TempDir(), fmt.Sprintf("%s-args", action)), []byte(strings.Join(os.Args, " ")), 0777)
+	err := os.WriteFile(filepath.Join(tempDir(), fmt.Sprintf("%s-args", action)), []byte(strings.Join(os.Args, " ")), 0777)
 	if err != nil {
 		panic(err)
 	}
 }
 
 func readOutput(action string) (string, bool) {
-	content, err := os.ReadFile(filepath.Join(os.TempDir(), fmt.Sprintf("runtime-%s-output", action)))
+	content, err := os.ReadFile(filepath.Join(tempDir(), fmt.Sprintf("runtime-%s-output", action)))
 	if err != nil {
 		if os.IsNotExist(err) {
 			return "", false
@@ -208,9 +221,7 @@ var ExecCommand = cli.Command{
 	},
 
 	Action: func(ctx *cli.Context) error {
-		fmt.Fprintf(os.Stderr, "DIAGNOSTIC action=exec pid=%d TempDir=%q TMPDIR=%q TEMP=%q TMP=%q\n",
-			os.Getpid(), os.TempDir(), os.Getenv("TMPDIR"), os.Getenv("TEMP"), os.Getenv("TMP"))
-		procSpecFilePath := filepath.Join(os.TempDir(), "exec-process-spec")
+		procSpecFilePath := filepath.Join(tempDir(), "exec-process-spec")
 		copyFile(ctx.String("p"), procSpecFilePath)
 		writeArgs("exec")
 
