@@ -1,19 +1,19 @@
 module code.cloudfoundry.org
 
-go 1.26.3
+go 1.26.6
 
 require (
-	code.cloudfoundry.org/archiver v0.88.0
-	code.cloudfoundry.org/garden v0.4.0
+	code.cloudfoundry.org/archiver v0.89.0
+	code.cloudfoundry.org/garden v0.5.0
 	code.cloudfoundry.org/guardian v1.95.0
-	code.cloudfoundry.org/lager/v3 v3.87.0
+	code.cloudfoundry.org/lager/v3 v3.88.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.127
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/onsi/ginkgo/v2 v2.32.2
-	github.com/onsi/gomega v1.43.0
+	github.com/onsi/ginkgo/v2 v2.33.0
+	github.com/onsi/gomega v1.43.1
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 	golang.org/x/sys v0.48.0
 	gopkg.in/yaml.v2 v2.4.0
