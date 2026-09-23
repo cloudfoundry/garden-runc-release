@@ -202,6 +202,7 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/fifo/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/go-runc/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/log/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/containerd/log/otel/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/platforms/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/plugin/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/ttrpc/*.go # gosub
@@ -234,12 +235,15 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/hashicorp/go-multierror/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/jessevdk/go-flags/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/flate/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/fse/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/gzip/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/huff0/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/huff0/*.s # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/internal/cpuinfo/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/internal/cpuinfo/*.s # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/internal/le/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/internal/regmask/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/internal/snapref/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/zstd/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/klauspost/compress/zstd/*.s # gosub

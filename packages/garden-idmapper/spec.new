@@ -1,0 +1,10 @@
+---
+name: garden-idmapper
+
+dependencies:
+  - golang-1.27-linux
+
+files:
+  - code.cloudfoundry.org/guardian/vendor/modules.txt
+  - code.cloudfoundry.org/guardian/go.mod # gosub
+  - code.cloudfoundry.org/guardian/go.sum # gosub
