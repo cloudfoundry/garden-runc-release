@@ -38,6 +38,9 @@ var _ = Describe("throttle tests", func() {
 				CPU: garden.CPULimits{
 					Weight: 1000,
 				},
+				Memory: garden.MemoryLimits{
+					LimitInBytes: 512 * 1024 * 1024,
+				},
 			},
 		})
 		Expect(err).NotTo(HaveOccurred())
@@ -97,6 +100,28 @@ var _ = Describe("throttle tests", func() {
 		goodShares := readCgroupFile(goodCgroupPath, cpuSharesFile)
 		badShares := readCgroupFile(badCgroupPath, cpuSharesFile)
 		Expect(goodShares).To(Equal(badShares))
+	})
+
+	It("preserves the container memory limit in the bad cgroup", func() {
+		if !gardencgroups.IsCgroup2UnifiedMode() {
+			// On cgroups v1 memory lives in a separate hierarchy that the
+			// CPU-throttling move never touches, so the limit is never lost.
+			Skip("memory limit is only dropped by the bad cgroup on cgroups v2")
+		}
+
+		goodCgroupPath := ensureInCgroup(gardencgroups.GoodCgroupName)
+		Expect(spin(container, containerPort)).To(Succeed())
+		badCgroupPath := ensureInCgroup(gardencgroups.BadCgroupName)
+
+		// runc sets memory.max on the container cgroup (good/<handle>); on
+		// cgroups v2 the running process reports the init sub-cgroup
+		// (good/<handle>/init), so strip it to reach the container cgroup.
+		goodContainerCgroupPath := strings.TrimSuffix(goodCgroupPath, "/"+gardencgroups.InitCgroupName)
+		goodMemoryMax := readCgroupFile(goodContainerCgroupPath, "memory.max")
+		badMemoryMax := readCgroupFile(badCgroupPath, "memory.max")
+
+		Expect(goodMemoryMax).To(BeNumerically(">", 0))
+		Expect(badMemoryMax).To(Equal(goodMemoryMax))
 	})
 
 	It("will delete the bad cgroup after the container gets destroyed", func() {

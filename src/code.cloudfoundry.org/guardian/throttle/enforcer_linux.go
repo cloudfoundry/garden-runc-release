@@ -13,6 +13,19 @@ import (
 	"github.com/opencontainers/runc/libcontainer/utils"
 )
 
+const (
+	memoryMaxFile     = "memory.max"
+	memorySwapMaxFile = "memory.swap.max"
+	// unlimitedMemory is the value cgroup v2 uses to represent "no limit" for
+	// memory.max / memory.swap.max.
+	unlimitedMemory = "max"
+)
+
+// memoryLimitFiles lists the cgroup v2 memory-limit files that must follow a
+// container as it is moved into the CPU-throttling "bad" cgroup, so that the
+// memory limit keeps being enforced while a container is throttled.
+var memoryLimitFiles = []string{memoryMaxFile, memorySwapMaxFile}
+
 type CPUCgroupEnforcer struct {
 	goodCgroupPath string
 	badCgroupPath  string
@@ -48,6 +61,15 @@ func (c CPUCgroupEnforcer) Punish(logger lager.Logger, handle string) error {
 	}
 
 	badContainerCgroupPath := filepath.Join(c.badCgroupPath, handle)
+
+	// On cgroup v2 the bad cgroup is a sibling of the good cgroup in the single
+	// unified hierarchy. runc sets memory.max on the container's (good) cgroup,
+	// so moving the PIDs into the bad cgroup would drop the memory limit unless
+	// we propagate it. The memory limit always lives on the container cgroup
+	// (good/<handle>), not on the init sub-cgroup, so copy it from there.
+	if err := c.copyMemoryLimits(logger, goodContainerCgroupPath, badContainerCgroupPath); err != nil {
+		return err
+	}
 
 	// in cgroups v2 containerd garden-init process is added to init cgroup
 	goodInitCgroupPath := filepath.Join(goodContainerCgroupPath, gardencgroups.InitCgroupName)
@@ -93,10 +115,16 @@ func (c CPUCgroupEnforcer) Release(logger lager.Logger, handle string) error {
 		if err := c.movePids(badContainerCgroupPath, goodInitCgroupPath); err != nil {
 			return err
 		}
+		if err := c.clearMemoryLimits(logger, badContainerCgroupPath); err != nil {
+			return err
+		}
 		return c.updateContainerStateCgroupPath(handle, goodInitCgroupPath)
 	}
 
 	if err := c.movePids(badContainerCgroupPath, goodContainerCgroupPath); err != nil {
+		return err
+	}
+	if err := c.clearMemoryLimits(logger, badContainerCgroupPath); err != nil {
 		return err
 	}
 	return c.updateContainerStateCgroupPath(handle, goodContainerCgroupPath)
@@ -128,6 +156,62 @@ func (c CPUCgroupEnforcer) copyShares(fromCgroup, toCgroup string) error {
 	}
 
 	return os.WriteFile(filepath.Join(toCgroup, c.cpuSharesFile), containerShares, 0644)
+}
+
+// copyMemoryLimits propagates the container's cgroup v2 memory limits from the
+// good cgroup to the bad cgroup so that a throttled container keeps being
+// OOM-killed when it exceeds its memory limit. It is a no-op on cgroup v1,
+// where memory lives in a separate hierarchy that the CPU-throttling move never
+// touches.
+func (c CPUCgroupEnforcer) copyMemoryLimits(logger lager.Logger, fromCgroup, toCgroup string) error {
+	if !cgroups.IsCgroup2UnifiedMode() {
+		return nil
+	}
+
+	for _, memoryFile := range memoryLimitFiles {
+		fromPath := filepath.Join(fromCgroup, memoryFile)
+		limit, err := os.ReadFile(fromPath)
+		if err != nil {
+			// memory.swap.max is absent when swap accounting is disabled; a
+			// missing source file just means there is no limit to propagate.
+			if os.IsNotExist(err) {
+				logger.Info("memory-limit-file-absent-skip", lager.Data{"file": fromPath})
+				continue
+			}
+			return err
+		}
+
+		if err := os.WriteFile(filepath.Join(toCgroup, memoryFile), limit, 0644); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// clearMemoryLimits resets the bad cgroup's memory limits back to "max" when a
+// container is released from throttling, so a reused bad cgroup does not carry
+// a stale limit into the next punish cycle.
+func (c CPUCgroupEnforcer) clearMemoryLimits(logger lager.Logger, cgroupPath string) error {
+	if !cgroups.IsCgroup2UnifiedMode() {
+		return nil
+	}
+
+	for _, memoryFile := range memoryLimitFiles {
+		targetPath := filepath.Join(cgroupPath, memoryFile)
+		if _, err := os.Stat(targetPath); err != nil {
+			if os.IsNotExist(err) {
+				continue
+			}
+			return err
+		}
+
+		if err := os.WriteFile(targetPath, []byte(unlimitedMemory), 0644); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Runc pulls container cgroup path from the container state file
