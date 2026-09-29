@@ -140,6 +140,26 @@ var _ = Describe("Enforcer", func() {
 						Expect(readMemoryLimit(badContainerCgroup)).To(Equal("16777216"))
 					})
 				})
+
+				Context("when the bad cgroup has no memory controller (cgroups v2)", func() {
+					BeforeEach(func() {
+						if !cgroups.IsCgroup2UnifiedMode() {
+							Skip("Skipping cgroups v2 memory tests when cgroups v1 is enabled")
+						}
+						enableMemoryController(cpuCgroupPath)
+						enableMemoryController(goodCgroup)
+						writeMemoryLimit(goodContainerCgroup, "16777216")
+						// deliberately leave the memory controller disabled on the
+						// bad cgroup, so bad/<handle>/memory.max does not exist
+					})
+
+					It("still moves the process to the bad cgroup without failing", func() {
+						Expect(punishErr).NotTo(HaveOccurred())
+						pids, err := cgroups.GetPids(badContainerCgroup)
+						Expect(err).NotTo(HaveOccurred())
+						Expect(pids).To(ContainElement(command.Process.Pid))
+					})
+				})
 			})
 
 			Context("when good cgroup has init child cgroup", func() {

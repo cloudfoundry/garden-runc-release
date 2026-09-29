@@ -175,13 +175,23 @@ func (c CPUCgroupEnforcer) copyMemoryLimits(logger lager.Logger, fromCgroup, toC
 			// memory.swap.max is absent when swap accounting is disabled; a
 			// missing source file just means there is no limit to propagate.
 			if os.IsNotExist(err) {
-				logger.Info("memory-limit-file-absent-skip", lager.Data{"file": fromPath})
+				logger.Info("memory-limit-source-absent-skip", lager.Data{"file": fromPath})
 				continue
 			}
 			return err
 		}
 
-		if err := os.WriteFile(filepath.Join(toCgroup, memoryFile), limit, 0644); err != nil {
+		// The bad cgroup's memory.max exists because enableSupportedControllers
+		// enables the memory controller on the good and bad cgroups at startup.
+		// Guard the write symmetrically with the read so that, if that setup
+		// ever changes, a missing target file degrades gracefully instead of
+		// failing Punish and disabling CPU throttling entirely.
+		toPath := filepath.Join(toCgroup, memoryFile)
+		if err := os.WriteFile(toPath, limit, 0644); err != nil {
+			if os.IsNotExist(err) {
+				logger.Info("memory-limit-target-absent-skip", lager.Data{"file": toPath})
+				continue
+			}
 			return err
 		}
 	}
@@ -189,9 +199,12 @@ func (c CPUCgroupEnforcer) copyMemoryLimits(logger lager.Logger, fromCgroup, toC
 	return nil
 }
 
-// clearMemoryLimits resets the bad cgroup's memory limits back to "max" when a
-// container is released from throttling, so a reused bad cgroup does not carry
-// a stale limit into the next punish cycle.
+// clearMemoryLimits resets the bad cgroup's own memory limits back to "max"
+// when a container is released from throttling. This is intentional cleanup of
+// the bad cgroup's stale value, not a restore of the container's limit: once
+// the PIDs move back to the good cgroup, enforcement lives there and the now
+// empty bad cgroup's value is irrelevant. Resetting stops a reused bad cgroup
+// from carrying a stale limit into the next punish cycle.
 func (c CPUCgroupEnforcer) clearMemoryLimits(logger lager.Logger, cgroupPath string) error {
 	if !cgroups.IsCgroup2UnifiedMode() {
 		return nil
