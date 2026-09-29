@@ -123,6 +123,43 @@ var _ = Describe("Enforcer", func() {
 					}
 					Expect(readCgroupPathInState(filepath.Join(runcRoot, "some-namespace", handle))).To(Equal(badContainerCgroup))
 				})
+
+				Context("when the container has a memory limit (cgroups v2)", func() {
+					BeforeEach(func() {
+						if !cgroups.IsCgroup2UnifiedMode() {
+							Skip("Skipping cgroups v2 memory tests when cgroups v1 is enabled")
+						}
+						enableMemoryController(cpuCgroupPath)
+						enableMemoryController(goodCgroup)
+						enableMemoryController(badCgroup)
+						writeMemoryLimit(goodContainerCgroup, "16777216")
+					})
+
+					It("copies the memory limit to the bad container cgroup", func() {
+						Expect(punishErr).NotTo(HaveOccurred())
+						Expect(readMemoryLimit(badContainerCgroup)).To(Equal("16777216"))
+					})
+				})
+
+				Context("when the bad cgroup has no memory controller (cgroups v2)", func() {
+					BeforeEach(func() {
+						if !cgroups.IsCgroup2UnifiedMode() {
+							Skip("Skipping cgroups v2 memory tests when cgroups v1 is enabled")
+						}
+						enableMemoryController(cpuCgroupPath)
+						enableMemoryController(goodCgroup)
+						writeMemoryLimit(goodContainerCgroup, "16777216")
+						// deliberately leave the memory controller disabled on the
+						// bad cgroup, so bad/<handle>/memory.max does not exist
+					})
+
+					It("still moves the process to the bad cgroup without failing", func() {
+						Expect(punishErr).NotTo(HaveOccurred())
+						pids, err := cgroups.GetPids(badContainerCgroup)
+						Expect(err).NotTo(HaveOccurred())
+						Expect(pids).To(ContainElement(command.Process.Pid))
+					})
+				})
 			})
 
 			Context("when good cgroup has init child cgroup", func() {
@@ -269,6 +306,23 @@ var _ = Describe("Enforcer", func() {
 						Skip("Skipping cgroups v2 tests when cgroups v1 is enabled")
 					}
 					Expect(readCgroupPathInState(filepath.Join(runcRoot, "some-namespace", handle))).To(Equal(goodContainerCgroup))
+				})
+
+				Context("when the bad container cgroup carries a memory limit (cgroups v2)", func() {
+					BeforeEach(func() {
+						if !cgroups.IsCgroup2UnifiedMode() {
+							Skip("Skipping cgroups v2 memory tests when cgroups v1 is enabled")
+						}
+						enableMemoryController(cpuCgroupPath)
+						enableMemoryController(goodCgroup)
+						enableMemoryController(badCgroup)
+						writeMemoryLimit(badContainerCgroup, "16777216")
+					})
+
+					It("clears the memory limit on the bad container cgroup", func() {
+						Expect(releaseErr).NotTo(HaveOccurred())
+						Expect(readMemoryLimit(badContainerCgroup)).To(Equal("max"))
+					})
 				})
 			})
 
@@ -424,4 +478,18 @@ func writeShares(path string, shares int) {
 		shares = int(cgroups.ConvertCPUSharesToCgroupV2Value(uint64(shares)))
 	}
 	Expect(os.WriteFile(filepath.Join(path, cpuSharesFile), []byte(strconv.Itoa(shares)), 0644)).To(Succeed())
+}
+
+func enableMemoryController(cgroupPath string) {
+	Expect(cgroups.WriteFile(cgroupPath, "cgroup.subtree_control", "+memory")).To(Succeed())
+}
+
+func writeMemoryLimit(path string, limit string) {
+	Expect(os.WriteFile(filepath.Join(path, "memory.max"), []byte(limit), 0644)).To(Succeed())
+}
+
+func readMemoryLimit(path string) string {
+	limitBytes, err := os.ReadFile(filepath.Join(path, "memory.max"))
+	Expect(err).NotTo(HaveOccurred())
+	return strings.TrimSpace(string(limitBytes))
 }
