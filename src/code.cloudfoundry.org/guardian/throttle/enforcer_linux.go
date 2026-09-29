@@ -115,8 +115,11 @@ func (c CPUCgroupEnforcer) Release(logger lager.Logger, handle string) error {
 		if err := c.movePids(badContainerCgroupPath, goodInitCgroupPath); err != nil {
 			return err
 		}
+		// Best-effort cleanup of the now-empty bad cgroup: the container is
+		// already released and running in the good cgroup, so a failure here
+		// must not fail Release and make callers think it is still throttled.
 		if err := c.clearMemoryLimits(logger, badContainerCgroupPath); err != nil {
-			return err
+			logger.Error("clear-memory-limits-failed", err, lager.Data{"handle": handle})
 		}
 		return c.updateContainerStateCgroupPath(handle, goodInitCgroupPath)
 	}
@@ -124,8 +127,9 @@ func (c CPUCgroupEnforcer) Release(logger lager.Logger, handle string) error {
 	if err := c.movePids(badContainerCgroupPath, goodContainerCgroupPath); err != nil {
 		return err
 	}
+	// Best-effort cleanup of the now-empty bad cgroup (see note above).
 	if err := c.clearMemoryLimits(logger, badContainerCgroupPath); err != nil {
-		return err
+		logger.Error("clear-memory-limits-failed", err, lager.Data{"handle": handle})
 	}
 	return c.updateContainerStateCgroupPath(handle, goodContainerCgroupPath)
 }
@@ -189,7 +193,13 @@ func (c CPUCgroupEnforcer) copyMemoryLimits(logger lager.Logger, fromCgroup, toC
 		toPath := filepath.Join(toCgroup, memoryFile)
 		if err := os.WriteFile(toPath, limit, 0644); err != nil {
 			if os.IsNotExist(err) {
-				logger.Info("memory-limit-target-absent-skip", lager.Data{"file": toPath})
+				// enableSupportedControllers enables the memory controller on
+				// the bad cgroup at startup, so the target should always exist.
+				// If it does not, keep CPU throttling working but log loudly:
+				// the container is throttled without its memory limit, so make
+				// this degraded state visible/alertable rather than silently
+				// reintroducing the OOM bypass this change exists to fix.
+				logger.Error("memory-limit-target-absent", err, lager.Data{"file": toPath})
 				continue
 			}
 			return err
