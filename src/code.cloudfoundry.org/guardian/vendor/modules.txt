@@ -1,21 +1,21 @@
-# code.cloudfoundry.org/archiver v0.89.0
+# code.cloudfoundry.org/archiver v0.90.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/archiver/extractor/test_helper
-# code.cloudfoundry.org/clock v1.89.0
+# code.cloudfoundry.org/clock v1.90.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/clock
 code.cloudfoundry.org/clock/fakeclock
-# code.cloudfoundry.org/commandrunner v0.78.0
+# code.cloudfoundry.org/commandrunner v0.80.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/commandrunner
 code.cloudfoundry.org/commandrunner/fake_command_runner
 code.cloudfoundry.org/commandrunner/fake_command_runner/matchers
 code.cloudfoundry.org/commandrunner/linux_command_runner
 code.cloudfoundry.org/commandrunner/windows_command_runner
-# code.cloudfoundry.org/debugserver v0.116.0
+# code.cloudfoundry.org/debugserver v0.117.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/debugserver
-# code.cloudfoundry.org/garden v0.5.0
+# code.cloudfoundry.org/garden v0.6.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -27,14 +27,14 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.88.0
+# code.cloudfoundry.org/lager/v3 v3.89.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/chug
 code.cloudfoundry.org/lager/v3/internal/truncate
 code.cloudfoundry.org/lager/v3/lagerctx
 code.cloudfoundry.org/lager/v3/lagertest
-# code.cloudfoundry.org/localip v0.90.0
+# code.cloudfoundry.org/localip v0.91.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/localip
 # cyphar.com/go-pathrs v0.2.6
@@ -175,7 +175,7 @@ github.com/containerd/containerd/api/types
 github.com/containerd/containerd/api/types/runc/options
 github.com/containerd/containerd/api/types/task
 github.com/containerd/containerd/api/types/transfer
-# github.com/containerd/containerd/v2 v2.4.0
+# github.com/containerd/containerd/v2 v2.4.1
 ## explicit; go 1.26.6
 github.com/containerd/containerd/v2/client
 github.com/containerd/containerd/v2/cmd/containerd-shim-runc-v2/process
@@ -271,7 +271,7 @@ github.com/containerd/platforms
 # github.com/containerd/plugin v1.1.0
 ## explicit; go 1.22
 github.com/containerd/plugin
-# github.com/containerd/ttrpc v1.2.9
+# github.com/containerd/ttrpc v1.2.10
 ## explicit; go 1.25.0
 github.com/containerd/ttrpc
 # github.com/containerd/typeurl/v2 v2.3.0
@@ -405,7 +405,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20260906184651-6331bc6350fe
+# github.com/google/pprof v0.0.0-20260926063103-aaccee046517
 ## explicit; go 1.25.0
 github.com/google/pprof/profile
 # github.com/google/uuid v1.6.0
@@ -426,7 +426,7 @@ github.com/jessevdk/go-flags
 # github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
 ## explicit
 github.com/kardianos/osext
-# github.com/klauspost/compress v1.20.0
+# github.com/klauspost/compress v1.20.1
 ## explicit; go 1.25
 github.com/klauspost/compress
 github.com/klauspost/compress/flate
@@ -504,7 +504,7 @@ github.com/onsi/ginkgo/v2/internal/reporters
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.43.1
+# github.com/onsi/gomega v1.44.0
 ## explicit; go 1.25.0
 github.com/onsi/gomega
 github.com/onsi/gomega/format
@@ -543,7 +543,7 @@ github.com/opencontainers/go-digest
 github.com/opencontainers/image-spec/identity
 github.com/opencontainers/image-spec/specs-go
 github.com/opencontainers/image-spec/specs-go/v1
-# github.com/opencontainers/runc v1.5.1
+# github.com/opencontainers/runc v1.5.2
 ## explicit; go 1.25.0
 github.com/opencontainers/runc
 github.com/opencontainers/runc/internal/cmsg
@@ -759,7 +759,7 @@ golang.org/x/tools/internal/stdlib
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
 golang.org/x/tools/internal/versions
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20260921155816-b14227669459
+# google.golang.org/genproto/googleapis/rpc v0.0.0-20260928230214-8a89bd6388cc
 ## explicit; go 1.26.0
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.84.0
