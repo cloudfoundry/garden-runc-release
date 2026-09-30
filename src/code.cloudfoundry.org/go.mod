@@ -3,24 +3,24 @@ module code.cloudfoundry.org
 go 1.26.6
 
 require (
-	code.cloudfoundry.org/archiver v0.89.0
-	code.cloudfoundry.org/garden v0.5.0
+	code.cloudfoundry.org/archiver v0.90.0
+	code.cloudfoundry.org/garden v0.6.0
 	code.cloudfoundry.org/guardian v1.95.0
-	code.cloudfoundry.org/lager/v3 v3.88.0
+	code.cloudfoundry.org/lager/v3 v3.89.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.127
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 	github.com/onsi/ginkgo/v2 v2.33.0
-	github.com/onsi/gomega v1.43.1
+	github.com/onsi/gomega v1.44.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 	golang.org/x/sys v0.48.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
-	code.cloudfoundry.org/commandrunner v0.78.0 // indirect
+	code.cloudfoundry.org/commandrunner v0.80.0 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
 	github.com/caio/go-tdigest/v4 v4.1.0 // indirect
@@ -33,7 +33,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260906184651-6331bc6350fe // indirect
+	github.com/google/pprof v0.0.0-20260926063103-aaccee046517 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/moby/sys/mountinfo v0.7.2 // indirect
