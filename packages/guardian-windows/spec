@@ -357,10 +357,13 @@ files:
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/internal/baggage/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/internal/errorhandler/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/internal/global/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/log/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/log/embedded/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/metric/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/metric/embedded/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/metric/noop/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/propagation/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/propagation/internal/hextable/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/instrumentation/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/go.opentelemetry.io/otel/sdk/internal/attrnorm/*.go # gosub
