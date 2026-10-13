@@ -10,10 +10,10 @@ busybox/busybox-1.37.0.tar.gz:
   size: 2206748
   object_id: b0c12bca-c051-4d67-611f-c2fd9074675d
   sha: sha256:1f2f04d763d865e87eabf77fc2f290a0380f96738c25497a0841091ffa7abb25
-containerd/containerd-2.4.1-linux-amd64.tar.gz:
-  size: 35866168
-  object_id: b38d45b7-9bcf-4bb0-662e-710cc26d42b5
-  sha: sha256:d65eda6a188aac1006848d8060099be88ba9c4bcddbfd9a23a961194710d0dd4
+containerd/containerd-2.4.2-linux-amd64.tar.gz:
+  size: 35901304
+  object_id: 0728201e-37df-4e73-73f8-a2c1200c49a2
+  sha: sha256:35880c1dd4627e8ce56526bfabb39c144e83458ffdb197ce6f05d17d94d7d91e
 gperf/gperf-3.1.tar.gz:
   size: 1215925
   object_id: 756c90ec-175f-4b1a-482d-de2461421ea5
