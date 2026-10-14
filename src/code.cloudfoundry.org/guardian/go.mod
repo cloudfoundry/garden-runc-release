@@ -8,20 +8,20 @@ replace (
 )
 
 require (
-	code.cloudfoundry.org/archiver v0.91.0
-	code.cloudfoundry.org/clock v1.91.0
-	code.cloudfoundry.org/commandrunner v0.81.0
-	code.cloudfoundry.org/debugserver v0.118.0
-	code.cloudfoundry.org/garden v0.7.0
-	code.cloudfoundry.org/lager/v3 v3.90.0
-	code.cloudfoundry.org/localip v0.92.0
+	code.cloudfoundry.org/archiver v0.92.0
+	code.cloudfoundry.org/clock v1.92.0
+	code.cloudfoundry.org/commandrunner v0.82.0
+	code.cloudfoundry.org/debugserver v0.119.0
+	code.cloudfoundry.org/garden v0.8.0
+	code.cloudfoundry.org/lager/v3 v3.91.0
+	code.cloudfoundry.org/localip v0.93.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/dropsonde v1.1.0
-	github.com/cloudfoundry/gosigar v1.3.127
+	github.com/cloudfoundry/gosigar v1.3.128
 	github.com/cloudfoundry/sonde-go v0.0.0-20260818080958-d46298cd8513
 	github.com/containerd/cgroups/v3 v3.1.3
 	github.com/containerd/containerd/api v1.12.0
-	github.com/containerd/containerd/v2 v2.4.1
+	github.com/containerd/containerd/v2 v2.4.2
 	github.com/containerd/errdefs v1.0.0
 	github.com/containerd/typeurl/v2 v2.3.0
 	github.com/containers/image/v5 v5.36.2
@@ -33,13 +33,13 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
-	github.com/klauspost/compress v1.20.1
+	github.com/klauspost/compress v1.20.3
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.8.1
 	github.com/mitchellh/copystructure v1.2.0
 	github.com/moby/sys/reexec v0.1.0
 	github.com/moby/sys/user v0.4.1
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/onsi/ginkgo/v2 v2.33.0
+	github.com/onsi/ginkgo/v2 v2.33.1
 	github.com/onsi/gomega v1.44.0
 	github.com/opencontainers/cgroups v0.1.0
 	github.com/opencontainers/go-digest v1.0.0
@@ -54,7 +54,7 @@ require (
 	github.com/ventu-io/go-shortid v0.0.0-20201117134242-e59966efd125
 	github.com/vishvananda/netlink v1.3.1
 	github.com/vishvananda/netns v0.0.5
-	golang.org/x/sys v0.48.0
+	golang.org/x/sys v0.49.0
 	google.golang.org/protobuf v1.36.12
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -62,7 +62,7 @@ require (
 require (
 	cyphar.com/go-pathrs v0.2.6 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
-	github.com/Microsoft/go-winio v0.6.3-0.20251027160822-ad3df93bed29 // indirect
+	github.com/Microsoft/go-winio v0.6.4 // indirect
 	github.com/Microsoft/hcsshim v0.15.0-rc.4 // indirect
 	github.com/aperturerobotics/protobuf-go-lite v0.19.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
@@ -85,15 +85,15 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
 	github.com/cyphar/filepath-securejoin v0.7.0 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
-	github.com/docker/docker-credential-helpers v0.9.9 // indirect
-	github.com/docker/go-connections v0.8.1 // indirect
+	github.com/docker/docker-credential-helpers v0.9.10 // indirect
+	github.com/docker/go-connections v0.8.2 // indirect
 	github.com/felixge/httpsnoop v1.1.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/godbus/dbus/v5 v5.2.2 // indirect
+	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261006160405-d99a6174ef52 // indirect
+	github.com/google/pprof v0.0.0-20261012231050-2af12c3f4d87 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -112,7 +112,7 @@ require (
 	github.com/tedsuo/rata v1.0.0 // indirect
 	github.com/teris-io/shortid v0.0.0-20201117134242-e59966efd125 // indirect
 	github.com/urfave/cli v1.22.17 // indirect
-	github.com/xrash/smetrics v0.0.0-20250705151800-55b8f293f342 // indirect
+	github.com/xrash/smetrics v0.0.0-20261013231157-39c47d93efba // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.72.0 // indirect
 	go.opentelemetry.io/otel v1.47.0 // indirect
@@ -121,12 +121,12 @@ require (
 	go.opentelemetry.io/otel/sdk v1.47.0 // indirect
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
-	golang.org/x/mod v0.41.0 // indirect
-	golang.org/x/net v0.59.0 // indirect
-	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/text v0.42.0 // indirect
-	golang.org/x/tools v0.51.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8 // indirect
+	golang.org/x/mod v0.42.0 // indirect
+	golang.org/x/net v0.61.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
+	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/tools v0.52.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261012220534-4341edf3f941 // indirect
 	google.golang.org/grpc v1.84.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

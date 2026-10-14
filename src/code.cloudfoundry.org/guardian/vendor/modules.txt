@@ -1,21 +1,21 @@
-# code.cloudfoundry.org/archiver v0.91.0
+# code.cloudfoundry.org/archiver v0.92.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/archiver/extractor/test_helper
-# code.cloudfoundry.org/clock v1.91.0
+# code.cloudfoundry.org/clock v1.92.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/clock
 code.cloudfoundry.org/clock/fakeclock
-# code.cloudfoundry.org/commandrunner v0.81.0
+# code.cloudfoundry.org/commandrunner v0.82.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/commandrunner
 code.cloudfoundry.org/commandrunner/fake_command_runner
 code.cloudfoundry.org/commandrunner/fake_command_runner/matchers
 code.cloudfoundry.org/commandrunner/linux_command_runner
 code.cloudfoundry.org/commandrunner/windows_command_runner
-# code.cloudfoundry.org/debugserver v0.118.0
+# code.cloudfoundry.org/debugserver v0.119.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/debugserver
-# code.cloudfoundry.org/garden v0.7.0
+# code.cloudfoundry.org/garden v0.8.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -27,14 +27,14 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.90.0
+# code.cloudfoundry.org/lager/v3 v3.91.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/chug
 code.cloudfoundry.org/lager/v3/internal/truncate
 code.cloudfoundry.org/lager/v3/lagerctx
 code.cloudfoundry.org/lager/v3/lagertest
-# code.cloudfoundry.org/localip v0.92.0
+# code.cloudfoundry.org/localip v0.93.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/localip
 # cyphar.com/go-pathrs v0.2.6
@@ -50,8 +50,8 @@ github.com/BurntSushi/toml/internal
 # github.com/Masterminds/semver/v3 v3.5.0
 ## explicit; go 1.21
 github.com/Masterminds/semver/v3
-# github.com/Microsoft/go-winio v0.6.3-0.20251027160822-ad3df93bed29
-## explicit; go 1.23.0
+# github.com/Microsoft/go-winio v0.6.4
+## explicit; go 1.26.0
 github.com/Microsoft/go-winio
 github.com/Microsoft/go-winio/backuptar
 github.com/Microsoft/go-winio/internal/fs
@@ -137,7 +137,7 @@ github.com/cloudfoundry/dropsonde/metric_sender/fake
 github.com/cloudfoundry/dropsonde/metricbatcher
 github.com/cloudfoundry/dropsonde/metrics
 github.com/cloudfoundry/dropsonde/runtime_stats
-# github.com/cloudfoundry/gosigar v1.3.127
+# github.com/cloudfoundry/gosigar v1.3.128
 ## explicit; go 1.26.0
 github.com/cloudfoundry/gosigar
 github.com/cloudfoundry/gosigar/sys/windows
@@ -175,7 +175,7 @@ github.com/containerd/containerd/api/types
 github.com/containerd/containerd/api/types/runc/options
 github.com/containerd/containerd/api/types/task
 github.com/containerd/containerd/api/types/transfer
-# github.com/containerd/containerd/v2 v2.4.1
+# github.com/containerd/containerd/v2 v2.4.2
 ## explicit; go 1.26.6
 github.com/containerd/containerd/v2/client
 github.com/containerd/containerd/v2/cmd/containerd-shim-runc-v2/process
@@ -369,11 +369,11 @@ github.com/docker/distribution/registry/api/v2
 ## explicit
 github.com/docker/docker/api/types/versions
 github.com/docker/docker/pkg/system
-# github.com/docker/docker-credential-helpers v0.9.9
+# github.com/docker/docker-credential-helpers v0.9.10
 ## explicit; go 1.21
 github.com/docker/docker-credential-helpers/client
 github.com/docker/docker-credential-helpers/credentials
-# github.com/docker/go-connections v0.8.1
+# github.com/docker/go-connections v0.8.2
 ## explicit; go 1.23
 github.com/docker/go-connections/tlsconfig
 # github.com/docker/go-units v0.5.0
@@ -395,7 +395,7 @@ github.com/go-logr/stdr
 # github.com/go-task/slim-sprig/v3 v3.0.0
 ## explicit; go 1.20
 github.com/go-task/slim-sprig/v3
-# github.com/godbus/dbus/v5 v5.2.2
+# github.com/godbus/dbus/v5 v5.2.4
 ## explicit; go 1.20
 github.com/godbus/dbus/v5
 # github.com/google/go-cmp v0.7.0
@@ -405,7 +405,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20261006160405-d99a6174ef52
+# github.com/google/pprof v0.0.0-20261012231050-2af12c3f4d87
 ## explicit; go 1.26.0
 github.com/google/pprof/profile
 # github.com/google/uuid v1.6.0
@@ -426,7 +426,7 @@ github.com/jessevdk/go-flags
 # github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
 ## explicit
 github.com/kardianos/osext
-# github.com/klauspost/compress v1.20.1
+# github.com/klauspost/compress v1.20.3
 ## explicit; go 1.25
 github.com/klauspost/compress
 github.com/klauspost/compress/flate
@@ -480,7 +480,7 @@ github.com/mrunalp/fileutils
 github.com/nu7hatch/gouuid
 # github.com/nxadm/tail v1.4.11
 ## explicit; go 1.13
-# github.com/onsi/ginkgo/v2 v2.33.0
+# github.com/onsi/ginkgo/v2 v2.33.1
 ## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
@@ -626,7 +626,7 @@ github.com/vishvananda/netlink/nl
 # github.com/vishvananda/netns v0.0.5
 ## explicit; go 1.17
 github.com/vishvananda/netns
-# github.com/xrash/smetrics v0.0.0-20250705151800-55b8f293f342
+# github.com/xrash/smetrics v0.0.0-20261013231157-39c47d93efba
 ## explicit; go 1.15
 github.com/xrash/smetrics
 # go.opentelemetry.io/auto/sdk v1.2.1
@@ -684,12 +684,12 @@ go.opentelemetry.io/otel/trace/noop
 # go.yaml.in/yaml/v3 v3.0.5
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
-# golang.org/x/mod v0.41.0
+# golang.org/x/mod v0.42.0
 ## explicit; go 1.26.0
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.59.0
+# golang.org/x/net v0.61.0
 ## explicit; go 1.26.0
 golang.org/x/net/bpf
 golang.org/x/net/html
@@ -703,16 +703,16 @@ golang.org/x/net/internal/httpcommon
 golang.org/x/net/internal/httpsfv
 golang.org/x/net/internal/timeseries
 golang.org/x/net/trace
-# golang.org/x/sync v0.23.0
+# golang.org/x/sync v0.24.0
 ## explicit; go 1.26.0
 golang.org/x/sync/errgroup
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.48.0
+# golang.org/x/sys v0.49.0
 ## explicit; go 1.26.0
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 golang.org/x/sys/windows/registry
-# golang.org/x/text v0.42.0
+# golang.org/x/text v0.43.0
 ## explicit; go 1.26.0
 golang.org/x/text/cases
 golang.org/x/text/encoding
@@ -736,7 +736,7 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
-# golang.org/x/tools v0.51.0
+# golang.org/x/tools v0.52.0
 ## explicit; go 1.26.0
 golang.org/x/tools/cover
 golang.org/x/tools/go/ast/astutil
@@ -763,7 +763,7 @@ golang.org/x/tools/internal/stdlib
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
 golang.org/x/tools/internal/versions
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8
+# google.golang.org/genproto/googleapis/rpc v0.0.0-20261012220534-4341edf3f941
 ## explicit; go 1.26.0
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.84.0
