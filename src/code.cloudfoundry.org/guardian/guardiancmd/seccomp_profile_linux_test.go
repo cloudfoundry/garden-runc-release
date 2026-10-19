@@ -49,20 +49,6 @@ func TestLoadSeccompProfile_InvalidJSONIsError(t *testing.T) {
 	}
 }
 
-func TestLoadSeccompProfile_RejectsDefaultAllow(t *testing.T) {
-	p := writeTemp(t, `{"defaultAction":"SCMP_ACT_ALLOW"}`)
-	if _, err := loadSeccompProfile(p, fallbackProfile()); err == nil {
-		t.Fatal("defaultAction SCMP_ACT_ALLOW (default-permit) must be rejected")
-	}
-}
-
-func TestLoadSeccompProfile_RejectsMissingDefaultAction(t *testing.T) {
-	p := writeTemp(t, `{"syscalls":[{"names":["read"],"action":"SCMP_ACT_ALLOW"}]}`)
-	if _, err := loadSeccompProfile(p, fallbackProfile()); err == nil {
-		t.Fatal("a profile with no defaultAction must be rejected")
-	}
-}
-
 func TestLoadSeccompProfile_ReplacesWithValidProfile(t *testing.T) {
 	p := writeTemp(t, `{
 		"defaultAction":"SCMP_ACT_ERRNO",

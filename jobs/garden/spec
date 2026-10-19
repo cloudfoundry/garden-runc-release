@@ -241,7 +241,7 @@ properties:
     default: false
 
   garden.seccomp_profile:
-    description: "Full Seccomp profile (JSON, as under the OCI runtime spec linux.seccomp) that REPLACES the compiled-in default profile for unprivileged container processes. When set, the operator owns the entire syscall surface, including argument-level filters. When empty (default), the compiled-in vetted profile is used unchanged. The profile must declare a non-permissive defaultAction (SCMP_ACT_ALLOW as the default is rejected at startup) so a bad override can never widen the policy to default-permit."
+    description: "Full Seccomp profile (JSON, as under the OCI runtime spec linux.seccomp) that REPLACES the compiled-in default profile for unprivileged container processes. When set, the operator owns the entire syscall surface, including argument-level filters. When empty (default), the compiled-in vetted profile is used unchanged. The profile's defaultAction must be one of a fixed set of terminal actions (SCMP_ACT_ERRNO, SCMP_ACT_KILL, SCMP_ACT_KILL_PROCESS, SCMP_ACT_KILL_THREAD, SCMP_ACT_TRAP, SCMP_ACT_TRACE); any other value, including permissive or listener-based defaults (SCMP_ACT_ALLOW, SCMP_ACT_LOG, SCMP_ACT_NOTIFY) and unknown or mistyped actions, is rejected. Privileged containers are unaffected."
     default: ""
 
   garden.device_cgroup_rules:
