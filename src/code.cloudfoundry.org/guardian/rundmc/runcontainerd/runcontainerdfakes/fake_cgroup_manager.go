@@ -9,11 +9,6 @@ import (
 )
 
 type FakeCgroupManager struct {
-	AddCgroupBindMountStub        func(*goci.Bndl)
-	addCgroupBindMountMutex       sync.RWMutex
-	addCgroupBindMountArgsForCall []struct {
-		arg1 *goci.Bndl
-	}
 	SetUnifiedResourcesStub        func(goci.Bndl) error
 	setUnifiedResourcesMutex       sync.RWMutex
 	setUnifiedResourcesArgsForCall []struct {
@@ -38,38 +33,6 @@ type FakeCgroupManager struct {
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
-}
-
-func (fake *FakeCgroupManager) AddCgroupBindMount(arg1 *goci.Bndl) {
-	fake.addCgroupBindMountMutex.Lock()
-	fake.addCgroupBindMountArgsForCall = append(fake.addCgroupBindMountArgsForCall, struct {
-		arg1 *goci.Bndl
-	}{arg1})
-	stub := fake.AddCgroupBindMountStub
-	fake.recordInvocation("AddCgroupBindMount", []interface{}{arg1})
-	fake.addCgroupBindMountMutex.Unlock()
-	if stub != nil {
-		fake.AddCgroupBindMountStub(arg1)
-	}
-}
-
-func (fake *FakeCgroupManager) AddCgroupBindMountCallCount() int {
-	fake.addCgroupBindMountMutex.RLock()
-	defer fake.addCgroupBindMountMutex.RUnlock()
-	return len(fake.addCgroupBindMountArgsForCall)
-}
-
-func (fake *FakeCgroupManager) AddCgroupBindMountCalls(stub func(*goci.Bndl)) {
-	fake.addCgroupBindMountMutex.Lock()
-	defer fake.addCgroupBindMountMutex.Unlock()
-	fake.AddCgroupBindMountStub = stub
-}
-
-func (fake *FakeCgroupManager) AddCgroupBindMountArgsForCall(i int) *goci.Bndl {
-	fake.addCgroupBindMountMutex.RLock()
-	defer fake.addCgroupBindMountMutex.RUnlock()
-	argsForCall := fake.addCgroupBindMountArgsForCall[i]
-	return argsForCall.arg1
 }
 
 func (fake *FakeCgroupManager) SetUnifiedResources(arg1 goci.Bndl) error {
@@ -197,8 +160,6 @@ func (fake *FakeCgroupManager) SetUseMemoryHierarchyReturnsOnCall(i int, result1
 func (fake *FakeCgroupManager) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
-	fake.addCgroupBindMountMutex.RLock()
-	defer fake.addCgroupBindMountMutex.RUnlock()
 	fake.setUnifiedResourcesMutex.RLock()
 	defer fake.setUnifiedResourcesMutex.RUnlock()
 	fake.setUseMemoryHierarchyMutex.RLock()

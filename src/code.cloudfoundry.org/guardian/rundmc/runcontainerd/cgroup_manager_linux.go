@@ -71,17 +71,3 @@ func convertSpecResourcesToCgroupResources(specResources *specs.LinuxResources) 
 
 	return resources
 }
-
-func (m cgroupManager) addCgroupBindMount(bundle *goci.Bndl) {
-	if !cgroups.IsCgroup2UnifiedMode() || bundle.Spec.Linux.CgroupsPath == "" {
-		return
-	}
-
-	cgroupMount := specs.Mount{
-		Destination: "/sys/fs/cgroup",
-		Type:        "bind",
-		Source:      filepath.Join(fs2.UnifiedMountpoint, bundle.Spec.Linux.CgroupsPath),
-		Options:     []string{"bind", "ro", "nosuid", "noexec", "nodev"},
-	}
-	bundle.Spec.Mounts = append(bundle.Spec.Mounts, cgroupMount)
-}

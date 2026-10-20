@@ -571,6 +571,9 @@ func (cmd *CommonCommand) wireContainerizer(
 			UnprivilegedBase: unprivilegedBundle,
 		},
 		bundlerules.Namespaces{},
+		bundlerules.CgroupNamespace{
+			IsCgroup2UnifiedMode: gardencgroups.IsCgroup2UnifiedMode,
+		},
 		bundlerules.CGroupPath{
 			Path: cgroupRootPath,
 		},
