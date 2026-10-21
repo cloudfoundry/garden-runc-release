@@ -2,7 +2,6 @@
 set -e
 
 export PACKAGES=/var/vcap/packages
-export PATH=$PACKAGES/util-linux/bin:$PATH
 
 addBuildTool(){
   export PATH=$PACKAGES/$1/bin:$PATH
@@ -21,7 +20,19 @@ tar xvzf util-linux/util-linux-*.tar.gz
   cd util-linux-*
 
   setDeps
-  ./configure --prefix=$BOSH_INSTALL_TARGET
+
+  # Build libraries only (libblkid + libuuid needed by xfsprogs).
+  # --disable-all-programs ensures no setuid mount/umount binary is installed,
+  # removing the local privilege-escalation vector from CVE-2026-76642
+  # (fixed upstream in v2.42.4, confirmed via commit 1d14676).
+  # --without-liblastlog2 avoids a sqlite3 dep introduced in util-linux 2.40.
+  ./configure --prefix=$BOSH_INSTALL_TARGET \
+    --disable-all-programs \
+    --enable-libblkid \
+    --enable-libuuid \
+    --without-python \
+    --without-liblastlog2 \
+    --disable-nls
   make
   make install prefix=$BOSH_INSTALL_TARGET
 )
