@@ -66,10 +66,10 @@ userspace-rcu/userspace-rcu-0.15.7.tar.bz2:
   size: 687049
   object_id: 7a893baa-fa07-457e-4073-9a155a646eff
   sha: sha256:2556b83adc0f9b3ac8024e613e17d014d04c4c49110604ce55fcb14eae32edd3
-util-linux/util-linux-2.39.4.tar.gz:
-  size: 18915279
-  object_id: 1bae6ff3-67e5-4d5e-7ecb-63706ebda274
-  sha: sha256:b1ce77f20e080449d44b40b2f9570cc230584b7ae6439277473679888ac2bfe6
+util-linux/util-linux-2.42.4.tar.gz:
+  size: 23224457
+  object_id: 79c148eb-9148-433e-58f5-d26587bc7fac
+  sha: sha256:af3241e7776964dcb6bb9a811ca7b0d93000b563e2ae2a8df8f80a7cd6e04d56
 xfs-progs/xfsprogs-6.19.0.tar.gz:
   size: 2303230
   object_id: e38473d7-1b02-4dc7-6513-fc94df29d353
