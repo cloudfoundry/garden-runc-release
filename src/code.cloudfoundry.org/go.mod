@@ -1,12 +1,12 @@
 module code.cloudfoundry.org
 
-go 1.26.6
+go 1.26.8
 
 require (
-	code.cloudfoundry.org/archiver v0.92.0
-	code.cloudfoundry.org/garden v0.8.0
+	code.cloudfoundry.org/archiver v0.93.0
+	code.cloudfoundry.org/garden v0.9.0
 	code.cloudfoundry.org/guardian v1.95.0
-	code.cloudfoundry.org/lager/v3 v3.91.0
+	code.cloudfoundry.org/lager/v3 v3.92.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.128
 	github.com/jessevdk/go-flags v1.6.1
@@ -33,7 +33,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261012231050-2af12c3f4d87 // indirect
+	github.com/google/pprof v0.0.0-20261016150608-1facf8f91b50 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/moby/sys/mountinfo v0.7.2 // indirect
