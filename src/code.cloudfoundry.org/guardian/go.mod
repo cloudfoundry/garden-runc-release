@@ -1,6 +1,6 @@
 module code.cloudfoundry.org/guardian
 
-go 1.26.6
+go 1.26.8
 
 replace (
 	github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3
@@ -8,13 +8,13 @@ replace (
 )
 
 require (
-	code.cloudfoundry.org/archiver v0.92.0
-	code.cloudfoundry.org/clock v1.92.0
+	code.cloudfoundry.org/archiver v0.93.0
+	code.cloudfoundry.org/clock v1.93.0
 	code.cloudfoundry.org/commandrunner v0.82.0
-	code.cloudfoundry.org/debugserver v0.119.0
-	code.cloudfoundry.org/garden v0.8.0
-	code.cloudfoundry.org/lager/v3 v3.91.0
-	code.cloudfoundry.org/localip v0.93.0
+	code.cloudfoundry.org/debugserver v0.120.0
+	code.cloudfoundry.org/garden v0.9.0
+	code.cloudfoundry.org/lager/v3 v3.92.0
+	code.cloudfoundry.org/localip v0.94.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/dropsonde v1.1.0
 	github.com/cloudfoundry/gosigar v1.3.128
@@ -63,11 +63,11 @@ require (
 	cyphar.com/go-pathrs v0.2.6 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/Microsoft/go-winio v0.6.4 // indirect
-	github.com/Microsoft/hcsshim v0.15.0-rc.4 // indirect
+	github.com/Microsoft/hcsshim v0.15.0 // indirect
 	github.com/aperturerobotics/protobuf-go-lite v0.19.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/checkpoint-restore/go-criu/v8 v8.4.0 // indirect
+	github.com/checkpoint-restore/go-criu/v8 v8.5.0 // indirect
 	github.com/cilium/ebpf v0.22.0 // indirect
 	github.com/containerd/console v1.0.5 // indirect
 	github.com/containerd/continuity v0.5.0 // indirect
@@ -85,7 +85,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
 	github.com/cyphar/filepath-securejoin v0.7.0 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
-	github.com/docker/docker-credential-helpers v0.9.10 // indirect
+	github.com/docker/docker-credential-helpers v0.9.12 // indirect
 	github.com/docker/go-connections v0.8.2 // indirect
 	github.com/felixge/httpsnoop v1.1.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
@@ -93,7 +93,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261012231050-2af12c3f4d87 // indirect
+	github.com/google/pprof v0.0.0-20261016150608-1facf8f91b50 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -126,7 +126,7 @@ require (
 	golang.org/x/sync v0.24.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.52.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20261012220534-4341edf3f941 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261019180522-ce908d29299b // indirect
 	google.golang.org/grpc v1.84.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
