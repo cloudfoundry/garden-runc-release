@@ -1,0 +1,53 @@
+<%
+  require 'json'
+
+  # Default actions we accept for an operator-supplied seccomp profile. This is
+  # an allowlist, not a blocklist: every default action a profile may declare
+  # must be listed here, and anything else (unknown, mistyped, wrongly cased, or
+  # permissive-by-design) is rejected while the manifest renders, so the mistake
+  # fails the deploy instead of surfacing when a container tries to start.
+  #
+  # Only terminal, non-permissive actions are allowed as the default. Actions
+  # that let unlisted syscalls through -- SCMP_ACT_ALLOW (default-permit) and
+  # SCMP_ACT_LOG (allows, only logs) -- are intentionally absent, as is
+  # SCMP_ACT_NOTIFY (needs a userspace listener that garden does not run).
+  allowed_default_actions = %w[
+    SCMP_ACT_ERRNO
+    SCMP_ACT_KILL
+    SCMP_ACT_KILL_PROCESS
+    SCMP_ACT_KILL_THREAD
+    SCMP_ACT_TRAP
+    SCMP_ACT_TRACE
+  ]
+
+  raw = p("garden.seccomp_profile")
+-%>
+<% unless raw.to_s.strip.empty? -%>
+<%
+  # A non-empty property is an operator override: validate it here so a bad
+  # value fails the deploy, not a container start. An empty property renders
+  # this file empty and config.ini.erb never passes --seccomp-profile.
+  begin
+    profile = JSON.parse(raw)
+  rescue JSON::ParserError => e
+    raise "garden.seccomp_profile is not valid JSON: #{e.message}"
+  end
+
+  unless profile.is_a?(Hash)
+    raise "garden.seccomp_profile must be a JSON object (an OCI seccomp profile), got #{profile.class}"
+  end
+
+  default_action = profile['defaultAction']
+
+  if default_action.nil? || default_action.to_s.empty?
+    raise "garden.seccomp_profile must declare a defaultAction (one of: #{allowed_default_actions.join(', ')})"
+  end
+
+  unless allowed_default_actions.include?(default_action)
+    raise "garden.seccomp_profile defaultAction '#{default_action}' is not permitted; " \
+          "it must be one of: #{allowed_default_actions.join(', ')}. " \
+          "Permissive or listener-based defaults (e.g. SCMP_ACT_ALLOW, SCMP_ACT_LOG, SCMP_ACT_NOTIFY) are rejected."
+  end
+-%>
+<%= raw %>
+<% end -%>

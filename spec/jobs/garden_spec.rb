@@ -315,6 +315,95 @@ describe 'garden' do
     end
   end
 
+  context 'config/seccomp.json' do
+    let(:template) { job.template('config/seccomp.json') }
+    let(:rendered_template) { template.render(properties) }
+
+    def with_profile(json)
+      { 'garden' => { 'seccomp_profile' => json } }
+    end
+
+    context 'when garden.seccomp_profile is empty (default)' do
+      it 'renders an empty profile and does not raise' do
+        expect { rendered_template }.to_not raise_error
+        expect(rendered_template.strip).to eql('')
+      end
+    end
+
+    context 'when a valid profile is supplied' do
+      let(:properties) { with_profile('{"defaultAction":"SCMP_ACT_ERRNO","syscalls":[{"names":["read"],"action":"SCMP_ACT_ALLOW"}]}') }
+
+      it 'renders the profile JSON unchanged' do
+        expect { rendered_template }.to_not raise_error
+        expect(JSON.parse(rendered_template)).to eql(
+          'defaultAction' => 'SCMP_ACT_ERRNO',
+          'syscalls' => [{ 'names' => ['read'], 'action' => 'SCMP_ACT_ALLOW' }]
+        )
+      end
+    end
+
+    context 'when each allowlisted default action is used' do
+      %w[
+        SCMP_ACT_ERRNO
+        SCMP_ACT_KILL
+        SCMP_ACT_KILL_PROCESS
+        SCMP_ACT_KILL_THREAD
+        SCMP_ACT_TRAP
+        SCMP_ACT_TRACE
+      ].each do |action|
+        context action do
+          let(:properties) { with_profile(%({"defaultAction":"#{action}"})) }
+          it 'renders without error' do
+            expect { rendered_template }.to_not raise_error
+          end
+        end
+      end
+    end
+
+    context 'when the profile is not valid JSON' do
+      let(:properties) { with_profile('{not valid json') }
+      it 'fails rendering' do
+        expect { rendered_template }.to raise_error(/not valid JSON/)
+      end
+    end
+
+    context 'when the profile is JSON but not an object' do
+      let(:properties) { with_profile('["SCMP_ACT_ERRNO"]') }
+      it 'fails rendering' do
+        expect { rendered_template }.to raise_error(/must be a JSON object/)
+      end
+    end
+
+    context 'when defaultAction is missing' do
+      let(:properties) { with_profile('{"syscalls":[]}') }
+      it 'fails rendering' do
+        expect { rendered_template }.to raise_error(/must declare a defaultAction/)
+      end
+    end
+
+    context 'when defaultAction is permissive or needs a listener' do
+      %w[SCMP_ACT_ALLOW SCMP_ACT_LOG SCMP_ACT_NOTIFY].each do |action|
+        context action do
+          let(:properties) { with_profile(%({"defaultAction":"#{action}"})) }
+          it 'is rejected at render time' do
+            expect { rendered_template }.to raise_error(/is not permitted/)
+          end
+        end
+      end
+    end
+
+    context 'when defaultAction is unknown or wrongly cased' do
+      ['ERRNO', 'scmp_act_errno', 'SCMP_ACT_BOGUS'].each do |action|
+        context action do
+          let(:properties) { with_profile(%({"defaultAction":"#{action}"})) }
+          it 'is rejected at render time' do
+            expect { rendered_template }.to raise_error(/is not permitted/)
+          end
+        end
+      end
+    end
+  end
+
   context 'bin/grootfs-utils' do
     let(:template) { job.template('bin/grootfs-utils') }
 
