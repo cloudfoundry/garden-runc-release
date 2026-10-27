@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"slices"
 	"strings"
 	"syscall"
 	"testing"
@@ -21,6 +22,7 @@ import (
 	"code.cloudfoundry.org/guardian/gqt/runner"
 	"code.cloudfoundry.org/guardian/kawasaki/iptables"
 	"code.cloudfoundry.org/guardian/pkg/locksmith"
+	gardencgroups "code.cloudfoundry.org/guardian/rundmc/cgroups"
 	"github.com/BurntSushi/toml"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -549,6 +551,75 @@ func getContainerPid(handle string) string {
 	return getRuncContainerPID(handle)
 }
 
+// processMarker is an environment variable used to find a container process
+// from the host.
+func processMarker(id string) string {
+	return "GQT_PROCESS_MARKER=" + id
+}
+
+func hostPidWithEnv(env string) (string, error) {
+	procDirs, err := filepath.Glob("/proc/[0-9]*")
+	if err != nil {
+		return "", err
+	}
+
+	for _, procDir := range procDirs {
+		environ, err := os.ReadFile(filepath.Join(procDir, "environ"))
+		if err != nil {
+			continue
+		}
+		for _, e := range strings.Split(string(environ), "\x00") {
+			if e == env {
+				return filepath.Base(procDir), nil
+			}
+		}
+	}
+
+	return "", fmt.Errorf("no process found with %q in its environment", env)
+}
+
+// hostProcCgroup returns /proc/<pid>/cgroup, as seen from the host, of the
+// process started with env. On cgroup v2 containers have their own cgroup
+// namespace, so /proc/self/cgroup read inside them is not the host path.
+func hostProcCgroup(env string) (string, error) {
+	pid, err := hostPidWithEnv(env)
+	if err != nil {
+		return "", err
+	}
+
+	content, err := os.ReadFile(filepath.Join("/proc", pid, "cgroup"))
+	if err != nil {
+		return "", err
+	}
+	return string(content), nil
+}
+
+// cgroupPathFromProcCgroup returns the cgroup path of controller from
+// /proc/<pid>/cgroup content. On cgroup v2 it returns the unified path.
+func cgroupPathFromProcCgroup(procCgroup, controller string) (string, error) {
+	for _, line := range strings.Split(strings.TrimSpace(procCgroup), "\n") {
+		parts := strings.SplitN(line, ":", 3)
+		if len(parts) != 3 {
+			continue
+		}
+
+		if gardencgroups.IsCgroup2UnifiedMode() {
+			if parts[1] == "" {
+				return parts[2], nil
+			}
+			continue
+		}
+
+		for _, c := range strings.Split(parts[1], ",") {
+			if c == controller {
+				return parts[2], nil
+			}
+		}
+	}
+
+	return "", fmt.Errorf("no %s cgroup found in %q", controller, procCgroup)
+}
+
 func listPidsInCgroup(cgroupPath string) string {
 	content := readFileString(filepath.Join(cgroupPath, "cgroup.procs"))
 	procs := strings.Split(content, " ")
@@ -582,6 +653,33 @@ func getMountTable() (string, error) {
 	}
 
 	return string(output), nil
+}
+
+type mountInfoEntry struct {
+	root       string
+	mountPoint string
+	options    string
+	fsType     string
+}
+
+// parseMountInfo parses /proc/<pid>/mountinfo, see proc(5).
+func parseMountInfo(content string) []mountInfoEntry {
+	var entries []mountInfoEntry
+	for _, line := range strings.Split(strings.TrimSpace(content), "\n") {
+		fields := strings.Fields(line)
+		separator := slices.Index(fields, "-")
+		if separator < 6 || separator+1 >= len(fields) {
+			continue
+		}
+
+		entries = append(entries, mountInfoEntry{
+			root:       fields[3],
+			mountPoint: fields[4],
+			options:    fields[5],
+			fsType:     fields[separator+1],
+		})
+	}
+	return entries
 }
 
 func initProcessPID(handle string) int {

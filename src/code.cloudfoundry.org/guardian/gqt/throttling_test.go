@@ -48,7 +48,10 @@ var _ = Describe("throttle tests", func() {
 		containerPort, _, err = container.NetIn(0, 8080)
 		Expect(err).NotTo(HaveOccurred())
 
-		_, err = container.Run(garden.ProcessSpec{Path: "/bin/throttled-or-not"}, garden.ProcessIO{})
+		_, err = container.Run(garden.ProcessSpec{
+			Path: "/bin/throttled-or-not",
+			Env:  []string{processMarker(container.Handle())},
+		}, garden.ProcessIO{})
 		Expect(err).NotTo(HaveOccurred())
 
 		Eventually(func() (string, error) {
@@ -64,7 +67,7 @@ var _ = Describe("throttle tests", func() {
 		cgroupPath := ""
 		EventuallyWithOffset(1, func() (string, error) {
 			var err error
-			cgroupPath, err = getCgroup(container, containerPort)
+			cgroupPath, err = getCgroup(container)
 			return cgroupPath, err
 		}, "2m", "100ms").Should(ContainSubstring(filepath.Join(cgroupType, container.Handle())))
 
@@ -125,7 +128,7 @@ var _ = Describe("throttle tests", func() {
 	})
 
 	It("will delete the bad cgroup after the container gets destroyed", func() {
-		currentCgroupSubpath, err := getCgroup(container, containerPort)
+		currentCgroupSubpath, err := getCgroup(container)
 		Expect(err).NotTo(HaveOccurred())
 
 		currentCgroupPath := getAbsoluteCPUCgroupPath(config.Tag, currentCgroupSubpath)
@@ -170,13 +173,13 @@ var _ = Describe("throttle tests", func() {
 	})
 })
 
-func getCgroup(container garden.Container, containerPort uint32) (string, error) {
-	cgroup, err := httpGet(fmt.Sprintf("http://%s:%d/cpucgroup", externalIP(container), containerPort))
+func getCgroup(container garden.Container) (string, error) {
+	procCgroup, err := hostProcCgroup(processMarker(container.Handle()))
 	if err != nil {
-		return "", fmt.Errorf("cpucgroup failed: %+v", err)
+		return "", err
 	}
 
-	return cgroup, nil
+	return cgroupPathFromProcCgroup(procCgroup, "cpu")
 }
 
 func spin(container garden.Container, containerPort uint32) error {

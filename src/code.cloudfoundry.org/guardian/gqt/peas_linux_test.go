@@ -162,24 +162,30 @@ var _ = Describe("Partially shared containers (peas)", func() {
 
 	Describe("process limits", func() {
 		It("should not leak cgroups", func() {
-			stdout := gbytes.NewBuffer()
+			stdin, stdinWriter := io.Pipe()
 			process, err := ctr.Run(garden.ProcessSpec{
 				ID:                      "pea-process",
 				Path:                    "cat",
-				Args:                    []string{"/proc/self/cgroup"},
+				Env:                     []string{processMarker(ctr.Handle())},
 				Image:                   garden.ImageRef{URI: "raw://" + peaRootfs},
 				OverrideContainerLimits: &garden.ProcessLimits{},
 			}, garden.ProcessIO{
-				Stdout: stdout,
+				Stdin: stdin,
 			})
-
 			Expect(err).NotTo(HaveOccurred())
+
+			var peaCgroups string
+			Eventually(func() (string, error) {
+				peaCgroups, err = hostProcCgroup(processMarker(ctr.Handle()))
+				return peaCgroups, err
+			}).ShouldNot(BeEmpty())
+
+			Expect(stdinWriter.Close()).To(Succeed())
 			Expect(process.Wait()).To(Equal(0))
 
 			cgroupsPath := filepath.Join(config.TmpDir, fmt.Sprintf("cgroups-%s", config.Tag))
 
-			peaCgroups := stdout.Contents()
-			cgroups := strings.Split(string(peaCgroups), "\n")
+			cgroups := strings.Split(peaCgroups, "\n")
 			for _, cgroup := range cgroups[:len(cgroups)-1] {
 				cgroupData := strings.Split(cgroup, ":")
 				Eventually(filepath.Join(cgroupsPath, cgroupData[1], cgroupData[2])).ShouldNot(BeADirectory())
@@ -197,25 +203,29 @@ var _ = Describe("Partially shared containers (peas)", func() {
 				})
 
 				JustBeforeEach(func() {
-					stdout := gbytes.NewBuffer()
+					marker := processMarker(ctr.Handle())
 					_, err := ctr.Run(garden.ProcessSpec{
-						Path:  "sh",
-						Args:  []string{"-c", "cat /proc/self/cgroup && echo done && sleep 3600"},
+						Path:  "sleep",
+						Args:  []string{"3600"},
+						Env:   []string{marker},
 						Image: garden.ImageRef{URI: "raw://" + peaRootfs},
 						OverrideContainerLimits: &garden.ProcessLimits{
 							CPU: garden.CPULimits{LimitInShares: 128},
 						},
 					}, garden.ProcessIO{
-						Stdout: io.MultiWriter(stdout, GinkgoWriter),
+						Stdout: GinkgoWriter,
 						Stderr: GinkgoWriter,
 					})
 					Expect(err).NotTo(HaveOccurred())
-					Eventually(stdout).Should(gbytes.Say("done"))
-					cgroupProcLines := strings.Split(string(stdout.Contents()), "\n")
-					var cgroupRelativePath string
-					Expect(cgroupProcLines).To(HaveLen(3))
-					procLineSections := strings.Split(cgroupProcLines[0], ":")
-					cgroupRelativePath = procLineSections[2]
+
+					var procCgroup string
+					Eventually(func() (string, error) {
+						procCgroup, err = hostProcCgroup(marker)
+						return procCgroup, err
+					}).ShouldNot(BeEmpty())
+
+					cgroupRelativePath, err := cgroupPathFromProcCgroup(procCgroup, "cpu")
+					Expect(err).NotTo(HaveOccurred())
 					cgroupPath = filepath.Join(gardencgroups.Root, cgroupRelativePath)
 				})
 

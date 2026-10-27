@@ -86,7 +86,10 @@ var _ = Describe("CPU shares rebalancing", func() {
 			containerPort, _, err = container.NetIn(0, 8080)
 			Expect(err).NotTo(HaveOccurred())
 
-			_, err = container.Run(garden.ProcessSpec{Path: "/bin/throttled-or-not"}, garden.ProcessIO{})
+			_, err = container.Run(garden.ProcessSpec{
+				Path: "/bin/throttled-or-not",
+				Env:  []string{processMarker(container.Handle())},
+			}, garden.ProcessIO{})
 			Expect(err).NotTo(HaveOccurred())
 
 			Eventually(func() (string, error) {
@@ -97,7 +100,7 @@ var _ = Describe("CPU shares rebalancing", func() {
 		When("the application is punished to the bad cgroup", func() {
 			JustBeforeEach(func() {
 				Expect(spin(container, containerPort)).To(Succeed())
-				ensureInCgroup(container, containerPort, gardencgroups.BadCgroupName)
+				ensureInCgroup(container, gardencgroups.BadCgroupName)
 			})
 
 			It("redistributes the container shares to the bad cgroup", func() {
@@ -113,7 +116,7 @@ var _ = Describe("CPU shares rebalancing", func() {
 			When("the application is released back to the good cgroup", func() {
 				JustBeforeEach(func() {
 					Expect(unspin(container, containerPort)).To(Succeed())
-					ensureInCgroup(container, containerPort, gardencgroups.GoodCgroupName)
+					ensureInCgroup(container, gardencgroups.GoodCgroupName)
 				})
 
 				It("redistributes the container shares to the good cgroup", func() {
@@ -152,11 +155,11 @@ var _ = Describe("CPU shares rebalancing", func() {
 	})
 })
 
-func ensureInCgroup(container garden.Container, containerPort uint32, cgroupType string) string {
+func ensureInCgroup(container garden.Container, cgroupType string) string {
 	cgroupPath := ""
 	EventuallyWithOffset(1, func() (string, error) {
 		var err error
-		cgroupPath, err = getCgroup(container, containerPort)
+		cgroupPath, err = getCgroup(container)
 		return cgroupPath, err
 	}, "2m", "100ms").Should(ContainSubstring(filepath.Join(cgroupType, container.Handle())))
 

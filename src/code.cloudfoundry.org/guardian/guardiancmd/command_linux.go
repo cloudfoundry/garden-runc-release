@@ -211,17 +211,13 @@ func defaultBindMounts() []specs.Mount {
 func privilegedMounts() []specs.Mount {
 	return []specs.Mount{
 		{Destination: "/proc", Type: "proc", Source: "proc", Options: []string{"nosuid", "noexec", "nodev"}},
-		{Destination: "/sys/fs/cgroup", Type: "cgroup", Source: "cgroup", Options: []string{"ro", "nosuid", "noexec", "nodev"}},
 	}
 }
 
 func unprivilegedMounts() []specs.Mount {
-	// The cgroup mount is left to runc. On cgroup v1 it mounts the hierarchies
-	// read-only; on cgroup v2 containers also get a cgroup namespace (see
-	// bundlerules.CgroupNamespace), so runc does a namespace-relative cgroup2
-	// mount instead of leaking the host-absolute path. Privileged containers
-	// declare the same mount and take the same namespace, so both get an
-	// identical, container-scoped view.
+	// On cgroup v2 unprivileged containers also get a cgroup namespace (see
+	// bundlerules.CgroupNamespace), so runc mounts cgroup2 rooted at the
+	// container's own cgroup.
 	return []specs.Mount{
 		{Destination: "/proc", Type: "proc", Source: "proc", Options: []string{"nosuid", "noexec", "nodev"}},
 		{Destination: "/sys/fs/cgroup", Type: "cgroup", Source: "cgroup", Options: []string{"ro", "nosuid", "noexec", "nodev"}},

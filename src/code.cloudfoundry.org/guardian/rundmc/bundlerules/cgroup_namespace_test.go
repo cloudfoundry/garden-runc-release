@@ -55,11 +55,11 @@ var _ = Describe("CgroupNamespace", func() {
 			))
 		})
 
-		It("adds the cgroup namespace to a privileged container", func() {
+		It("does not add the cgroup namespace to a privileged container", func() {
 			transformedBndl, err := rule.Apply(initialBndl, spec.DesiredContainerSpec{Privileged: true})
 			Expect(err).NotTo(HaveOccurred())
 
-			Expect(transformedBndl.Namespaces()).To(ContainElement(
+			Expect(transformedBndl.Namespaces()).NotTo(ContainElement(
 				specs.LinuxNamespace{Type: specs.CgroupNamespace},
 			))
 		})

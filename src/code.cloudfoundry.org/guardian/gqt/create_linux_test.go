@@ -270,6 +270,76 @@ var _ = Describe("Creating a Container", func() {
 				Expect(hostFD).To(Equal(containerFD))
 			})
 		})
+
+		Describe("cgroups", func() {
+			cgroupNS := func(pid int) string {
+				ns, err := os.Readlink(fmt.Sprintf("/proc/%d/ns/cgroup", pid))
+				Expect(err).NotTo(HaveOccurred())
+				return ns
+			}
+
+			cgroupMounts := func() []mountInfoEntry {
+				mountInfo := runInContainerCombinedOutput(container, "cat", []string{"/proc/self/mountinfo"})
+				var mounts []mountInfoEntry
+				for _, m := range parseMountInfo(mountInfo) {
+					if m.fsType == "cgroup" || m.fsType == "cgroup2" {
+						mounts = append(mounts, m)
+					}
+				}
+				return mounts
+			}
+
+			Context("on cgroup v2", func() {
+				BeforeEach(func() {
+					if !gardencgroups.IsCgroup2UnifiedMode() {
+						Skip("cgroup v2 only")
+					}
+				})
+
+				It("places the container in its own cgroup namespace", func() {
+					Expect(cgroupNS(initProcPid)).NotTo(Equal(cgroupNS(client.Pid)))
+				})
+
+				It("reports the container cgroup as the namespace root", func() {
+					Expect(runInContainerCombinedOutput(container, "cat", []string{"/proc/self/cgroup"})).To(Equal("0::/\n"))
+				})
+
+				It("mounts cgroup2 read-only at /sys/fs/cgroup, rooted at the container cgroup", func() {
+					mounts := cgroupMounts()
+					Expect(mounts).To(HaveLen(1))
+					Expect(mounts[0].mountPoint).To(Equal("/sys/fs/cgroup"))
+					Expect(mounts[0].fsType).To(Equal("cgroup2"))
+					Expect(mounts[0].root).To(Equal("/"))
+					Expect(strings.Split(mounts[0].options, ",")).To(ContainElement("ro"))
+				})
+			})
+
+			Context("on cgroup v1", func() {
+				BeforeEach(func() {
+					if gardencgroups.IsCgroup2UnifiedMode() {
+						Skip("cgroup v1 only")
+					}
+				})
+
+				It("does not place the container in its own cgroup namespace", func() {
+					Expect(cgroupNS(initProcPid)).To(Equal(cgroupNS(client.Pid)))
+				})
+			})
+
+			Context("which is privileged", func() {
+				BeforeEach(func() {
+					privileged = true
+				})
+
+				It("does not place the container in its own cgroup namespace", func() {
+					Expect(cgroupNS(initProcPid)).To(Equal(cgroupNS(client.Pid)))
+				})
+
+				It("does not mount any cgroup filesystem", func() {
+					Expect(cgroupMounts()).To(BeEmpty())
+				})
+			})
+		})
 	})
 
 	Context("after creating a container with a specified root filesystem", func() {
