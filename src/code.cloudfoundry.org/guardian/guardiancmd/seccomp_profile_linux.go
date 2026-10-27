@@ -12,14 +12,14 @@ import (
 // of runtime-spec linux.seccomp) from path and returns it in place of the
 // compiled-in baseline.
 //
-// The profile's defaultAction is validated at manifest-render time by the garden
-// job template (an allowlist of terminal, non-permissive actions), so a bad
-// override fails the deploy rather than a container start; loadSeccompProfile
-// does not re-check it here.
+// The profile is applied as-is: its contents are the operator's responsibility
+// (see the garden.seccomp_profile property description). loadSeccompProfile does
+// not validate the policy -- it does not check the defaultAction, the rule set,
+// or whether the result is more or less permissive than the compiled-in default.
 //
 // Fail-safe semantics:
 //   - An empty path returns the compiled-in fallback unchanged (no override).
-//   - A missing/unreadable/invalid file is a hard error: guardian must not
+//   - A missing/unreadable/invalid-JSON file is a hard error: guardian must not
 //     silently fall back to a weaker-or-different policy than the operator
 //     intended, and must never start a container with an unintended profile.
 func loadSeccompProfile(path string, fallback *specs.LinuxSeccomp) (*specs.LinuxSeccomp, error) {
