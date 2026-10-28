@@ -163,6 +163,37 @@ var _ = Describe("Greenskeeper", func() {
 			})
 		})
 
+		Context("when the directory is a symlink to another directory", func() {
+			var (
+				targetDir string
+				targetUID uint32
+				targetGID uint32
+			)
+
+			BeforeEach(func() {
+				var err error
+				targetDir, err = os.MkdirTemp(dir, "target")
+				Expect(err).NotTo(HaveOccurred())
+				Expect(os.Chmod(targetDir, 0700)).To(Succeed())
+
+				targetStat := stat(targetDir).Sys().(*syscall.Stat_t)
+				targetUID, targetGID = targetStat.Uid, targetStat.Gid
+
+				Expect(os.Symlink(targetDir, pikachuDir)).To(Succeed())
+			})
+
+			It("returns an error", func() {
+				Expect(setupErr).To(HaveOccurred())
+			})
+
+			It("does not chmod or chown the symlink target", func() {
+				fileInfo := stat(targetDir)
+				Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(0700)))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(targetUID))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(targetGID))
+			})
+		})
+
 		Context("when chmodding the directory fails", func() {
 			BeforeEach(func() {
 				directories[0].chmod = func(string, os.FileMode) error { return errors.New("I failed") }

@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"syscall"
 )
 
 const defaultDirectoryMode = os.FileMode(0701)
@@ -31,8 +32,8 @@ func NewDirectoryBuilder(path string) DirectoryBuilder {
 		GID:  -1,
 
 		mkdirAll: os.MkdirAll,
-		chown:    os.Chown,
-		chmod:    os.Chmod,
+		chown:    chownNoFollow,
+		chmod:    chmodNoFollow,
 	}}
 }
 
@@ -53,6 +54,39 @@ func (b DirectoryBuilder) GID(gid int) DirectoryBuilder {
 func (b DirectoryBuilder) Mode(mode os.FileMode) DirectoryBuilder {
 	b.directory.Mode = &mode
 	return b
+}
+
+// openDirNoFollow opens path as a directory without following a symlink in the
+// final path component. greenskeeper runs as root on paths that live inside a
+// directory writable by a less privileged user, so chmod/chown must never be
+// applied through a symlink that user planted.
+func openDirNoFollow(path string) (*os.File, error) {
+	fd, err := syscall.Open(path, syscall.O_RDONLY|syscall.O_DIRECTORY|syscall.O_NOFOLLOW|syscall.O_CLOEXEC, 0)
+	if err != nil {
+		return nil, &os.PathError{Op: "open", Path: path, Err: err}
+	}
+
+	return os.NewFile(uintptr(fd), path), nil
+}
+
+func chmodNoFollow(path string, mode os.FileMode) error {
+	f, err := openDirNoFollow(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return f.Chmod(mode)
+}
+
+func chownNoFollow(path string, uid, gid int) error {
+	f, err := openDirNoFollow(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return f.Chown(uid, gid)
 }
 
 func CreateDirectories(directories ...Directory) error {
