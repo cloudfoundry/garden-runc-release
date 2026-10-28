@@ -3,10 +3,10 @@ module code.cloudfoundry.org
 go 1.26.8
 
 require (
-	code.cloudfoundry.org/archiver v0.93.0
-	code.cloudfoundry.org/garden v0.9.0
+	code.cloudfoundry.org/archiver v0.94.0
+	code.cloudfoundry.org/garden v0.10.0
 	code.cloudfoundry.org/guardian v1.95.0
-	code.cloudfoundry.org/lager/v3 v3.92.0
+	code.cloudfoundry.org/lager/v3 v3.93.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.128
 	github.com/jessevdk/go-flags v1.6.1
@@ -20,7 +20,7 @@ require (
 )
 
 require (
-	code.cloudfoundry.org/commandrunner v0.82.0 // indirect
+	code.cloudfoundry.org/commandrunner v0.84.0 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
 	github.com/caio/go-tdigest/v4 v4.1.0 // indirect
@@ -33,10 +33,10 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261016150608-1facf8f91b50 // indirect
+	github.com/google/pprof v0.0.0-20261026192309-dbd0ed30aa88 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/moby/sys/mountinfo v0.7.2 // indirect
+	github.com/moby/sys/mountinfo v0.7.3 // indirect
 	github.com/moby/sys/reexec v0.1.0 // indirect
 	github.com/moby/sys/userns v0.2.1 // indirect
 	github.com/opencontainers/cgroups v0.1.0 // indirect
@@ -50,7 +50,7 @@ require (
 	github.com/vishvananda/netns v0.0.5 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/mod v0.42.0 // indirect
-	golang.org/x/net v0.61.0 // indirect
+	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/sync v0.24.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.52.0 // indirect
