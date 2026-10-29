@@ -10,6 +10,7 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 
@@ -32,6 +33,16 @@ type Nerd struct {
 	context   context.Context
 	ioFifoDir string
 	mp        *metrics.MetricsProvider
+	peaIOMu   sync.Mutex
+	peaTasks  map[string]*peaTask
+}
+
+type peaTask struct {
+	task      client.Task
+	stdinDone <-chan struct{}
+	terminal  bool
+	context   context.Context
+	cancel    context.CancelFunc
 }
 
 func New(client *client.Client, context context.Context, ioFifoDir string, mp *metrics.MetricsProvider) *Nerd {
@@ -40,15 +51,28 @@ func New(client *client.Client, context context.Context, ioFifoDir string, mp *m
 		context:   context,
 		ioFifoDir: ioFifoDir,
 		mp:        mp,
+		peaTasks:  make(map[string]*peaTask),
 	}
 }
 
-func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) error {
+func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) (result error) {
 	log.Debug("creating-container", lager.Data{"containerID": containerID})
 	container, err := n.client.NewContainer(n.context, containerID, client.WithSpec(spec))
 	if err != nil {
 		return err
 	}
+	// Only a successful NewContainer establishes ownership. Failed label/task
+	// setup must not leave owned metadata behind, or erase a colliding ID.
+	defer func() {
+		if result == nil {
+			return
+		}
+		if err := n.Delete(log, containerID); err != nil {
+			result = &runcontainerd.PeaRuntimeCleanupError{Err: errors.Join(result, err)}
+			return
+		}
+		result = errors.Join(result, n.RemoveBundle(log, containerID))
+	}()
 
 	for key, value := range spec.Annotations {
 		log.Debug("setting-label", lager.Data{"containerID": containerID, "label-key": key, "label-value": value})
@@ -58,17 +82,64 @@ func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, ho
 	}
 
 	log.Debug("creating-task", lager.Data{"containerID": containerID})
-	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(noTTYProcessIO(pio), n.ioFifoDir)), client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	isPea := spec.Annotations["container-type"] == "pea"
+	processIO := noTTYProcessIO(pio)
+	var inputDone chan struct{}
+	if isPea {
+		inputDone = make(chan struct{})
+		processIO = func() (io.Reader, io.Writer, io.Writer, bool) {
+			stdin, stdout, stderr := pio()
+			return &peaInput{reader: orEmpty(stdin), done: inputDone}, stdout, stderr, spec.Process != nil && spec.Process.Terminal
+		}
+	}
+	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(processIO, n.ioFifoDir)), client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	if err == nil && isPea {
+		ctx, cancel := context.WithCancel(n.context)
+		n.peaIOMu.Lock()
+		n.peaTasks[containerID] = &peaTask{task: task, stdinDone: inputDone, terminal: spec.Process != nil && spec.Process.Terminal, context: ctx, cancel: cancel}
+		n.peaIOMu.Unlock()
+	}
+	return err
+}
+
+// Start starts a task created by Create. Keeping the two phases separate lets
+// Garden configure networking after the task's namespaces exist but before its
+// init process runs, which runtimes that snapshot the network at start need.
+func (n *Nerd) Start(log lager.Logger, containerID string) error {
+	_, task, err := n.loadContainerAndTask(log, containerID)
 	if err != nil {
 		return err
 	}
 
+	n.peaIOMu.Lock()
+	pea := n.peaTasks[containerID]
+	n.peaIOMu.Unlock()
 	log.Debug("starting-task", lager.Data{"containerID": containerID})
-	err = task.Start(n.context)
-	if err != nil {
+	if err := task.Start(n.context); err != nil {
 		return err
 	}
 
+	if pea != nil {
+		// A terminal has one bidirectional console master, not an independent
+		// stdin pipe. Closing its keepalive on input EOF makes the stock shim
+		// close that master, dropping output and delivering SIGHUP. Keep it
+		// until task exit/deletion; stdin completion is not terminal shutdown.
+		if pea.terminal {
+			return nil
+		}
+		// The shim holds a keepalive writer on stdin. Release it only after
+		// cio has written the supplied input, never immediately after Start.
+		go func() {
+			select {
+			case <-pea.stdinDone:
+				if err := task.CloseIO(pea.context, client.WithStdinCloser); err != nil {
+					log.Error("failed-closing-pea-stdin", err, lager.Data{"containerID": containerID})
+				}
+			case <-pea.context.Done():
+			}
+		}()
+		return nil
+	}
 	return task.CloseIO(n.context, client.WithStdinCloser)
 }
 
@@ -106,15 +177,22 @@ func withProcessKillLogging(log lager.Logger, mp *metrics.MetricsProvider) func(
 	}
 }
 
-func (n *Nerd) Delete(log lager.Logger, containerID string) error {
+func (n *Nerd) Delete(log lager.Logger, containerID string) (result error) {
+	defer func() {
+		if result == nil {
+			result = n.releasePeaIO(containerID)
+		}
+	}()
 	_, task, err := n.loadContainerAndTask(log, containerID)
 	if err != nil {
 		switch err.(type) {
 		case runcontainerd.ContainerNotFoundError:
 			log.Debug("container-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		case runcontainerd.TaskNotFoundError:
 			log.Debug("task-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		}
 		return err
@@ -207,6 +285,10 @@ func (n *Nerd) Exec(log lager.Logger, containerID, processID string, spec *specs
 
 	log.Debug("starting-task", lager.Data{"containerID": containerID, "processID": processID})
 	if err := process.Start(n.context); err != nil {
+		if _, deleteErr := process.Delete(n.context); deleteErr != nil {
+			log.Error("delete-failed-exec", deleteErr, lager.Data{"containerID": containerID, "processID": processID})
+			return BackingProcess{}, errors.Join(err, fmt.Errorf("delete failed exec %s: %w", processID, deleteErr))
+		}
 		return BackingProcess{}, err
 	}
 
@@ -236,12 +318,34 @@ func (n *Nerd) GetProcess(log lager.Logger, containerID, processID string) (runc
 
 func (n *Nerd) GetTask(log lager.Logger, id string) (runcontainerd.BackingProcess, error) {
 	log.Debug("get-task", lager.Data{"id": id})
+	n.peaIOMu.Lock()
+	created := n.peaTasks[id]
+	n.peaIOMu.Unlock()
+	if created != nil {
+		// Wait must drain the actual creator's IO, not cio.Load's no-op Wait.
+		return NewBackingProcess(log, created.task, n.context), nil
+	}
 	_, task, err := n.loadContainerAndTask(log, id)
 	if err != nil {
 		return BackingProcess{}, err
 	}
 
 	return NewBackingProcess(log, task, n.context), nil
+}
+
+func (n *Nerd) releasePeaIO(id string) error {
+	n.peaIOMu.Lock()
+	task := n.peaTasks[id]
+	delete(n.peaTasks, id)
+	n.peaIOMu.Unlock()
+	if task != nil {
+		task.cancel()
+		if task.task.IO() != nil {
+			task.task.IO().Cancel()
+			return task.task.IO().Close()
+		}
+	}
+	return nil
 }
 
 func exponentialBackoffCloseIO(process client.Process, ctx context.Context, log lager.Logger, containerID string) {
@@ -377,7 +481,9 @@ func (n *Nerd) OOMEvents(log lager.Logger) <-chan *apievents.TaskOOM {
 }
 
 func (n *Nerd) Spec(log lager.Logger, containerID string) (*specs.Spec, error) {
-	container, _, err := n.loadContainerAndTask(log, containerID)
+	// The OCI spec belongs to metadata, not a live task. Restart cleanup must
+	// still discover ownership after task deletion succeeds.
+	container, err := n.loadContainer(log, containerID)
 	if err != nil {
 		return nil, err
 	}
