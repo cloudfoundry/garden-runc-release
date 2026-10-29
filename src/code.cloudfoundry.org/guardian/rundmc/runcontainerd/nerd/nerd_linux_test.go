@@ -7,22 +7,32 @@ import (
 	"fmt"
 	"io"
 	"math/rand"
+	"net"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
+	"sync/atomic"
 	"syscall"
+	"testing"
 	"time"
 
 	apievents "github.com/containerd/containerd/api/events"
+	containersapi "github.com/containerd/containerd/api/services/containers/v1"
+	tasksapi "github.com/containerd/containerd/api/services/tasks/v1"
+	tasktypes "github.com/containerd/containerd/api/types/task"
 	"github.com/containerd/containerd/v2/client"
 	"github.com/containerd/containerd/v2/core/containers"
+	"github.com/containerd/containerd/v2/core/leases"
+	"github.com/containerd/containerd/v2/pkg/namespaces"
 	"github.com/containerd/containerd/v2/pkg/oci"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
 	specs "github.com/opencontainers/runtime-spec/specs-go"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/emptypb"
 
 	"code.cloudfoundry.org/guardian/metrics"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
@@ -30,6 +40,166 @@ import (
 	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/lager/v3/lagertest"
 )
+
+type fixtureContainersServer struct {
+	containersapi.UnimplementedContainersServer
+	created chan *containersapi.Container
+	stored  *containersapi.Container
+}
+
+func (rpc *fixtureContainersServer) Create(_ context.Context, request *containersapi.CreateContainerRequest) (*containersapi.CreateContainerResponse, error) {
+	rpc.stored = request.Container
+	rpc.created <- request.Container
+	return &containersapi.CreateContainerResponse{Container: request.Container}, nil
+}
+
+func (rpc *fixtureContainersServer) Get(context.Context, *containersapi.GetContainerRequest) (*containersapi.GetContainerResponse, error) {
+	return &containersapi.GetContainerResponse{Container: rpc.stored}, nil
+}
+
+func (rpc *fixtureContainersServer) Update(_ context.Context, request *containersapi.UpdateContainerRequest) (*containersapi.UpdateContainerResponse, error) {
+	rpc.stored = request.Container
+	return &containersapi.UpdateContainerResponse{Container: request.Container}, nil
+}
+
+// peaInputTasksServer is a TaskService fixture that never runs a host process.
+type peaInputTasksServer struct {
+	tasksapi.UnimplementedTasksServer
+	created chan *tasksapi.CreateTaskRequest
+	closed  chan *tasksapi.CloseIORequest
+	killed  atomic.Bool
+}
+
+func (rpc *peaInputTasksServer) Create(_ context.Context, request *tasksapi.CreateTaskRequest) (*tasksapi.CreateTaskResponse, error) {
+	rpc.created <- request
+	return &tasksapi.CreateTaskResponse{ContainerID: request.ContainerID, Pid: ^uint32(0)}, nil
+}
+
+func (rpc *peaInputTasksServer) Start(context.Context, *tasksapi.StartRequest) (*tasksapi.StartResponse, error) {
+	return &tasksapi.StartResponse{Pid: ^uint32(0)}, nil
+}
+
+func (rpc *peaInputTasksServer) CloseIO(_ context.Context, request *tasksapi.CloseIORequest) (*emptypb.Empty, error) {
+	rpc.closed <- request
+	return &emptypb.Empty{}, nil
+}
+
+func (rpc *peaInputTasksServer) Delete(context.Context, *tasksapi.DeleteTaskRequest) (*tasksapi.DeleteResponse, error) {
+	return &tasksapi.DeleteResponse{}, nil
+}
+
+func (rpc *peaInputTasksServer) Wait(context.Context, *tasksapi.WaitRequest) (*tasksapi.WaitResponse, error) {
+	return &tasksapi.WaitResponse{}, nil
+}
+
+func (rpc *peaInputTasksServer) Kill(context.Context, *tasksapi.KillRequest) (*emptypb.Empty, error) {
+	// Cleanup signals only this fake RPC, never the synthetic host PID.
+	rpc.killed.Store(true)
+	return &emptypb.Empty{}, nil
+}
+
+func (rpc *peaInputTasksServer) Get(_ context.Context, request *tasksapi.GetRequest) (*tasksapi.GetResponse, error) {
+	processStatus := tasktypes.Status_CREATED
+	if rpc.killed.Load() {
+		processStatus = tasktypes.Status_STOPPED
+	}
+	return &tasksapi.GetResponse{Process: &tasktypes.Process{
+		ContainerID: request.ContainerID, ID: request.ContainerID, Pid: ^uint32(0), Status: processStatus,
+	}}, nil
+}
+
+func TestNerdPeaCloseIOFollowsInputCompletion(t *testing.T) {
+	testNerdPeaInputCompletion(t, false)
+}
+
+func TestNerdTerminalPeaInputCompletionKeepsConsole(t *testing.T) {
+	testNerdPeaInputCompletion(t, true)
+}
+
+func testNerdPeaInputCompletion(t *testing.T, terminal bool) {
+	t.Helper()
+	dir := t.TempDir()
+	listener, err := net.Listen("unix", filepath.Join(dir, "containerd.sock"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	server := grpc.NewServer()
+	defer server.Stop()
+	rpc := &peaInputTasksServer{created: make(chan *tasksapi.CreateTaskRequest, 1), closed: make(chan *tasksapi.CloseIORequest, 2)}
+	containersapi.RegisterContainersServer(server, &fixtureContainersServer{created: make(chan *containersapi.Container, 1)})
+	tasksapi.RegisterTasksServer(server, rpc)
+	go func() { _ = server.Serve(listener) }()
+	c, err := client.New(listener.Addr().String())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.Close()
+	ctx, cancel := context.WithTimeout(namespaces.WithNamespace(context.Background(), "pea-input"), 5*time.Second)
+	defer cancel()
+	ctx = leases.WithLease(ctx, "fixture-no-lease")
+	log := lagertest.NewTestLogger("pea-input")
+	n := nerd.New(c, ctx, dir, metrics.NewMetricsProvider(log, dir))
+	input, writer := io.Pipe()
+	defer input.Close()
+	defer writer.Close()
+	spec := &specs.Spec{Process: &specs.Process{Args: []string{"/unused"}, Terminal: terminal}, Annotations: map[string]string{"container-type": "pea", "sandbox-container": "parent"}}
+	if err := n.Create(log, "child", spec, 0, 0, func() (io.Reader, io.Writer, io.Writer) { return input, nil, nil }); err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		// Also unblock the supplied reader on a failed assertion before releasing
+		// the cached cio workers. This fixture never signals a host process.
+		_ = input.Close()
+		if err := n.Delete(log, "child"); err != nil {
+			t.Error(err)
+		}
+	}()
+	request := <-rpc.created
+	// A real FIFO endpoint permits cio's final write without requiring a shim.
+	fifo, err := os.OpenFile(request.Stdin, os.O_RDWR|syscall.O_NONBLOCK, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer fifo.Close()
+	if err := n.Start(log, "child"); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case <-rpc.closed:
+		t.Fatal("CloseIO preceded supplied stdin completion")
+	case <-time.After(50 * time.Millisecond):
+	}
+	if _, err := io.WriteString(writer, "last bytes"); err != nil {
+		t.Fatal(err)
+	}
+	if err := writer.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if terminal {
+		b := make([]byte, 10)
+		if _, err := io.ReadFull(fifo, b); err != nil || string(b) != "last bytes" {
+			t.Fatalf("final terminal FIFO bytes = %q, %v", b, err)
+		}
+		select {
+		case <-rpc.closed:
+			t.Fatal("terminal stdin completion closed the bidirectional console")
+		case <-time.After(50 * time.Millisecond):
+		}
+		return
+	}
+	select {
+	case closed := <-rpc.closed:
+		if !closed.Stdin || closed.ContainerID != "child" {
+			t.Fatalf("CloseIO request = %+v", closed)
+		}
+	case <-ctx.Done():
+		t.Fatal("CloseIO did not follow supplied stdin completion")
+	}
+	b := make([]byte, 10)
+	if _, err := io.ReadFull(fifo, b); err != nil || string(b) != "last bytes" {
+		t.Fatalf("final FIFO bytes = %q, %v", b, err)
+	}
+}
 
 var randomGenerator *rand.Rand
 var _ = Describe("Nerd", func() {
@@ -102,6 +272,7 @@ var _ = Describe("Nerd", func() {
 		It("starts an init process in the container", func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 
 			processes := listProcesses(testConfig.CtrBin, testConfig.Socket, containerID)
 			// init processes look like this in ctr:
@@ -123,6 +294,7 @@ var _ = Describe("Nerd", func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			spec.Process.Args = []string{"/bin/sh", "-c", "echo hi && sleep 60"}
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 			Eventually(stdout, "30s").Should(gbytes.Say("hi"))
 		})
 
@@ -130,6 +302,7 @@ var _ = Describe("Nerd", func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			spec.Process.Args = []string{"/bin/sh", "-c", "echo hi 1>&2 && sleep 60"}
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 			Eventually(stderr, "30s").Should(gbytes.Say("hi"))
 		})
 
@@ -138,6 +311,7 @@ var _ = Describe("Nerd", func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			spec.Process.Args = []string{"/bin/sh", "-c", "cat && sleep 60"}
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 			Eventually(stdout, "30s").Should(gbytes.Say("hi"))
 		})
 
@@ -186,6 +360,7 @@ var _ = Describe("Nerd", func() {
 		JustBeforeEach(func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 		})
 
 		AfterEach(func() {
@@ -297,6 +472,7 @@ var _ = Describe("Nerd", func() {
 		JustBeforeEach(func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 
 			processSpec := &specs.Process{
 				Args: []string{"/bin/sh", "-c", "exit 17"},
@@ -341,6 +517,7 @@ var _ = Describe("Nerd", func() {
 		JustBeforeEach(func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 			stdoutBuffer := gbytes.NewBuffer()
 			processIO = func() (io.Reader, io.Writer, io.Writer, bool) {
 				return nil, stdoutBuffer, nil, false
@@ -389,6 +566,7 @@ var _ = Describe("Nerd", func() {
 		JustBeforeEach(func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 
 			processSpec := &specs.Process{
 				Args: []string{"/bin/sleep", "30"},
@@ -490,7 +668,16 @@ var _ = Describe("Nerd", func() {
 			cnerd.Delete(testLogger, containerID)
 		})
 
+		It("gets a nonzero pid and created status before Start", func() {
+			pid, status, err := cnerd.State(testLogger, containerID)
+
+			Expect(err).NotTo(HaveOccurred())
+			Expect(pid).NotTo(BeZero())
+			Expect(status).To(BeEquivalentTo(client.Created))
+		})
+
 		It("gets the pid and status of a running task", func() {
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 			pid, status, err := cnerd.State(testLogger, containerID)
 
 			Expect(err).NotTo(HaveOccurred())
@@ -503,6 +690,7 @@ var _ = Describe("Nerd", func() {
 		JustBeforeEach(func() {
 			spec = generateSpec(containerdContext, containerdClient, containerID)
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 		})
 
 		AfterEach(func() {
@@ -533,6 +721,7 @@ var _ = Describe("Nerd", func() {
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
 
 			events = cnerd.OOMEvents(testLogger)
+			Expect(cnerd.Start(testLogger, containerID)).To(Succeed())
 
 			proc, err := cnerd.Exec(testLogger, containerID, processID, processSpec, processIO)
 			Expect(err).NotTo(HaveOccurred())

@@ -145,6 +145,31 @@ var _ = Describe("Rundmc", func() {
 		})
 	})
 
+	Describe("Start", func() {
+		It("delegates to the runtime with the original handle", func() {
+			Expect(containerizer.Start(logger, "some-handle")).To(Succeed())
+			Expect(fakeOCIRuntime.StartCallCount()).To(Equal(1))
+			_, id := fakeOCIRuntime.StartArgsForCall(0)
+			Expect(id).To(Equal("some-handle"))
+		})
+
+		It("returns the runtime's error unchanged", func() {
+			runtimeErr := errors.New("start-boom")
+			fakeOCIRuntime.StartReturns(runtimeErr)
+			err := containerizer.Start(logger, "some-handle")
+			Expect(err).To(BeIdenticalTo(runtimeErr))
+		})
+
+		It("is not called eagerly during Create", func() {
+			Expect(containerizer.Create(logger, specpkg.DesiredContainerSpec{
+				Handle:     "create-only",
+				BaseConfig: specs.Spec{Root: &specs.Root{}},
+			})).To(Succeed())
+			Expect(fakeOCIRuntime.StartCallCount()).To(Equal(0),
+				"Create must not call runtime.Start; the Gardener starts the container after networking")
+		})
+	})
+
 	Describe("Run", func() {
 		It("should ask the execer to exec a process in the container", func() {
 			_, err := containerizer.Run(logger, "some-handle", garden.ProcessSpec{Path: "hello"}, garden.ProcessIO{})

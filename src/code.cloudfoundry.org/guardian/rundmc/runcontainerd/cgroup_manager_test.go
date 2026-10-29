@@ -72,8 +72,8 @@ var _ = Describe("CgroupManager", func() {
 				containerHandle = "foo"
 			})
 
-			It("returns an error", func() {
-				Expect(setErr).To(HaveOccurred())
+			It("returns nil because the runtime keeps no runc state", func() {
+				Expect(setErr).NotTo(HaveOccurred())
 			})
 		})
 

@@ -12,6 +12,7 @@ import (
 //counterfeiter:generate . PeaManager
 type PeaManager interface {
 	Create(log lager.Logger, id string, bundle goci.Bndl, io garden.ProcessIO) error
+	Start(log lager.Logger, id string) error
 	Delete(log lager.Logger, containerID string) error
 	RemoveBundle(log lager.Logger, containerID string) error
 }
@@ -75,6 +76,11 @@ func (r *RunContainerPea) RunPea(
 
 	process, err := r.processManager.GetTask(log, processID)
 	if err != nil {
+		return nil, err
+	}
+	// Unlike a parent, the pea already has its parent's network and needs no
+	// intervening CNI stage. A Garden Run request must return a started process.
+	if err := r.peaManager.Start(log, processID); err != nil {
 		return nil, err
 	}
 

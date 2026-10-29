@@ -301,6 +301,19 @@ var _ = Describe("Gardener", func() {
 				Expect(err).To(HaveOccurred())
 			})
 
+			// A failed Create must not proceed to any later
+			// lifecycle stage.
+			It("does not call Info, Network, or Start", func() {
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "poor-banana"})
+				Expect(err).To(HaveOccurred())
+				Expect(containerizer.InfoCallCount()).To(BeZero(),
+					"Info must not be called after Create failure")
+				Expect(networker.NetworkCallCount()).To(BeZero(),
+					"Network must not be called after Create failure")
+				Expect(containerizer.StartCallCount()).To(BeZero(),
+					"Start must not be called after Create failure")
+			})
+
 			It("sets container properties", func() {
 				gdnr.Create(garden.ContainerSpec{Handle: "bob", Properties: garden.Properties{"owner": "some-owner"}})
 				Expect(propertyManager.SetCallCount()).To(Equal(1))
@@ -433,13 +446,25 @@ var _ = Describe("Gardener", func() {
 		})
 
 		Context("when container info cannot be retrieved", func() {
-			It("errors", func() {
+			BeforeEach(func() {
 				containerizer.InfoReturns(spec.ActualContainerSpec{}, errors.New("boom"))
+			})
 
+			It("errors", func() {
 				_, err := gdnr.Create(garden.ContainerSpec{Handle: "bob"})
 				Expect(err).To(MatchError("boom"))
-
 			})
+
+			// Verify that Network and Start are never called when
+			// Info fails, since they depend on the PID returned by Info.
+			It("does not call Network or Start", func() {
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "poor-banana"})
+				Expect(err).To(HaveOccurred())
+				Expect(networker.NetworkCallCount()).To(BeZero())
+				Expect(containerizer.StartCallCount()).To(BeZero())
+			})
+
+			ItDestroysEverything()
 		})
 
 		Context("when container info returns pid = 0", func() {
@@ -447,10 +472,21 @@ var _ = Describe("Gardener", func() {
 				containerizer.InfoReturns(spec.ActualContainerSpec{Pid: 0}, nil)
 			})
 
-			It("errors", func() {
+			It("errors with a descriptive message", func() {
 				_, err := gdnr.Create(garden.ContainerSpec{Handle: "bob"})
-				Expect(err).To(HaveOccurred())
+				Expect(err).To(MatchError("container init PID was 0"))
 			})
+
+			// A zero PID means the init process did not start.
+			// Network and Start must not be called.
+			It("does not call Network or Start", func() {
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "poor-banana"})
+				Expect(err).To(HaveOccurred())
+				Expect(networker.NetworkCallCount()).To(BeZero())
+				Expect(containerizer.StartCallCount()).To(BeZero())
+			})
+
+			ItDestroysEverything()
 		})
 
 		Context("when networker fails to configure network", func() {
@@ -461,6 +497,16 @@ var _ = Describe("Gardener", func() {
 				Expect(err).To(MatchError("network-failed"))
 			})
 
+			// Start must not be called after a networking failure.
+			// The container task remains in Created state for cleanup.
+			It("does not call Start", func() {
+				networker.NetworkReturns(errors.New("network-failed"))
+
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "poor-banana"})
+				Expect(err).To(HaveOccurred())
+				Expect(containerizer.StartCallCount()).To(BeZero())
+			})
+
 			It("sets container properties", func() {
 				gdnr.Create(garden.ContainerSpec{Handle: "bob", Properties: garden.Properties{"owner": "some-owner"}})
 				Expect(propertyManager.SetCallCount()).To(Equal(2)) // TODO chnage to 1 once we stop failure for non-healtcheck
@@ -468,6 +514,89 @@ var _ = Describe("Gardener", func() {
 				Expect(handle).To(Equal("bob"))
 				Expect(name).To(Equal("owner"))
 				Expect(value).To(Equal("some-owner"))
+			})
+
+			// Verify cleanup runs when Network fails.
+			Context("cleanup on network failure", func() {
+				BeforeEach(func() {
+					networker.NetworkReturns(errors.New("network-failed"))
+				})
+
+				ItDestroysEverything()
+			})
+		})
+
+		// Lifecycle ordering and Start regression tests.
+		// These tests protect the required Create → Info → Network → Start
+		// sequence and verify that failures at each stage prevent later stages
+		// from executing and trigger proper cleanup.
+
+		Describe("lifecycle ordering", func() {
+			It("calls Create, Info, Network, Start in strict order", func() {
+				var callOrder []string
+
+				containerizer.CreateStub = func(_ lager.Logger, _ spec.DesiredContainerSpec) error {
+					callOrder = append(callOrder, "Create")
+					return nil
+				}
+				containerizer.InfoStub = func(_ lager.Logger, _ string) (spec.ActualContainerSpec, error) {
+					callOrder = append(callOrder, "Info")
+					return spec.ActualContainerSpec{Pid: 42, RootFSPath: "rootfs"}, nil
+				}
+				networker.NetworkStub = func(_ lager.Logger, _ garden.ContainerSpec, _ int) error {
+					callOrder = append(callOrder, "Network")
+					return nil
+				}
+				containerizer.StartStub = func(_ lager.Logger, _ string) error {
+					callOrder = append(callOrder, "Start")
+					return nil
+				}
+
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "ordering-test"})
+				Expect(err).NotTo(HaveOccurred())
+				Expect(callOrder).To(Equal([]string{"Create", "Info", "Network", "Start"}))
+			})
+		})
+
+		It("calls containerizer.Start exactly once on the happy path", func() {
+			_, err := gdnr.Create(garden.ContainerSpec{Handle: "start-once"})
+			Expect(err).NotTo(HaveOccurred())
+			Expect(containerizer.StartCallCount()).To(Equal(1))
+			_, handle := containerizer.StartArgsForCall(0)
+			Expect(handle).To(Equal("start-once"))
+		})
+
+		Context("when the containerizer fails to start the container", func() {
+			BeforeEach(func() {
+				containerizer.StartReturns(errors.New("start-failed"))
+			})
+
+			It("should return an error", func() {
+				_, err := gdnr.Create(garden.ContainerSpec{Handle: "poor-banana"})
+				Expect(err).To(MatchError("start-failed"))
+			})
+
+			ItDestroysEverything()
+
+			// Grace time and garden.state are set after Start. A Start
+			// failure must prevent these post-Start steps from executing;
+			// otherwise the container would be marked "created" in a
+			// half-initialized state.
+			It("does not set grace time or mark the container as created", func() {
+				_, err := gdnr.Create(garden.ContainerSpec{
+					Handle:    "poor-banana",
+					GraceTime: time.Minute,
+				})
+				Expect(err).To(HaveOccurred())
+				// Only the deferred cleanup property sets should have happened,
+				// not the post-Start grace time or garden.state properties.
+				for i := 0; i < propertyManager.SetCallCount(); i++ {
+					_, name, _ := propertyManager.SetArgsForCall(i)
+					Expect(name).NotTo(Equal(gardener.GraceTimeKey),
+						"grace time must not be set after Start failure")
+					Expect(name).NotTo(Equal("garden.state"),
+						"garden.state must not be set after Start failure")
+				}
 			})
 		})
 
@@ -1344,6 +1473,78 @@ var _ = Describe("Gardener", func() {
 				Expect(logger.Errors[0]).To(MatchError("depot-failure"))
 			})
 		})
+
+		Context("when a restored container has a definitively absent task", func() {
+			BeforeEach(func() {
+				containerizer.HandlesReturns([]string{"healthy-handle", "orphaned-handle"}, nil)
+				restorer.RestoreReturns([]string{}) // both "restored" successfully
+
+				containerizer.InfoStub = func(log lager.Logger, handle string) (spec.ActualContainerSpec, error) {
+					if handle == "orphaned-handle" {
+						return spec.ActualContainerSpec{}, taskNotFoundErr{handle: handle}
+					}
+					return spec.ActualContainerSpec{Pid: 42}, nil
+				}
+			})
+
+			It("destroys the unreachable container", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+
+				destroyedHandles := []string{}
+				for i := 0; i < containerizer.DestroyCallCount(); i++ {
+					_, h := containerizer.DestroyArgsForCall(i)
+					destroyedHandles = append(destroyedHandles, h)
+				}
+				Expect(destroyedHandles).To(ConsistOf("orphaned-handle"))
+			})
+
+			It("does not destroy the healthy container", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+
+				for i := 0; i < containerizer.DestroyCallCount(); i++ {
+					_, h := containerizer.DestroyArgsForCall(i)
+					Expect(h).NotTo(Equal("healthy-handle"))
+				}
+			})
+
+			It("logs the unreachable container", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+				Expect(logger.LogMessages()).To(ContainElement(ContainSubstring("destroying-unreachable-container")))
+			})
+		})
+
+		Context("when a restored container has a transient Info error", func() {
+			BeforeEach(func() {
+				containerizer.HandlesReturns([]string{"healthy-handle", "flaky-handle"}, nil)
+				restorer.RestoreReturns([]string{}) // both "restored" successfully
+
+				containerizer.InfoStub = func(log lager.Logger, handle string) (spec.ActualContainerSpec, error) {
+					if handle == "flaky-handle" {
+						return spec.ActualContainerSpec{}, errors.New("connection refused")
+					}
+					return spec.ActualContainerSpec{Pid: 42}, nil
+				}
+			})
+
+			It("does not destroy the container with a transient error", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+
+				for i := 0; i < containerizer.DestroyCallCount(); i++ {
+					_, h := containerizer.DestroyArgsForCall(i)
+					Expect(h).NotTo(Equal("flaky-handle"))
+				}
+			})
+
+			It("logs the transient error as a warning", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+				Expect(logger.LogMessages()).To(ContainElement(ContainSubstring("transient-info-error-preserving-container")))
+			})
+
+			It("does not log a destroying-unreachable-container message", func() {
+				Expect(cleanupErr).NotTo(HaveOccurred())
+				Expect(logger.LogMessages()).NotTo(ContainElement(ContainSubstring("destroying-unreachable-container")))
+			})
+		})
 	})
 
 	Describe("getting capacity", func() {
@@ -1978,3 +2179,12 @@ var _ = Describe("Gardener", func() {
 		})
 	})
 })
+
+// taskNotFoundErr satisfies the notFoundError interface used by Cleanup()
+// to distinguish definitive task-absence from transient errors.
+type taskNotFoundErr struct {
+	handle string
+}
+
+func (e taskNotFoundErr) Error() string    { return "task for container " + e.handle + " not found" }
+func (e taskNotFoundErr) IsNotFound() bool { return true }
