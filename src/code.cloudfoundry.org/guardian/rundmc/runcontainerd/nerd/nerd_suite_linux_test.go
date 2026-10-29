@@ -16,6 +16,7 @@ import (
 	"code.cloudfoundry.org/guardian/gqt/containerdrunner"
 	"code.cloudfoundry.org/guardian/rundmc"
 	"code.cloudfoundry.org/guardian/rundmc/cgroups"
+	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
 	"code.cloudfoundry.org/lager/v3/lagertest"
 	"github.com/containerd/containerd/v2/client"
 	"github.com/containerd/containerd/v2/core/leases"
@@ -39,6 +40,8 @@ var (
 	cgroupsPath string
 
 	testConfig        *TestConfig
+	testRuntimeType   string
+	testRuntimePolicy runcontainerd.RuntimePolicy
 	containerdClient  *client.Client
 	containerdContext context.Context
 	containerdProcess *os.Process
@@ -79,7 +82,14 @@ var _ = BeforeEach(func() {
 	containerdConfig := containerdrunner.ContainerdConfig(runDir)
 	containerdProcess = containerdrunner.NewContainerdProcess(runDir, containerdConfig)
 
-	containerdClient, err = client.New(containerdConfig.GRPC.Address, client.WithDefaultRuntime(plugins.RuntimeRuncV2))
+	testRuntimeType = os.Getenv("NERD_TEST_RUNTIME_TYPE")
+	if testRuntimeType == "" {
+		testRuntimeType = plugins.RuntimeRuncV2
+	}
+	testRuntimePolicy, err = runcontainerd.ResolveRuntimePolicy(testRuntimeType)
+	Expect(err).NotTo(HaveOccurred())
+
+	containerdClient, err = client.New(containerdConfig.GRPC.Address, client.WithDefaultRuntime(testRuntimeType))
 	Expect(err).NotTo(HaveOccurred())
 
 	containerdContext = namespaces.WithNamespace(context.Background(), fmt.Sprintf("nerdspace%d", GinkgoParallelProcess()))

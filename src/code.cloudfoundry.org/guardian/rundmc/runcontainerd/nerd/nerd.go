@@ -24,6 +24,8 @@ import (
 	"github.com/containerd/containerd/v2/pkg/cio"
 	"github.com/containerd/errdefs"
 	"github.com/containerd/typeurl/v2"
+	"google.golang.org/protobuf/encoding/protowire"
+	"google.golang.org/protobuf/types/known/anypb"
 
 	specs "github.com/opencontainers/runtime-spec/specs-go"
 )
@@ -33,6 +35,7 @@ type Nerd struct {
 	context   context.Context
 	ioFifoDir string
 	mp        *metrics.MetricsProvider
+	policy    runcontainerd.RuntimePolicy
 	peaIOMu   sync.Mutex
 	peaTasks  map[string]*peaTask
 }
@@ -45,19 +48,42 @@ type peaTask struct {
 	cancel    context.CancelFunc
 }
 
-func New(client *client.Client, context context.Context, ioFifoDir string, mp *metrics.MetricsProvider) *Nerd {
+func New(containerdClient *client.Client, context context.Context, ioFifoDir string, mp *metrics.MetricsProvider, policy runcontainerd.RuntimePolicy) *Nerd {
 	return &Nerd{
-		client:    client,
+		client:    containerdClient,
 		context:   context,
 		ioFifoDir: ioFifoDir,
 		mp:        mp,
+		policy:    policy,
 		peaTasks:  make(map[string]*peaTask),
 	}
 }
 
 func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) (result error) {
 	log.Debug("creating-container", lager.Data{"containerID": containerID})
-	container, err := n.client.NewContainer(n.context, containerID, client.WithSpec(spec))
+	if n.policy == runcontainerd.RunscRuntime {
+		spec.Windows = nil // runsc rejects the Windows section
+		if spec.Annotations == nil {
+			spec.Annotations = make(map[string]string)
+		}
+		if spec.Annotations["container-type"] == "pea" {
+			parent := spec.Annotations["sandbox-container"]
+			if parent == "" || parent == containerID {
+				return fmt.Errorf("pea %s requires a distinct sandbox-container", containerID)
+			}
+			// Garden's labels also drive discovery and cleanup. Translate them at
+			// the runtime boundary so image-backed peas join the parent's Sentry.
+			spec.Annotations["io.kubernetes.cri.container-type"] = "container"
+			spec.Annotations["io.kubernetes.cri.sandbox-id"] = parent
+		} else if _, exists := spec.Annotations["io.kubernetes.cri.container-type"]; !exists {
+			spec.Annotations["io.kubernetes.cri.container-type"] = "sandbox"
+		}
+	}
+	containerOpts := []client.NewContainerOpts{client.WithSpec(spec)}
+	if n.policy == runcontainerd.RunscRuntime {
+		containerOpts = append(containerOpts, client.WithRuntime(runcontainerd.SupportedRuntimeType, runscRuntimeOptions()))
+	}
+	container, err := n.client.NewContainer(n.context, containerID, containerOpts...)
 	if err != nil {
 		return err
 	}
@@ -82,6 +108,12 @@ func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, ho
 	}
 
 	log.Debug("creating-task", lager.Data{"containerID": containerID})
+	var taskOpts []client.NewTaskOpts
+	if n.policy == runcontainerd.StockRuntime {
+		// Stock runc needs explicit keyring and UID/GID task options;
+		// runsc manages its own keyring and UID/GID via the OCI spec.
+		taskOpts = append(taskOpts, client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	}
 	isPea := spec.Annotations["container-type"] == "pea"
 	processIO := noTTYProcessIO(pio)
 	var inputDone chan struct{}
@@ -92,7 +124,7 @@ func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, ho
 			return &peaInput{reader: orEmpty(stdin), done: inputDone}, stdout, stderr, spec.Process != nil && spec.Process.Terminal
 		}
 	}
-	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(processIO, n.ioFifoDir)), client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(processIO, n.ioFifoDir)), taskOpts...)
 	if err == nil && isPea {
 		ctx, cancel := context.WithCancel(n.context)
 		n.peaIOMu.Lock()
@@ -100,6 +132,12 @@ func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, ho
 		n.peaIOMu.Unlock()
 	}
 	return err
+}
+
+func runscRuntimeOptions() *anypb.Any {
+	configPath := protowire.AppendTag(nil, 2, protowire.BytesType)
+	configPath = protowire.AppendString(configPath, "/etc/containerd/runsc/config.toml")
+	return &anypb.Any{TypeUrl: "runtimeoptions.v1.Options", Value: configPath}
 }
 
 // Start starts a task created by Create. Keeping the two phases separate lets
@@ -199,6 +237,18 @@ func (n *Nerd) Delete(log lager.Logger, containerID string) (result error) {
 	}
 
 	log.Debug("deleting-task", lager.Data{"containerID": containerID})
+	status, err := task.Status(n.context)
+	if err != nil {
+		return err
+	}
+	if status.Status == client.Created && task.Pid() != 0 && n.policy == runcontainerd.RunscRuntime {
+		ctx, cancel := context.WithTimeout(n.context, 2*time.Minute)
+		defer cancel()
+		if err := deleteCreatedTask(ctx, n.client.TaskService(), containerID, task.IO(), n.mp); err != nil {
+			return err
+		}
+		return nil
+	}
 	_, err = task.Delete(n.context, withProcessKillLogging(log, n.mp))
 	return err
 }
@@ -561,4 +611,35 @@ func updateTaskInfoCreateOptions(taskInfo *client.TaskInfo, updateCreateOptions 
 	}
 
 	return updateCreateOptions(opts)
+}
+
+// TaskMetrics retrieves raw cgroup metrics for a container via the containerd
+// task API. Returns the raw protobuf Any (may be cgroupv1 or cgroupv2 format
+// depending on the shim) and the container creation time.
+func (n *Nerd) TaskMetrics(log lager.Logger, containerID string) (typeurl.Any, time.Time, error) {
+	log = log.Session("task-metrics", lager.Data{"containerID": containerID})
+
+	container, task, err := n.loadContainerAndTask(log, containerID)
+	if err != nil {
+		return nil, time.Time{}, err
+	}
+
+	metric, err := task.Metrics(n.context)
+	if err != nil {
+		return nil, time.Time{}, fmt.Errorf("task.Metrics: %w", err)
+	}
+
+	if metric.Data == nil {
+		return nil, time.Time{}, fmt.Errorf("no metrics data for container %s", containerID)
+	}
+
+	// Get creation time from container info
+	info, err := container.Info(n.context)
+	if err != nil {
+		// Non-fatal: use zero time (Age will be large but metrics still report)
+		log.Error("get-info-for-creation-time", err)
+		return metric.Data, time.Time{}, nil
+	}
+
+	return metric.Data, info.CreatedAt, nil
 }

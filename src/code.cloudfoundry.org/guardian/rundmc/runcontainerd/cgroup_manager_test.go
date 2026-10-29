@@ -72,7 +72,7 @@ var _ = Describe("CgroupManager", func() {
 				containerHandle = "foo"
 			})
 
-			It("returns nil because the runtime keeps no runc state", func() {
+			It("returns nil (tolerates missing state for gVisor)", func() {
 				Expect(setErr).NotTo(HaveOccurred())
 			})
 		})

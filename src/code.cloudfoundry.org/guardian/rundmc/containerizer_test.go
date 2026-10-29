@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"os"
+	"strings"
 	"time"
 
 	"code.cloudfoundry.org/garden"
@@ -64,7 +65,7 @@ var _ = Describe("Rundmc", func() {
 			fakeDepot,
 			fakeBundleGenerator,
 			fakeOCIRuntime,
-			fakeNstarRunner,
+			rundmc.NewNstarStreamer(fakeOCIRuntime, fakeNstarRunner),
 			fakeProcessesStopper,
 			fakeEventStore,
 			fakeStateStore,
@@ -73,6 +74,7 @@ var _ = Describe("Rundmc", func() {
 			0,
 			fakeRuntimeStopper,
 			fakeCPUCgrouper,
+			false, // imageBackedPeas: default stock behavior
 		)
 	})
 
@@ -277,6 +279,59 @@ var _ = Describe("Rundmc", func() {
 						Expect(createdPeaProcessSpec.User).To(Equal("1:2"))
 					})
 				})
+			})
+		})
+
+		Context("when image-backed peas are enabled", func() {
+			var imageBackedContainerizer *rundmc.Containerizer
+
+			BeforeEach(func() {
+				imageBackedContainerizer = rundmc.New(
+					fakeDepot,
+					fakeBundleGenerator,
+					fakeOCIRuntime,
+					rundmc.NewNstarStreamer(fakeOCIRuntime, fakeNstarRunner),
+					fakeProcessesStopper,
+					fakeEventStore,
+					fakeStateStore,
+					fakePeaCreator,
+					fakePeaUsernameResolver,
+					0,
+					fakeRuntimeStopper,
+					fakeCPUCgrouper,
+					true, // imageBackedPeas
+				)
+			})
+
+			It("forwards the unchanged request to the pea creator without resolving the user", func() {
+				fakeProcess := new(gardenfakes.FakeProcess)
+				fakePeaCreator.CreatePeaReturns(fakeProcess, nil)
+				processSpec := garden.ProcessSpec{
+					Path:       "/etc/cf-assets/healthcheck/healthcheck",
+					User:       "vcap",
+					Image:      garden.ImageRef{URI: "preloaded:cflinuxfs4"},
+					BindMounts: []garden.BindMount{{SrcPath: "/host/healthcheck", DstPath: "/etc/cf-assets/healthcheck", Mode: garden.BindMountModeRO}},
+				}
+				pio := garden.ProcessIO{Stdin: strings.NewReader("input"), Stdout: &bytes.Buffer{}}
+
+				returned, err := imageBackedContainerizer.Run(logger, "some-handle", processSpec, pio)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(returned).To(BeIdenticalTo(fakeProcess))
+				Expect(fakePeaCreator.CreatePeaCallCount()).To(Equal(1))
+				_, forwarded, forwardedIO, handle := fakePeaCreator.CreatePeaArgsForCall(0)
+				Expect(forwarded).To(Equal(processSpec))
+				Expect(forwardedIO).To(Equal(pio))
+				Expect(handle).To(Equal("some-handle"))
+				Expect(fakePeaUsernameResolver.ResolveUserCallCount()).To(BeZero(),
+					"the parent's host PID cannot see a grouped child's image")
+				Expect(fakeOCIRuntime.ExecCallCount()).To(BeZero())
+			})
+
+			It("does not route non-image processes through the pea creator", func() {
+				_, err := imageBackedContainerizer.Run(logger, "some-handle", garden.ProcessSpec{Path: "hello"}, garden.ProcessIO{})
+				Expect(err).NotTo(HaveOccurred())
+				Expect(fakePeaCreator.CreatePeaCallCount()).To(BeZero())
+				Expect(fakeOCIRuntime.ExecCallCount()).To(Equal(1))
 			})
 		})
 	})
@@ -680,7 +735,7 @@ var _ = Describe("Rundmc", func() {
 					fakeDepot,
 					fakeBundleGenerator,
 					fakeOCIRuntime,
-					fakeNstarRunner,
+					rundmc.NewNstarStreamer(fakeOCIRuntime, fakeNstarRunner),
 					fakeProcessesStopper,
 					fakeEventStore,
 					fakeStateStore,
@@ -689,6 +744,7 @@ var _ = Describe("Rundmc", func() {
 					entitlementPerSharePercent,
 					fakeRuntimeStopper,
 					fakeCPUCgrouper,
+					false, // imageBackedPeas: default stock behavior
 				)
 			})
 
