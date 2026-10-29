@@ -184,6 +184,17 @@ var _ = Describe("Runcontainerd", func() {
 
 				It("returns the error", func() {
 					Expect(createErr).To(MatchError("NOPE"))
+					Expect(containerManager.DeleteCallCount()).To(Equal(1))
+					Expect(containerManager.RemoveBundleCallCount()).To(Equal(1))
+				})
+				Context("when rollback fails", func() {
+					BeforeEach(func() { containerManager.DeleteReturns(errors.New("runtime-residue")) })
+					It("retains metadata and marks the image as potentially in use", func() {
+						var residue interface{ PeaRootfsInUse() bool }
+						Expect(errors.As(createErr, &residue)).To(BeTrue())
+						Expect(residue.PeaRootfsInUse()).To(BeTrue())
+						Expect(containerManager.RemoveBundleCallCount()).To(BeZero())
+					})
 				})
 			})
 		})
