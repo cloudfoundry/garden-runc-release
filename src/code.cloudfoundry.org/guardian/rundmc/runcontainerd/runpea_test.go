@@ -30,6 +30,7 @@ var _ = Describe("RunContainerPea", func() {
 		fakePeaManager = new(runcontainerdfakes.FakePeaManager)
 		fakeProcessManager = new(runcontainerdfakes.FakeProcessManager)
 		fakeVolumizer = new(runcontainerdfakes.FakeVolumizer)
+		processID = "pea-id"
 
 		var err error
 		Expect(err).NotTo(HaveOccurred())
@@ -38,6 +39,28 @@ var _ = Describe("RunContainerPea", func() {
 	})
 
 	Describe("RunPea", func() {
+		It("rolls back its own child if the task cannot be loaded", func() {
+			fakeProcessManager.GetTaskReturns(nil, errors.New("stage-failure"))
+			process, err := runContainerPea.RunPea(lagertest.NewTestLogger("test"), processID, goci.Bndl{}, "parent", garden.ProcessIO{}, false, nil, nil)
+			Expect(process).To(BeNil())
+			Expect(err).To(MatchError("stage-failure"))
+			Expect(fakePeaManager.DeleteCallCount()).To(Equal(1))
+			_, deletedID := fakePeaManager.DeleteArgsForCall(0)
+			Expect(deletedID).To(Equal(processID))
+			Expect(fakePeaManager.RemoveBundleCallCount()).To(Equal(1))
+			Expect(fakeVolumizer.DestroyCallCount()).To(BeZero(), "PeaCreator owns failure-time image cleanup")
+		})
+
+		It("retains metadata and reports both errors if runtime rollback fails", func() {
+			fakeProcessManager.GetTaskReturns(nil, errors.New("get-failure"))
+			fakePeaManager.DeleteReturns(errors.New("delete-failure"))
+			_, err := runContainerPea.RunPea(lagertest.NewTestLogger("test"), processID, goci.Bndl{}, "parent", garden.ProcessIO{}, false, nil, nil)
+			Expect(err.Error()).To(ContainSubstring("get-failure"))
+			Expect(err.Error()).To(ContainSubstring("delete-failure"))
+			var residue interface{ PeaRootfsInUse() bool }
+			Expect(errors.As(err, &residue)).To(BeTrue())
+			Expect(fakePeaManager.RemoveBundleCallCount()).To(BeZero())
+		})
 		It("creates a container using process args", func() {
 			bundle := goci.Bndl{Spec: specs.Spec{Version: "test-version"}}
 			_, err := runContainerPea.RunPea(lagertest.NewTestLogger("test-logger"), processID, bundle, "sandbox-id", garden.ProcessIO{}, false, strings.NewReader(""), nil)
@@ -60,6 +83,7 @@ var _ = Describe("RunContainerPea", func() {
 				_, err := runContainerPea.RunPea(lagertest.NewTestLogger("test-logger"), processID, goci.Bndl{}, "", garden.ProcessIO{}, false, strings.NewReader(""), nil)
 
 				Expect(err).To(MatchError("error-creating"))
+				Expect(fakePeaManager.DeleteCallCount()).To(BeZero())
 			})
 		})
 	})
