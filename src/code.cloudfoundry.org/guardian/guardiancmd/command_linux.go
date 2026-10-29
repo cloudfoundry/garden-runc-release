@@ -174,7 +174,8 @@ func (f *LinuxFactory) WireContainerd(processBuilder *processes.ProcBuilder, use
 
 	containerdManager := runcontainerd.New(nerd, nerd, processBuilder, userLookupper, wireExecer(pidGetter), statser, f.config.Containerd.UseContainerdForProcesses, cgroupManager, f.WireMkdirer(), peaHandlesGetter, f.config.Containers.CleanupProcessDirsOnWait, nerdStopper)
 
-	peaRunner := runcontainerd.NewRunContainerPea(containerdManager, nerd, volumizer, f.config.Containers.CleanupProcessDirsOnWait)
+	peaRunner := runcontainerd.NewRunContainerPea(containerdManager, nerd, volumizer)
+	containerdManager.SetPeaRunner(peaRunner)
 
 	privilegeChecker := &privchecker.PrivilegeChecker{ContainerManager: nerd, Log: log}
 	peaBundleLoader := runcontainerd.NewBndlLoader(nerd)

@@ -322,10 +322,12 @@ func (cmd *CommonCommand) createWiring(logger lager.Logger, metricsProvider *met
 	}, nil
 }
 
-func (cmd *CommonCommand) wirePeaCleaner(factory GardenFactory, volumizer gardener.Volumizer, runtime rundmc.OCIRuntime, pidGetter peas.ProcessPidGetter) gardener.PeaCleaner {
+func (cmd *CommonCommand) wirePeaCleaner(factory GardenFactory, volumizer gardener.Volumizer, runtime rundmc.OCIRuntime, pidGetter peas.ProcessPidGetter, imageBackedPeas peas.ImageBackedPeas) gardener.PeaCleaner {
 	if cmd.Containerd.UseContainerdForProcesses {
 		nerdDeleter := runcontainerd.NewDeleter(runtime)
-		return peas.NewPeaCleaner(deleter.NewDeleter(runtime, nerdDeleter), volumizer, runtime, pidGetter)
+		cleaner := peas.NewPeaCleaner(deleter.NewDeleter(runtime, nerdDeleter), volumizer, runtime, pidGetter)
+		cleaner.(*peas.PeaCleaner).ImageBackedPeas = imageBackedPeas
+		return cleaner
 	}
 
 	cmdRunner := factory.CommandRunner()
@@ -639,6 +641,7 @@ func (cmd *CommonCommand) wireContainerizer(
 	// downstream decisions (streamer, image-backed peas) branch on this single
 	// value instead of re-resolving from the config string.
 	runtimePolicy := runcontainerd.StockRuntime
+	var imageBackedPeas peas.ImageBackedPeas
 
 	if cmd.useContainerd() {
 		var err error
@@ -664,6 +667,9 @@ func (cmd *CommonCommand) wireContainerizer(
 		if cmd.Containerd.UseContainerdForProcesses {
 			peaPidGetter = nerdPidGetter
 			peasExecRunner = peaRunner
+		}
+		if runtimePolicy.IsAlternative() {
+			imageBackedPeas = runContainerd
 		}
 
 	} else {
@@ -692,7 +698,7 @@ func (cmd *CommonCommand) wireContainerizer(
 	eventStore := rundmc.NewEventStore(properties)
 	stateStore := rundmc.NewStateStore(properties)
 
-	peaCleaner := cmd.wirePeaCleaner(factory, volumizer, ociRuntime, peaPidGetter)
+	peaCleaner := cmd.wirePeaCleaner(factory, volumizer, ociRuntime, peaPidGetter, imageBackedPeas)
 	peaCreator = &peas.PeaCreator{
 		Volumizer:        volumizer,
 		PidGetter:        containersPidGetter,

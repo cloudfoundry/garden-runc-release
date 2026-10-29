@@ -33,12 +33,13 @@ var _ = Describe("RunContainerPea", func() {
 		fakeVolumizer = new(runcontainerdfakes.FakeVolumizer)
 		processID = "pea-id"
 		backingProcess := new(runcontainerdfakes.FakeBackingProcess)
+		backingProcess.IDReturns(processID)
 		fakeProcessManager.GetTaskReturns(backingProcess, nil)
 
 		var err error
 		Expect(err).NotTo(HaveOccurred())
 
-		runContainerPea = runcontainerd.NewRunContainerPea(fakePeaManager, fakeProcessManager, fakeVolumizer, false)
+		runContainerPea = runcontainerd.NewRunContainerPea(fakePeaManager, fakeProcessManager, fakeVolumizer)
 	})
 
 	Describe("RunPea", func() {

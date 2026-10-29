@@ -814,6 +814,21 @@ var _ = Describe("Runcontainerd", func() {
 		})
 	})
 
+	Describe("PeaHandles", func() {
+		It("discovers all pea metadata without requiring a parent label match", func() {
+			containerManager.BundleIDsReturns([]string{"parentless-pea", "live-pea"}, nil)
+			ids, err := runContainerd.PeaHandles()
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ids).To(ConsistOf("parentless-pea", "live-pea"))
+			Expect(containerManager.BundleIDsArgsForCall(0)).To(ConsistOf(runcontainerd.ContainerFilter{"container-type", "pea", "=="}))
+		})
+		It("preserves discovery errors", func() {
+			containerManager.BundleIDsReturns(nil, errors.New("discovery-error"))
+			_, err := runContainerd.PeaHandles()
+			Expect(err).To(MatchError("discovery-error"))
+		})
+	})
+
 	Describe("ContainerPeaHandles", func() {
 		var (
 			peaIDs []string

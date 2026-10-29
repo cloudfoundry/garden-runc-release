@@ -21,6 +21,7 @@ import (
 	"code.cloudfoundry.org/guardian/gardener/gardenerfakes"
 	"code.cloudfoundry.org/guardian/rundmc"
 	"code.cloudfoundry.org/guardian/rundmc/depot"
+	"code.cloudfoundry.org/guardian/rundmc/peas"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd/runcontainerdfakes"
 	"code.cloudfoundry.org/guardian/rundmc/runrunc"
@@ -160,6 +161,13 @@ func TestContainerizerWithContainerdUsesValidatedStrategies(t *testing.T) {
 					}
 					if got := creator.Elem().FieldByName("GroupedRunsc").Bool(); got != test.imageBackedPeas {
 						t.Errorf("PeaCreator.GroupedRunsc = %v, want %v", got, test.imageBackedPeas)
+					}
+					peaCleaner, ok := cleaner.(*peas.PeaCleaner)
+					if test.imageBackedPeas && !ok {
+						t.Fatalf("cleaner = %T, want *peas.PeaCleaner", cleaner)
+					}
+					if ok && (peaCleaner.ImageBackedPeas != nil) != test.imageBackedPeas {
+						t.Errorf("cleaner image-backed restart cleanup = %v, want %v", peaCleaner.ImageBackedPeas != nil, test.imageBackedPeas)
 					}
 				}
 				fixture.mutex.Lock()

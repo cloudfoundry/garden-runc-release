@@ -14,6 +14,7 @@ import (
 	"syscall"
 	"time"
 
+	"code.cloudfoundry.org/garden"
 	"code.cloudfoundry.org/guardian/metrics"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
 	"code.cloudfoundry.org/lager/v3"
@@ -380,6 +381,28 @@ func (n *Nerd) GetTask(log lager.Logger, id string) (runcontainerd.BackingProces
 		return BackingProcess{}, err
 	}
 
+	return NewBackingProcess(log, task, n.context), nil
+}
+
+func (n *Nerd) AttachTask(log lager.Logger, id string, pio garden.ProcessIO) (runcontainerd.BackingProcess, error) {
+	container, err := n.loadContainer(log, id)
+	if err != nil {
+		return nil, err
+	}
+	n.peaIOMu.Lock()
+	defer n.peaIOMu.Unlock()
+	if n.peaTasks[id] != nil {
+		return nil, fmt.Errorf("pea %s already has a task IO reader", id)
+	}
+	task, err := container.Task(n.context, cio.NewAttach(cio.WithStreams(nil, orDiscard(pio.Stdout), orDiscard(pio.Stderr))))
+	if err != nil {
+		if errdefs.IsNotFound(err) {
+			return nil, runcontainerd.TaskNotFoundError{Handle: id}
+		}
+		return nil, err
+	}
+	ctx, cancel := context.WithCancel(n.context)
+	n.peaTasks[id] = &peaTask{task: task, context: ctx, cancel: cancel}
 	return NewBackingProcess(log, task, n.context), nil
 }
 
