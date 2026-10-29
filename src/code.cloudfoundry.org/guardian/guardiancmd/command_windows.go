@@ -97,8 +97,8 @@ func (m mkdirer) MkdirAs(rootFSPathFile string, uid, gid int, mode os.FileMode, 
 func (f *WindowsFactory) WireMkdirer() runrunc.Mkdirer {
 	return mkdirer{}
 }
-func (f *WindowsFactory) WireContainerd(processBuilder *processes.ProcBuilder, userLookupper users.UserLookupper, wireExecer func(pidGetter runrunc.PidGetter) *runrunc.Execer, statser runcontainerd.Statser, log lager.Logger, volumizer peas.Volumizer, peaHandlesGetter runcontainerd.PeaHandlesGetter, metricsProvider *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *privchecker.PrivilegeChecker, peas.BundleLoader, error) {
-	return nil, nil, nil, nil, nil, errors.New("containerd not impletemented on windows")
+func (f *WindowsFactory) WireContainerd(processBuilder *processes.ProcBuilder, userLookupper users.UserLookupper, wireExecer func(pidGetter runrunc.PidGetter) *runrunc.Execer, statser runcontainerd.Statser, log lager.Logger, volumizer peas.Volumizer, peaHandlesGetter runcontainerd.PeaHandlesGetter, metricsProvider *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *privchecker.PrivilegeChecker, peas.BundleLoader, runcontainerd.RuntimePolicy, error) {
+	return nil, nil, nil, nil, nil, runcontainerd.StockRuntime, errors.New("containerd not implemented on windows")
 }
 
 func (f *WindowsFactory) WireCPUCgrouper() (rundmc.CPUCgrouper, error) {

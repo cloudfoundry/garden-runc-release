@@ -13,6 +13,16 @@ type PeaCleaner struct {
 	Waiter       processwaiter.ProcessWaiter
 	Runtime      Runtime
 	PeaPidGetter PeaPidGetter
+	// ImageBackedPeas is set for grouped runsc children. Their host PID is the
+	// shared Sentry, so restart cleanup follows each child task instead.
+	ImageBackedPeas ImageBackedPeas
+}
+
+// ImageBackedPeas discovers grouped children directly, because their metadata
+// can outlive the parent, and owns both Wait and cleanup for each child.
+type ImageBackedPeas interface {
+	PeaHandles() ([]string, error)
+	WaitAndCleanPea(log lager.Logger, handle string) error
 }
 
 //counterfeiter:generate . Runtime
@@ -49,7 +59,7 @@ func (p *PeaCleaner) Clean(log lager.Logger, handle string) error {
 	var result *multierror.Error
 	err := p.Deleter.Delete(log, handle)
 	if err != nil {
-		result = multierror.Append(result, err)
+		return err // retain a rootfs that the runtime may still be using
 	}
 	err = p.Volumizer.Destroy(log, handle)
 	if err != nil {
@@ -63,6 +73,21 @@ func (p *PeaCleaner) CleanAll(log lager.Logger) error {
 	log = log.Session("clean-all-peas")
 	log.Info("start")
 	defer log.Info("end")
+
+	if p.ImageBackedPeas != nil {
+		handles, err := p.ImageBackedPeas.PeaHandles()
+		if err != nil {
+			return err
+		}
+		for _, handle := range handles {
+			go func(handle string) {
+				if err := p.ImageBackedPeas.WaitAndCleanPea(log, handle); err != nil {
+					log.Error("error-waiting-and-cleaning-pea-task", err, lager.Data{"peaHandle": handle})
+				}
+			}(handle)
+		}
+		return nil
+	}
 
 	sandboxHandles, err := p.Runtime.ContainerHandles()
 	if err != nil {

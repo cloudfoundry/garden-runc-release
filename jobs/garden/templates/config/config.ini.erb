@@ -252,4 +252,10 @@ parse_ip(p('garden.network_pool'), 'garden.network_pool')
 <% if p("garden.containerd_mode") -%>
 ; containerd
   containerd-socket = /var/vcap/sys/run/containerd/containerd.sock
+<% unless p("garden.containerd_runtime_type").empty? -%>
+  containerd-runtime-type = <%= p("garden.containerd_runtime_type") %>
+<% end -%>
+<% if p("garden.use_containerd_for_processes") -%>
+  use-containerd-for-processes = true
+<% end -%>
 <% end -%>

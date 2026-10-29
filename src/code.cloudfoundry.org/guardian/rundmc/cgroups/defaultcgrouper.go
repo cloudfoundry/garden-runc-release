@@ -1,7 +1,6 @@
 package cgroups
 
 import (
-	"os"
 	"path/filepath"
 
 	"code.cloudfoundry.org/garden"
@@ -22,10 +21,7 @@ func (c DefaultCgrouper) PrepareCgroups(handle string) error {
 }
 
 func (c DefaultCgrouper) CleanupCgroups(handle string) error {
-	if err := os.RemoveAll(filepath.Join(c.cgroupRoot, handle)); err != nil {
-		return err
-	}
-	return nil
+	return removeCgroupDir(filepath.Join(c.cgroupRoot, handle))
 }
 
 func (DefaultCgrouper) ReadTotalCgroupUsage(_ string, cpuStats garden.ContainerCPUStat) (garden.ContainerCPUStat, error) {

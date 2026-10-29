@@ -56,7 +56,7 @@ type GardenFactory interface {
 	WireVolumizer(logger lager.Logger) gardener.Volumizer
 	WireCgroupsStarter(logger lager.Logger) gardener.Starter
 	WireExecRunner(runcRoot string, containerRootUID, containerRootGID uint32, bundleSaver depot.BundleSaver, bundleLookupper depot.BundleLookupper, processDepot execrunner.ProcessDepot) runrunc.ExecRunner
-	WireContainerd(*processes.ProcBuilder, users.UserLookupper, func(runrunc.PidGetter) *runrunc.Execer, runcontainerd.Statser, lager.Logger, peas.Volumizer, runcontainerd.PeaHandlesGetter, *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *containerdprivchecker.PrivilegeChecker, peas.BundleLoader, error)
+	WireContainerd(*processes.ProcBuilder, users.UserLookupper, func(runrunc.PidGetter) *runrunc.Execer, runcontainerd.Statser, lager.Logger, peas.Volumizer, runcontainerd.PeaHandlesGetter, *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *containerdprivchecker.PrivilegeChecker, peas.BundleLoader, runcontainerd.RuntimePolicy, error)
 
 	WireCPUCgrouper() (rundmc.CPUCgrouper, error)
 	WireContainerNetworkMetricsProvider(containerizer gardener.Containerizer, propertyManager gardener.PropertyManager) gardener.ContainerNetworkMetricsProvider
@@ -196,6 +196,7 @@ type CommonCommand struct {
 	Containerd struct {
 		Socket                    string `long:"containerd-socket" description:"Path to a containerd socket."`
 		UseContainerdForProcesses bool   `long:"use-containerd-for-processes" description:"Use containerd to run processes in containers."`
+		RuntimeType               string `long:"containerd-runtime-type" description:"Containerd runtime type (e.g. io.containerd.runc.v2 or io.containerd.runsc.v1)."`
 	} `group:"Containerd"`
 
 	CPUThrottling struct {
@@ -321,10 +322,12 @@ func (cmd *CommonCommand) createWiring(logger lager.Logger, metricsProvider *met
 	}, nil
 }
 
-func (cmd *CommonCommand) wirePeaCleaner(factory GardenFactory, volumizer gardener.Volumizer, runtime rundmc.OCIRuntime, pidGetter peas.ProcessPidGetter) gardener.PeaCleaner {
+func (cmd *CommonCommand) wirePeaCleaner(factory GardenFactory, volumizer gardener.Volumizer, runtime rundmc.OCIRuntime, pidGetter peas.ProcessPidGetter, imageBackedPeas peas.ImageBackedPeas) gardener.PeaCleaner {
 	if cmd.Containerd.UseContainerdForProcesses {
 		nerdDeleter := runcontainerd.NewDeleter(runtime)
-		return peas.NewPeaCleaner(deleter.NewDeleter(runtime, nerdDeleter), volumizer, runtime, pidGetter)
+		cleaner := peas.NewPeaCleaner(deleter.NewDeleter(runtime, nerdDeleter), volumizer, runtime, pidGetter)
+		cleaner.(*peas.PeaCleaner).ImageBackedPeas = imageBackedPeas
+		return cleaner
 	}
 
 	cmdRunner := factory.CommandRunner()
@@ -633,6 +636,13 @@ func (cmd *CommonCommand) wireContainerizer(
 	peaPidGetter := depotPidGetter
 	runtimeStopper = stopper.NewNoopStopper()
 
+	// runtimePolicy tracks the resolved runtime type. It defaults to stock
+	// and is set to the actual policy when containerd is active. All
+	// downstream decisions (streamer, image-backed peas) branch on this single
+	// value instead of re-resolving from the config string.
+	runtimePolicy := runcontainerd.StockRuntime
+	var imageBackedPeas peas.ImageBackedPeas
+
 	if cmd.useContainerd() {
 		var err error
 		var peaRunner *runcontainerd.RunContainerPea
@@ -645,7 +655,7 @@ func (cmd *CommonCommand) wireContainerizer(
 
 		var nerdPidGetter PidGetter
 		var runContainerd *runcontainerd.RunContainerd
-		runContainerd, peaRunner, nerdPidGetter, privilegeChecker, peaBundleLoader, err = factory.WireContainerd(processBuilder, userLookupper, wireExecerFunc, statser, log, volumizer, peaHandlesGetter, metricsProvider)
+		runContainerd, peaRunner, nerdPidGetter, privilegeChecker, peaBundleLoader, runtimePolicy, err = factory.WireContainerd(processBuilder, userLookupper, wireExecerFunc, statser, log, volumizer, peaHandlesGetter, metricsProvider)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -657,6 +667,9 @@ func (cmd *CommonCommand) wireContainerizer(
 		if cmd.Containerd.UseContainerdForProcesses {
 			peaPidGetter = nerdPidGetter
 			peasExecRunner = peaRunner
+		}
+		if runtimePolicy.IsAlternative() {
+			imageBackedPeas = runContainerd
 		}
 
 	} else {
@@ -676,10 +689,16 @@ func (cmd *CommonCommand) wireContainerizer(
 		privilegeChecker = &runcprivchecker.PrivilegeChecker{BundleLoader: depot, Log: log}
 	}
 
+	log.Info("runtime-policy-resolved", lager.Data{
+		"policy":       runtimePolicy.String(),
+		"containerd":   cmd.useContainerd(),
+		"runtime_type": cmd.Containerd.RuntimeType,
+	})
+
 	eventStore := rundmc.NewEventStore(properties)
 	stateStore := rundmc.NewStateStore(properties)
 
-	peaCleaner := cmd.wirePeaCleaner(factory, volumizer, ociRuntime, peaPidGetter)
+	peaCleaner := cmd.wirePeaCleaner(factory, volumizer, ociRuntime, peaPidGetter, imageBackedPeas)
 	peaCreator = &peas.PeaCreator{
 		Volumizer:        volumizer,
 		PidGetter:        containersPidGetter,
@@ -690,6 +709,7 @@ func (cmd *CommonCommand) wireContainerizer(
 		BundleSaver:      bundleSaver,
 		ExecRunner:       peasExecRunner,
 		PeaCleaner:       peaCleaner,
+		GroupedRunsc:     runtimePolicy.IsAlternative(),
 	}
 
 	peaUsernameResolver := &peas.PeaUsernameResolver{
@@ -707,7 +727,15 @@ func (cmd *CommonCommand) wireContainerizer(
 		return nil, nil, err
 	}
 
-	return rundmc.New(depot, template, ociRuntime, nstar, processesStopper, eventStore, stateStore, peaCreator, peaUsernameResolver, cpuEntitlementPerShare, runtimeStopper, cpuCgrouper), peaCleaner, nil
+	var streamer rundmc.Streamer
+	if runtimePolicy.IsAlternative() {
+		streamer = rundmc.NewExecStreamer(ociRuntime)
+	} else {
+		streamer = rundmc.NewNstarStreamer(ociRuntime, nstar)
+	}
+
+	containerizer := rundmc.New(depot, template, ociRuntime, streamer, processesStopper, eventStore, stateStore, peaCreator, peaUsernameResolver, cpuEntitlementPerShare, runtimeStopper, cpuCgrouper, runtimePolicy.IsAlternative())
+	return containerizer, peaCleaner, nil
 }
 
 func (cmd *CommonCommand) useContainerd() bool {
