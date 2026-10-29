@@ -50,6 +50,7 @@ type SysInfoProvider interface {
 
 type Containerizer interface {
 	Create(log lager.Logger, desiredContainerSpec spec.DesiredContainerSpec) error
+	Start(log lager.Logger, handle string) error
 	Handles() ([]string, error)
 
 	StreamIn(log lager.Logger, handle string, streamInSpec garden.StreamInSpec) error
@@ -320,6 +321,10 @@ func (g *Gardener) Create(containerSpec garden.ContainerSpec) (ctr garden.Contai
 		return nil, err
 	}
 
+	if err = g.Containerizer.Start(log, containerSpec.Handle); err != nil {
+		return nil, err
+	}
+
 	if containerSpec.GraceTime != 0 {
 		if err := container.SetGraceTime(containerSpec.GraceTime); err != nil {
 			return nil, err
@@ -578,9 +583,42 @@ func (g *Gardener) Cleanup(log lager.Logger) error {
 		return err
 	}
 
+	failedToRestore := g.Restorer.Restore(log, handles)
+
+	// Build set of handles that failed restoration for quick lookup.
+	failedSet := make(map[string]struct{}, len(failedToRestore))
+	for _, h := range failedToRestore {
+		failedSet[h] = struct{}{}
+	}
+
+	// Verify that "restored" containers actually have a reachable task.
+	// After a Garden restart the in-memory registry is empty; containerd
+	// still reports the old containers but their runtime state may be
+	// stale (especially for alternative runtimes like gVisor whose sandbox
+	// processes survive Garden restarts independently).  Only containers
+	// whose task is definitively absent (not-found) are destroyed.
+	// Transient errors (communication hiccups, bundle parsing) are logged
+	// but do NOT trigger destruction — destroying on ambiguous errors
+	// could kill healthy containers during temporary runtime disruptions.
+	for _, handle := range handles {
+		if _, alreadyFailed := failedSet[handle]; alreadyFailed {
+			continue
+		}
+		if _, err := g.Containerizer.Info(log, handle); err != nil {
+			if isNotFound(err) {
+				log.Info("destroying-unreachable-container",
+					lager.Data{"handle": handle, "error": err.Error()})
+				failedToRestore = append(failedToRestore, handle)
+			} else {
+				log.Error("transient-info-error-preserving-container", err,
+					lager.Data{"handle": handle})
+			}
+		}
+	}
+
 	var wg sync.WaitGroup
 
-	for _, handle := range g.Restorer.Restore(log, handles) {
+	for _, handle := range failedToRestore {
 		wg.Add(1)
 		go func(handle string) {
 			defer wg.Done()
@@ -602,4 +640,22 @@ func (g *Gardener) Cleanup(log lager.Logger) error {
 	wg.Wait()
 
 	return nil
+}
+
+// notFoundError is satisfied by errors that indicate a definitive resource
+// absence (e.g. runcontainerd.TaskNotFoundError, ContainerNotFoundError).
+// We use an interface instead of importing the concrete types to avoid a
+// circular dependency between gardener and rundmc/runcontainerd.
+type notFoundError interface {
+	IsNotFound() bool
+}
+
+// isNotFound returns true when err wraps a type implementing notFoundError
+// with IsNotFound() == true, indicating the resource is definitively absent.
+func isNotFound(err error) bool {
+	var nfe notFoundError
+	if errors.As(err, &nfe) {
+		return nfe.IsNotFound()
+	}
+	return false
 }

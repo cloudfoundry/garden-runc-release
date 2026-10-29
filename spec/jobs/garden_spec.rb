@@ -11,6 +11,45 @@ describe 'garden' do
   let(:template) { job.template('config/config.ini') }
   let(:properties) {{}}
 
+  describe 'alternative runtime configuration' do
+    def render_runtime(properties)
+      IniParse.parse(template.render({'garden' => properties}))['server']
+    end
+
+    it 'keeps stock runtime and process backend defaults' do
+      server = render_runtime({})
+      expect(server['containerd-socket']).to eql('/var/vcap/sys/run/containerd/containerd.sock')
+      expect(server['containerd-runtime-type']).to be_nil
+      expect(server['use-containerd-for-processes']).to be_nil
+    end
+
+    it 'renders an explicitly selected runtime without changing the process backend' do
+      server = render_runtime({'containerd_runtime_type' => 'io.containerd.runsc.v1'})
+      expect(server['containerd-runtime-type']).to eql('io.containerd.runsc.v1')
+      expect(server['use-containerd-for-processes']).to be_nil
+    end
+
+    it 'renders an explicitly enabled process backend without selecting runsc' do
+      server = render_runtime({'use_containerd_for_processes' => true})
+      expect(server['containerd-runtime-type']).to be_nil
+      expect(server['use-containerd-for-processes']).to eql(true)
+    end
+
+    it 'renders the complete explicit runsc opt-in' do
+      server = render_runtime({'containerd_runtime_type' => 'io.containerd.runsc.v1', 'use_containerd_for_processes' => true})
+      expect(server['containerd-runtime-type']).to eql('io.containerd.runsc.v1')
+      expect(server['use-containerd-for-processes']).to eql(true)
+      expect(server['containerd-socket']).to eql('/var/vcap/sys/run/containerd/containerd.sock')
+    end
+
+    it 'omits containerd settings when the backend is disabled' do
+      server = render_runtime({'containerd_mode' => false, 'containerd_runtime_type' => 'io.containerd.runsc.v1', 'use_containerd_for_processes' => true})
+      expect(server['containerd-socket']).to be_nil
+      expect(server['containerd-runtime-type']).to be_nil
+      expect(server['use-containerd-for-processes']).to be_nil
+    end
+  end
+
   context 'config/config.ini' do
     context 'with defaults' do
       let(:rendered_template) { IniParse.parse(template.render(properties)) }
