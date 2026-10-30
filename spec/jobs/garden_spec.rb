@@ -315,6 +315,31 @@ describe 'garden' do
     end
   end
 
+  context 'config/garden-default' do
+    let(:template) { job.template('config/garden-default') }
+    let(:rendered_template) { template.render(properties) }
+    let(:rules) { rendered_template.lines.map(&:strip).reject { |line| line.empty? || line.start_with?('#') } }
+
+    it 'lets processes signal peers under the plain profile label' do
+      expect(rules).to include('signal (send, receive) peer=garden-default,')
+    end
+
+    it 'lets processes signal peers under the label stacked on unconfined' do
+      expect(rules).to include('signal (send, receive) peer=garden-default//&unconfined,')
+    end
+
+    it 'grants no signal rule to other peers' do
+      expect(rules.grep(/\Asignal\b/)).to contain_exactly(
+        'signal (send, receive) peer=garden-default,',
+        'signal (send, receive) peer=garden-default//&unconfined,'
+      )
+    end
+
+    it 'keeps the ptrace rule limited to the profile itself' do
+      expect(rules).to include('ptrace (trace,read) peer=garden-default,')
+    end
+  end
+
   context 'bin/grootfs-utils' do
     let(:template) { job.template('bin/grootfs-utils') }
 

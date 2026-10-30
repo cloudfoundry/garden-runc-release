@@ -34,4 +34,15 @@ profile garden-default flags=(attach_disconnected,mediate_deleted) {
   # suppress ptrace denials when using 'ps' inside a container
   ptrace (trace,read) peer=garden-default,
 
+  # Let processes in the same container signal each other, so a shell can
+  # kill its own children and a supervisor can stop the process it runs.
+  # runc applies this profile from inside the container's user namespace,
+  # where the process lacks CAP_MAC_OVERRIDE in the initial user namespace.
+  # When kernel.apparmor_restrict_unprivileged_unconfined is 1, the kernel
+  # then stacks the profile on unconfined, and the process's label becomes
+  # garden-default//&unconfined. A rule for garden-default alone does not
+  # allow sends to that label, so the stacked label has its own rule.
+  signal (send, receive) peer=garden-default,
+  signal (send, receive) peer=garden-default//&unconfined,
+
 }
