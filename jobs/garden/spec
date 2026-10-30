@@ -15,6 +15,7 @@ templates:
   config/grootfs_config.yml.erb:            config/grootfs_config.yml
   config/privileged_grootfs_config.yml.erb: config/privileged_grootfs_config.yml
   config/config.ini.erb:                    config/config.ini
+  config/seccomp.json.erb:                  config/seccomp.json
   config/garden.service:                    config/garden.service
   certs/remote-layer.crt.erb:               certs/remote-layer.crt
   certs/remote-layer.cert.erb:              certs/remote-layer.cert
@@ -238,6 +239,17 @@ properties:
   garden.no_new_privileges:
     description: "Set NoNewPrivileges on unprivileged container processes. Prevents privilege escalation via setuid binaries and file capabilities."
     default: false
+
+  garden.seccomp_profile:
+    description: |
+      Full Seccomp profile (JSON, as under the OCI runtime spec linux.seccomp) that REPLACES the compiled-in default profile for unprivileged container processes. When empty (default), the compiled-in vetted profile is used unchanged.
+      WARNING: this is an advanced, opt-in escape hatch. When set, the operator owns the ENTIRE syscall policy and is fully responsible for its contents. The profile is applied as-is; the platform does NOT validate it beyond requiring that it is valid JSON. In particular:
+        - A permissive defaultAction (e.g. SCMP_ACT_ALLOW, or SCMP_ACT_LOG which only logs) makes every unlisted syscall allowed, widening the container syscall surface for EVERY app on the cell. There is no guardrail against this.
+        - A permissive rule (e.g. a broad "names" list with action SCMP_ACT_ALLOW) has the same effect even under a strict defaultAction.
+        - Mistakes that are still valid JSON are NOT caught at deploy time. A mistyped or wrongly cased action (e.g. "scmp_act_errno", "ERRNO"), or SCMP_ACT_NOTIFY with no listener, is accepted here and only fails when a container is created -- which can prevent apps from starting across the deployment after rollout.
+        - A non-permissive default (SCMP_ACT_ERRNO, SCMP_ACT_KILL, SCMP_ACT_KILL_PROCESS, SCMP_ACT_KILL_THREAD, SCMP_ACT_TRAP) is strongly recommended.
+      Test any profile in a non-production environment before rolling it out.
+    default: ""
 
   garden.device_cgroup_rules:
     description: Device cgroup rules that will be applied to privileged containers. By default loop devices are allowed for privileged containers.
