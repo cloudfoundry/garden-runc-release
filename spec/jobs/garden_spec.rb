@@ -338,6 +338,10 @@ describe 'garden' do
     it 'keeps the ptrace rule limited to the profile itself' do
       expect(rules).to include('ptrace (trace,read) peer=garden-default,')
     end
+
+    it 'lets processes read their peers under the label stacked on unconfined, without tracing them' do
+      expect(rules).to include('ptrace (read) peer=garden-default//&unconfined,')
+    end
   end
 
   context 'bin/grootfs-utils' do

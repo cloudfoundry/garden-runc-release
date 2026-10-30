@@ -33,6 +33,8 @@ profile garden-default flags=(attach_disconnected,mediate_deleted) {
 
   # suppress ptrace denials when using 'ps' inside a container
   ptrace (trace,read) peer=garden-default,
+  # The stacked label needs its own rule, and it gets read only so a shell cannot trace.
+  ptrace (read) peer=garden-default//&unconfined,
 
   # Let processes in the same container signal each other, so a shell can
   # kill its own children and a supervisor can stop the process it runs.
