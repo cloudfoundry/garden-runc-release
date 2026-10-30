@@ -2,6 +2,10 @@
 
 set -e
 
+# Restrict the grootfs mTLS client key to root; BOSH renders it 0640 root:vcap.
+chown root:root /var/vcap/jobs/garden/certs/remote-layer.key
+chmod 0600 /var/vcap/jobs/garden/certs/remote-layer.key
+
 source /var/vcap/jobs/garden/bin/envs
 source /var/vcap/jobs/garden/bin/grootfs-utils
 source /var/vcap/packages/greenskeeper/bin/system-preparation
