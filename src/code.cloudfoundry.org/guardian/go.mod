@@ -26,6 +26,7 @@ require (
 	github.com/containerd/typeurl/v2 v2.3.0
 	github.com/containers/image/v5 v5.36.2
 	github.com/containers/storage v1.59.1
+	github.com/cyphar/filepath-securejoin v0.7.0
 	github.com/docker/distribution v2.8.3+incompatible
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/docker/go-units v0.5.0
@@ -83,7 +84,6 @@ require (
 	github.com/containers/ocicrypt v1.3.2 // indirect
 	github.com/coreos/go-systemd/v22 v22.7.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
-	github.com/cyphar/filepath-securejoin v0.7.0 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
 	github.com/docker/docker-credential-helpers v0.9.12 // indirect
 	github.com/docker/go-connections v0.8.2 // indirect
