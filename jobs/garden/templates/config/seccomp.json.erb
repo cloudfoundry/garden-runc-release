@@ -1,1 +1,13 @@
-<%= p("garden.seccomp_profile") %>
+<%
+  require 'json'
+
+  profile = p("garden.seccomp_profile")
+  unless profile.to_s.strip.empty?
+    begin
+      JSON.parse(profile)
+    rescue JSON::ParserError => e
+      raise "garden.seccomp_profile is not valid JSON: #{e.message}"
+    end
+  end
+-%>
+<%= profile %>

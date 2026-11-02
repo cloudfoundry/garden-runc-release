@@ -1,78 +1,73 @@
-package guardiancmd
+package guardiancmd_test
 
 import (
 	"os"
 	"path/filepath"
-	"testing"
 
+	"code.cloudfoundry.org/guardian/guardiancmd"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 	"github.com/opencontainers/runtime-spec/specs-go"
 )
 
-func writeTemp(t *testing.T, content string) string {
-	t.Helper()
-	dir := t.TempDir()
-	p := filepath.Join(dir, "seccomp.json")
-	if err := os.WriteFile(p, []byte(content), 0600); err != nil {
-		t.Fatalf("writing temp profile: %v", err)
-	}
-	return p
-}
+var _ = Describe("LoadSeccompProfile", func() {
+	var (
+		fallback *specs.LinuxSeccomp
+		tmpDir   string
+	)
 
-func fallbackProfile() *specs.LinuxSeccomp {
-	return &specs.LinuxSeccomp{
-		DefaultAction: specs.ActErrno,
-		Syscalls:      []specs.LinuxSyscall{AllowSyscall("read")},
+	writeProfile := func(content string) string {
+		p := filepath.Join(tmpDir, "seccomp.json")
+		Expect(os.WriteFile(p, []byte(content), 0600)).To(Succeed())
+		return p
 	}
-}
 
-func TestLoadSeccompProfile_EmptyPathReturnsFallback(t *testing.T) {
-	fb := fallbackProfile()
-	out, err := loadSeccompProfile("", fb)
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	if out != fb {
-		t.Fatal("empty path must return the compiled-in fallback unchanged")
-	}
-}
-
-func TestLoadSeccompProfile_MissingFileIsError(t *testing.T) {
-	if _, err := loadSeccompProfile("/no/such/seccomp.json", fallbackProfile()); err == nil {
-		t.Fatal("missing file must be a hard error, not a silent fallback")
-	}
-}
-
-func TestLoadSeccompProfile_InvalidJSONIsError(t *testing.T) {
-	p := writeTemp(t, "{not valid json")
-	if _, err := loadSeccompProfile(p, fallbackProfile()); err == nil {
-		t.Fatal("invalid JSON must be a hard error")
-	}
-}
-
-func TestLoadSeccompProfile_ReplacesWithValidProfile(t *testing.T) {
-	p := writeTemp(t, `{
-		"defaultAction":"SCMP_ACT_ERRNO",
-		"architectures":["SCMP_ARCH_X86_64"],
-		"syscalls":[{"names":["read","write"],"action":"SCMP_ACT_ALLOW"}]
-	}`)
-	out, err := loadSeccompProfile(p, fallbackProfile())
-	if err != nil {
-		t.Fatalf("valid profile must load: %v", err)
-	}
-	if out.DefaultAction != specs.ActErrno {
-		t.Fatalf("expected DefaultAction ActErrno, got %v", out.DefaultAction)
-	}
-	if len(out.Syscalls) != 1 || len(out.Syscalls[0].Names) != 2 {
-		t.Fatalf("loaded profile should fully replace the fallback, got %#v", out.Syscalls)
-	}
-	// It must be the loaded profile, not the fallback.
-	for _, r := range out.Syscalls {
-		for _, n := range r.Names {
-			if n == "read" {
-				goto found
-			}
+	BeforeEach(func() {
+		tmpDir = GinkgoT().TempDir()
+		fallback = &specs.LinuxSeccomp{
+			DefaultAction: specs.ActErrno,
+			Syscalls:      []specs.LinuxSyscall{guardiancmd.AllowSyscall("read")},
 		}
-	}
-	t.Fatal("expected read in the replacing profile")
-found:
-}
+	})
+
+	Context("when the path is empty", func() {
+		It("returns the compiled-in fallback unchanged", func() {
+			out, err := guardiancmd.LoadSeccompProfile("", fallback)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(out).To(BeIdenticalTo(fallback))
+		})
+	})
+
+	Context("when the file does not exist", func() {
+		It("returns an error instead of falling back", func() {
+			_, err := guardiancmd.LoadSeccompProfile(filepath.Join(tmpDir, "missing.json"), fallback)
+			Expect(err).To(HaveOccurred())
+		})
+	})
+
+	Context("when the file is not valid JSON", func() {
+		It("returns an error", func() {
+			_, err := guardiancmd.LoadSeccompProfile(writeProfile("{not valid json"), fallback)
+			Expect(err).To(HaveOccurred())
+		})
+	})
+
+	Context("when the file contains a valid profile", func() {
+		It("replaces the fallback with the loaded profile", func() {
+			p := writeProfile(`{
+				"defaultAction":"SCMP_ACT_ERRNO",
+				"architectures":["SCMP_ARCH_X86_64"],
+				"syscalls":[{"names":["read","write"],"action":"SCMP_ACT_ALLOW"}]
+			}`)
+
+			out, err := guardiancmd.LoadSeccompProfile(p, fallback)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(out).NotTo(BeIdenticalTo(fallback))
+			Expect(out.DefaultAction).To(Equal(specs.ActErrno))
+			Expect(out.Architectures).To(Equal([]specs.Arch{specs.ArchX86_64}))
+			Expect(out.Syscalls).To(HaveLen(1))
+			Expect(out.Syscalls[0].Names).To(Equal([]string{"read", "write"}))
+			Expect(out.Syscalls[0].Action).To(Equal(specs.ActAllow))
+		})
+	})
+})
