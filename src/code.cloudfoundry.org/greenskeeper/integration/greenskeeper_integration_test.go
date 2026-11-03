@@ -31,16 +31,7 @@ var _ = Describe("Greenskeeper", func() {
 			tmpDir, err = os.MkdirTemp("", "")
 			Expect(err).ToNot(HaveOccurred())
 			pidFileName = tempFile("pidfile", tmpDir)
-			envs = []string{
-				"PIDFILE=" + pidFileName,
-				"RUN_DIR=" + path.Join(tmpDir, "run"),
-				"GARDEN_DATA_DIR=" + path.Join(tmpDir, "garden"),
-				"LOG_DIR=" + path.Join(tmpDir, "log"),
-				"TMPDIR=" + path.Join(tmpDir, "tmp"),
-				"DEPOT_PATH=" + path.Join(tmpDir, "depot"),
-				"RUNTIME_BIN_DIR=" + path.Join(tmpDir, "bin"),
-				"MAXIMUS=" + strconv.Itoa(maxID),
-			}
+			envs = gardenEnvs(tmpDir, pidFileName)
 
 			gkCmd = exec.Command(gkBin)
 			gkCmd.Env = envs
@@ -64,7 +55,7 @@ var _ = Describe("Greenskeeper", func() {
 			},
 			Entry("RUN_DIR", "run", 0770, 0, 0),
 			Entry("GARDEN_DATA_DIR", "garden", 0770, vcapID, maxID),
-			Entry("RUNTIME_BIN_DIR", "bin", 0750, 0, maxID),
+			Entry("RUNTIME_BIN_DIR", "garden/bin", 0750, 0, maxID),
 		)
 
 		Context("rootfull directories", func() {
@@ -74,8 +65,74 @@ var _ = Describe("Greenskeeper", func() {
 				},
 				Entry("LOG_DIR", "log", 0770, 0, 0),
 				Entry("TMPDIR", "tmp", 0755, 0, 0),
-				Entry("DEPOT_PATH", "depot", 0755, 0, 0),
+				Entry("DEPOT_PATH", "garden/depot", 0755, 0, 0),
 			)
+		})
+	})
+
+	Context("when GARDEN_DATA_DIR is vcap-owned from a previous run", func() {
+		var (
+			tmpDir     string
+			gardenDir  string
+			victimDir  string
+			envs       []string
+			victimStat *syscall.Stat_t
+		)
+
+		BeforeEach(func() {
+			var err error
+			tmpDir, err = os.MkdirTemp("", "")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(os.Chmod(tmpDir, 0755)).To(Succeed())
+
+			gardenDir = path.Join(tmpDir, "garden")
+			Expect(os.Mkdir(gardenDir, 0770)).To(Succeed())
+			Expect(os.Chown(gardenDir, vcapID, maxID)).To(Succeed())
+
+			victimDir, err = os.MkdirTemp(tmpDir, "victim")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(os.Chmod(victimDir, 0700)).To(Succeed())
+			victimStat = stat(victimDir).Sys().(*syscall.Stat_t)
+
+			envs = gardenEnvs(tmpDir, tempFile("pidfile", tmpDir))
+			gkCmd = exec.Command(gkBin)
+			gkCmd.Env = envs
+		})
+
+		AfterEach(func() {
+			Expect(os.RemoveAll(tmpDir)).To(Succeed())
+		})
+
+		Context("and vcap replaced the depot with a symlink to another directory", func() {
+			BeforeEach(func() {
+				Expect(os.Symlink(victimDir, path.Join(gardenDir, "depot"))).To(Succeed())
+			})
+
+			It("fails without touching the symlink target", func() {
+				session := gexecStartAndWait(gkCmd, GinkgoWriter, GinkgoWriter)
+				Expect(session.ExitCode()).NotTo(Equal(0))
+
+				fileInfo := stat(victimDir)
+				Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(0700)))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(victimStat.Uid))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(victimStat.Gid))
+			})
+		})
+
+		Context("and vcap replaced the runtime bin dir with a symlink to another directory", func() {
+			BeforeEach(func() {
+				Expect(os.Symlink(victimDir, path.Join(gardenDir, "bin"))).To(Succeed())
+			})
+
+			It("fails without touching the symlink target", func() {
+				session := gexecStartAndWait(gkCmd, GinkgoWriter, GinkgoWriter)
+				Expect(session.ExitCode()).NotTo(Equal(0))
+
+				fileInfo := stat(victimDir)
+				Expect(fileInfo.Mode().Perm()).To(Equal(os.FileMode(0700)))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Uid).To(Equal(victimStat.Uid))
+				Expect(fileInfo.Sys().(*syscall.Stat_t).Gid).To(Equal(victimStat.Gid))
+			})
 		})
 	})
 
@@ -91,6 +148,28 @@ var _ = Describe("Greenskeeper", func() {
 		})
 	})
 })
+
+// gardenEnvs mirrors the production layout, where DEPOT_PATH and
+// RUNTIME_BIN_DIR are children of GARDEN_DATA_DIR.
+func gardenEnvs(tmpDir, pidFileName string) []string {
+	gardenDir := path.Join(tmpDir, "garden")
+	return []string{
+		"PIDFILE=" + pidFileName,
+		"RUN_DIR=" + path.Join(tmpDir, "run"),
+		"GARDEN_DATA_DIR=" + gardenDir,
+		"LOG_DIR=" + path.Join(tmpDir, "log"),
+		"TMPDIR=" + path.Join(tmpDir, "tmp"),
+		"DEPOT_PATH=" + path.Join(gardenDir, "depot"),
+		"RUNTIME_BIN_DIR=" + path.Join(gardenDir, "bin"),
+		"MAXIMUS=" + strconv.Itoa(maxID),
+	}
+}
+
+func stat(p string) os.FileInfo {
+	fileInfo, err := os.Stat(p)
+	ExpectWithOffset(1, err).NotTo(HaveOccurred())
+	return fileInfo
+}
 
 func checkPermissionsAndOwnership(tmpDir, dir string, mode, uid, gid int) {
 	Expect(path.Join(tmpDir, dir)).To(BeADirectory())
