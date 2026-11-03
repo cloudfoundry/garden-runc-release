@@ -21,13 +21,15 @@ func main() {
 		os.Exit(1)
 	}
 
+	// DEPOT_PATH and RUNTIME_BIN_DIR live inside GARDEN_DATA_DIR, so they must be
+	// created and locked down before GARDEN_DATA_DIR is handed over to vcap.
 	directories := []greenskeeper.Directory{
 		greenskeeper.NewDirectoryBuilder(mustGetenv("RUN_DIR")).Mode(0770).Build(),
+		greenskeeper.NewDirectoryBuilder(mustGetenv("DEPOT_PATH")).Mode(0755).UID(owner).GID(owner).Build(),
+		greenskeeper.NewDirectoryBuilder(mustGetenv("RUNTIME_BIN_DIR")).Mode(0750).UID(owner).GID(mustGetMaximus()).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("GARDEN_DATA_DIR")).Mode(0770).UID(mustResolveUID("vcap")).GID(mustGetMaximus()).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("LOG_DIR")).Mode(0770).UID(owner).GID(owner).Build(),
 		greenskeeper.NewDirectoryBuilder(mustGetenv("TMPDIR")).Mode(0755).UID(owner).GID(owner).Build(),
-		greenskeeper.NewDirectoryBuilder(mustGetenv("DEPOT_PATH")).Mode(0755).UID(owner).GID(owner).Build(),
-		greenskeeper.NewDirectoryBuilder(mustGetenv("RUNTIME_BIN_DIR")).Mode(0750).GID(mustGetMaximus()).Build(),
 	}
 
 	if err := greenskeeper.CreateDirectories(directories...); err != nil {
