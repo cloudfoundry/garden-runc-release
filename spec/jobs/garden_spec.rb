@@ -315,6 +315,34 @@ describe 'garden' do
     end
   end
 
+  context 'config/seccomp.json' do
+    let(:template) { job.template('config/seccomp.json') }
+    let(:rendered_template) { template.render(properties) }
+
+    context 'with defaults' do
+      it 'renders an empty file' do
+        expect(rendered_template.strip).to eql('')
+      end
+    end
+
+    context 'when garden.seccomp_profile is valid JSON' do
+      let(:profile) { '{"defaultAction":"SCMP_ACT_ERRNO","syscalls":[{"names":["read"],"action":"SCMP_ACT_ALLOW"}]}' }
+      let(:properties) { { 'garden' => { 'seccomp_profile' => profile } } }
+
+      it 'renders the profile unchanged' do
+        expect(JSON.parse(rendered_template)).to eql(JSON.parse(profile))
+      end
+    end
+
+    context 'when garden.seccomp_profile is not valid JSON' do
+      let(:properties) { { 'garden' => { 'seccomp_profile' => '{"defaultAction": "SCMP_ACT_ERRNO",' } } }
+
+      it 'fails rendering' do
+        expect { rendered_template }.to raise_error(/garden.seccomp_profile is not valid JSON/)
+      end
+    end
+  end
+
   context 'bin/grootfs-utils' do
     let(:template) { job.template('bin/grootfs-utils') }
 
