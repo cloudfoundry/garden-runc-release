@@ -63,8 +63,8 @@ var _ = Describe("PeaCleaner", func() {
 				Expect(cleanErr).To(MatchError(ContainSubstring("failky")))
 			})
 
-			It("still destroys rootfs", func() {
-				Expect(fakeVolumizer.DestroyCallCount()).To(Equal(1))
+			It("retains the rootfs until runtime deletion succeeds", func() {
+				Expect(fakeVolumizer.DestroyCallCount()).To(BeZero())
 			})
 		})
 
