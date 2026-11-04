@@ -1,6 +1,6 @@
 module code.cloudfoundry.org/guardian
 
-go 1.26.8
+go 1.26.10
 
 replace (
 	github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3
@@ -8,16 +8,16 @@ replace (
 )
 
 require (
-	code.cloudfoundry.org/archiver v0.94.0
-	code.cloudfoundry.org/clock v1.94.0
-	code.cloudfoundry.org/commandrunner v0.84.0
-	code.cloudfoundry.org/debugserver v0.121.0
-	code.cloudfoundry.org/garden v0.10.0
-	code.cloudfoundry.org/lager/v3 v3.93.0
-	code.cloudfoundry.org/localip v0.95.0
+	code.cloudfoundry.org/archiver v0.95.0
+	code.cloudfoundry.org/clock v1.95.0
+	code.cloudfoundry.org/commandrunner v0.85.0
+	code.cloudfoundry.org/debugserver v0.122.0
+	code.cloudfoundry.org/garden v0.11.0
+	code.cloudfoundry.org/lager/v3 v3.94.0
+	code.cloudfoundry.org/localip v0.96.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/dropsonde v1.1.0
-	github.com/cloudfoundry/gosigar v1.3.128
+	github.com/cloudfoundry/gosigar v1.3.131
 	github.com/cloudfoundry/sonde-go v0.0.0-20260818080958-d46298cd8513
 	github.com/containerd/cgroups/v3 v3.1.3
 	github.com/containerd/containerd/api v1.12.0
@@ -40,7 +40,7 @@ require (
 	github.com/moby/sys/reexec v0.1.0
 	github.com/moby/sys/user v0.5.0
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/onsi/ginkgo/v2 v2.33.1
+	github.com/onsi/ginkgo/v2 v2.34.0
 	github.com/onsi/gomega v1.44.0
 	github.com/opencontainers/cgroups v0.1.0
 	github.com/opencontainers/go-digest v1.0.0
@@ -93,7 +93,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261026192309-dbd0ed30aa88 // indirect
+	github.com/google/pprof v0.0.0-20261103193413-97e8293de3c4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -120,7 +120,7 @@ require (
 	go.opentelemetry.io/otel/metric v1.47.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.47.0 // indirect
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/mod v0.42.0 // indirect
 	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/sync v0.24.0 // indirect
