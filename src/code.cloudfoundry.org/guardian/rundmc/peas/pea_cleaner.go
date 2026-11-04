@@ -49,7 +49,7 @@ func (p *PeaCleaner) Clean(log lager.Logger, handle string) error {
 	var result *multierror.Error
 	err := p.Deleter.Delete(log, handle)
 	if err != nil {
-		result = multierror.Append(result, err)
+		return err // retain a rootfs that the runtime may still be using
 	}
 	err = p.Volumizer.Destroy(log, handle)
 	if err != nil {

@@ -10,6 +10,7 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 
@@ -23,6 +24,8 @@ import (
 	"github.com/containerd/containerd/v2/pkg/cio"
 	"github.com/containerd/errdefs"
 	"github.com/containerd/typeurl/v2"
+	"google.golang.org/protobuf/encoding/protowire"
+	"google.golang.org/protobuf/types/known/anypb"
 
 	specs "github.com/opencontainers/runtime-spec/specs-go"
 )
@@ -32,23 +35,70 @@ type Nerd struct {
 	context   context.Context
 	ioFifoDir string
 	mp        *metrics.MetricsProvider
+	policy    runcontainerd.RuntimePolicy
+	peaIOMu   sync.Mutex
+	peaTasks  map[string]*peaTask
 }
 
-func New(client *client.Client, context context.Context, ioFifoDir string, mp *metrics.MetricsProvider) *Nerd {
+type peaTask struct {
+	task      client.Task
+	stdinDone <-chan struct{}
+	terminal  bool
+	context   context.Context
+	cancel    context.CancelFunc
+}
+
+func New(containerdClient *client.Client, context context.Context, ioFifoDir string, mp *metrics.MetricsProvider, policy runcontainerd.RuntimePolicy) *Nerd {
 	return &Nerd{
-		client:    client,
+		client:    containerdClient,
 		context:   context,
 		ioFifoDir: ioFifoDir,
 		mp:        mp,
+		policy:    policy,
+		peaTasks:  make(map[string]*peaTask),
 	}
 }
 
-func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) error {
+func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) (result error) {
 	log.Debug("creating-container", lager.Data{"containerID": containerID})
-	container, err := n.client.NewContainer(n.context, containerID, client.WithSpec(spec))
+	if n.policy == runcontainerd.RunscRuntime {
+		spec.Windows = nil // runsc rejects the Windows section
+		if spec.Annotations == nil {
+			spec.Annotations = make(map[string]string)
+		}
+		if spec.Annotations["container-type"] == "pea" {
+			parent := spec.Annotations["sandbox-container"]
+			if parent == "" || parent == containerID {
+				return fmt.Errorf("pea %s requires a distinct sandbox-container", containerID)
+			}
+			// Garden's labels also drive discovery and cleanup. Translate them at
+			// the runtime boundary so image-backed peas join the parent's Sentry.
+			spec.Annotations["io.kubernetes.cri.container-type"] = "container"
+			spec.Annotations["io.kubernetes.cri.sandbox-id"] = parent
+		} else if _, exists := spec.Annotations["io.kubernetes.cri.container-type"]; !exists {
+			spec.Annotations["io.kubernetes.cri.container-type"] = "sandbox"
+		}
+	}
+	containerOpts := []client.NewContainerOpts{client.WithSpec(spec)}
+	if n.policy == runcontainerd.RunscRuntime {
+		containerOpts = append(containerOpts, client.WithRuntime(runcontainerd.SupportedRuntimeType, runscRuntimeOptions()))
+	}
+	container, err := n.client.NewContainer(n.context, containerID, containerOpts...)
 	if err != nil {
 		return err
 	}
+	// Only a successful NewContainer establishes ownership. Failed label/task
+	// setup must not leave owned metadata behind, or erase a colliding ID.
+	defer func() {
+		if result == nil {
+			return
+		}
+		if err := n.Delete(log, containerID); err != nil {
+			result = &runcontainerd.PeaRuntimeCleanupError{Err: errors.Join(result, err)}
+			return
+		}
+		result = errors.Join(result, n.RemoveBundle(log, containerID))
+	}()
 
 	for key, value := range spec.Annotations {
 		log.Debug("setting-label", lager.Data{"containerID": containerID, "label-key": key, "label-value": value})
@@ -58,17 +108,76 @@ func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, ho
 	}
 
 	log.Debug("creating-task", lager.Data{"containerID": containerID})
-	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(noTTYProcessIO(pio), n.ioFifoDir)), client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	var taskOpts []client.NewTaskOpts
+	if n.policy == runcontainerd.StockRuntime {
+		// Stock runc needs explicit keyring and UID/GID task options;
+		// runsc manages its own keyring and UID/GID via the OCI spec.
+		taskOpts = append(taskOpts, client.WithNoNewKeyring, WithUIDAndGID(hostUID, hostGID))
+	}
+	isPea := spec.Annotations["container-type"] == "pea"
+	processIO := noTTYProcessIO(pio)
+	var inputDone chan struct{}
+	if isPea {
+		inputDone = make(chan struct{})
+		processIO = func() (io.Reader, io.Writer, io.Writer, bool) {
+			stdin, stdout, stderr := pio()
+			return &peaInput{reader: orEmpty(stdin), done: inputDone}, stdout, stderr, spec.Process != nil && spec.Process.Terminal
+		}
+	}
+	task, err := container.NewTask(n.context, cio.NewCreator(withProcessIO(processIO, n.ioFifoDir)), taskOpts...)
+	if err == nil && isPea {
+		ctx, cancel := context.WithCancel(n.context)
+		n.peaIOMu.Lock()
+		n.peaTasks[containerID] = &peaTask{task: task, stdinDone: inputDone, terminal: spec.Process != nil && spec.Process.Terminal, context: ctx, cancel: cancel}
+		n.peaIOMu.Unlock()
+	}
+	return err
+}
+
+func runscRuntimeOptions() *anypb.Any {
+	configPath := protowire.AppendTag(nil, 2, protowire.BytesType)
+	configPath = protowire.AppendString(configPath, "/etc/containerd/runsc/config.toml")
+	return &anypb.Any{TypeUrl: "runtimeoptions.v1.Options", Value: configPath}
+}
+
+// Start starts a task created by Create. Keeping the two phases separate lets
+// Garden configure networking after the task's namespaces exist but before its
+// init process runs, which runtimes that snapshot the network at start need.
+func (n *Nerd) Start(log lager.Logger, containerID string) error {
+	_, task, err := n.loadContainerAndTask(log, containerID)
 	if err != nil {
 		return err
 	}
 
+	n.peaIOMu.Lock()
+	pea := n.peaTasks[containerID]
+	n.peaIOMu.Unlock()
 	log.Debug("starting-task", lager.Data{"containerID": containerID})
-	err = task.Start(n.context)
-	if err != nil {
+	if err := task.Start(n.context); err != nil {
 		return err
 	}
 
+	if pea != nil {
+		// A terminal has one bidirectional console master, not an independent
+		// stdin pipe. Closing its keepalive on input EOF makes the stock shim
+		// close that master, dropping output and delivering SIGHUP. Keep it
+		// until task exit/deletion; stdin completion is not terminal shutdown.
+		if pea.terminal {
+			return nil
+		}
+		// The shim holds a keepalive writer on stdin. Release it only after
+		// cio has written the supplied input, never immediately after Start.
+		go func() {
+			select {
+			case <-pea.stdinDone:
+				if err := task.CloseIO(pea.context, client.WithStdinCloser); err != nil {
+					log.Error("failed-closing-pea-stdin", err, lager.Data{"containerID": containerID})
+				}
+			case <-pea.context.Done():
+			}
+		}()
+		return nil
+	}
 	return task.CloseIO(n.context, client.WithStdinCloser)
 }
 
@@ -106,21 +215,40 @@ func withProcessKillLogging(log lager.Logger, mp *metrics.MetricsProvider) func(
 	}
 }
 
-func (n *Nerd) Delete(log lager.Logger, containerID string) error {
+func (n *Nerd) Delete(log lager.Logger, containerID string) (result error) {
+	defer func() {
+		if result == nil {
+			result = n.releasePeaIO(containerID)
+		}
+	}()
 	_, task, err := n.loadContainerAndTask(log, containerID)
 	if err != nil {
 		switch err.(type) {
 		case runcontainerd.ContainerNotFoundError:
 			log.Debug("container-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		case runcontainerd.TaskNotFoundError:
 			log.Debug("task-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		}
 		return err
 	}
 
 	log.Debug("deleting-task", lager.Data{"containerID": containerID})
+	status, err := task.Status(n.context)
+	if err != nil {
+		return err
+	}
+	if status.Status == client.Created && task.Pid() != 0 && n.policy == runcontainerd.RunscRuntime {
+		ctx, cancel := context.WithTimeout(n.context, 2*time.Minute)
+		defer cancel()
+		if err := deleteCreatedTask(ctx, n.client.TaskService(), containerID, task.IO(), n.mp); err != nil {
+			return err
+		}
+		return nil
+	}
 	_, err = task.Delete(n.context, withProcessKillLogging(log, n.mp))
 	return err
 }
@@ -207,6 +335,10 @@ func (n *Nerd) Exec(log lager.Logger, containerID, processID string, spec *specs
 
 	log.Debug("starting-task", lager.Data{"containerID": containerID, "processID": processID})
 	if err := process.Start(n.context); err != nil {
+		if _, deleteErr := process.Delete(n.context); deleteErr != nil {
+			log.Error("delete-failed-exec", deleteErr, lager.Data{"containerID": containerID, "processID": processID})
+			return BackingProcess{}, errors.Join(err, fmt.Errorf("delete failed exec %s: %w", processID, deleteErr))
+		}
 		return BackingProcess{}, err
 	}
 
@@ -236,12 +368,34 @@ func (n *Nerd) GetProcess(log lager.Logger, containerID, processID string) (runc
 
 func (n *Nerd) GetTask(log lager.Logger, id string) (runcontainerd.BackingProcess, error) {
 	log.Debug("get-task", lager.Data{"id": id})
+	n.peaIOMu.Lock()
+	created := n.peaTasks[id]
+	n.peaIOMu.Unlock()
+	if created != nil {
+		// Wait must drain the actual creator's IO, not cio.Load's no-op Wait.
+		return NewBackingProcess(log, created.task, n.context), nil
+	}
 	_, task, err := n.loadContainerAndTask(log, id)
 	if err != nil {
 		return BackingProcess{}, err
 	}
 
 	return NewBackingProcess(log, task, n.context), nil
+}
+
+func (n *Nerd) releasePeaIO(id string) error {
+	n.peaIOMu.Lock()
+	task := n.peaTasks[id]
+	delete(n.peaTasks, id)
+	n.peaIOMu.Unlock()
+	if task != nil {
+		task.cancel()
+		if task.task.IO() != nil {
+			task.task.IO().Cancel()
+			return task.task.IO().Close()
+		}
+	}
+	return nil
 }
 
 func exponentialBackoffCloseIO(process client.Process, ctx context.Context, log lager.Logger, containerID string) {
@@ -377,7 +531,9 @@ func (n *Nerd) OOMEvents(log lager.Logger) <-chan *apievents.TaskOOM {
 }
 
 func (n *Nerd) Spec(log lager.Logger, containerID string) (*specs.Spec, error) {
-	container, _, err := n.loadContainerAndTask(log, containerID)
+	// The OCI spec belongs to metadata, not a live task. Restart cleanup must
+	// still discover ownership after task deletion succeeds.
+	container, err := n.loadContainer(log, containerID)
 	if err != nil {
 		return nil, err
 	}
@@ -455,4 +611,35 @@ func updateTaskInfoCreateOptions(taskInfo *client.TaskInfo, updateCreateOptions 
 	}
 
 	return updateCreateOptions(opts)
+}
+
+// TaskMetrics retrieves raw cgroup metrics for a container via the containerd
+// task API. Returns the raw protobuf Any (may be cgroupv1 or cgroupv2 format
+// depending on the shim) and the container creation time.
+func (n *Nerd) TaskMetrics(log lager.Logger, containerID string) (typeurl.Any, time.Time, error) {
+	log = log.Session("task-metrics", lager.Data{"containerID": containerID})
+
+	container, task, err := n.loadContainerAndTask(log, containerID)
+	if err != nil {
+		return nil, time.Time{}, err
+	}
+
+	metric, err := task.Metrics(n.context)
+	if err != nil {
+		return nil, time.Time{}, fmt.Errorf("task.Metrics: %w", err)
+	}
+
+	if metric.Data == nil {
+		return nil, time.Time{}, fmt.Errorf("no metrics data for container %s", containerID)
+	}
+
+	// Get creation time from container info
+	info, err := container.Info(n.context)
+	if err != nil {
+		// Non-fatal: use zero time (Age will be large but metrics still report)
+		log.Error("get-info-for-creation-time", err)
+		return metric.Data, time.Time{}, nil
+	}
+
+	return metric.Data, info.CreatedAt, nil
 }
