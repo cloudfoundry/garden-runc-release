@@ -1,6 +1,6 @@
 module code.cloudfoundry.org/guardian
 
-go 1.26.10
+go 1.26.11
 
 replace (
 	github.com/cilium/ebpf => github.com/cilium/ebpf v0.17.3
@@ -8,16 +8,16 @@ replace (
 )
 
 require (
-	code.cloudfoundry.org/archiver v0.96.0
-	code.cloudfoundry.org/clock v1.96.0
-	code.cloudfoundry.org/commandrunner v0.86.0
-	code.cloudfoundry.org/debugserver v0.123.0
-	code.cloudfoundry.org/garden v0.12.0
-	code.cloudfoundry.org/lager/v3 v3.95.0
-	code.cloudfoundry.org/localip v0.97.0
+	code.cloudfoundry.org/archiver v0.97.0
+	code.cloudfoundry.org/clock v1.97.0
+	code.cloudfoundry.org/commandrunner v0.87.0
+	code.cloudfoundry.org/debugserver v0.124.0
+	code.cloudfoundry.org/garden v0.13.0
+	code.cloudfoundry.org/lager/v3 v3.96.0
+	code.cloudfoundry.org/localip v0.98.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/dropsonde v1.1.0
-	github.com/cloudfoundry/gosigar v1.3.131
+	github.com/cloudfoundry/gosigar v1.3.133
 	github.com/cloudfoundry/sonde-go v0.0.0-20260818080958-d46298cd8513
 	github.com/containerd/cgroups/v3 v3.1.3
 	github.com/containerd/containerd/api v1.12.0
@@ -45,7 +45,7 @@ require (
 	github.com/opencontainers/cgroups v0.1.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.1.1
-	github.com/opencontainers/runc v1.5.2
+	github.com/opencontainers/runc v1.5.3
 	github.com/opencontainers/runtime-spec v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.10.2
@@ -93,7 +93,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.2.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261110164715-8bb1ee682bd8 // indirect
+	github.com/google/pprof v0.0.0-20261118010117-084b33a85f63 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -122,11 +122,11 @@ require (
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/mod v0.43.0 // indirect
-	golang.org/x/net v0.62.0 // indirect
+	golang.org/x/net v0.63.0 // indirect
 	golang.org/x/sync v0.25.0 // indirect
 	golang.org/x/text v0.44.0 // indirect
-	golang.org/x/tools v0.52.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20261110000943-09e21b237f2c // indirect
+	golang.org/x/tools v0.53.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261116203732-fd2c7689a808 // indirect
 	google.golang.org/grpc v1.85.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
