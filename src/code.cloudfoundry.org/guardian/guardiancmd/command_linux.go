@@ -39,7 +39,6 @@ import (
 	"github.com/containerd/containerd/v2/cmd/containerd-shim-runc-v2/process"
 	"github.com/containerd/containerd/v2/core/leases"
 	"github.com/containerd/containerd/v2/pkg/namespaces"
-	"github.com/containerd/containerd/v2/plugins"
 	"github.com/opencontainers/cgroups"
 	"github.com/opencontainers/runtime-spec/specs-go"
 	"golang.org/x/sys/unix"
@@ -139,18 +138,39 @@ func (f *LinuxFactory) WireResolvConfigurer() kawasaki.DnsResolvConfigurer {
 	}
 }
 
-func (f *LinuxFactory) WireContainerd(processBuilder *processes.ProcBuilder, userLookupper users.UserLookupper, wireExecer func(pidGetter runrunc.PidGetter) *runrunc.Execer, statser runcontainerd.Statser, log lager.Logger, volumizer peas.Volumizer, peaHandlesGetter runcontainerd.PeaHandlesGetter, metricsProvider *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *privchecker.PrivilegeChecker, peas.BundleLoader, error) {
-	containerdClient, err := client.New(f.config.Containerd.Socket, client.WithDefaultRuntime(plugins.RuntimeRuncV2))
+func (f *LinuxFactory) WireContainerd(processBuilder *processes.ProcBuilder, userLookupper users.UserLookupper, wireExecer func(pidGetter runrunc.PidGetter) *runrunc.Execer, statser runcontainerd.Statser, log lager.Logger, volumizer peas.Volumizer, peaHandlesGetter runcontainerd.PeaHandlesGetter, metricsProvider *metrics.MetricsProvider) (*runcontainerd.RunContainerd, *runcontainerd.RunContainerPea, *runcontainerd.PidGetter, *privchecker.PrivilegeChecker, peas.BundleLoader, runcontainerd.RuntimePolicy, error) {
+	policy, err := runcontainerd.ResolveRuntimePolicy(f.config.Containerd.RuntimeType)
 	if err != nil {
-		return nil, nil, nil, nil, nil, err
+		return nil, nil, nil, nil, nil, runcontainerd.StockRuntime, err
+	}
+	// Grouped peas, exec streaming and child cleanup all use containerd tasks.
+	if policy.IsAlternative() && !f.config.Containerd.UseContainerdForProcesses {
+		return nil, nil, nil, nil, nil, runcontainerd.StockRuntime, fmt.Errorf(
+			"containerd runtime type %q requires --use-containerd-for-processes", f.config.Containerd.RuntimeType)
+	}
+
+	runtimeType := f.config.Containerd.RuntimeType
+	if runtimeType == "" {
+		runtimeType = runcontainerd.StockRuntimeType
+	}
+	containerdClient, err := client.New(f.config.Containerd.Socket, client.WithDefaultRuntime(runtimeType))
+	if err != nil {
+		return nil, nil, nil, nil, nil, runcontainerd.StockRuntime, err
 	}
 	ctx := namespaces.WithNamespace(context.Background(), containerdNamespace)
 	ctx = leases.WithLease(ctx, "lease-is-off")
-	nerd := nerdpkg.New(containerdClient, ctx, filepath.Join(containerdRuncRoot(), "fifo"), metricsProvider)
+	nerd := nerdpkg.New(containerdClient, ctx, filepath.Join(containerdRuncRoot(), "fifo"), metricsProvider, policy)
 	nerdStopper := nerdpkg.NewNerdStopper(containerdClient)
 	pidGetter := &runcontainerd.PidGetter{Nerd: nerd}
 
 	cgroupManager := runcontainerd.NewCgroupManager(containerdRuncRoot(), containerdNamespace)
+
+	// For non-stock runtimes (validated: gVisor/runsc), use containerd task API
+	// for metrics instead of shelling out to runc which has no knowledge of the
+	// container. Unsupported runtimes are rejected above by ResolveRuntimePolicy.
+	if policy.IsAlternative() {
+		statser = runcontainerd.NewContainerdStatser(nerd)
+	}
 
 	containerdManager := runcontainerd.New(nerd, nerd, processBuilder, userLookupper, wireExecer(pidGetter), statser, f.config.Containerd.UseContainerdForProcesses, cgroupManager, f.WireMkdirer(), peaHandlesGetter, f.config.Containers.CleanupProcessDirsOnWait, nerdStopper)
 
@@ -159,7 +179,7 @@ func (f *LinuxFactory) WireContainerd(processBuilder *processes.ProcBuilder, use
 	privilegeChecker := &privchecker.PrivilegeChecker{ContainerManager: nerd, Log: log}
 	peaBundleLoader := runcontainerd.NewBndlLoader(nerd)
 
-	return containerdManager, peaRunner, pidGetter, privilegeChecker, peaBundleLoader, nil
+	return containerdManager, peaRunner, pidGetter, privilegeChecker, peaBundleLoader, policy, nil
 }
 
 func (f *LinuxFactory) WireCPUCgrouper() (rundmc.CPUCgrouper, error) {
