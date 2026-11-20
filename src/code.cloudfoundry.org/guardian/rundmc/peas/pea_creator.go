@@ -1,6 +1,7 @@
 package peas
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -113,6 +114,15 @@ func (p *PeaCreator) CreatePea(log lager.Logger, processSpec garden.ProcessSpec,
 	if err != nil {
 		return errs("creating-volume", err)
 	}
+	retainVolume := false
+	defer func() {
+		if theErr != nil && !retainVolume {
+			theErr = multierror.Append(theErr, p.Volumizer.Destroy(log, processID)).ErrorOrNil()
+		}
+	}()
+	if runtimeSpec.Root == nil || runtimeSpec.Root.Path == "" {
+		return errs("creating-volume", errors.New("image rootfs path is missing"))
+	}
 
 	defaultBindMounts, err := p.NetworkDepot.SetupBindMounts(log, sandboxHandle, privileged, runtimeSpec.Root.Path)
 	if err != nil {
@@ -148,8 +158,7 @@ func (p *PeaCreator) CreatePea(log lager.Logger, processSpec garden.ProcessSpec,
 		Privileged: privileged,
 	})
 	if genErr != nil {
-		destroyErr := p.Volumizer.Destroy(log, processID)
-		return errs("generating-bundle", multierror.Append(genErr, destroyErr))
+		return errs("generating-bundle", genErr)
 	}
 
 	preparedProcess := p.ProcessBuilder.BuildProcess(bndl, processSpec, &users.ExecUser{Uid: userUID, Gid: userGID})
@@ -161,8 +170,9 @@ func (p *PeaCreator) CreatePea(log lager.Logger, processSpec garden.ProcessSpec,
 
 	proc, runErr := p.ExecRunner.RunPea(log, processID, bndl, sandboxHandle, procIO, preparedProcess.Terminal, nil, extraCleanup)
 	if runErr != nil {
-		destroyErr := p.Volumizer.Destroy(log, processID)
-		return nil, multierror.Append(runErr, destroyErr)
+		var runtimeResidue interface{ PeaRootfsInUse() bool }
+		retainVolume = errors.As(runErr, &runtimeResidue) && runtimeResidue.PeaRootfsInUse()
+		return nil, runErr
 	}
 
 	return proc, nil
