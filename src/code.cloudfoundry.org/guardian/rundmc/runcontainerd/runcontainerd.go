@@ -1,6 +1,7 @@
 package runcontainerd
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -145,7 +146,12 @@ func (r *RunContainerd) Create(log lager.Logger, id string, bundle goci.Bndl, pi
 	}
 
 	if r.useContainerdForProcesses {
-		return r.cgroupManager.SetUseMemoryHierarchy(id)
+		if err := r.cgroupManager.SetUseMemoryHierarchy(id); err != nil {
+			if deleteErr := r.containerManager.Delete(log, id); deleteErr != nil {
+				return &PeaRuntimeCleanupError{Err: errors.Join(err, deleteErr)}
+			}
+			return errors.Join(err, r.containerManager.RemoveBundle(log, id))
+		}
 	}
 
 	return nil

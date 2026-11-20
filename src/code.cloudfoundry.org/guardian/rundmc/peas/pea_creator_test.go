@@ -14,6 +14,7 @@ import (
 	"code.cloudfoundry.org/guardian/rundmc/goci"
 	"code.cloudfoundry.org/guardian/rundmc/peas"
 	"code.cloudfoundry.org/guardian/rundmc/peas/peasfakes"
+	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
 	"code.cloudfoundry.org/guardian/rundmc/runrunc/runruncfakes"
 	"code.cloudfoundry.org/lager/v3/lagertest"
 	. "github.com/onsi/ginkgo/v2"
@@ -114,6 +115,22 @@ var _ = Describe("PeaCreator", func() {
 
 	AfterEach(func() {
 		Expect(os.RemoveAll(ctrBundleDir)).To(Succeed())
+	})
+
+	Describe("failed-stage cleanup", func() {
+		It("destroys the volume if network bind preparation fails", func() {
+			networkDepot.SetupBindMountsReturns(nil, errors.New("bind-failure"))
+			_, err := peaCreator.CreatePea(log, processSpec, pio, ctrHandle)
+			Expect(err).To(MatchError(ContainSubstring("bind-failure")))
+			Expect(volumizer.DestroyCallCount()).To(Equal(1))
+		})
+
+		It("retains the image when runtime rollback has failed", func() {
+			execRunner.RunPeaReturns(nil, &runcontainerd.PeaRuntimeCleanupError{Err: errors.New("runtime-residue")})
+			_, err := peaCreator.CreatePea(log, processSpec, pio, ctrHandle)
+			Expect(err).To(MatchError("runtime-residue"))
+			Expect(volumizer.DestroyCallCount()).To(BeZero())
+		})
 	})
 
 	Describe("pea creation succeeding", func() {

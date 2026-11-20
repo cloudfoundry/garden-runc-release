@@ -140,6 +140,15 @@ var _ = Describe("Nerd", func() {
 			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
 			Eventually(stdout, "30s").Should(gbytes.Say("hi"))
 		})
+
+		It("removes the container metadata when the init process cannot be created", func() {
+			spec = generateSpec(containerdContext, containerdClient, containerID)
+			spec.Process.Args = []string{"/command-does-not-exist"}
+			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).NotTo(Succeed())
+
+			containers := listContainers(testConfig.CtrBin, testConfig.Socket)
+			Expect(containers).NotTo(ContainSubstring(containerID))
+		})
 	})
 
 	Describe("Spec", func() {
@@ -159,6 +168,17 @@ var _ = Describe("Nerd", func() {
 		It("fails when container id not found", func() {
 			_, err := cnerd.Spec(testLogger, "notAContainerId")
 			Expect(err).To(MatchError("container notAContainerId not found"))
+		})
+
+		It("returns the container spec after its task has been deleted", func() {
+			spec = generateSpec(containerdContext, containerdClient, containerID)
+			Expect(cnerd.Create(testLogger, containerID, spec, maximusUID, maximusGID, initProcessIO)).To(Succeed())
+			Expect(cnerd.Delete(testLogger, containerID)).To(Succeed())
+
+			actualSpec, err := cnerd.Spec(testLogger, containerID)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(actualSpec).To(Equal(spec))
+			Expect(cnerd.RemoveBundle(testLogger, containerID)).To(Succeed())
 		})
 	})
 
@@ -184,6 +204,19 @@ var _ = Describe("Nerd", func() {
 
 			containers := listProcesses(testConfig.CtrBin, testConfig.Socket, containerID)
 			Expect(containers).To(ContainSubstring(processID))
+		})
+
+		It("removes an exec process that fails to start", func() {
+			processSpec := &specs.Process{
+				Args: []string{"/command-does-not-exist"},
+				Cwd:  "/",
+			}
+
+			_, err := cnerd.Exec(testLogger, containerID, processID, processSpec, processIO)
+			Expect(err).To(HaveOccurred())
+
+			_, err = cnerd.GetProcess(testLogger, containerID, processID)
+			Expect(err).To(MatchError(runcontainerd.ProcessNotFoundError{Handle: containerID, ID: processID}))
 		})
 
 		Describe("process IO", func() {

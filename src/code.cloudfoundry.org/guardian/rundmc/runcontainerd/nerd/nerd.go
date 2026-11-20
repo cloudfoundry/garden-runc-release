@@ -43,12 +43,24 @@ func New(client *client.Client, context context.Context, ioFifoDir string, mp *m
 	}
 }
 
-func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) error {
+func (n *Nerd) Create(log lager.Logger, containerID string, spec *specs.Spec, hostUID, hostGID uint32, pio func() (io.Reader, io.Writer, io.Writer)) (result error) {
 	log.Debug("creating-container", lager.Data{"containerID": containerID})
 	container, err := n.client.NewContainer(n.context, containerID, client.WithSpec(spec))
 	if err != nil {
 		return err
 	}
+	// Only a successful NewContainer establishes ownership. Failed label/task
+	// setup must not leave owned metadata behind, or erase a colliding ID.
+	defer func() {
+		if result == nil {
+			return
+		}
+		if err := n.Delete(log, containerID); err != nil {
+			result = &runcontainerd.PeaRuntimeCleanupError{Err: errors.Join(result, err)}
+			return
+		}
+		result = errors.Join(result, n.RemoveBundle(log, containerID))
+	}()
 
 	for key, value := range spec.Annotations {
 		log.Debug("setting-label", lager.Data{"containerID": containerID, "label-key": key, "label-value": value})
@@ -112,9 +124,11 @@ func (n *Nerd) Delete(log lager.Logger, containerID string) error {
 		switch err.(type) {
 		case runcontainerd.ContainerNotFoundError:
 			log.Debug("container-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		case runcontainerd.TaskNotFoundError:
 			log.Debug("task-already-deleted", lager.Data{"containerID": containerID})
+			n.mp.RegisterKillableContainer(containerID)
 			return nil
 		}
 		return err
@@ -207,6 +221,10 @@ func (n *Nerd) Exec(log lager.Logger, containerID, processID string, spec *specs
 
 	log.Debug("starting-task", lager.Data{"containerID": containerID, "processID": processID})
 	if err := process.Start(n.context); err != nil {
+		if _, deleteErr := process.Delete(n.context); deleteErr != nil {
+			log.Error("delete-failed-exec", deleteErr, lager.Data{"containerID": containerID, "processID": processID})
+			return BackingProcess{}, errors.Join(err, fmt.Errorf("delete failed exec %s: %w", processID, deleteErr))
+		}
 		return BackingProcess{}, err
 	}
 
@@ -377,7 +395,9 @@ func (n *Nerd) OOMEvents(log lager.Logger) <-chan *apievents.TaskOOM {
 }
 
 func (n *Nerd) Spec(log lager.Logger, containerID string) (*specs.Spec, error) {
-	container, _, err := n.loadContainerAndTask(log, containerID)
+	// The OCI spec belongs to metadata, not a live task. Restart cleanup must
+	// still discover ownership after task deletion succeeds.
+	container, err := n.loadContainer(log, containerID)
 	if err != nil {
 		return nil, err
 	}
