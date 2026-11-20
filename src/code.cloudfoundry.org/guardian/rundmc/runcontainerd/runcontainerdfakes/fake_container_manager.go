@@ -121,6 +121,18 @@ type FakeContainerManager struct {
 		result1 *specs.Spec
 		result2 error
 	}
+	StartStub        func(lager.Logger, string) error
+	startMutex       sync.RWMutex
+	startArgsForCall []struct {
+		arg1 lager.Logger
+		arg2 string
+	}
+	startReturns struct {
+		result1 error
+	}
+	startReturnsOnCall map[int]struct {
+		result1 error
+	}
 	StateStub        func(lager.Logger, string) (int, string, error)
 	stateMutex       sync.RWMutex
 	stateArgsForCall []struct {
@@ -654,6 +666,68 @@ func (fake *FakeContainerManager) SpecReturnsOnCall(i int, result1 *specs.Spec, 
 	}{result1, result2}
 }
 
+func (fake *FakeContainerManager) Start(arg1 lager.Logger, arg2 string) error {
+	fake.startMutex.Lock()
+	ret, specificReturn := fake.startReturnsOnCall[len(fake.startArgsForCall)]
+	fake.startArgsForCall = append(fake.startArgsForCall, struct {
+		arg1 lager.Logger
+		arg2 string
+	}{arg1, arg2})
+	stub := fake.StartStub
+	fakeReturns := fake.startReturns
+	fake.recordInvocation("Start", []interface{}{arg1, arg2})
+	fake.startMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fakeReturns.result1
+}
+
+func (fake *FakeContainerManager) StartCallCount() int {
+	fake.startMutex.RLock()
+	defer fake.startMutex.RUnlock()
+	return len(fake.startArgsForCall)
+}
+
+func (fake *FakeContainerManager) StartCalls(stub func(lager.Logger, string) error) {
+	fake.startMutex.Lock()
+	defer fake.startMutex.Unlock()
+	fake.StartStub = stub
+}
+
+func (fake *FakeContainerManager) StartArgsForCall(i int) (lager.Logger, string) {
+	fake.startMutex.RLock()
+	defer fake.startMutex.RUnlock()
+	argsForCall := fake.startArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2
+}
+
+func (fake *FakeContainerManager) StartReturns(result1 error) {
+	fake.startMutex.Lock()
+	defer fake.startMutex.Unlock()
+	fake.StartStub = nil
+	fake.startReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *FakeContainerManager) StartReturnsOnCall(i int, result1 error) {
+	fake.startMutex.Lock()
+	defer fake.startMutex.Unlock()
+	fake.StartStub = nil
+	if fake.startReturnsOnCall == nil {
+		fake.startReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.startReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
 func (fake *FakeContainerManager) State(arg1 lager.Logger, arg2 string) (int, string, error) {
 	fake.stateMutex.Lock()
 	ret, specificReturn := fake.stateReturnsOnCall[len(fake.stateArgsForCall)]
@@ -741,6 +815,8 @@ func (fake *FakeContainerManager) Invocations() map[string][][]interface{} {
 	defer fake.removeBundleMutex.RUnlock()
 	fake.specMutex.RLock()
 	defer fake.specMutex.RUnlock()
+	fake.startMutex.RLock()
+	defer fake.startMutex.RUnlock()
 	fake.stateMutex.RLock()
 	defer fake.stateMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}

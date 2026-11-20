@@ -34,10 +34,10 @@ func (c CPUCgrouper) PrepareCgroups(handle string) error {
 }
 
 func (c CPUCgrouper) CleanupCgroups(handle string) error {
-	if err := os.RemoveAll(filepath.Join(c.cgroupRoot, BadCgroupName, handle)); err != nil {
+	if err := removeCgroupDir(filepath.Join(c.cgroupRoot, BadCgroupName, handle)); err != nil {
 		return err
 	}
-	if err := os.RemoveAll(filepath.Join(c.cgroupRoot, GoodCgroupName, handle)); err != nil {
+	if err := removeCgroupDir(filepath.Join(c.cgroupRoot, GoodCgroupName, handle)); err != nil {
 		return err
 	}
 	return nil
