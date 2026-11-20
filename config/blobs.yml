@@ -34,10 +34,10 @@ iptables/libnftnl-1.3.2.tar.xz:
   size: 349268
   object_id: 86b1900e-b291-4ab1-7556-24c6f68f76f2
   sha: sha256:c97abc3409f8fa396b4462b2bb7f147a3a47a4ddc97cfa0b2f18890c9cfde8b0
-libseccomp/libseccomp-2.6.1.tar.gz:
-  size: 656231
-  object_id: 2d443e45-e4f3-4d77-7180-2c48a03e0ef6
-  sha: sha256:501f66c667225d53791b97e1d7cf85ab764c297d04881f60f38f451c4b0ee1be
+libseccomp/libseccomp-2.6.2.tar.gz:
+  size: 660276
+  object_id: f22d8a86-d5ea-47bd-5d97-babe2804ab62
+  sha: sha256:6b845d352c6d7887d8d134c43d86850d40f5dcee11ad1675c18197ae4d869d42
 libtool/libtool-2.6.2-1.tar.gz:
   size: 2113935
   object_id: 63c0d105-0c74-4195-7fb0-e9938c8c8c9b
