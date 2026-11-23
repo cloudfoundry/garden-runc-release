@@ -191,3 +191,15 @@ var _ = Describe("Create", func() {
 		})
 	})
 })
+
+// The RunRunc.Start method is intentionally a no-op because the
+// direct-runc path starts the init process during runc-run (Create). The
+// containerd path uses a two-phase Create+Start; this test ensures the stock
+// runc path is preserved as a no-op and does not accidentally gain behavior.
+var _ = Describe("RunRunc Start", func() {
+	It("is a no-op that returns nil", func() {
+		r := runrunc.New(nil, nil, nil, nil, nil, nil, nil)
+		logger := lagertest.NewTestLogger("test")
+		Expect(r.Start(logger, "any-handle")).To(Succeed())
+	})
+})
