@@ -1,7 +1,7 @@
-# code.cloudfoundry.org/archiver v0.97.0
+# code.cloudfoundry.org/archiver v0.98.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/archiver/extractor/test_helper
-# code.cloudfoundry.org/clock v1.97.0
+# code.cloudfoundry.org/clock v1.98.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/clock
 code.cloudfoundry.org/clock/fakeclock
@@ -12,7 +12,7 @@ code.cloudfoundry.org/commandrunner/fake_command_runner
 code.cloudfoundry.org/commandrunner/fake_command_runner/matchers
 code.cloudfoundry.org/commandrunner/linux_command_runner
 code.cloudfoundry.org/commandrunner/windows_command_runner
-# code.cloudfoundry.org/debugserver v0.124.0
+# code.cloudfoundry.org/debugserver v0.125.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/debugserver
 # code.cloudfoundry.org/garden v0.13.0
@@ -27,14 +27,14 @@ code.cloudfoundry.org/garden/server/bomberman
 code.cloudfoundry.org/garden/server/streamer
 code.cloudfoundry.org/garden/server/timebomb
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.96.0
+# code.cloudfoundry.org/lager/v3 v3.97.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/chug
 code.cloudfoundry.org/lager/v3/internal/truncate
 code.cloudfoundry.org/lager/v3/lagerctx
 code.cloudfoundry.org/lager/v3/lagertest
-# code.cloudfoundry.org/localip v0.98.0
+# code.cloudfoundry.org/localip v0.99.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/localip
 # cyphar.com/go-pathrs v0.2.6
@@ -426,7 +426,7 @@ github.com/jessevdk/go-flags
 # github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
 ## explicit
 github.com/kardianos/osext
-# github.com/klauspost/compress v1.20.4
+# github.com/klauspost/compress v1.20.5
 ## explicit; go 1.25
 github.com/klauspost/compress
 github.com/klauspost/compress/flate
@@ -466,7 +466,7 @@ github.com/moby/sys/reexec
 # github.com/moby/sys/signal v0.7.1
 ## explicit; go 1.17
 github.com/moby/sys/signal
-# github.com/moby/sys/user v0.5.0
+# github.com/moby/sys/user v0.5.1
 ## explicit; go 1.24
 github.com/moby/sys/user
 # github.com/moby/sys/userns v0.2.1
@@ -524,14 +524,15 @@ github.com/onsi/gomega/matchers/support/goraph/edge
 github.com/onsi/gomega/matchers/support/goraph/node
 github.com/onsi/gomega/matchers/support/goraph/util
 github.com/onsi/gomega/types
-# github.com/opencontainers/cgroups v0.1.0
-## explicit; go 1.24.0
+# github.com/opencontainers/cgroups v0.1.1
+## explicit; go 1.25.0
 github.com/opencontainers/cgroups
 github.com/opencontainers/cgroups/devices
 github.com/opencontainers/cgroups/devices/config
 github.com/opencontainers/cgroups/fs
 github.com/opencontainers/cgroups/fs2
 github.com/opencontainers/cgroups/fscommon
+github.com/opencontainers/cgroups/internal/delegate
 github.com/opencontainers/cgroups/internal/path
 github.com/opencontainers/cgroups/manager
 github.com/opencontainers/cgroups/systemd
@@ -629,8 +630,8 @@ github.com/vishvananda/netns
 # github.com/xrash/smetrics v0.0.0-20261013231157-39c47d93efba
 ## explicit; go 1.15
 github.com/xrash/smetrics
-# go.opentelemetry.io/auto/sdk v1.2.1
-## explicit; go 1.24.0
+# go.opentelemetry.io/auto/sdk v1.2.2
+## explicit; go 1.25.0
 go.opentelemetry.io/auto/sdk
 go.opentelemetry.io/auto/sdk/internal/telemetry
 # go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.72.0
@@ -764,7 +765,7 @@ golang.org/x/tools/internal/stdlib
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
 golang.org/x/tools/internal/versions
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20261116203732-fd2c7689a808
+# google.golang.org/genproto/googleapis/rpc v0.0.0-20261123191846-1e707ab9fbc2
 ## explicit; go 1.26.0
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.85.0
