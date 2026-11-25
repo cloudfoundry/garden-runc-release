@@ -3,10 +3,10 @@ module code.cloudfoundry.org
 go 1.26.11
 
 require (
-	code.cloudfoundry.org/archiver v0.97.0
+	code.cloudfoundry.org/archiver v0.98.0
 	code.cloudfoundry.org/garden v0.13.0
 	code.cloudfoundry.org/guardian v1.95.0
-	code.cloudfoundry.org/lager/v3 v3.96.0
+	code.cloudfoundry.org/lager/v3 v3.97.0
 	github.com/BurntSushi/toml v1.6.0
 	github.com/cloudfoundry/gosigar v1.3.133
 	github.com/jessevdk/go-flags v1.6.1
@@ -39,7 +39,7 @@ require (
 	github.com/moby/sys/mountinfo v0.7.3 // indirect
 	github.com/moby/sys/reexec v0.1.0 // indirect
 	github.com/moby/sys/userns v0.2.1 // indirect
-	github.com/opencontainers/cgroups v0.1.0 // indirect
+	github.com/opencontainers/cgroups v0.1.1 // indirect
 	github.com/opencontainers/runtime-spec v1.3.0 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
