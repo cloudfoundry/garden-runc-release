@@ -17,12 +17,6 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/Makefile # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/internal/proto/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/checkpoint-restore/go-criu/v8/rpc/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/asm/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/linux/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/sys/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/testutils/fdtrace/*.go # gosub
-  - code.cloudfoundry.org/guardian/vendor/github.com/cilium/ebpf/internal/unix/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/containerd/console/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/coreos/go-systemd/v22/dbus/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/cpuguy83/go-md2man/v2/md2man/*.go # gosub
@@ -51,6 +45,7 @@ files:
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/fs/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/fs2/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/fscommon/*.go # gosub
+  - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/internal/delegate/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/internal/path/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/manager/*.go # gosub
   - code.cloudfoundry.org/guardian/vendor/github.com/opencontainers/cgroups/systemd/*.go # gosub

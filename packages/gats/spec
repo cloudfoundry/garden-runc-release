@@ -101,6 +101,7 @@ files:
   - code.cloudfoundry.org/vendor/github.com/opencontainers/cgroups/fs/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/cgroups/fs2/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/cgroups/fscommon/*.go # gosub
+  - code.cloudfoundry.org/vendor/github.com/opencontainers/cgroups/internal/delegate/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/cgroups/internal/path/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/opencontainers/runtime-spec/specs-go/*.go # gosub
   - code.cloudfoundry.org/vendor/github.com/openzipkin/zipkin-go/idgenerator/*.go # gosub
